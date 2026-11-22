@@ -2393,7 +2393,6 @@ $('entryForm').addEventListener('submit',async e=>{
  if(wantsMonthly){
   try{repeatMonths=monthKeysBetween(item.mes,$('repeatUntil').value,36);}
   catch(error){toast(error.message,true);$('repeatUntil').focus();return;}
-  if(repeatMonths.length>1&&!wasSeriesId&&!confirm('Criar esta despesa mensal em '+repeatMonths.length+' meses, de '+monthLabel(repeatMonths[0])+' até '+monthLabel(repeatMonths[repeatMonths.length-1])+'?'))return;
  }
 
  $('saveBtn').disabled=true;
