@@ -1040,6 +1040,16 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  #income .view-heading .new-income{padding:9px 10px;font-size:11px}
 }
 
+
+/* Alinhamento dos cartões principais no desktop */
+@media(min-width:980px){
+ .overview-grid{align-items:stretch}
+ .overview-grid>.summary,
+ .overview-grid>.quick-card{height:100%;min-height:100%}
+ .overview-grid>.quick-card{display:flex;flex-direction:column}
+ .overview-grid>#goTransactions{margin-top:auto!important}
+}
+
 </style>
 </head>
 <body>
