@@ -1864,10 +1864,10 @@ async function sendRawDelete(id){
  return data;
 }
 
-async function fetchSeriesRange(startMonth,endMonth,seriesId){
- if(!seriesId||startMonth>endMonth)return [];
+async function fetchMonthRange(startMonth,endMonth){
+ if(startMonth>endMonth)return [];
  const keys=monthKeysBetween(startMonth,endMonth,36);
- const matches=[];
+ const all=[];
  for(let offset=0;offset<keys.length;offset+=6){
   const batch=keys.slice(offset,offset+6);
   const groups=await Promise.all(batch.map(async monthKey=>{
@@ -1879,11 +1879,26 @@ async function fetchSeriesRange(startMonth,endMonth,seriesId){
    if(data?.ok===false||data?.success===false)throw new Error(data.error||'Falha ao consultar '+monthLabel(monthKey)+'.');
    const rows=extractEntries(data);
    if(!rows)throw new Error('A resposta de '+monthLabel(monthKey)+' não contém lançamentos.');
-   return rows.map(normalizeEntry).filter(row=>decodeCategory(row.categoria).seriesId===seriesId);
+   return rows.map(normalizeEntry);
   }));
-  matches.push(...groups.flat());
+  all.push(...groups.flat());
  }
- return matches;
+ return all;
+}
+
+async function fetchSeriesRange(startMonth,endMonth,seriesId){
+ if(!seriesId)return [];
+ return (await fetchMonthRange(startMonth,endMonth))
+  .filter(row=>decodeCategory(row.categoria).seriesId===seriesId);
+}
+
+function sameExpenseIdentity(candidate,reference){
+ const a=decodeCategory(candidate.categoria);
+ const b=decodeCategory(reference.categoria);
+ return candidate.tipo===reference.tipo &&
+  String(candidate.pessoa||'').trim()===String(reference.pessoa||'').trim() &&
+  a.nature===b.nature &&
+  searchText(a.description)===searchText(b.description);
 }
 
 const IMPORTANT_MARKER='[!IMPORTANTE!]';
@@ -2442,11 +2457,42 @@ $('entryForm').addEventListener('submit',async e=>{
   if(wantsMonthly){
    setStatus('Conferindo ocorrências mensais…',true);
    const futureStart=monthOffset(item.mes,1);
-   const existingFuture=repeatMonths.length>1
-    ?await fetchSeriesRange(futureStart,repeatMonths[repeatMonths.length-1],seriesId)
+   const futureEnd=repeatMonths.length>1?repeatMonths[repeatMonths.length-1]:futureStart;
+   const futureRows=repeatMonths.length>1
+    ?await fetchMonthRange(futureStart,futureEnd)
     :[];
-   const existingMonths=new Set(existingFuture.map(x=>x.mes));
-   const missingMonths=repeatMonths.filter(key=>key!==item.mes&&!existingMonths.has(key));
+   const existingFuture=futureRows.filter(x=>decodeCategory(x.categoria).seriesId===seriesId);
+   const coveredMonths=new Set(existingFuture.map(x=>x.mes));
+   const legacyMatches=[];
+   const ambiguousMonths=[];
+
+   // Reaproveita ocorrências antigas ainda sem identificador de série, mas só quando há uma candidata única por mês.
+   if(editingId){
+    const reference=old||item;
+    const monthsToCheck=repeatMonths.filter(key=>key!==item.mes&&!coveredMonths.has(key));
+    for(const monthKey of monthsToCheck){
+     const candidates=futureRows.filter(x=>
+      x.mes===monthKey &&
+      !decodeCategory(x.categoria).seriesId &&
+      sameExpenseIdentity(x,reference)
+     );
+     if(candidates.length===1){
+      legacyMatches.push(candidates[0]);
+      coveredMonths.add(monthKey);
+     }else if(candidates.length>1){
+      ambiguousMonths.push(monthKey);
+     }
+    }
+   }
+
+   if(ambiguousMonths.length){
+    alert('Encontrei mais de uma despesa com a mesma descrição nos meses '+ambiguousMonths.map(monthLabel).join(', ')+'. Não vou vincular nem criar nada nesses meses para evitar alterar o lançamento errado. Diferencie as despesas e tente novamente.');
+    $('saveBtn').disabled=false;
+    return;
+   }
+
+   const linkedFuture=[...existingFuture,...legacyMatches];
+   const missingMonths=repeatMonths.filter(key=>key!==item.mes&&!coveredMonths.has(key));
 
    if(missingMonths.length>1&&!confirm('Serão criadas '+missingMonths.length+' novas ocorrências mensais. Deseja continuar?')){
     $('saveBtn').disabled=false;
@@ -2454,7 +2500,7 @@ $('entryForm').addEventListener('submit',async e=>{
    }
 
    if(editingId)await sendRawSave(item);
-   for(const existingItem of existingFuture){
+   for(const existingItem of linkedFuture){
     const c=decodeCategory(existingItem.categoria);
     const category=encodeCategory(c.description,c.nature||'Fixa',existingItem.tipo,c.important,seriesId,seriesEnd);
     if(category!==existingItem.categoria)await sendRawSave({...existingItem,categoria:category});
