@@ -784,6 +784,27 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  #transactions .row{min-height:64px}
 }
 
+
+/* Backup, restauração e despesas recorrentes */
+.data-tools-card{margin-top:16px}
+.backup-range{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:12px 0}
+.backup-range label{display:flex;flex-direction:column;gap:6px;color:#9aadc1;font-size:12px}
+.settings-card .backup-range input{margin:0;min-width:0}
+.backup-restore{margin-top:20px;padding-top:17px;border-top:1px solid var(--sep)}
+.backup-restore>label{display:block;margin:0 0 7px;color:#9aadc1;font-size:12px}
+.backup-restore input[type=file]{width:100%;padding:10px;font-size:12px}
+.backup-restore .primary{width:100%;margin-top:10px}
+.data-tools-card>.primary{width:100%}
+.data-tools-card .msg{margin-top:12px;line-height:1.5}
+.backup-progress{height:7px;margin-top:10px;border-radius:20px;overflow:hidden;background:rgba(255,255,255,.08)}
+.backup-progress span{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#438fe5,#43d6a0);transition:width .15s}
+.recurrence-fields{margin-top:12px;padding:0 14px 12px}
+.recurrence-fields .recurrence-toggle{margin:0 -14px;border-radius:14px 14px 0 0}
+.recurrence-until{padding:10px 0 7px}
+.recurrence-until input{width:145px;max-width:55%;border:0;background:transparent;text-align:right;color:var(--ink)}
+.recurrence-note{margin:3px 0 0;color:#8195aa;font-size:10px;line-height:1.45}
+@media(max-width:390px){.backup-range{gap:7px}}
+
 </style>
 </head>
 <body>
@@ -1004,6 +1025,23 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <div class="msg" id="connectionMessage"></div>
    <div class="last-sync-line"><span>Última sincronização</span><strong id="lastSyncText">Ainda não sincronizado</strong></div>
   </section>
+
+  <section class="card settings-card data-tools-card">
+   <h3>Backup e restauração</h3>
+   <p>Exporte os lançamentos por período em um arquivo JSON. A restauração mescla os dados do backup sem excluir os lançamentos que já estão na planilha.</p>
+   <div class="backup-range">
+    <label>De <input id="backupStart" type="month"></label>
+    <label>Até <input id="backupEnd" type="month"></label>
+   </div>
+   <button class="primary" id="exportBackup" type="button">Baixar backup</button>
+   <div class="backup-restore">
+    <label for="backupFile">Arquivo de backup (.json)</label>
+    <input id="backupFile" type="file" accept=".json,application/json">
+    <button class="primary" id="restoreBackup" type="button" disabled>Restaurar e mesclar</button>
+   </div>
+   <div class="msg" id="backupMessage" role="status"></div>
+   <div class="backup-progress" id="backupProgress" hidden><span id="backupProgressBar"></span></div>
+  </section>
  </section>
 </main>
 
@@ -1041,6 +1079,18 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <input id="importantFlag" type="checkbox">
    <span>★ Marcar como importante</span>
   </label>
+
+  <section class="group recurrence-fields" id="recurrenceFields" hidden>
+   <label class="important-toggle recurrence-toggle">
+    <input id="repeatMonthly" type="checkbox">
+    <span>Repetir esta despesa mensalmente</span>
+   </label>
+   <label class="cell recurrence-until" id="recurrenceUntilWrap">
+    <span>Repetir até</span>
+    <input id="repeatUntil" type="month">
+   </label>
+   <p class="recurrence-note">Serão criados lançamentos separados em cada mês. Alterações futuras não ficam vinculadas automaticamente.</p>
+  </section>
 
   <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
  </form>
@@ -1263,6 +1313,73 @@ async function post(payload){
  }finally{
   writeInFlight=false;
  }
+}
+
+
+const BACKUP_SCHEMA='meu-dinheiro-backup';
+function monthKeysBetween(start,end,maxMonths=60){
+ if(!/^\\d{4}-(0[1-9]|1[0-2])$/.test(start)||!/^\\d{4}-(0[1-9]|1[0-2])$/.test(end))throw new Error('Informe os meses inicial e final.');
+ if(start>end)throw new Error('O mês inicial não pode ser posterior ao mês final.');
+ const keys=[];
+ let cursor=start;
+ while(cursor<=end){
+  keys.push(cursor);
+  if(keys.length>maxMonths)throw new Error('O período máximo permitido é de '+maxMonths+' meses.');
+  cursor=monthOffset(cursor,1);
+ }
+ return keys;
+}
+async function fetchMonthForBackup(monthKey){
+ const url=api();
+ if(!url)throw new Error('Configure a conexão com a planilha primeiro.');
+ const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(monthKey)+'&_='+Date.now();
+ const response=await fetch(endpoint,{cache:'no-store'});
+ if(!response.ok)throw new Error('Falha ao consultar '+monthLabel(monthKey)+'.');
+ const data=await response.json();
+ if(data?.ok===false||data?.success===false)throw new Error(data.error||'Falha ao consultar '+monthLabel(monthKey)+'.');
+ const rows=extractEntries(data);
+ if(!rows)throw new Error('A resposta de '+monthLabel(monthKey)+' não contém lançamentos.');
+ return rows.map(normalizeEntry).map(x=>({
+  mes:monthKey,pessoa:x.pessoa||'',tipo:x.tipo||'Gasto',categoria:x.categoria||'',
+  valor:Number(x.valor||0),pago:!!x.pago
+ }));
+}
+function downloadBackupFile(data){
+ const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});
+ const objectUrl=URL.createObjectURL(blob);
+ const a=document.createElement('a');
+ a.href=objectUrl;
+ a.download='meu-dinheiro-backup-'+data.period.from+'-a-'+data.period.to+'.json';
+ document.body.appendChild(a);
+ a.click();
+ a.remove();
+ setTimeout(()=>URL.revokeObjectURL(objectUrl),1500);
+}
+function setBackupProgress(done,total){
+ const wrap=$('backupProgress');
+ wrap.hidden=!(total>0);
+ $('backupProgressBar').style.width=(total?Math.min(100,done/total*100):0)+'%';
+}
+function backupFingerprint(item){
+ return JSON.stringify([
+  normMonth(item.mes),String(item.pessoa||''),String(item.tipo||'Gasto'),
+  String(item.categoria||''),Math.round(Number(item.valor||0)*100),
+  !!item.pago
+ ]);
+}
+async function sendRawSave(item){
+ const url=api();
+ const payload={action:'save',item};
+ const body={...payload,...item};
+ const response=await fetch(url,{
+  method:'POST',
+  headers:{'Content-Type':'text/plain;charset=utf-8'},
+  body:JSON.stringify(body)
+ });
+ if(!response.ok)throw new Error('Erro HTTP '+response.status+' ao salvar '+monthLabel(item.mes)+'.');
+ const data=await response.json();
+ if(data?.ok===false||data?.success===false)throw new Error(data.error||data.message||'A planilha recusou um lançamento de '+monthLabel(item.mes)+'.');
+ return data;
 }
 
 const IMPORTANT_MARKER='[!IMPORTANTE!]';
@@ -1566,6 +1683,7 @@ function setType(t){
  type=t;
  [...$('typeSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.type===t));
  $('natureCell').hidden=t==='Entrada';
+ $('recurrenceFields').hidden=!!editingId||t==='Entrada';
 }
 
 function setNature(n){
@@ -1590,6 +1708,10 @@ function openSheet(item){
  setNature(c&&c.nature?c.nature:'Fixa');
 
  $('importantFlag').checked=!!(c&&c.important);
+ $('repeatMonthly').checked=false;
+ $('repeatUntil').value=monthOffset($('fMonth').value,11);
+ $('recurrenceFields').hidden=!!item||type==='Entrada';
+ $('recurrenceUntilWrap').hidden=false;
  $('deleteBtn').hidden=!item;
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
@@ -1667,6 +1789,13 @@ $('entryForm').addEventListener('submit',async e=>{
   valor:Number($('amount').value),
   pago:old?!!old.pago:false
  };
+ const repeat=!editingId&&type!=='Entrada'&&$('repeatMonthly').checked;
+ let repeatMonths=[item.mes];
+ if(repeat){
+  try{repeatMonths=monthKeysBetween(item.mes,$('repeatUntil').value,36);}
+  catch(error){toast(error.message,true);$('repeatUntil').focus();return;}
+  if(repeatMonths.length>1&&!confirm('Criar esta despesa em '+repeatMonths.length+' meses, de '+monthLabel(repeatMonths[0])+' até '+monthLabel(repeatMonths[repeatMonths.length-1])+'? Cada mês receberá um lançamento separado.'))return;
+ }
 
  $('saveBtn').disabled=true;
  const unchanged=await validateEditingSnapshot();
@@ -1678,9 +1807,31 @@ $('entryForm').addEventListener('submit',async e=>{
  month=item.mes;
  saveCurrentMonth();
 
+ if(repeat){
+  let saved=0;
+  try{
+   writeInFlight=true;
+   setStatus('Criando despesas recorrentes…',true);
+   for(const monthKey of repeatMonths){
+    await sendRawSave({...item,id:undefined,mes:monthKey});
+    saved++;
+   }
+   toast(saved+' lançamentos criados');
+   closeSheet();
+   render();
+  }catch(error){
+   toast('Foram criados '+saved+' de '+repeatMonths.length+' lançamentos. '+error.message,true);
+   if(saved>0)closeSheet();
+  }finally{
+   writeInFlight=false;
+   $('saveBtn').disabled=false;
+   await load();
+  }
+  return;
+ }
+
  const result=await post({action:'save',item});
  $('saveBtn').disabled=false;
-
  if(result){
   closeSheet();
   render();
@@ -1757,6 +1908,16 @@ $('filters').addEventListener('click',e=>{
 
 $('refreshBtn').addEventListener('click',load);
 
+
+$('fMonth').addEventListener('change',()=>{
+ if(!$('repeatUntil').value||$('repeatUntil').value<$('fMonth').value){
+  $('repeatUntil').value=monthOffset($('fMonth').value,11);
+ }
+});
+$('repeatMonthly').addEventListener('change',()=>{
+ $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
+});
+
 $('saveBudget').addEventListener('click',()=>{
  const target=Number($('budgetInput').value);
  if(!(target>0)){
@@ -1770,6 +1931,132 @@ $('saveBudget').addEventListener('click',()=>{
  }
  renderAnalytics(entries.filter(x=>x.mes===month));
  toast('Meta mensal salva');
+});
+
+
+$('backupStart').value=monthNow.slice(0,4)+'-01';
+$('backupEnd').value=monthNow;
+let selectedBackupFile=null;
+$('backupFile').addEventListener('change',()=>{
+ selectedBackupFile=$('backupFile').files?.[0]||null;
+ $('restoreBackup').disabled=!selectedBackupFile;
+ $('backupMessage').textContent=selectedBackupFile?'Arquivo selecionado: '+selectedBackupFile.name:'';
+ $('backupMessage').className='msg';
+});
+$('exportBackup').addEventListener('click',async()=>{
+ const button=$('exportBackup');
+ let keys;
+ try{keys=monthKeysBetween($('backupStart').value,$('backupEnd').value,60);}
+ catch(error){message('backupMessage',error.message,true);return;}
+ button.disabled=true;
+ $('restoreBackup').disabled=true;
+ message('backupMessage','Consultando '+keys.length+' meses da planilha…');
+ setBackupProgress(0,keys.length);
+ try{
+  const all=[];
+  for(let i=0;i<keys.length;i++){
+   all.push(...await fetchMonthForBackup(keys[i]));
+   setBackupProgress(i+1,keys.length);
+   message('backupMessage','Lendo '+monthLabel(keys[i])+' ('+(i+1)+'/'+keys.length+')…');
+  }
+  const budgets={};
+  try{
+   for(let i=0;i<localStorage.length;i++){
+    const key=localStorage.key(i);
+    if(key&&key.startsWith(BUDGET_STORAGE_PREFIX)){
+     const monthKey=key.slice(BUDGET_STORAGE_PREFIX.length);
+     if(/^\\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))budgets[monthKey]=Number(localStorage.getItem(key))||0;
+    }
+   }
+  }catch(error){}
+  const backup={
+   schema:BACKUP_SCHEMA,version:1,exportedAt:new Date().toISOString(),
+   period:{from:keys[0],to:keys[keys.length-1]},months:keys,
+   entries:all,budgets
+  };
+  downloadBackupFile(backup);
+  message('backupMessage','Backup concluído: '+all.length+' lançamentos em '+keys.length+' meses.');
+ }catch(error){
+  message('backupMessage','Não foi possível concluir o backup: '+error.message,true);
+ }finally{
+  button.disabled=false;
+  $('restoreBackup').disabled=!selectedBackupFile;
+ }
+});
+$('restoreBackup').addEventListener('click',async()=>{
+ const file=selectedBackupFile;
+ if(!file)return;
+ if(file.size>15*1024*1024){message('backupMessage','O arquivo excede o limite de 15 MB.',true);return;}
+ const button=$('restoreBackup');
+ button.disabled=true;
+ $('exportBackup').disabled=true;
+ setBackupProgress(0,1);
+ let saved=0;
+ try{
+  const data=JSON.parse(await file.text());
+  if(data?.schema!==BACKUP_SCHEMA||data?.version!==1||!Array.isArray(data.entries))throw new Error('Este arquivo não é um backup válido do Meu dinheiro.');
+  const grouped=new Map();
+  for(const raw of data.entries){
+   const monthKey=normMonth(raw.mes);
+   if(!/^\\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))throw new Error('O backup contém um mês inválido.');
+   const value=Number(raw.valor);
+   if(!Number.isFinite(value)||value<=0)throw new Error('O backup contém um valor inválido.');
+   const item={
+    mes:monthKey,pessoa:String(raw.pessoa||''),tipo:String(raw.tipo||'Gasto'),
+    categoria:String(raw.categoria||''),valor:value,pago:!!raw.pago
+   };
+   if(!['Gasto','Entrada','Dívida'].includes(item.tipo))throw new Error('O backup contém um tipo de lançamento desconhecido.');
+   if(!grouped.has(monthKey))grouped.set(monthKey,[]);
+   grouped.get(monthKey).push(item);
+  }
+  if(!confirm('A restauração vai mesclar '+data.entries.length+' lançamentos com a planilha, sem apagar ou substituir registros existentes. Deseja continuar?'))return;
+  const monthKeys=[...grouped.keys()].sort();
+  const existingByMonth=new Map();
+  for(let i=0;i<monthKeys.length;i++){
+   existingByMonth.set(monthKeys[i],await fetchMonthForBackup(monthKeys[i]));
+   message('backupMessage','Comparando '+monthLabel(monthKeys[i])+' ('+(i+1)+'/'+monthKeys.length+')…');
+  }
+  const toAdd=[];
+  for(const monthKey of monthKeys){
+   const existing=existingByMonth.get(monthKey)||[];
+   const counts=new Map();
+   existing.forEach(x=>{
+    const sig=backupFingerprint(x);
+    counts.set(sig,(counts.get(sig)||0)+1);
+   });
+   const seen=new Map();
+   for(const item of grouped.get(monthKey)){
+    const sig=backupFingerprint(item);
+    const occurrence=(seen.get(sig)||0)+1;
+    seen.set(sig,occurrence);
+    if(occurrence>(counts.get(sig)||0))toAdd.push(item);
+   }
+  }
+  if(!toAdd.length){
+   message('backupMessage','A planilha já contém todos os lançamentos deste backup. Nada foi duplicado.');
+  }else{
+   writeInFlight=true;
+   for(let i=0;i<toAdd.length;i++){
+    await sendRawSave(toAdd[i]);
+    saved++;
+    setBackupProgress(saved,toAdd.length);
+    message('backupMessage','Restaurando '+saved+' de '+toAdd.length+' lançamentos…');
+   }
+   message('backupMessage','Restauração concluída: '+saved+' lançamentos adicionados. Os dados existentes foram preservados.');
+  }
+  if(data.budgets&&typeof data.budgets==='object'){
+   for(const [monthKey,value] of Object.entries(data.budgets)){
+    if(/^\\d{4}-(0[1-9]|1[0-2])$/.test(monthKey)&&Number(value)>0)saveMonthlyBudget(monthKey,Number(value));
+   }
+  }
+ }catch(error){
+  message('backupMessage','A restauração parou após '+saved+' lançamentos adicionados: '+error.message,true);
+ }finally{
+  writeInFlight=false;
+  button.disabled=!selectedBackupFile;
+  $('exportBackup').disabled=false;
+  await load();
+ }
 });
 
 $('connectBtn').addEventListener('click',()=>{
