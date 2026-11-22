@@ -970,6 +970,76 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  .balance-period-text strong{font-size:9px}
 }
 
+
+/* Aba Entradas: receitas em área própria, com identidade verde discreta. */
+.income-month-summary{
+ position:relative;display:flex;align-items:center;justify-content:space-between;gap:22px;
+ overflow:hidden;margin:0 0 18px;padding:21px 25px;
+ border:1px solid rgba(80,211,166,.2);border-radius:19px;
+ background:radial-gradient(circle at 100% 0,rgba(57,190,147,.14),transparent 19rem),linear-gradient(115deg,#142d2b,#12242a 58%,#11202a);
+ box-shadow:0 12px 30px rgba(0,0,0,.14),inset 0 1px rgba(255,255,255,.035);
+}
+.income-summary-main,.income-summary-side{display:flex;flex-direction:column;gap:5px;min-width:0}
+.income-summary-main small{font-size:9px;font-weight:800;letter-spacing:1.3px;color:#7adbb8}
+.income-summary-main>strong{font-size:clamp(25px,3vw,34px);font-weight:820;letter-spacing:-1px;color:#effff9;font-variant-numeric:tabular-nums}
+.income-summary-main>span{font-size:10px;color:#91b7aa}
+.income-summary-side{flex-direction:row;gap:30px;margin-left:auto;padding-right:54px}
+.income-summary-side>div{display:flex;flex-direction:column;gap:6px}
+.income-summary-side span{font-size:10px;color:#91b7aa}
+.income-summary-side strong{font-size:13px;font-weight:760;color:#e4f7ef;font-variant-numeric:tabular-nums}
+.income-summary-side>div:first-child strong{color:#54dca9}
+.income-summary-symbol{position:absolute;right:18px;top:50%;transform:translateY(-50%);width:56px;height:56px;color:#5cdaaa;opacity:.42}
+.income-summary-symbol svg{width:100%;height:100%}
+.income-workspace{min-width:0}
+.income-search{max-width:100%;margin-bottom:12px}
+.income-list-total{display:flex;align-items:center;gap:9px}
+.income-list-total span{font-size:10px;color:#8298ae}
+.income-list-total strong{font-size:13px;font-weight:780;color:#58d9a9;font-variant-numeric:tabular-nums}
+.income-filters{width:min(100%,410px);margin:0 0 14px}
+.income-filters button{flex:1}
+.income-list .row{border-left:2px solid rgba(67,214,160,.26)}
+.income-list .row.important{border-left:3px solid var(--gold)}
+.income-list .amt.pos{color:#5ce0ad}
+@media(min-width:980px){
+ #income .view-heading{margin-bottom:18px}
+ #income .income-month-summary{max-width:100%}
+ #income .income-workspace{max-width:100%}
+ #income .income-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+ #income .income-list .row{min-height:70px;padding:13px 16px;border-radius:14px}
+}
+@media(max-width:979px){
+ #income .view-heading{align-items:center;gap:10px}
+ #income .view-heading h2{font-size:22px}
+ #income .view-heading p{font-size:12px}
+ #income .view-heading .new-income{padding:10px 12px;font-size:12px}
+ #income .income-month-summary{gap:12px;margin-bottom:14px;padding:16px 15px;border-radius:16px}
+ #income .income-summary-main>strong{font-size:25px}
+ #income .income-summary-side{gap:13px;padding-right:30px}
+ #income .income-summary-side span{font-size:9px}
+ #income .income-summary-side strong{font-size:11px}
+ #income .income-summary-symbol{right:9px;width:38px;height:38px;opacity:.27}
+ #income .income-search{min-height:47px}
+ #income .income-search input{font-size:15px;min-height:45px}
+ #income .income-filters{width:100%;margin-bottom:12px}
+ #income .income-filters button{min-height:36px;font-size:11px;padding:8px 6px}
+ #income .income-list{display:grid;grid-template-columns:1fr;gap:8px}
+ #income .income-list .row{grid-template-columns:23px minmax(0,1fr) auto;gap:9px;padding:13px 11px;min-height:67px;border-radius:14px}
+ #income .income-list .t{font-size:13px}
+ #income .income-list .s{font-size:10px}
+ #income .income-list .amt{font-size:11px;padding:6px 7px}
+ #income .income-list-total{gap:5px}
+ #income .income-list-total span{font-size:9px}
+ #income .income-list-total strong{font-size:11px}
+}
+@media(max-width:390px){
+ #income .income-month-summary{align-items:flex-start}
+ #income .income-summary-side{flex-direction:column;gap:5px;margin-top:3px}
+ #income .income-summary-side>div{gap:2px}
+ #income .income-summary-symbol{display:none}
+ #income .view-heading p{max-width:190px}
+ #income .view-heading .new-income{padding:9px 10px;font-size:11px}
+}
+
 </style>
 </head>
 <body>
@@ -985,6 +1055,10 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
   <button class="active" data-view="overview" aria-label="Visão geral" title="Visão geral">
    <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span>
    <span class="nav-label">Visão geral</span>
+  </button>
+  <button data-view="income" aria-label="Entradas" title="Entradas">
+   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 17.5h16M6.5 14V7.5M6.5 7.5l-2.5 2.5M6.5 7.5 9 10M12 17.5V11M12 11l-2.5 2.5M12 11l2.5 2.5M17.5 17.5V5M17.5 5 15 7.5M17.5 5 20 7.5" stroke="currentColor" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+   <span class="nav-label">Entradas</span>
   </button>
   <button data-view="transactions" aria-label="Lançamentos" title="Lançamentos">
    <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg></span>
@@ -1144,6 +1218,55 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    </section>
  </section>
 
+ <section class="view" id="income">
+  <div class="view-heading">
+   <div>
+    <h2>Entradas</h2>
+    <p>Salários, recebimentos e outras receitas</p>
+   </div>
+   <button class="primary new-income" type="button">+ Nova entrada</button>
+  </div>
+
+  <div class="months">
+   <button class="prev" aria-label="Mês anterior">‹</button>
+   <b class="monthLabel"></b>
+   <button class="next" aria-label="Próximo mês">›</button>
+  </div>
+
+  <section class="income-month-summary">
+   <div class="income-summary-main">
+    <small>ENTRADAS DO MÊS</small>
+    <strong id="incomeMonthTotal">R$ 0,00</strong>
+    <span id="incomeMonthCount">0 lançamentos</span>
+   </div>
+   <div class="income-summary-side">
+    <div><span>Recebidas</span><strong id="incomeReceivedTotal">R$ 0,00</strong></div>
+    <div><span>A receber</span><strong id="incomePendingTotal">R$ 0,00</strong></div>
+   </div>
+   <div class="income-summary-symbol" aria-hidden="true">
+    <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-opacity=".28"/><path d="M24 34V14m0 0-8 8m8-8 8 8M12 36h24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </div>
+  </section>
+
+  <div class="income-workspace">
+   <div class="income-search transaction-search" role="search">
+    <span aria-hidden="true">⌕</span>
+    <input id="incomeSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar entradas" placeholder="Buscar entrada por nome, pessoa ou valor..." autocomplete="off">
+    <button type="button" id="clearIncomeSearch" aria-label="Limpar busca" hidden>×</button>
+   </div>
+   <div class="transaction-overview">
+    <div class="transaction-count"><strong id="incomeVisibleCount">0</strong><span id="incomeVisibleLabel">entradas exibidas</span></div>
+    <div class="income-list-total"><span>Total exibido</span><strong id="incomeVisibleTotal">R$ 0,00</strong></div>
+   </div>
+   <div class="seg income-filters" id="incomeFilters">
+    <button class="on" data-income-filter="all">Todas</button>
+    <button data-income-filter="pending">A receber</button>
+    <button data-income-filter="received">Recebidas</button>
+   </div>
+   <ul class="list income-list" id="incomeList"></ul>
+  </div>
+ </section>
+
  <section class="view" id="transactions">
   <div class="view-heading">
    <div>
@@ -1174,7 +1297,6 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
      <button class="on" data-filter="all">Todas</button>
      <button data-filter="pending">Pendentes</button>
      <button data-filter="paid">Pagas</button>
-     <button data-filter="income">Entradas</button>
     </div>
     <div class="detail-filters" id="detailFilters" aria-label="Filtros adicionais">
      <button class="active" data-detail-filter="all">Todas as naturezas</button>
@@ -1782,6 +1904,64 @@ function visible(list){
  });
 }
 
+let incomeFilter='all';
+
+function visibleIncome(list){
+ const query=searchText($('incomeSearch')?.value||'');
+ return list.filter(x=>{
+  if(x.tipo!=='Entrada')return false;
+  if(incomeFilter==='pending'&&x.pago)return false;
+  if(incomeFilter==='received'&&!x.pago)return false;
+  if(query){
+   const category=decodeCategory(x.categoria);
+   const state=x.pago?'recebida recebidas recebido recebidos pago paga':'a receber pendente pendentes em aberto';
+   const searchable=[category.description,x.pessoa,'entrada receita renda',state,money(x.valor)].map(searchText).join(' ');
+   const digitsQuery=query.replace(/\\D/g,'');
+   const digitsText=searchable.replace(/\\D/g,'');
+   if(!searchable.includes(query)&&!(digitsQuery&&digitsText.includes(digitsQuery)))return false;
+  }
+  return true;
+ });
+}
+
+function renderIncomeView(monthEntries){
+ const all=monthEntries.filter(x=>x.tipo==='Entrada');
+ const visibleRows=visibleIncome(all).slice().reverse().sort((a,b)=>{
+  const ai=decodeCategory(a.categoria).important?1:0;
+  const bi=decodeCategory(b.categoria).important?1:0;
+  return bi-ai;
+ });
+ $('incomeMonthTotal').textContent=money(sum(all));
+ $('incomeMonthCount').textContent=all.length+' '+(all.length===1?'lançamento':'lançamentos');
+ $('incomeReceivedTotal').textContent=money(sum(all.filter(x=>x.pago)));
+ $('incomePendingTotal').textContent=money(sum(all.filter(x=>!x.pago)));
+ $('incomeVisibleCount').textContent=visibleRows.length;
+ $('incomeVisibleLabel').textContent=$('incomeSearch').value.trim()?'resultados encontrados':'entradas exibidas';
+ $('incomeVisibleTotal').textContent=money(sum(visibleRows));
+
+ if(!visibleRows.length){
+  let message;
+  if(!api())message='Configure a conexão com a planilha para carregar as entradas.';
+  else if(!all.length)message=monthExists?'Nenhuma entrada cadastrada neste mês.':'Este mês ainda não existe na planilha.';
+  else message='Nenhuma entrada corresponde à busca ou ao filtro selecionado.';
+  $('incomeList').innerHTML='<li class="empty">'+safe(message)+'<small>Use “Nova entrada” para cadastrar um recebimento.</small></li>';
+  return;
+ }
+ $('incomeList').innerHTML=visibleRows.map(x=>{
+  const c=decodeCategory(x.categoria);
+  const important=c.important;
+  const sub='Entrada · '+(x.pago?'recebida':'a receber');
+  return `<li class="row${x.pago?' done':''}${important?' important':''}" data-id="${safe(x.id)}">
+   <button type="button" class="check${x.pago?' on':''}" aria-label="${x.pago?'Marcar como pendente':'Marcar como recebida'}"></button>
+   <div class="main">
+    <div class="t">${safe(c.description||'Sem descrição')}${important?'<span class="important-star" title="Importante">★</span>':''}</div>
+    <div class="s">${safe(sub)}</div>
+   </div>
+   <div class="amt pos">+ ${money(x.valor)}</div>
+  </li>`;
+ }).join('');
+}
+
 function monthOffset(base,offset){
  const [y,m]=base.split('-').map(Number);
  const d=new Date(y,m-1+offset,1);
@@ -1966,15 +2146,16 @@ function render(){
  $('quickExpense').textContent=money(exp);
  $('quickDue').textContent=money(due);
  renderAnalytics(me);
+ renderIncomeView(me);
 
- const list=visible(me).slice().reverse().sort((a,b)=>{
+ const list=visible(outs).slice().reverse().sort((a,b)=>{
   const ai=decodeCategory(a.categoria).important?1:0;
   const bi=decodeCategory(b.categoria).important?1:0;
   return bi-ai;
  });
  $('visibleCount').textContent=list.length;
  $('visibleCountLabel').textContent=$('listSearch').value.trim()?'resultados encontrados':'lançamentos exibidos';
- $('priorityCount').textContent=me.filter(x=>decodeCategory(x.categoria).important).length+' importantes';
+ $('priorityCount').textContent=outs.filter(x=>decodeCategory(x.categoria).important).length+' importantes';
 
  if(!list.length){
   const msg=!api()
@@ -2024,6 +2205,9 @@ $('goTransactions').addEventListener('click',()=>switchView('transactions'));
 document.querySelectorAll('.new-entry').forEach(btn=>{
  btn.addEventListener('click',()=>openSheet(null));
 });
+document.querySelectorAll('.new-income').forEach(btn=>{
+ btn.addEventListener('click',()=>openSheet(null,'Entrada'));
+});
 
 document.querySelectorAll('.prev').forEach(btn=>{
  btn.addEventListener('click',()=>shiftMonth(-1));
@@ -2045,7 +2229,7 @@ function setNature(n){
  [...$('natureSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.nature===n));
 }
 
-function openSheet(item){
+function openSheet(item,defaultType='Gasto'){
  editingId=item?item.id:null;
  editingSnapshot=item?{
   id:String(item.id),mes:item.mes,pessoa:item.pessoa,tipo:item.tipo,
@@ -2058,7 +2242,7 @@ function openSheet(item){
  $('amount').value=item?item.valor:'';
  $('fMonth').value=item?(item.mes||month):month;
 
- setType(item?(item.tipo||'Gasto'):'Gasto');
+ setType(item?(item.tipo||'Gasto'):defaultType);
  setNature(c&&c.nature?c.nature:'Fixa');
 
  $('importantFlag').checked=!!(c&&c.important);
@@ -2224,13 +2408,11 @@ $('deleteBtn').addEventListener('click',async()=>{
  }
 });
 
-$('list').addEventListener('click',async e=>{
+async function handleRowClick(e){
  const row=e.target.closest('.row');
  if(!row)return;
-
  const item=entries.find(x=>String(x.id)===row.dataset.id);
  if(!item)return;
-
  if(e.target.closest('.check')){
   item.pago=!item.pago;
   pendingPaymentChanges.set(String(item.id),item.pago);
@@ -2244,7 +2426,9 @@ $('list').addEventListener('click',async e=>{
   const freshItem=entries.find(x=>String(x.id)===row.dataset.id)||item;
   openSheet(freshItem);
  }
-});
+}
+$('list').addEventListener('click',handleRowClick);
+$('incomeList').addEventListener('click',handleRowClick);
 
 $('listSearch').addEventListener('input',()=>{
  $('clearSearch').hidden=!$('listSearch').value;
@@ -2255,6 +2439,23 @@ $('clearSearch').addEventListener('click',()=>{
  $('clearSearch').hidden=true;
  render();
  $('listSearch').focus();
+});
+$('incomeSearch').addEventListener('input',()=>{
+ $('clearIncomeSearch').hidden=!$('incomeSearch').value;
+ render();
+});
+$('clearIncomeSearch').addEventListener('click',()=>{
+ $('incomeSearch').value='';
+ $('clearIncomeSearch').hidden=true;
+ render();
+ $('incomeSearch').focus();
+});
+$('incomeFilters').addEventListener('click',e=>{
+ const button=e.target.closest('[data-income-filter]');
+ if(!button)return;
+ incomeFilter=button.dataset.incomeFilter;
+ [...$('incomeFilters').children].forEach(item=>item.classList.toggle('on',item===button));
+ render();
 });
 $('detailFilters').addEventListener('click',e=>{
  const b=e.target.closest('[data-detail-filter]');
