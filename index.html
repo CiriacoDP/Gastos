@@ -507,6 +507,8 @@ async function load(){
  }
 }
 
+let writeInFlight=false;
+
 async function post(payload){
  const url=api();
  if(!url){
@@ -516,6 +518,7 @@ async function post(payload){
  }
 
  try{
+  writeInFlight=true;
   setStatus('Salvando…',true);
   const body=payload.item?{...payload,...payload.item}:payload;
   const r=await fetch(url,{
@@ -537,6 +540,8 @@ async function post(payload){
   showBanner('Não consegui salvar: '+e.message);
   toast(e.message,true);
   return null;
+ }finally{
+  writeInFlight=false;
  }
 }
 
@@ -588,7 +593,7 @@ function render(){
  $('quickExpense').textContent=money(exp);
  $('quickDue').textContent=money(due);
 
- const list=visible(me).slice().sort((a,b)=>{
+ const list=visible(me).slice().reverse().sort((a,b)=>{
   const ai=decodeCategory(a.categoria).important?1:0;
   const bi=decodeCategory(b.categoria).important?1:0;
   return bi-ai;
@@ -602,7 +607,7 @@ function render(){
   return;
  }
 
- $('list').innerHTML=list.slice().reverse().map(x=>{
+ $('list').innerHTML=list.map(x=>{
   const c=decodeCategory(x.categoria);
   const inEntry=x.tipo==='Entrada';
   const kind=inEntry?'Entrada':(x.tipo==='Dívida'?'Dívida':c.nature||'Despesa');
@@ -800,13 +805,13 @@ $('connectBtn').addEventListener('click',()=>{
 // Atualização automática: consulta a planilha a cada 10 segundos, sem interromper edição.
 let pollInFlight=false;
 setInterval(async()=>{
- if(document.hidden || !$('overlay').hidden || pollInFlight || !api()) return;
+ if(document.hidden || !$('overlay').hidden || pollInFlight || writeInFlight || !api()) return;
  pollInFlight=true;
  try{await load()}finally{pollInFlight=false}
 },10000);
 
 document.addEventListener('visibilitychange',()=>{
- if(!document.hidden && $('overlay').hidden && api() && !pollInFlight){
+ if(!document.hidden && $('overlay').hidden && api() && !pollInFlight && !writeInFlight){
   pollInFlight=true;
   load().finally(()=>{pollInFlight=false});
  }
