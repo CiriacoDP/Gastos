@@ -2440,33 +2440,18 @@ $('entryForm').addEventListener('submit',async e=>{
   writeInFlight=true;
 
   if(wasSeriesId&&!wantsMonthly){
-   setStatus('Verificando despesas futuras…',true);
-   const future=await fetchSeriesRange(monthOffset(item.mes,1),monthOffset(item.mes,36),wasSeriesId);
-   let deleteFuture=false;
-   if(future.length){
-    deleteFuture=confirm(
-     'Esta despesa possui '+future.length+' ocorrência(s) nos meses seguintes.\n\n'+
-     'Deseja EXCLUIR essas despesas futuras?\n\n'+
-     'OK: excluir as ocorrências futuras.\nCancelar: manter os lançamentos como despesas independentes.'
-    );
-   }
-
-   let processed=0;
+   // Desativar sem popup: preserva todas as ocorrências futuras como despesas independentes.
+   const futureEnd=oldCategory.seriesEnd||monthOffset(item.mes,36);
+   const future=await fetchSeriesRange(monthOffset(item.mes,1),futureEnd,wasSeriesId);
    for(const futureItem of future){
-    if(deleteFuture){
-     await sendRawDelete(futureItem.id);
-    }else{
-     const c=decodeCategory(futureItem.categoria);
-     const plainCategory=encodeCategory(c.description,c.nature||'Fixa',futureItem.tipo,c.important);
-     await sendRawSave({...futureItem,categoria:plainCategory});
-    }
-    processed++;
+    const c=decodeCategory(futureItem.categoria);
+    const plainCategory=encodeCategory(c.description,c.nature||'Fixa',futureItem.tipo,c.important);
+    await sendRawSave({...futureItem,categoria:plainCategory});
    }
    await sendRawSave(item);
-
-   toast(deleteFuture
-    ?'Repetição desativada; '+processed+' ocorrência(s) futura(s) excluída(s).'
-    :'Repetição desativada; ocorrências futuras mantidas como despesas avulsas.');
+   toast(future.length
+    ?'Repetição desativada. '+future.length+' despesa(s) futura(s) foram mantidas como lançamentos independentes.'
+    :'Repetição desativada.');
    return;
   }
 
