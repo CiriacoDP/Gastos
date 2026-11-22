@@ -1110,6 +1110,73 @@ let analyticsHistoryBase='';
 let analyticsHistoryFetchedAt=0;
 let analyticsHistoryLoading=false;
 const BUDGET_STORAGE_PREFIX='gastos2026_budget_month_';
+
+const MONTH_CACHE_PREFIX='gastos2026_month_snapshot_v1_';
+function cacheAccountKey(){
+ const source=api();
+ let hash=2166136261;
+ for(let i=0;i<source.length;i++){
+  hash^=source.charCodeAt(i);
+  hash=Math.imul(hash,16777619);
+ }
+ return (hash>>>0).toString(36);
+}
+function monthCacheKey(monthKey){
+ return MONTH_CACHE_PREFIX+cacheAccountKey()+'_'+monthKey;
+}
+function readMonthCache(monthKey){
+ try{
+  const raw=localStorage.getItem(monthCacheKey(monthKey));
+  if(!raw)return null;
+  const data=JSON.parse(raw);
+  if(data?.version!==1||data.month!==monthKey||!Array.isArray(data.entries)||!Number.isFinite(Number(data.savedAt)))return null;
+  return {month:monthKey,savedAt:Number(data.savedAt),exists:data.exists!==false,entries:data.entries.map(normalizeEntry)};
+ }catch(error){return null;}
+}
+function saveMonthCache(monthKey,rows,exists=true){
+ try{
+  const key=monthCacheKey(monthKey);
+  const data={version:1,month:monthKey,savedAt:Date.now(),exists:exists!==false,entries:rows.map(normalizeEntry)};
+  localStorage.setItem(key,JSON.stringify(data));
+  const prefix=MONTH_CACHE_PREFIX+cacheAccountKey()+'_';
+  const saved=[];
+  for(let i=0;i<localStorage.length;i++){
+   const storageKey=localStorage.key(i);
+   if(!storageKey||!storageKey.startsWith(prefix))continue;
+   try{
+    const value=JSON.parse(localStorage.getItem(storageKey)||'null');
+    saved.push({key:storageKey,savedAt:Number(value?.savedAt)||0});
+   }catch(error){saved.push({key:storageKey,savedAt:0});}
+  }
+  saved.sort((a,b)=>b.savedAt-a.savedAt);
+  saved.slice(24).forEach(item=>localStorage.removeItem(item.key));
+  return true;
+ }catch(error){return false;}
+}
+function formatCacheDate(timestamp){
+ const date=new Date(timestamp);
+ return date.toLocaleDateString('pt-BR')+' às '+date.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function hydrateAnalyticsCache(baseMonth){
+ const isDesktop=window.matchMedia('(min-width: 980px)').matches;
+ const keys=isDesktop?Array.from({length:5},(_,i)=>monthOffset(baseMonth,i-5)):[monthOffset(baseMonth,-1)];
+ keys.forEach(key=>{
+  const cached=readMonthCache(key);
+  if(cached)analyticsHistory.set(key,cached.entries);
+ });
+}
+function loadCachedMonth(monthKey){
+ const cached=readMonthCache(monthKey);
+ if(!cached)return false;
+ entries=cached.entries;
+ monthExists=cached.exists;
+ hydrateAnalyticsCache(monthKey);
+ $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
+ setStatus('Dados salvos · atualizando',false);
+ render();
+ return true;
+}
+
 const $=id=>document.getElementById(id);
 const pad=n=>String(n).padStart(2,'0');
 const now=new Date();
@@ -1151,8 +1218,10 @@ function shiftMonth(d){
  const dt=new Date(y,mo-1+d,1);
  month=`${dt.getFullYear()}-${pad(dt.getMonth()+1)}`;
  saveCurrentMonth();
- entries=[];
- render();
+ if(!loadCachedMonth(month)){
+  entries=[];
+  render();
+ }
  load();
 }
 
@@ -1264,6 +1333,7 @@ async function load(){
   monthExists=d.exists!==false;
   entries=rows.map(normalizeEntry);
   applyPendingPaymentChanges(entries);
+  saveMonthCache(month,entries,d.exists!==false);
   const syncedAt=new Date();
   $('lastSyncText').textContent=syncedAt.toLocaleDateString('pt-BR')+' às '+syncedAt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   setStatus('Conectada · '+entries.length+' em '+monthLabel(month),true);
@@ -1273,10 +1343,22 @@ async function load(){
   return true;
 
  }catch(e){
-  setStatus('Falha na conexão',false);
-  message('connectionMessage',e.message,true);
-  showBanner('Não consegui ler a planilha: '+e.message);
-  toast(e.message,true);
+  const cached=readMonthCache(month);
+  if(cached){
+   entries=cached.entries;
+   monthExists=cached.exists;
+   applyPendingPaymentChanges(entries);
+   $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
+   setStatus('Sem conexão · dados locais',false);
+   message('connectionMessage','Sem conexão com a planilha. Exibindo a última cópia salva neste aparelho.',true);
+   showBanner('Sem conexão com a planilha. Os dados exibidos são a última cópia salva neste aparelho, de '+formatCacheDate(cached.savedAt)+'.');
+   render();
+  }else{
+   setStatus('Falha na conexão',false);
+   message('connectionMessage',e.message,true);
+   showBanner('Não consegui ler a planilha: '+e.message);
+   toast(e.message,true);
+  }
   return false;
  }
 }
@@ -1539,6 +1621,11 @@ async function loadAnalyticsHistory(force=false){
  const historyMonths=isDesktop
   ?Array.from({length:5},(_,i)=>monthOffset(requestedBase,i-5))
   :[monthOffset(requestedBase,-1)];
+ historyMonths.forEach(key=>{
+  const cached=readMonthCache(key);
+  if(cached)analyticsHistory.set(key,cached.entries);
+ });
+ renderAnalytics(entries.filter(x=>x.mes===month));
  try{
   const results=await Promise.all(historyMonths.map(async monthKey=>{
    try{
@@ -1549,7 +1636,9 @@ async function loadAnalyticsHistory(force=false){
     if(data?.ok===false||data?.success===false)throw new Error(data.error||'Falha na leitura');
     const rows=extractEntries(data);
     if(!rows)throw new Error('Resposta sem lançamentos');
-    return [monthKey,rows.map(normalizeEntry)];
+    const normalized=rows.map(normalizeEntry);
+    saveMonthCache(monthKey,normalized,data.exists!==false);
+    return [monthKey,normalized];
    }catch(error){return [monthKey,null];}
   }));
   results.forEach(([key,rows])=>{if(rows)analyticsHistory.set(key,rows);});
@@ -2183,6 +2272,7 @@ setInterval(async()=>{
 },AUTO_SYNC_INTERVAL);
 
 // Não há sincronização automática ao trocar de aba ou voltar ao aplicativo.
+if(!loadCachedMonth(month))render();
 load();
 </script>
 </body>
