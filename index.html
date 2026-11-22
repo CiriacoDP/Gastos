@@ -1050,6 +1050,19 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  .overview-grid>#goTransactions{margin-top:auto!important}
 }
 
+
+/* Exclusão marcada: só é executada ao clicar em Salvar exclusão. */
+.delete-pending-note{
+ margin:9px 2px 0;padding:11px 13px;border-radius:11px;
+ border:1px solid rgba(255,114,123,.25);
+ background:rgba(255,114,123,.09);color:#ff9ba1;
+ font-size:12px;line-height:1.45;
+}
+.danger.marked{
+ color:#ffb0b4;background:rgba(255,114,123,.13);
+ border-color:rgba(255,114,123,.35);
+}
+
 </style>
 </head>
 <body>
@@ -1406,6 +1419,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
   </section>
 
   <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
+  <p class="delete-pending-note" id="deletePendingNote" hidden></p>
  </form>
 </div>
 
@@ -1414,7 +1428,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 <script>
 const STORAGE_KEY='gastos2026_appweb_url_v1';
 const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
-let entries=[],editingId=null,editingSnapshot=null,filter='all',detailFilter='all',type='Gasto',nature='Fixa',monthExists=true;
+let entries=[],editingId=null,editingSnapshot=null,pendingDelete=false,filter='all',detailFilter='all',type='Gasto',nature='Fixa',monthExists=true;
 let analyticsHistory=new Map();
 let analyticsHistoryBase='';
 let analyticsHistoryFetchedAt=0;
@@ -2303,8 +2317,32 @@ function setNature(n){
  [...$('natureSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.nature===n));
 }
 
+function setPendingDeleteState(value){
+ pendingDelete=!!value;
+ const button=$('deleteBtn');
+ const save=$('saveBtn');
+ const note=$('deletePendingNote');
+ button.textContent=pendingDelete?'Desfazer exclusão':'Excluir lançamento';
+ button.classList.toggle('marked',pendingDelete);
+ save.textContent=pendingDelete?'Salvar exclusão':'Salvar';
+ note.hidden=!pendingDelete;
+
+ const currentItem=entries.find(x=>String(x.id)===String(editingId));
+ const currentCategory=currentItem?decodeCategory(currentItem.categoria):null;
+ note.textContent=currentCategory?.seriesId
+  ?'Exclusão marcada. Ao clicar em “Salvar exclusão”, toda a sequência mensal, incluindo este lançamento, será removida da planilha.'
+  :'Exclusão marcada. Ao clicar em “Salvar exclusão”, este lançamento será removido da planilha.';
+
+ ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{
+  const field=$(id);
+  if(field)field.disabled=pendingDelete;
+ });
+ $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=pendingDelete);
+}
+
 function openSheet(item,defaultType='Gasto'){
  editingId=item?item.id:null;
+ pendingDelete=false;
  editingSnapshot=item?{
   id:String(item.id),mes:item.mes,pessoa:item.pessoa,tipo:item.tipo,
   categoria:item.categoria,valor:Number(item.valor),pago:!!item.pago
@@ -2327,6 +2365,12 @@ function openSheet(item,defaultType='Gasto'){
  $('recurrenceFields').hidden=type==='Entrada';
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
  $('deleteBtn').hidden=!item;
+ $('deleteBtn').textContent='Excluir lançamento';
+ $('deleteBtn').classList.remove('marked');
+ $('deletePendingNote').hidden=true;
+ $('saveBtn').textContent='Salvar';
+ ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{if($(id))$(id).disabled=false;});
+ $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=false);
  document.body.classList.add('sheet-open');
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
@@ -2427,6 +2471,56 @@ $('entryForm').addEventListener('submit',async e=>{
  const unchanged=await validateEditingSnapshot();
  if(!unchanged){
   $('saveBtn').disabled=false;
+  return;
+ }
+
+ if(pendingDelete){
+  const target=old;
+  if(!target){
+   toast('Não encontrei o lançamento para excluir. Atualize a lista e tente novamente.',true);
+   $('saveBtn').disabled=false;
+   return;
+  }
+
+  const category=decodeCategory(target.categoria);
+  const seriesId=category.seriesId;
+  const description=category.description||'despesa';
+  month=target.mes;
+  saveCurrentMonth();
+  closeSheet();
+  toast(seriesId?'Excluindo sequência mensal…':'Excluindo lançamento…');
+  writeInFlight=true;
+  let deleted=0;
+  let total=1;
+  try{
+   if(seriesId){
+    const seriesEnd=category.seriesEnd||monthOffset(target.mes,35);
+    const past=await fetchSeriesRange(monthOffset(target.mes,-35),monthOffset(target.mes,-1),seriesId);
+    const future=await fetchSeriesRange(monthOffset(target.mes,1),seriesEnd,seriesId);
+    const linked=[...new Map([...past,...future]
+     .filter(row=>String(row.id)!==String(target.id))
+     .map(row=>[String(row.id),row])).values()];
+    total=linked.length+1;
+
+    // Remove as outras ocorrências primeiro e a atual por último.
+    for(const linkedItem of linked){
+     await sendRawDelete(linkedItem.id);
+     deleted++;
+    }
+   }
+
+   await sendRawDelete(target.id);
+   deleted++;
+   toast(seriesId
+    ?'Sequência excluída: '+deleted+' de '+total+' lançamento(s) removido(s).'
+    :'Lançamento excluído.');
+  }catch(error){
+   toast('A exclusão parou após '+deleted+' de '+total+' lançamento(s). '+error.message,true);
+  }finally{
+   writeInFlight=false;
+   $('saveBtn').disabled=false;
+   void load();
+  }
   return;
  }
 
@@ -2567,73 +2661,10 @@ $('entryForm').addEventListener('submit',async e=>{
  }
 });
 
-$('deleteBtn').addEventListener('click',async()=>{
- if(pendingPaymentChanges.size&&!await flushPaymentChanges()){
-  toast('Finalize a sincronização dos pagamentos antes de excluir.',true);
-  return;
- }
- const unchanged=await validateEditingSnapshot();
- if(!unchanged)return;
-
- const item=entries.find(x=>String(x.id)===String(editingId));
- if(!editingId||!item)return;
- const category=decodeCategory(item.categoria);
- const desc=category.description||'esta despesa';
- const value=money(item.valor);
-
- if(category.seriesId){
-  const seriesEnd=category.seriesEnd||monthOffset(item.mes,35);
-  let past=[],future=[];
-  try{
-   setStatus('Localizando sequência mensal…',true);
-   past=await fetchSeriesRange(monthOffset(item.mes,-35),monthOffset(item.mes,-1),category.seriesId);
-   future=await fetchSeriesRange(monthOffset(item.mes,1),seriesEnd,category.seriesId);
-  }catch(error){
-   toast('Não consegui localizar toda a sequência. Nada foi excluído. '+error.message,true);
-   setStatus('Erro ao sincronizar',false);
-   return;
-  }
-
-  const seriesItems=[...past,...future];
-  const total=seriesItems.length+1;
-  const confirmed=confirm(
-   'Esta despesa faz parte de uma sequência mensal com '+total+' lançamento(s), incluindo o atual.\n\n'+
-   'Deseja EXCLUIR TODA A SEQUÊNCIA de "'+desc+'" ('+value+')?\n\n'+
-   'Todos os meses vinculados serão removidos da planilha. Esta ação não pode ser desfeita.'
-  );
-  if(!confirmed){
-   setStatus('Conectada · '+entries.length+' em '+monthLabel(month),true);
-   return;
-  }
-
-  closeSheet();
-  toast('Excluindo sequência mensal…');
-  writeInFlight=true;
-  let deleted=0;
-  try{
-   // Exclui as outras ocorrências primeiro e a atual por último, para permitir nova tentativa em caso de falha.
-   for(const linked of seriesItems){
-    await sendRawDelete(linked.id);
-    deleted++;
-   }
-   await sendRawDelete(item.id);
-   deleted++;
-   toast('Sequência excluída: '+deleted+' lançamento(s) removido(s).');
-  }catch(error){
-   toast('A exclusão parou após '+deleted+' de '+total+' lançamento(s). A despesa atual foi preservada quando possível. '+error.message,true);
-  }finally{
-   writeInFlight=false;
-   void load();
-  }
-  return;
- }
-
- if(!confirm('Excluir "'+desc+'" ('+value+')? Esta ação também remove o registro da planilha e não pode ser desfeita.'))return;
- const result=await post({action:'delete',id:editingId});
- if(result){
-  closeSheet();
-  toast('Excluído');
- }
+$('deleteBtn').addEventListener('click',()=>{
+ if(!editingId)return;
+ setPendingDeleteState(!pendingDelete);
+ toast(pendingDelete?'Exclusão marcada. Clique em Salvar exclusão para continuar.':'Exclusão desmarcada.');
 });
 
 async function handleRowClick(e){
