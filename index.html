@@ -818,6 +818,117 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 .brand-mark{overflow:hidden;background:transparent!important;border:1px solid rgba(110,177,241,.18);box-shadow:0 5px 16px rgba(0,0,0,.24)}
 .brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
 
+
+/* ===== Desktop workspace: proporções e navegação próprias para computador ===== */
+@media(min-width:1100px){
+ body{
+  padding-left:272px;
+  padding-right:28px;
+  padding-bottom:32px;
+ }
+ .app-sidebar{
+  left:22px;top:22px;bottom:22px;width:220px;
+  padding:18px 14px;border-radius:20px;
+ }
+ .sidebar-brand{
+  justify-content:flex-start;gap:11px;min-height:48px;padding:0 7px;
+ }
+ .sidebar-brand .brand-mark{width:42px;height:42px;min-width:42px}
+ .sidebar-brand-copy{display:flex!important}
+ .app-sidebar .app-nav{
+  align-items:stretch;gap:7px;margin-top:34px;
+ }
+ .app-sidebar .app-nav button{
+  flex:0 0 46px;justify-content:flex-start;gap:12px;padding:0 13px;
+  border-radius:12px;font-size:13px;
+ }
+ .app-sidebar .app-nav button.active{justify-content:flex-start}
+ .nav-label{display:block!important}
+ .sidebar-footer{
+  justify-content:flex-start;padding:14px 10px 5px;font-size:11px;
+ }
+ .sidebar-footer>span:last-child{display:inline!important}
+ header.shell{
+  width:min(calc(100% - 48px),1160px);
+  margin:0 auto;padding-top:22px;
+ }
+ header .bar{justify-content:flex-end;min-height:42px}
+ header .brand{display:none}
+ .header-actions{position:static;z-index:auto}
+ .icon{width:38px;height:38px;font-size:19px}
+ main.shell{
+  width:min(calc(100% - 48px),1160px);
+  margin:12px auto 0;
+ }
+ .view-heading{margin:5px 0 20px}
+ .view-heading h2{font-size:25px;letter-spacing:-.6px}
+ .view-heading p{font-size:12px}
+ .months{
+  display:grid;grid-template-columns:38px minmax(0,1fr) 38px;
+  align-items:center;gap:12px;width:min(100%,350px);
+  margin:0 0 16px;padding:5px;
+  border:1px solid rgba(165,190,220,.12);border-radius:13px;
+  background:rgba(18,27,39,.58);
+ }
+ .months b{text-align:center;font-size:13px;font-weight:750}
+ .months button{width:34px;height:34px;border-radius:9px;font-size:21px}
+ .overview-grid{
+  grid-template-columns:minmax(0,1.25fr) minmax(290px,.82fr);
+  gap:16px;
+ }
+ .summary{padding:26px;border-radius:19px}
+ .summary #balance{
+  margin:11px 0 5px;font-size:clamp(40px,3.1vw,50px);
+  line-height:1.08;letter-spacing:-1.7px;
+ }
+ .balance-caption{margin:7px 0 20px;font-size:11px}
+ .trio{gap:10px;padding-top:15px}
+ .trio small{font-size:10px}
+ .trio strong{font-size:14px}
+ .quick-card{padding:23px;border-radius:19px}
+ .section-title{font-size:14px;margin-bottom:14px}
+ .quick-row span{font-size:12px}
+ .quick-row strong{font-size:13px}
+ .quick-row+.quick-row{margin-top:12px;padding-top:12px}
+ .month-note{font-size:11px;margin-top:12px}
+ .overview-analytics{margin-top:22px}
+ .analytics-heading{margin-bottom:12px}
+ .analytics-heading h3{font-size:17px}
+ .overview-analytics-grid{gap:12px}
+ .analytics-card{padding:18px 19px;border-radius:17px}
+ .overview-essentials{gap:12px;margin-top:15px}
+ .overview-essentials .analytics-card{padding:18px 19px;border-radius:17px}
+ #transactions .view-heading{margin-bottom:18px}
+ #transactions .months{margin-bottom:14px}
+ #transactions .transactions-main{max-width:100%}
+ #transactions .transaction-search{max-width:100%;min-height:46px}
+ #transactions .filters{max-width:100%;margin-bottom:11px}
+ #transactions .row{min-height:68px;padding:13px 16px;border-radius:14px}
+ #transactions .t{font-size:13px}
+ #transactions .s{font-size:10px}
+ #transactions .amt{font-size:12px;padding:6px 9px}
+ #connection .settings-card{max-width:850px;padding:24px}
+}
+@media(min-width:1100px) and (max-width:1399px){
+ .overview-analytics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .ranking-card{grid-row:auto}
+ .history-card{grid-column:span 2}
+ .quick-indicators{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .overview-essentials{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .overview-essentials .previous-month-card{grid-column:span 2}
+}
+@media(min-width:1400px){
+ .overview-analytics-grid{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .ranking-card{grid-row:span 2}
+ .history-card{grid-column:span 2}
+ .quick-indicators{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .overview-essentials{grid-template-columns:repeat(3,minmax(0,1fr))}
+ .overview-essentials .previous-month-card{grid-column:span 1}
+}
+@media(min-width:1500px){
+ #transactions .list{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+}
+
 </style>
 </head>
 <body>
