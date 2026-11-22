@@ -2432,26 +2432,48 @@ $('entryForm').addEventListener('submit',async e=>{
  month=item.mes;
  saveCurrentMonth();
 
- // Fechar a janela sem esperar consultas e gravações dos meses recorrentes.
- closeSheet();
- toast(wantsMonthly?'Salvando despesas mensais…':'Salvando…');
+ // A retirada da recorrência exige uma confirmação antes de fechar e excluir os próximos meses.
+ const removingMonthlySeries=!!(wasSeriesId&&!wantsMonthly);
+ let cancelledSeriesRemoval=false;
+ if(!removingMonthlySeries){
+  closeSheet();
+  toast(wantsMonthly?'Salvando despesas mensais…':'Salvando…');
+ }
 
  try{
   writeInFlight=true;
 
-  if(wasSeriesId&&!wantsMonthly){
-   // Desativar sem popup: preserva todas as ocorrências futuras como despesas independentes.
+  if(removingMonthlySeries){
+   setStatus('Verificando despesas futuras…',true);
    const futureEnd=oldCategory.seriesEnd||monthOffset(item.mes,36);
    const future=await fetchSeriesRange(monthOffset(item.mes,1),futureEnd,wasSeriesId);
+
+   if(future.length){
+    const confirmed=confirm(
+     'Desativar a repetição e EXCLUIR '+future.length+' ocorrência(s) futura(s) desta despesa?\\n\\n'+
+     'A despesa de '+monthLabel(item.mes)+' será mantida. Todas as ocorrências dos meses seguintes serão removidas da planilha.\\n\\n'+
+     'Esta ação não pode ser desfeita.'
+    );
+    if(!confirmed){
+     cancelledSeriesRemoval=true;
+     $('repeatMonthly').checked=true;
+     $('recurrenceUntilWrap').hidden=false;
+     toast('Alteração cancelada. A despesa continua mensal.');
+     return;
+    }
+   }
+
+   closeSheet();
+   toast(future.length?'Excluindo despesas futuras…':'Desativando repetição…');
+   let deleted=0;
    for(const futureItem of future){
-    const c=decodeCategory(futureItem.categoria);
-    const plainCategory=encodeCategory(c.description,c.nature||'Fixa',futureItem.tipo,c.important);
-    await sendRawSave({...futureItem,categoria:plainCategory});
+    await sendRawDelete(futureItem.id);
+    deleted++;
    }
    await sendRawSave(item);
-   toast(future.length
-    ?'Repetição desativada. '+future.length+' despesa(s) futura(s) foram mantidas como lançamentos independentes.'
-    :'Repetição desativada.');
+   toast(deleted
+    ?'Repetição desativada. '+deleted+' ocorrência(s) futura(s) excluída(s).'
+    :'Repetição desativada. Não havia ocorrências futuras.');
    return;
   }
 
@@ -2539,8 +2561,8 @@ $('entryForm').addEventListener('submit',async e=>{
  }finally{
   writeInFlight=false;
   $('saveBtn').disabled=false;
-  // Atualizar a tela em segundo plano; o fechamento do formulário não espera esta leitura.
-  void load();
+  // Cancelar a confirmação não alterou a planilha; nos demais casos, atualizar em segundo plano.
+  if(!cancelledSeriesRemoval)void load();
  }
 });
 
