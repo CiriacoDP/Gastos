@@ -839,7 +839,10 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
     
     
    </div>
-   <section class="overview-essentials" aria-label="Planejamento financeiro">
+   
+  </section>
+
+ <section class="overview-essentials" aria-label="Planejamento financeiro">
     <section class="analytics-card forecast-card">
      <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
      <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="forecastAvailable">R$ 0,00</strong></div>
@@ -864,7 +867,6 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
      <p class="previous-month-note" id="previousMonthNote">A comparação usa os dados do mês anterior.</p>
     </section>
    </section>
-  </section>
  </section>
 
  <section class="view" id="transactions">
@@ -1601,6 +1603,8 @@ $('entryForm').addEventListener('submit',async e=>{
 });
 
 $('deleteBtn').addEventListener('click',async()=>{
+ const unchanged=await validateEditingSnapshot();
+ if(!unchanged)return;
  const item=entries.find(x=>String(x.id)===String(editingId));
  const desc=item?decodeCategory(item.categoria).description:'este lançamento';
  const value=item?money(item.valor):'';
