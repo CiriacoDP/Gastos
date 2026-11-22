@@ -1129,6 +1129,45 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  }
 }
 
+
+/* Ações de mês dentro de Configurações */
+.settings-actions-grid{display:grid;grid-template-columns:minmax(0,1fr);gap:14px;margin-bottom:16px}
+.settings-action-card{min-width:0}
+.settings-action-heading{display:flex;align-items:flex-start;gap:12px;margin-bottom:6px}
+.settings-action-heading h3{margin:1px 0 4px}
+.settings-action-heading p{margin:0;line-height:1.5}
+.settings-action-icon{
+ flex:0 0 38px;width:38px;height:38px;display:grid;place-items:center;
+ border-radius:12px;background:rgba(99,170,255,.11);
+ border:1px solid rgba(99,170,255,.17);color:#8fc3ff;font-size:22px;font-weight:700
+}
+.settings-action-card input[type=month]{
+ display:block;width:100%;min-width:0;margin:0 0 12px;
+ color:var(--ink);color-scheme:dark;
+ background:#0d151f;border:1px solid var(--sep);border-radius:11px;
+}
+.settings-action-card input[type=month]:focus{
+ border-color:rgba(99,170,255,.7);box-shadow:0 0 0 3px rgba(99,170,255,.12)
+}
+.settings-action-card .quick-entry-type{margin:0 0 4px}
+.settings-action-card .primary{margin-top:12px}
+.settings-warning{margin:8px 0 12px!important;color:#d4a0a4!important;font-size:11px!important;line-height:1.5}
+.settings-danger-action{
+ display:block;width:100%;margin-top:8px;padding:12px 15px;
+ border-radius:11px;border:1px solid rgba(255,114,123,.25);
+ background:linear-gradient(135deg,rgba(153,49,61,.22),rgba(96,32,43,.22));
+ color:#ff9da4;font-size:13px;font-weight:750;
+ transition:filter .15s,transform .15s
+}
+.settings-danger-action:hover{filter:brightness(1.15)}
+.settings-danger-action:active{transform:scale(.99)}
+.settings-danger-action:disabled{opacity:.5;cursor:wait}
+.settings-action-card .msg{line-height:1.45}
+@media(min-width:980px){
+ .settings-actions-grid{grid-template-columns:repeat(2,minmax(0,1fr));align-items:stretch}
+ .settings-action-card{padding:22px}
+}
+
 </style>
 </head>
 <body>
@@ -1153,9 +1192,9 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 6h13M8 12h13M8 18h13"/><circle cx="3.5" cy="6" r="1"/><circle cx="3.5" cy="12" r="1"/><circle cx="3.5" cy="18" r="1"/></svg></span>
    <span class="nav-label">Lançamentos</span>
   </button>
-  <button data-view="connection" aria-label="Conexão" title="Conexão">
-   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 7v5a4 4 0 0 0 4 4h1a4 4 0 0 0 4-4V7"/><path d="M6 3v4M10 3v4M14 17v4M18 17v4"/><path d="M6 7h4M14 17h4"/></svg></span>
-   <span class="nav-label">Conexão</span>
+  <button data-view="connection" aria-label="Configurações" title="Configurações">
+   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .34 1.88l.06.06-1.7 1.7-.06-.06a1.7 1.7 0 0 0-1.88-.34 1.7 1.7 0 0 0-1.03 1.56V20h-2.4v-.2a1.7 1.7 0 0 0-1.03-1.56 1.7 1.7 0 0 0-1.88.34l-.06.06-1.7-1.7.06-.06A1.7 1.7 0 0 0 8.46 15a1.7 1.7 0 0 0-1.56-1.03H6v-2.4h.9a1.7 1.7 0 0 0 1.56-1.03 1.7 1.7 0 0 0-.34-1.88l-.06-.06 1.7-1.7.06.06a1.7 1.7 0 0 0 1.88.34A1.7 1.7 0 0 0 12.73 5.7V5h2.4v.7a1.7 1.7 0 0 0 1.03 1.56 1.7 1.7 0 0 0 1.88-.34l.06-.06 1.7 1.7-.06.06A1.7 1.7 0 0 0 19.4 10.5a1.7 1.7 0 0 0 1.56 1.03h.04v2.4h-.04A1.7 1.7 0 0 0 19.4 15Z"/></svg></span>
+   <span class="nav-label">Configurações</span>
   </button>
  </nav>
  <div class="sidebar-footer">
@@ -1163,7 +1202,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.0.1</small>
+  <small class="sidebar-app-version">Versão 1.1.0</small>
  </div>
 </aside>
 
@@ -1409,9 +1448,33 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  <section class="view" id="connection">
   <div class="view-heading">
    <div>
-    <h2>Conexão</h2>
-    <p>Integração com sua planilha Google</p>
+    <h2>Configurações</h2>
+    <p>Gerencie meses, lançamentos e conexão com sua planilha</p>
    </div>
+  </div>
+
+  <div class="settings-actions-grid">
+   <section class="card settings-card settings-action-card">
+    <div class="settings-action-heading"><span class="settings-action-icon">＋</span><div><h3>Novo lançamento em outro mês</h3><p>Escolha o mês de destino sem precisar navegar até ele.</p></div></div>
+    <label for="quickEntryMonth">Mês de destino</label>
+    <input id="quickEntryMonth" type="month" required>
+    <label>O que deseja adicionar?</label>
+    <div class="seg quick-entry-type" id="quickEntryType" role="group" aria-label="Tipo de lançamento">
+     <button type="button" class="on" data-quick-type="Gasto">Despesa</button>
+     <button type="button" data-quick-type="Entrada">Entrada</button>
+    </div>
+    <button class="primary" id="quickEntryBtn" type="button">Continuar para lançamento</button>
+    <div class="msg" id="quickEntryMessage" role="status"></div>
+   </section>
+
+   <section class="card settings-card settings-action-card settings-delete-month">
+    <div class="settings-action-heading"><span class="settings-action-icon">⌫</span><div><h3>Excluir um mês inteiro</h3><p>Apaga da planilha todas as entradas e despesas somente do mês escolhido.</p></div></div>
+    <label for="deleteMonth">Mês que será apagado</label>
+    <input id="deleteMonth" type="month" required>
+    <p class="settings-warning">Essa ação é permanente. Os outros meses não serão alterados.</p>
+    <button class="settings-danger-action" id="deleteMonthBtn" type="button">Excluir mês selecionado</button>
+    <div class="msg" id="deleteMonthMessage" role="status"></div>
+   </section>
   </div>
 
   <section class="card settings-card">
@@ -1501,6 +1564,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 const STORAGE_KEY='gastos2026_appweb_url_v1';
 const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
 let entries=[],editingId=null,editingSnapshot=null,pendingDelete=false,filter='all',detailFilter='all',type='Gasto',nature='Fixa',monthExists=true;
+let quickEntryType='Gasto',quickEntryActive=false;
 let analyticsHistory=new Map();
 let analyticsHistoryBase='';
 let analyticsHistoryFetchedAt=0;
@@ -1598,6 +1662,8 @@ let stored='';
 
 try{stored=localStorage.getItem(STORAGE_KEY)||''}catch(e){}
 $('apiUrl').value=stored;
+$('quickEntryMonth').value=month;
+$('deleteMonth').value=month;
 
 const money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
 const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
@@ -2413,6 +2479,7 @@ function setPendingDeleteState(value){
 }
 
 function openSheet(item,defaultType='Gasto'){
+ quickEntryActive=false;
  editingId=item?item.id:null;
  pendingDelete=false;
  editingSnapshot=item?{
@@ -2512,6 +2579,9 @@ async function validateEditingSnapshot(){
 
 $('entryForm').addEventListener('submit',async e=>{
  e.preventDefault();
+ const restoreQuickMonth=quickEntryActive&&!editingId;
+ const previousQuickMonth=month;
+ let quickEntryCompleted=false;
  if(pendingPaymentChanges.size&&!await flushPaymentChanges()){
   toast('Finalize a sincronização dos pagamentos antes de salvar.',true);
   return;
@@ -2705,6 +2775,7 @@ $('entryForm').addEventListener('submit',async e=>{
     throw error;
    }
 
+   quickEntryCompleted=!editingId;
    toast(editingId?'Despesa mensal atualizada.':'Despesa mensal criada.');
    return;
   }
@@ -2716,7 +2787,7 @@ $('entryForm').addEventListener('submit',async e=>{
   }else{
    const result=await post({action:'save',item},false);
    if(result){
-
+    quickEntryCompleted=restoreQuickMonth;
     toast('Salvo');
    }else{
     render();
@@ -2728,8 +2799,125 @@ $('entryForm').addEventListener('submit',async e=>{
  }finally{
   writeInFlight=false;
   $('saveBtn').disabled=false;
+  if(restoreQuickMonth){
+   const destinationMonth=item.mes;
+   month=previousQuickMonth;
+   saveCurrentMonth();
+   quickEntryActive=false;
+   if(quickEntryCompleted){
+    try{
+     const refreshed=await fetchMonthRange(destinationMonth,destinationMonth);
+     saveMonthCache(destinationMonth,refreshed.filter(row=>row.mes===destinationMonth),true);
+     analyticsHistory.set(destinationMonth,refreshed.filter(row=>row.mes===destinationMonth));
+    }catch(error){}
+   }
+  }
   // Cancelar a confirmação não alterou a planilha; nos demais casos, atualizar em segundo plano.
   if(!cancelledSeriesRemoval)void load();
+ }
+});
+
+
+$('quickEntryType').addEventListener('click',e=>{
+ const button=e.target.closest('[data-quick-type]');
+ if(!button)return;
+ quickEntryType=button.dataset.quickType;
+ [...$('quickEntryType').children].forEach(x=>x.classList.toggle('on',x===button));
+});
+
+$('quickEntryBtn').addEventListener('click',()=>{
+ const targetMonth=$('quickEntryMonth').value;
+ if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(targetMonth)){
+  message('quickEntryMessage','Escolha um mês válido.',true);
+  $('quickEntryMonth').focus();
+  return;
+ }
+ if(!api()){
+  message('quickEntryMessage','Configure a conexão com a planilha antes de adicionar lançamentos.',true);
+  return;
+ }
+ message('quickEntryMessage','O formulário será aberto com '+monthLabel(targetMonth)+' selecionado.');
+ openSheet(null,quickEntryType);
+ $('fMonth').value=targetMonth;
+ quickEntryActive=true;
+});
+
+$('deleteMonthBtn').addEventListener('click',async()=>{
+ const targetMonth=$('deleteMonth').value;
+ if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(targetMonth)){
+  message('deleteMonthMessage','Escolha um mês válido.',true);
+  $('deleteMonth').focus();
+  return;
+ }
+ if(!api()){
+  message('deleteMonthMessage','Configure a conexão com a planilha antes de excluir dados.',true);
+  return;
+ }
+ if(pendingPaymentChanges.size&&!await flushPaymentChanges()){
+  message('deleteMonthMessage','Finalize a sincronização dos pagamentos antes de excluir o mês.',true);
+  return;
+ }
+
+ const button=$('deleteMonthBtn');
+ button.disabled=true;
+ let deleted=0,total=0;
+ writeInFlight=true;
+ message('deleteMonthMessage','Conferindo os lançamentos de '+monthLabel(targetMonth)+'…');
+ try{
+  const rows=(await fetchMonthRange(targetMonth,targetMonth))
+   .filter(row=>row.mes===targetMonth);
+  const byId=new Map();
+  for(const row of rows){
+   if(!row.id)throw new Error('Encontrei um lançamento sem identificador. Não excluí nada para evitar apagar o registro errado.');
+   byId.set(String(row.id),row);
+  }
+  const monthItems=[...byId.values()];
+  total=monthItems.length;
+  if(!total){
+   saveMonthCache(targetMonth,[],true);
+   analyticsHistory.set(targetMonth,[]);
+   message('deleteMonthMessage','Não há lançamentos em '+monthLabel(targetMonth)+'.');
+   toast('Esse mês já está vazio.');
+   return;
+  }
+
+  const confirmed=confirm(
+   'EXCLUIR TODOS OS '+total+' LANÇAMENTO(S) DE '+monthLabel(targetMonth).toUpperCase()+'?\n\n'+
+   'Serão removidas todas as entradas, despesas e dívidas deste mês da planilha.\n'+
+   'Os demais meses serão preservados.\n\n'+
+   'Esta ação é permanente e não pode ser desfeita.'
+  );
+  if(!confirmed){
+   message('deleteMonthMessage','Exclusão cancelada. Nenhum lançamento foi removido.');
+   return;
+  }
+
+  for(const item of monthItems){
+   await sendRawDelete(item.id);
+   deleted++;
+   message('deleteMonthMessage','Excluindo '+deleted+' de '+total+' lançamentos…');
+  }
+
+  saveMonthCache(targetMonth,[],true);
+  analyticsHistory.set(targetMonth,[]);
+  message('deleteMonthMessage',total+' lançamento(s) removido(s) de '+monthLabel(targetMonth)+'. Os outros meses foram preservados.');
+  toast('Mês apagado: '+monthLabel(targetMonth)+'.');
+ }catch(error){
+  let remaining=null;
+  try{
+   remaining=(await fetchMonthRange(targetMonth,targetMonth)).filter(row=>row.mes===targetMonth);
+   saveMonthCache(targetMonth,remaining,true);
+   analyticsHistory.set(targetMonth,remaining);
+  }catch(refreshError){}
+  const detail=deleted
+   ?'A exclusão foi interrompida após '+deleted+' de '+total+' lançamentos. Confira o mês antes de tentar novamente. '
+   :'Nenhum lançamento foi confirmado como excluído. ';
+  message('deleteMonthMessage',detail+error.message,true);
+  toast(deleted+' de '+total+' lançamentos removidos. '+error.message,true);
+ }finally{
+  writeInFlight=false;
+  button.disabled=false;
+  if(month===targetMonth)await load();
  }
 });
 
