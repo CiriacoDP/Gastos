@@ -2573,11 +2573,58 @@ $('deleteBtn').addEventListener('click',async()=>{
  }
  const unchanged=await validateEditingSnapshot();
  if(!unchanged)return;
- const item=entries.find(x=>String(x.id)===String(editingId));
- const desc=item?decodeCategory(item.categoria).description:'este lançamento';
- const value=item?money(item.valor):'';
- if(!editingId||!confirm('Excluir "'+desc+'" ('+value+')? Esta ação também remove o registro da planilha e não pode ser desfeita.'))return;
 
+ const item=entries.find(x=>String(x.id)===String(editingId));
+ if(!editingId||!item)return;
+ const category=decodeCategory(item.categoria);
+ const desc=category.description||'esta despesa';
+ const value=money(item.valor);
+
+ if(category.seriesId){
+  const seriesEnd=category.seriesEnd||monthOffset(item.mes,35);
+  let past=[],future=[];
+  try{
+   setStatus('Localizando sequência mensal…',true);
+   past=await fetchSeriesRange(monthOffset(item.mes,-35),monthOffset(item.mes,-1),category.seriesId);
+   future=await fetchSeriesRange(monthOffset(item.mes,1),seriesEnd,category.seriesId);
+  }catch(error){
+   toast('Não consegui localizar toda a sequência. Nada foi excluído. '+error.message,true);
+   setStatus('Erro ao sincronizar',false);
+   return;
+  }
+
+  const seriesItems=[...past,...future];
+  const total=seriesItems.length+1;
+  const confirmed=confirm(
+   'Esta despesa faz parte de uma sequência mensal com '+total+' lançamento(s), incluindo o atual.\\n\\n'+
+   'Deseja EXCLUIR TODA A SEQUÊNCIA de "'+desc+'" ('+value+')?\\n\\n'+
+   'Todos os meses vinculados serão removidos da planilha. Esta ação não pode ser desfeita.'
+  );
+  if(!confirmed)return;
+
+  closeSheet();
+  toast('Excluindo sequência mensal…');
+  writeInFlight=true;
+  let deleted=0;
+  try{
+   // Exclui as outras ocorrências primeiro e a atual por último, para permitir nova tentativa em caso de falha.
+   for(const linked of seriesItems){
+    await sendRawDelete(linked.id);
+    deleted++;
+   }
+   await sendRawDelete(item.id);
+   deleted++;
+   toast('Sequência excluída: '+deleted+' lançamento(s) removido(s).');
+  }catch(error){
+   toast('A exclusão parou após '+deleted+' de '+total+' lançamento(s). A despesa atual foi preservada quando possível. '+error.message,true);
+  }finally{
+   writeInFlight=false;
+   void load();
+  }
+  return;
+ }
+
+ if(!confirm('Excluir "'+desc+'" ('+value+')? Esta ação também remove o registro da planilha e não pode ser desfeita.'))return;
  const result=await post({action:'delete',id:editingId});
  if(result){
   closeSheet();
