@@ -2433,7 +2433,7 @@ $('entryForm').addEventListener('submit',async e=>{
  saveCurrentMonth();
 
  // Fechar a janela sem esperar consultas e gravações dos meses recorrentes.
-
+ closeSheet();
  toast(wantsMonthly?'Salvando despesas mensais…':'Salvando…');
 
  try{
