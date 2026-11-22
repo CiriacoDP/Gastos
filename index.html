@@ -1318,7 +1318,7 @@ async function post(payload){
 
 const BACKUP_SCHEMA='meu-dinheiro-backup';
 function monthKeysBetween(start,end,maxMonths=60){
- if(!/^\\d{4}-(0[1-9]|1[0-2])$/.test(start)||!/^\\d{4}-(0[1-9]|1[0-2])$/.test(end))throw new Error('Informe os meses inicial e final.');
+ if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(start)||!/^\d{4}-(0[1-9]|1[0-2])$/.test(end))throw new Error('Informe os meses inicial e final.');
  if(start>end)throw new Error('O mês inicial não pode ser posterior ao mês final.');
  const keys=[];
  let cursor=start;
@@ -1965,7 +1965,7 @@ $('exportBackup').addEventListener('click',async()=>{
     const key=localStorage.key(i);
     if(key&&key.startsWith(BUDGET_STORAGE_PREFIX)){
      const monthKey=key.slice(BUDGET_STORAGE_PREFIX.length);
-     if(/^\\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))budgets[monthKey]=Number(localStorage.getItem(key))||0;
+     if(/^\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))budgets[monthKey]=Number(localStorage.getItem(key))||0;
     }
    }
   }catch(error){}
@@ -1998,7 +1998,7 @@ $('restoreBackup').addEventListener('click',async()=>{
   const grouped=new Map();
   for(const raw of data.entries){
    const monthKey=normMonth(raw.mes);
-   if(!/^\\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))throw new Error('O backup contém um mês inválido.');
+   if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))throw new Error('O backup contém um mês inválido.');
    const value=Number(raw.valor);
    if(!Number.isFinite(value)||value<=0)throw new Error('O backup contém um valor inválido.');
    const item={
@@ -2046,7 +2046,7 @@ $('restoreBackup').addEventListener('click',async()=>{
   }
   if(data.budgets&&typeof data.budgets==='object'){
    for(const [monthKey,value] of Object.entries(data.budgets)){
-    if(/^\\d{4}-(0[1-9]|1[0-2])$/.test(monthKey)&&Number(value)>0)saveMonthlyBudget(monthKey,Number(value));
+    if(/^\d{4}-(0[1-9]|1[0-2])$/.test(monthKey)&&Number(value)>0)saveMonthlyBudget(monthKey,Number(value));
    }
   }
  }catch(error){
