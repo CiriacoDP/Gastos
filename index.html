@@ -1914,7 +1914,8 @@ function sameExpenseIdentity(candidate,reference){
 }
 
 const IMPORTANT_MARKER='[!IMPORTANTE!]';
-const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80}):(\d{4}-(?:0[1-9]|1[0-2]))!\]/;
+// Aceita também o marcador antigo, criado antes de armazenar o mês final da série.
+const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80})(?::(\d{4}-(?:0[1-9]|1[0-2])))?!\]/;
 
 function createSeriesId(){
  const generated=window.crypto?.randomUUID?.();
