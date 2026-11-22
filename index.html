@@ -1066,6 +1066,69 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  border-color:rgba(255,114,123,.35);
 }
 
+
+/* Evolução mensal: gráfico contínuo, sem caixas por mês */
+@media(min-width:980px){
+ .history-card{
+  padding:23px 24px 19px;
+  background:linear-gradient(145deg,rgba(22,34,49,.99),rgba(14,23,34,.99));
+ }
+ .history-card .analytics-title-row{margin-bottom:13px}
+ .history-card .analytics-title-row>span{
+  padding:5px 9px;border:1px solid rgba(125,174,226,.15);
+  border-radius:999px;background:rgba(108,160,220,.07);
+  color:#9bb8d7;font-size:9px;letter-spacing:.8px;
+ }
+ .history-legend{gap:17px;margin:0 0 13px}
+ .history-legend span{gap:7px;font-size:11px;color:#a5b5c7}
+ .history-legend i{width:8px;height:8px;box-shadow:0 0 0 3px rgba(255,255,255,.035)}
+ .monthly-history{
+  position:relative;height:176px;
+  grid-template-columns:repeat(6,minmax(0,1fr));
+  gap:12px;padding:5px 3px 0;
+  border:0;border-radius:0;
+  background:none;
+ }
+ .monthly-history::before{
+  content:"";position:absolute;inset:5px 0 24px;pointer-events:none;
+  background:repeating-linear-gradient(
+   to bottom,
+   rgba(145,169,195,.11) 0,
+   rgba(145,169,195,.11) 1px,
+   transparent 1px,
+   transparent 48px
+  );
+ }
+ .history-month{
+  position:relative;z-index:1;
+  grid-template-rows:minmax(0,1fr) 18px;gap:6px;
+ }
+ .history-bars{
+  height:100%;align-items:flex-end;justify-content:center;gap:7px;
+  border-radius:0;background:transparent;
+ }
+ .history-bar{
+  flex:0 1 19px;width:19px;max-width:24px;
+  min-height:0;border-radius:7px 7px 2px 2px;
+  box-shadow:0 3px 10px rgba(0,0,0,.16);
+  transition:height .25s ease,filter .2s ease;
+ }
+ .history-bar.income{background:linear-gradient(180deg,#62e6b5 0%,#20ad7b 100%)}
+ .history-bar.expense{background:linear-gradient(180deg,#91c7ff 0%,#438ce0 100%)}
+ .history-bar:hover{filter:brightness(1.16)}
+ .history-month small{
+  align-self:center;color:#8599ae;font-size:11px;
+  letter-spacing:.15px;
+ }
+ .history-month.current small{
+  color:#eaf4ff;font-weight:800;
+ }
+ .history-month.current small::after{
+  content:"";display:block;width:4px;height:4px;margin:3px auto 0;
+  border-radius:50%;background:#76b8ff;
+ }
+}
+
 </style>
 </head>
 <body>
