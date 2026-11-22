@@ -711,6 +711,79 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  .overview-essentials .previous-month-card{grid-column:span 1}
 }
 
+
+/* Busca mobile em primeiro plano e layout adaptado às proporções do aparelho */
+@media(max-width:979px){
+ #transactions .transactions-main{display:flex;flex-direction:column;min-width:0}
+ #transactions .transaction-search{
+  position:sticky;top:7px;z-index:24;
+  order:0;width:100%;min-height:52px;margin:0 0 13px;padding:0 14px;
+  border-radius:15px;border:1px solid rgba(105,169,235,.28);
+  background:rgba(17,27,40,.97);
+  box-shadow:0 7px 20px rgba(0,0,0,.22),inset 0 1px rgba(255,255,255,.035);
+  -webkit-backdrop-filter:blur(16px);backdrop-filter:blur(16px);
+ }
+ #transactions .transaction-search>span{font-size:25px;color:#82baff}
+ #transactions .transaction-search input{font-size:16px;min-height:50px}
+ #transactions .transaction-search input::placeholder{color:#8094aa}
+ #transactions .transaction-search button{width:34px;height:34px;border-radius:50%;font-size:22px;background:rgba(255,255,255,.07)}
+ #transactions .transaction-overview{order:1;margin:0 1px 11px}
+ #transactions .filters{order:2;display:flex;width:100%;margin:0 0 10px;padding:4px;gap:4px;overflow-x:auto;scrollbar-width:none}
+ #transactions .filters::-webkit-scrollbar{display:none}
+ #transactions .filters button{flex:1 0 auto;min-width:66px;padding:9px 8px;font-size:12px}
+ #transactions .detail-filters{order:3;display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;scrollbar-width:none;margin:0 -1px 13px;padding:1px 1px 5px}
+ #transactions .detail-filters::-webkit-scrollbar{display:none}
+ #transactions .detail-filters button{flex:0 0 auto;min-height:34px;padding:8px 12px;font-size:11px}
+ #transactions .list{order:4;display:grid;gap:8px;overflow:visible}
+ #transactions .row{min-width:0;grid-template-columns:25px minmax(0,1fr) auto;gap:10px;padding:14px 12px;min-height:70px;border-radius:14px}
+ #transactions .row+.row::before{display:none}
+ #transactions .row .main{min-width:0}
+ #transactions .row .t{overflow-wrap:anywhere}
+ #transactions .row .amt{max-width:112px;text-align:right;white-space:nowrap;font-size:12px}
+}
+@media(max-width:430px){
+ #transactions .view-heading{align-items:flex-start;gap:9px;margin-bottom:14px}
+ #transactions .view-heading>div{min-width:0}
+ #transactions .view-heading h2{font-size:21px}
+ #transactions .view-heading p{max-width:245px;font-size:11px;line-height:1.35}
+ #transactions .view-heading .new-entry{align-self:center;padding:10px 12px;font-size:12px}
+ #transactions .months{margin-bottom:12px}
+ #transactions .transaction-search{min-height:50px;margin-bottom:11px}
+ #transactions .transaction-search input{font-size:16px}
+ #transactions .transaction-count strong{font-size:17px}
+ #transactions .transaction-count span{font-size:10px}
+ #transactions .priority-count{padding:5px 8px}
+ #transactions .priority-count strong{font-size:9px}
+ #transactions .row{grid-template-columns:23px minmax(0,1fr) auto;gap:8px;padding:13px 10px;min-height:66px}
+ #transactions .row .amt{max-width:100px;padding:6px 7px;font-size:11px}
+}
+@media(max-width:360px){
+ #transactions .view-heading h2{font-size:19px}
+ #transactions .view-heading .new-entry{padding:9px 10px;font-size:11px}
+ #transactions .priority-count{gap:4px;padding:5px 6px}
+ #transactions .priority-count strong{font-size:8px}
+ #transactions .filters button{min-width:60px;padding:8px 6px;font-size:10px}
+ #transactions .detail-filters button{padding:7px 10px;font-size:10px}
+ #transactions .row{grid-template-columns:21px minmax(0,1fr) auto;gap:7px;padding:12px 8px}
+ #transactions .row .amt{max-width:88px;font-size:10px;padding:5px 6px}
+}
+@media(max-width:979px) and (orientation:landscape) and (max-height:520px){
+ #transactions .view-heading{margin-bottom:8px}
+ #transactions .view-heading p{display:none}
+ #transactions .months{margin-bottom:8px}
+ #transactions .transaction-search{position:relative;top:auto;min-height:43px;margin-bottom:8px}
+ #transactions .transaction-search input{min-height:41px}
+ #transactions .transaction-overview{margin-bottom:7px}
+ #transactions .filters{margin-bottom:7px}
+ #transactions .detail-filters{margin-bottom:8px}
+ #transactions .row{min-height:56px;padding-top:9px;padding-bottom:9px}
+}
+@media(max-width:979px) and (max-aspect-ratio:9/19){
+ #transactions .transaction-search{margin-bottom:10px}
+ #transactions .list{gap:7px}
+ #transactions .row{min-height:64px}
+}
+
 </style>
 </head>
 <body>
@@ -886,15 +959,15 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 
   <div class="transactions-layout">
    <div class="transactions-main">
-    <div class="transaction-overview">
-     <div class="transaction-count"><strong id="visibleCount">0</strong><span>lançamentos exibidos</span></div>
-     <div class="priority-count"><span>★</span><strong id="priorityCount">0 importantes</strong></div>
-    </div>
-    <label class="transaction-search">
+    <label class="transaction-search" role="search">
      <span aria-hidden="true">⌕</span>
-     <input id="listSearch" type="search" placeholder="Buscar por descrição ou pessoa..." autocomplete="off">
+     <input id="listSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar lançamentos" placeholder="Buscar conta por nome, pessoa ou valor..." autocomplete="off">
      <button type="button" id="clearSearch" aria-label="Limpar busca" hidden>×</button>
     </label>
+    <div class="transaction-overview">
+     <div class="transaction-count"><strong id="visibleCount">0</strong><span id="visibleCountLabel">lançamentos exibidos</span></div>
+     <div class="priority-count"><span>★</span><strong id="priorityCount">0 importantes</strong></div>
+    </div>
     <div class="seg filters" id="filters">
      <button class="on" data-filter="all">Todas</button>
      <button data-filter="pending">Pendentes</button>
@@ -1211,19 +1284,35 @@ function encodeCategory(desc,nat,tp,important){
  return important?base+' '+IMPORTANT_MARKER:base;
 }
 
+function searchText(value){
+ return String(value==null?'':value)
+  .toLocaleLowerCase('pt-BR')
+  .normalize('NFD')
+  .replace(/[\\u0300-\\u036f]/g,'')
+  .trim();
+}
+
 function visible(list){
- const query=($('listSearch')?.value||'').trim().toLocaleLowerCase('pt-BR');
+ const rawQuery=($('listSearch')?.value||'').trim();
+ const query=searchText(rawQuery);
  return list.filter(x=>{
   if(filter==='pending'&&x.pago)return false;
   if(filter==='paid'&&!x.pago)return false;
   if(filter==='income'&&x.tipo!=='Entrada')return false;
+
   const category=decodeCategory(x.categoria);
   if(detailFilter==='fixed'&&(x.tipo==='Entrada'||category.nature!=='Fixa'))return false;
   if(detailFilter==='variable'&&(x.tipo==='Entrada'||category.nature!=='Variável'))return false;
   if(detailFilter==='important'&&!category.important)return false;
+
   if(query){
-   const haystack=(category.description+' '+String(x.pessoa||'')).toLocaleLowerCase('pt-BR');
-   if(!haystack.includes(query))return false;
+   const state=x.pago?'pago paga quitado quitada recebido recebida':'pendente em aberto nao pago nao paga';
+   const typeText=x.tipo==='Entrada'?'entrada receita renda':(category.nature==='Fixa'?'despesa fixa gasto fixo':category.nature==='Variável'?'despesa variavel gasto variavel':'despesa gasto');
+   const amountText=money(x.valor);
+   const text=[category.description,x.pessoa,x.tipo,category.nature,typeText,state,amountText].map(searchText).join(' ');
+   const digitsQuery=query.replace(/\\D/g,'');
+   const digitsText=text.replace(/\\D/g,'')+' '+String(Number(x.valor)||0).replace(/\\D/g,'');
+   if(!text.includes(query)&&!(digitsQuery.length>0&&digitsText.includes(digitsQuery)))return false;
   }
   return true;
  });
@@ -1413,6 +1502,7 @@ function render(){
   return bi-ai;
  });
  $('visibleCount').textContent=list.length;
+ $('visibleCountLabel').textContent=$('listSearch').value.trim()?'resultados encontrados':'lançamentos exibidos';
  $('priorityCount').textContent=me.filter(x=>decodeCategory(x.categoria).important).length+' importantes';
 
  if(!list.length){
