@@ -487,6 +487,52 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  .balance-period{display:none}
 }
 
+
+/* Gráfico lateral: aparece apenas em telas de computador */
+.transactions-layout{display:block}
+.expense-chart{display:none}
+@media(min-width:980px){
+ .transactions-layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) 310px;
+  align-items:start;
+  gap:22px;
+ }
+ .transactions-main{min-width:0}
+ .transactions-main .filters{max-width:none;width:100%}
+ .expense-chart{
+  display:block;position:sticky;top:22px;
+  padding:22px 20px 18px;border-radius:20px;
+  background:
+   radial-gradient(ellipse at 90% 0%,rgba(76,153,255,.13),transparent 55%),
+   linear-gradient(150deg,#172434,#111a25);
+  border:1px solid rgba(165,190,220,.14);
+  box-shadow:0 16px 42px rgba(0,0,0,.22);
+ }
+ .expense-chart-head{display:flex;align-items:flex-start;justify-content:space-between;gap:8px}
+ .chart-eyebrow{font-size:9px;font-weight:800;letter-spacing:1.3px;color:#82b8ee}
+ .expense-chart-head h3{font-size:16px;line-height:1.25;margin:5px 0 0;color:#f1f6fc;font-weight:750}
+ .chart-month{font-size:10px;color:#91a5ba;white-space:nowrap;padding-top:3px}
+ .expense-chart-total{display:flex;flex-direction:column;gap:4px;margin:20px 0 14px;padding:13px 14px;border-radius:13px;background:rgba(255,255,255,.035);border:1px solid rgba(160,188,219,.1)}
+ .expense-chart-total span{font-size:11px;color:#99abc0}
+ .expense-chart-total strong{font-size:21px;font-weight:800;letter-spacing:-.4px;color:#f4f8fd;font-variant-numeric:tabular-nums}
+ .expense-pie-wrap{display:grid;place-items:center;padding:9px 0 17px}
+ .expense-pie{width:174px;aspect-ratio:1;border-radius:50%;background:conic-gradient(#263342 0deg 360deg);border:5px solid rgba(255,255,255,.055);box-shadow:0 12px 26px rgba(0,0,0,.25),0 0 0 8px rgba(255,255,255,.018)}
+ .expense-legend{display:grid;gap:11px;padding-top:14px;border-top:1px solid rgba(165,190,220,.12)}
+ .expense-legend-row{display:grid;grid-template-columns:10px minmax(0,1fr) auto auto;align-items:center;gap:8px}
+ .expense-legend-dot{width:9px;height:9px;border-radius:50%;background:var(--slice-color);box-shadow:0 0 10px color-mix(in srgb,var(--slice-color) 35%,transparent)}
+ .expense-legend-label{font-size:11px;color:#a9b9ca}
+ .expense-legend-row strong{font-size:11px;color:#eff5fb;font-weight:750;font-variant-numeric:tabular-nums}
+ .expense-legend-row small{min-width:31px;text-align:right;font-size:10px;color:#8fa2b7}
+ .expense-chart-note{margin:14px 0 0;font-size:10px;line-height:1.5;color:#75899e}
+ .expense-legend-empty{text-align:center;font-size:11px;color:#8fa2b7;padding:10px 0}
+}
+@media(min-width:1200px){
+ .transactions-layout{grid-template-columns:minmax(0,1fr) 330px;gap:26px}
+ .expense-chart{padding:24px 22px 20px}
+ .expense-pie{width:188px}
+}
+
 </style>
 </head>
 <body>
@@ -570,17 +616,40 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <button class="next" aria-label="Próximo mês">›</button>
   </div>
 
-  <div class="transaction-overview">
-   <div class="transaction-count"><strong id="visibleCount">0</strong><span>lançamentos exibidos</span></div>
-   <div class="priority-count"><span>★</span><strong id="priorityCount">0 importantes</strong></div>
+  <div class="transactions-layout">
+   <div class="transactions-main">
+    <div class="transaction-overview">
+     <div class="transaction-count"><strong id="visibleCount">0</strong><span>lançamentos exibidos</span></div>
+     <div class="priority-count"><span>★</span><strong id="priorityCount">0 importantes</strong></div>
+    </div>
+    <div class="seg filters" id="filters">
+     <button class="on" data-filter="all">Todas</button>
+     <button data-filter="pending">Pendentes</button>
+     <button data-filter="paid">Pagas</button>
+     <button data-filter="income">Entradas</button>
+    </div>
+    <ul class="list" id="list"></ul>
+   </div>
+
+   <aside class="expense-chart card" id="expenseChart">
+    <div class="expense-chart-head">
+     <div>
+      <span class="chart-eyebrow">ANÁLISE DO MÊS</span>
+      <h3>Despesas por tipo</h3>
+     </div>
+     <span class="chart-month" id="expenseChartMonth"></span>
+    </div>
+    <div class="expense-chart-total">
+     <span>Total de despesas</span>
+     <strong id="expensePieTotal">R$ 0,00</strong>
+    </div>
+    <div class="expense-pie-wrap">
+     <div class="expense-pie" id="expensePie" role="img" aria-label="Distribuição das despesas por tipo"></div>
+    </div>
+    <div class="expense-legend" id="expenseLegend"></div>
+    <p class="expense-chart-note">Distribuição entre despesas fixas e variáveis do mês selecionado.</p>
+   </aside>
   </div>
-  <div class="seg filters" id="filters">
-   <button class="on" data-filter="all">Todas</button>
-   <button data-filter="pending">Pendentes</button>
-   <button data-filter="paid">Pagas</button>
-   <button data-filter="income">Entradas</button>
-  </div>
-  <ul class="list" id="list"></ul>
  </section>
 
  <section class="view" id="connection">
@@ -879,6 +948,52 @@ function visible(list){
  });
 }
 
+
+function updateExpenseChart(monthEntries,total){
+ const groups={
+  'Fixa':{value:0,color:'#64adff'},
+  'Variável':{value:0,color:'#45d6a4'},
+  'Sem classificação':{value:0,color:'#eabf68'}
+ };
+ monthEntries.filter(x=>x.tipo!=='Entrada').forEach(x=>{
+  const nature=decodeCategory(x.categoria).nature;
+  const label=nature==='Fixa'?'Fixa':(nature==='Variável'?'Variável':'Sem classificação');
+  groups[label].value+=Number(x.valor||0);
+ });
+ const slices=Object.entries(groups).filter(([,g])=>g.value>0);
+ $('expensePieTotal').textContent=money(total);
+ $('expenseChartMonth').textContent=monthLabel(month);
+
+ if(!slices.length||total<=0){
+  $('expensePie').style.background='conic-gradient(#263342 0deg 360deg)';
+  $('expensePie').setAttribute('aria-label','Nenhuma despesa registrada neste mês');
+  $('expenseLegend').innerHTML='<div class="expense-legend-empty">Nenhuma despesa para distribuir neste mês.</div>';
+  return;
+ }
+
+ let cursor=0;
+ const stops=slices.map(([label,g])=>{
+  const start=cursor;
+  cursor+=g.value/total*360;
+  return `${g.color} ${start.toFixed(2)}deg ${cursor.toFixed(2)}deg`;
+ });
+ $('expensePie').style.background=`conic-gradient(from -90deg,${stops.join(',')})`;
+ $('expensePie').setAttribute('aria-label',
+  slices.map(([label,g])=>label+': '+money(g.value)+', '+Math.round(g.value/total*100)+' por cento').join('; ')
+ );
+ $('expenseLegend').innerHTML=slices
+  .sort((a,b)=>b[1].value-a[1].value)
+  .map(([label,g])=>{
+   const pct=g.value/total*100;
+   return `<div class="expense-legend-row">
+    <span class="expense-legend-dot" style="--slice-color:${g.color}"></span>
+    <span class="expense-legend-label">${safe(label)}</span>
+    <strong>${money(g.value)}</strong>
+    <small>${pct.toFixed(0)}%</small>
+   </div>`;
+  }).join('');
+}
+
 function render(){
  document.querySelectorAll('.monthLabel').forEach(el=>el.textContent=monthLabel(month));
 
@@ -899,6 +1014,7 @@ function render(){
  $('quickIncome').textContent=money(inc);
  $('quickExpense').textContent=money(exp);
  $('quickDue').textContent=money(due);
+ updateExpenseChart(me,exp);
 
  const list=visible(me).slice().reverse().sort((a,b)=>{
   const ai=decodeCategory(a.categoria).important?1:0;
