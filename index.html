@@ -602,6 +602,9 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 }
 .sidebar-status-dot{display:block;flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:#43d6a0;box-shadow:0 0 0 4px rgba(67,214,160,.1)}
 .sidebar-status-dot.off{background:#ff727b;box-shadow:0 0 0 4px rgba(255,114,123,.1)}
+.sidebar-footer-line{display:flex;align-items:center;gap:9px;min-width:0;width:100%}
+.sidebar-footer-line>span:last-child{display:block;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.sidebar-footer small{display:block;padding-left:17px;color:#71859a;font-size:9px;line-height:1.35;white-space:nowrap}
 .sidebar-footer>span:last-child{display:none}
 @media(min-width:980px){
  body{padding-left:108px;padding-bottom:42px;transition:padding-left .22s ease}
@@ -1092,7 +1095,13 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <span class="nav-label">Conexão</span>
   </button>
  </nav>
- <div class="sidebar-footer"><span class="sidebar-status-dot off" id="sidebarStatusDot"></span><span id="sidebarStatusText">Desconectado</span></div>
+ <div class="sidebar-footer">
+  <div class="sidebar-footer-line">
+   <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
+   <span id="sidebarStatusText">Desconectado</span>
+  </div>
+  <small id="sidebarLastUpdate">Última atualização: aguardando</small>
+ </div>
 </aside>
 
 <header class="shell">
@@ -1496,6 +1505,7 @@ function loadCachedMonth(monthKey){
  monthExists=cached.exists;
  hydrateAnalyticsCache(monthKey);
  $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
+ setSidebarLastUpdate(cached.savedAt,'Cópia local');
  setStatus('Dados salvos · atualizando',false);
  render();
  return true;
@@ -1547,6 +1557,12 @@ function shiftMonth(d){
   render();
  }
  load();
+}
+
+function setSidebarLastUpdate(timestamp,label='Última atualização'){
+ const target=$('sidebarLastUpdate');
+ if(!target)return;
+ target.textContent=label+': '+formatCacheDate(timestamp);
 }
 
 function setStatus(t,ok){
@@ -1664,6 +1680,7 @@ async function load(){
   entries=freshRows;
   const syncedAt=new Date();
   $('lastSyncText').textContent=syncedAt.toLocaleDateString('pt-BR')+' às '+syncedAt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  setSidebarLastUpdate(syncedAt,'Atualizado');
   setStatus('Conectada · '+entries.length+' em '+monthLabel(month),true);
   showBanner('');
   render();
@@ -1678,6 +1695,7 @@ async function load(){
    monthExists=cached.exists;
    applyPendingPaymentChanges(entries);
    $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
+   setSidebarLastUpdate(cached.savedAt,'Última cópia local');
    setStatus('Sem conexão · dados locais',false);
    message('connectionMessage','Sem conexão com a planilha. Exibindo a última cópia salva neste aparelho.',true);
    showBanner('Sem conexão com a planilha. Os dados exibidos são a última cópia salva neste aparelho, de '+formatCacheDate(cached.savedAt)+'.');
