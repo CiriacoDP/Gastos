@@ -2596,11 +2596,14 @@ $('deleteBtn').addEventListener('click',async()=>{
   const seriesItems=[...past,...future];
   const total=seriesItems.length+1;
   const confirmed=confirm(
-   'Esta despesa faz parte de uma sequência mensal com '+total+' lançamento(s), incluindo o atual.\\n\\n'+
-   'Deseja EXCLUIR TODA A SEQUÊNCIA de "'+desc+'" ('+value+')?\\n\\n'+
+   'Esta despesa faz parte de uma sequência mensal com '+total+' lançamento(s), incluindo o atual.\n\n'+
+   'Deseja EXCLUIR TODA A SEQUÊNCIA de "'+desc+'" ('+value+')?\n\n'+
    'Todos os meses vinculados serão removidos da planilha. Esta ação não pode ser desfeita.'
   );
-  if(!confirmed)return;
+  if(!confirmed){
+   setStatus('Conectada · '+entries.length+' em '+monthLabel(month),true);
+   return;
+  }
 
   closeSheet();
   toast('Excluindo sequência mensal…');
