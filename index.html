@@ -138,12 +138,12 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
 .msg{font-size:13px;min-height:16px;margin:10px 0 0;color:var(--green)}
 .msg.error{color:var(--red)}
 .overlay{
- position:fixed;inset:0;z-index:10;display:flex;align-items:flex-end;
+ position:fixed;inset:0;z-index:200;display:flex;align-items:flex-end;
  justify-content:center;background:rgba(0,0,0,0);transition:background .25s
 }
 .overlay.open{background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .sheet{
- width:min(520px,100%);max-height:94dvh;overflow:auto;background:var(--bg);
+ width:min(520px,100%);max-height:94dvh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:var(--bg);
  border-radius:22px 22px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom));
  transform:translateY(100%);transition:transform .3s cubic-bezier(.2,.8,.2,1)
 }
@@ -166,7 +166,7 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
 .danger{width:100%;margin-top:18px;padding:13px;border-radius:14px;background:var(--card);color:var(--red);font-weight:550}
 .toast{
  position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));
- transform:translate(-50%,-160%);z-index:20;max-width:calc(100% - 32px);
+ transform:translate(-50%,-160%);z-index:220;max-width:calc(100% - 32px);
  padding:11px 16px;border-radius:14px;background:rgba(44,44,46,.94);
  color:#fff;font-size:14px;transition:transform .3s;
  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)
@@ -711,6 +711,9 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  .overview-essentials .previous-month-card{grid-column:span 1}
 }
 
+
+/* Ao editar ou criar, não mostrar a busca por trás do formulário. */
+.sheet-open #transactions .transaction-search{display:none!important}
 
 /* Busca mobile em primeiro plano e layout adaptado às proporções do aparelho */
 @media(max-width:979px){
@@ -1713,6 +1716,7 @@ function openSheet(item){
  $('recurrenceFields').hidden=!!item||type==='Entrada';
  $('recurrenceUntilWrap').hidden=true;
  $('deleteBtn').hidden=!item;
+ document.body.classList.add('sheet-open');
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
 
@@ -1721,7 +1725,10 @@ function openSheet(item){
 
 function closeSheet(){
  $('overlay').classList.remove('open');
- setTimeout(()=>{$('overlay').hidden=true},280);
+ setTimeout(()=>{
+  $('overlay').hidden=true;
+  document.body.classList.remove('sheet-open');
+ },280);
 }
 
 $('typeSeg').addEventListener('click',e=>{
