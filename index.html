@@ -1887,7 +1887,7 @@ async function fetchSeriesRange(startMonth,endMonth,seriesId){
 }
 
 const IMPORTANT_MARKER='[!IMPORTANTE!]';
-const SERIES_MARKER_REGEX=new RegExp('\\[!SERIE:([A-Za-z0-9_-]{6,80})!\\]');
+const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80}):(\d{4}-(?:0[1-9]|1[0-2]))!\]/;
 
 function createSeriesId(){
  const generated=window.crypto?.randomUUID?.();
@@ -1903,16 +1903,17 @@ function decodeCategory(raw){
  return {
   important,
   seriesId:seriesMatch?seriesMatch[1]:'',
+  seriesEnd:seriesMatch?seriesMatch[2]:'',
   nature:m?m[1]:'',
   description:m?clean.replace(m[0],''):clean
  };
 }
 
-function encodeCategory(desc,nat,tp,important,seriesId=''){
+function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd=''){
  const base=tp==='Entrada'?desc:`[${nat}] ${desc}`;
  return base
   +(important?' '+IMPORTANT_MARKER:'')
-  +(seriesId?' [!SERIE:'+seriesId+'!]':'');
+  +(seriesId?' [!SERIE:'+seriesId+':'+seriesEnd+'!]':'');
 }
 
 function searchText(value){
@@ -2294,7 +2295,7 @@ function openSheet(item,defaultType='Gasto'){
 
  $('importantFlag').checked=!!(c&&c.important);
  $('repeatMonthly').checked=!!(item&&c&&c.seriesId);
- $('repeatUntil').value=monthOffset($('fMonth').value,11);
+ $('repeatUntil').value=(c&&c.seriesEnd)||monthOffset($('fMonth').value,11);
  $('recurrenceFields').hidden=type==='Entrada';
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
  $('deleteBtn').hidden=!item;
@@ -2377,12 +2378,13 @@ $('entryForm').addEventListener('submit',async e=>{
  const wasSeriesId=oldCategory?.seriesId||'';
  const wantsMonthly=type!=='Entrada'&&$('repeatMonthly').checked;
  const seriesId=wantsMonthly?(wasSeriesId||createSeriesId()):'';
+ const seriesEnd=wantsMonthly?$('repeatUntil').value:'';
  const item={
   id:editingId||undefined,
   mes:$('fMonth').value,
   pessoa:old?old.pessoa:'',
   tipo:type,
-  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId),
+  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd),
   valor:Number($('amount').value),
   pago:old?!!old.pago:false
  };
@@ -2439,9 +2441,7 @@ $('entryForm').addEventListener('submit',async e=>{
   }
 
   if(wantsMonthly){
-   setStatus('Salvando despesa mensal…',true);
-   if(editingId)await sendRawSave(item);
-
+   setStatus('Conferindo ocorrências mensais…',true);
    const futureStart=monthOffset(item.mes,1);
    const existingFuture=repeatMonths.length>1
     ?await fetchSeriesRange(futureStart,repeatMonths[repeatMonths.length-1],seriesId)
@@ -2449,24 +2449,30 @@ $('entryForm').addEventListener('submit',async e=>{
    const existingMonths=new Set(existingFuture.map(x=>x.mes));
    const missingMonths=repeatMonths.filter(key=>key!==item.mes&&!existingMonths.has(key));
 
-   if(!editingId||missingMonths.length){
-    if(missingMonths.length>1&&!confirm('Serão criadas '+missingMonths.length+' novas ocorrências mensais. Deseja continuar?')){
-     if(editingId)await sendRawSave({...item,categoria:old.categoria});
-     $('saveBtn').disabled=false;
-     return;
-    }
-    let saved=0;
-    try{
-     const monthsToCreate=editingId?missingMonths:repeatMonths;
-     for(const monthKey of monthsToCreate){
-      await sendRawSave({...item,id:undefined,mes:monthKey,pago:false});
-      saved++;
-     }
-    }catch(error){
-     toast('Foram criadas '+saved+' ocorrência(s). '+error.message,true);
-     throw error;
-    }
+   if(missingMonths.length>1&&!confirm('Serão criadas '+missingMonths.length+' novas ocorrências mensais. Deseja continuar?')){
+    $('saveBtn').disabled=false;
+    return;
    }
+
+   if(editingId)await sendRawSave(item);
+   for(const existingItem of existingFuture){
+    const c=decodeCategory(existingItem.categoria);
+    const category=encodeCategory(c.description,c.nature||'Fixa',existingItem.tipo,c.important,seriesId,seriesEnd);
+    if(category!==existingItem.categoria)await sendRawSave({...existingItem,categoria:category});
+   }
+
+   let saved=0;
+   try{
+    const monthsToCreate=editingId?missingMonths:repeatMonths;
+    for(const monthKey of monthsToCreate){
+     await sendRawSave({...item,id:undefined,mes:monthKey,pago:false});
+     saved++;
+    }
+   }catch(error){
+    toast('Foram criadas '+saved+' ocorrência(s). '+error.message,true);
+    throw error;
+   }
+
    closeSheet();
    toast(editingId?'Despesa mensal atualizada.':'Despesa mensal criada.');
    return;
