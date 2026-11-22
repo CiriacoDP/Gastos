@@ -688,6 +688,29 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 @media(min-width:980px){.overview-analytics-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.previous-month-card{grid-column:span 1}}
 @media(min-width:1200px){.overview-analytics-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.history-card{grid-column:span 2}.ranking-card{grid-row:span 2}.quick-indicators{grid-template-columns:repeat(2,minmax(0,1fr))}}
 
+
+/* Planejamento financeiro essencial também disponível no celular */
+.overview-essentials{display:grid;grid-template-columns:minmax(0,1fr);gap:12px;margin-top:15px}
+.overview-essentials .analytics-card{
+ min-width:0;padding:18px 17px;border-radius:17px;
+ background:linear-gradient(145deg,rgba(21,32,46,.99),rgba(15,24,35,.99));
+ border:1px solid rgba(170,194,220,.12);
+ box-shadow:0 10px 26px rgba(0,0,0,.14);
+}
+.overview-essentials .analytics-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}
+.overview-essentials .analytics-title-row h3{margin:0;font-size:13px;font-weight:760;color:#eff5fb}
+.overview-essentials .analytics-title-row>span{font-size:9px;font-weight:800;letter-spacing:.8px;color:#8096ad}
+.overview-essentials .analytics-title-row>strong{font-size:12px;color:#69dcae}
+@media(min-width:650px){
+ .overview-essentials{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .overview-essentials .previous-month-card{grid-column:span 2}
+}
+@media(min-width:980px){
+ .overview-essentials{grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin-top:18px}
+ .overview-essentials .analytics-card{padding:20px 21px;border-radius:19px}
+ .overview-essentials .previous-month-card{grid-column:span 1}
+}
+
 </style>
 </head>
 <body>
@@ -812,9 +835,14 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
      <div class="history-legend"><span><i class="history-income-dot"></i>Entradas</span><span><i class="history-expense-dot"></i>Despesas</span></div>
      <div class="monthly-history" id="monthlyHistory"></div>
     </section>
+    
+    
+    
+   </div>
+   <section class="overview-essentials" aria-label="Planejamento financeiro">
     <section class="analytics-card forecast-card">
      <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
-     <div class="forecast-row"><span>Disponível após despesas pagas</span><strong id="forecastAvailable">R$ 0,00</strong></div>
+     <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="forecastAvailable">R$ 0,00</strong></div>
      <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="forecastPending">R$ 0,00</strong></div>
      <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="forecastFinal">R$ 0,00</strong></div>
     </section>
@@ -835,7 +863,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
      </div>
      <p class="previous-month-note" id="previousMonthNote">A comparação usa os dados do mês anterior.</p>
     </section>
-   </div>
+   </section>
   </section>
  </section>
 
@@ -1209,7 +1237,7 @@ function monthShort(value){
  return new Date(y,m-1,1).toLocaleDateString('pt-BR',{month:'short'}).replace('.','');
 }
 async function loadAnalyticsHistory(force=false){
- if(!window.matchMedia('(min-width: 980px)').matches)return;
+ const isDesktop=window.matchMedia('(min-width: 980px)').matches;
  const requestedBase=month;
  if(analyticsHistoryLoading)return;
  if(!force&&analyticsHistoryBase===requestedBase&&Date.now()-analyticsHistoryFetchedAt<90000)return;
@@ -1218,7 +1246,9 @@ async function loadAnalyticsHistory(force=false){
  analyticsHistoryFetchedAt=Date.now();
  const url=api();
  if(!url){analyticsHistoryLoading=false;return;}
- const historyMonths=Array.from({length:5},(_,i)=>monthOffset(requestedBase,i-5));
+ const historyMonths=isDesktop
+  ?Array.from({length:5},(_,i)=>monthOffset(requestedBase,i-5))
+  :[monthOffset(requestedBase,-1)];
  try{
   const results=await Promise.all(historyMonths.map(async monthKey=>{
    try{
@@ -1258,7 +1288,8 @@ function renderAnalytics(monthEntries){
  const pendingTotal=sum(pending);
  const pct=expenseTotal>0?Math.round(paidTotal/expenseTotal*100):0;
  const importantCount=monthEntries.filter(x=>decodeCategory(x.categoria).important).length;
- const availableAfterPaid=incomeTotal-paidTotal;
+ const receivedIncome=sum(incomes.filter(x=>x.pago));
+ const availableAfterPaid=receivedIncome-paidTotal;
  const projectedBalance=incomeTotal-expenseTotal;
  $('forecastAvailable').textContent=money(availableAfterPaid);
  $('forecastPending').textContent=money(pendingTotal);
