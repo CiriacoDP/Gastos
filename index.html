@@ -929,6 +929,11 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  #transactions .list{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
 }
 
+
+/* Ocultar atualização manual no desktop; manter no mobile. */
+@media(min-width:980px){
+ .header-actions #refreshBtn{display:none!important}
+}
 </style>
 </head>
 <body>
