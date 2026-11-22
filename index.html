@@ -1310,6 +1310,7 @@ function normalizeEntry(x){
 }
 
 async function load(){
+ const requestedMonth=month;
  const url=api();
 
  if(!url){
@@ -1321,7 +1322,7 @@ async function load(){
 
  try{
   setStatus('Atualizando…',true);
-  const r=await fetch(url+(url.includes('?')?'&':'?')+'action=state&month='+month+'&_='+Date.now(),{cache:'no-store'});
+  const r=await fetch(url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(requestedMonth)+'&_='+Date.now(),{cache:'no-store'});
   if(!r.ok)throw Error('A planilha respondeu com erro HTTP '+r.status);
 
   const d=await r.json();
@@ -1330,10 +1331,13 @@ async function load(){
   const rows=extractEntries(d);
   if(!rows)throw Error('A resposta do Apps Script não trouxe a lista de lançamentos.');
 
+  const freshRows=rows.map(normalizeEntry);
+  applyPendingPaymentChanges(freshRows);
+  saveMonthCache(requestedMonth,freshRows,d.exists!==false);
+  // Uma resposta atrasada nunca deve substituir a tela de outro mês.
+  if(month!==requestedMonth)return true;
   monthExists=d.exists!==false;
-  entries=rows.map(normalizeEntry);
-  applyPendingPaymentChanges(entries);
-  saveMonthCache(month,entries,d.exists!==false);
+  entries=freshRows;
   const syncedAt=new Date();
   $('lastSyncText').textContent=syncedAt.toLocaleDateString('pt-BR')+' às '+syncedAt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   setStatus('Conectada · '+entries.length+' em '+monthLabel(month),true);
@@ -1343,7 +1347,8 @@ async function load(){
   return true;
 
  }catch(e){
-  const cached=readMonthCache(month);
+  if(month!==requestedMonth)return false;
+  const cached=readMonthCache(requestedMonth);
   if(cached){
    entries=cached.entries;
    monthExists=cached.exists;
