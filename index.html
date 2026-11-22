@@ -1263,6 +1263,7 @@ async function load(){
 
   monthExists=d.exists!==false;
   entries=rows.map(normalizeEntry);
+  applyPendingPaymentChanges(entries);
   const syncedAt=new Date();
   $('lastSyncText').textContent=syncedAt.toLocaleDateString('pt-BR')+' às '+syncedAt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   setStatus('Conectada · '+entries.length+' em '+monthLabel(month),true);
@@ -1281,6 +1282,79 @@ async function load(){
 }
 
 let writeInFlight=false;
+const PAYMENT_SYNC_DELAY=3000;
+let pendingPaymentChanges=new Map();
+let paymentSyncTimer=null;
+let paymentSyncInFlight=false;
+
+function schedulePaymentSync(){
+ if(paymentSyncTimer)clearTimeout(paymentSyncTimer);
+ paymentSyncTimer=setTimeout(()=>{
+  paymentSyncTimer=null;
+  flushPaymentChanges();
+ },PAYMENT_SYNC_DELAY);
+}
+
+async function flushPaymentChanges(){
+ if(paymentSyncTimer){clearTimeout(paymentSyncTimer);paymentSyncTimer=null;}
+ if(paymentSyncInFlight||!pendingPaymentChanges.size)return true;
+ if(!api()){
+  toast('Pagamentos alterados aguardando conexão com a planilha.',true);
+  return false;
+ }
+
+ const batch=[...pendingPaymentChanges.entries()];
+ batch.forEach(([id])=>pendingPaymentChanges.delete(id));
+ paymentSyncInFlight=true;
+ writeInFlight=true;
+ let sent=0;
+ let failure=null;
+ try{
+  setStatus('Salvando pagamentos…',true);
+  const url=api();
+  for(let i=0;i<batch.length;i++){
+   const [id,pago]=batch[i];
+   try{
+    const response=await fetch(url,{
+     method:'POST',
+     headers:{'Content-Type':'text/plain;charset=utf-8'},
+     body:JSON.stringify({action:'togglePaid',id,pago})
+    });
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    const data=await response.json();
+    if(data?.ok===false||data?.success===false)throw new Error(data.error||data.message||'Falha ao salvar');
+    sent++;
+   }catch(error){
+    failure=error;
+    // Preserve any newer value queued while this batch was being sent.
+    for(let j=i;j<batch.length;j++){
+     const [pendingId,pendingValue]=batch[j];
+     if(!pendingPaymentChanges.has(pendingId))pendingPaymentChanges.set(pendingId,pendingValue);
+    }
+    break;
+   }
+  }
+
+  const refreshed=await load();
+  if(failure){
+   toast('Não consegui salvar todos os pagamentos ('+sent+' de '+batch.length+'). Vou tentar novamente.',true);
+  }else if(refreshed){
+   toast(batch.length===1?'Pagamento atualizado':batch.length+' pagamentos atualizados');
+  }
+  return !failure&&refreshed;
+ }finally{
+  paymentSyncInFlight=false;
+  writeInFlight=false;
+  if(pendingPaymentChanges.size)schedulePaymentSync();
+ }
+}
+
+function applyPendingPaymentChanges(rows){
+ pendingPaymentChanges.forEach((pago,id)=>{
+  const item=rows.find(x=>String(x.id)===String(id));
+  if(item)item.pago=pago;
+ });
+}
 
 async function post(payload){
  const url=api();
@@ -1785,6 +1859,7 @@ async function validateEditingSnapshot(){
 
 $('entryForm').addEventListener('submit',async e=>{
  e.preventDefault();
+ if(pendingPaymentChanges.size)await flushPaymentChanges();
 
  const old=editingId?entries.find(x=>x.id===editingId):null;
  const item={
@@ -1851,6 +1926,7 @@ $('entryForm').addEventListener('submit',async e=>{
 });
 
 $('deleteBtn').addEventListener('click',async()=>{
+ if(pendingPaymentChanges.size)await flushPaymentChanges();
  const unchanged=await validateEditingSnapshot();
  if(!unchanged)return;
  const item=entries.find(x=>String(x.id)===String(editingId));
@@ -1874,15 +1950,13 @@ $('list').addEventListener('click',async e=>{
 
  if(e.target.closest('.check')){
   item.pago=!item.pago;
+  pendingPaymentChanges.set(String(item.id),item.pago);
   render();
-
-  const result=await post({action:'togglePaid',id:item.id,pago:item.pago});
-  if(!result){
-   item.pago=!item.pago;
-   render();
-  }
+  schedulePaymentSync();
  }else{
-  openSheet(item);
+  if(pendingPaymentChanges.size)await flushPaymentChanges();
+  const freshItem=entries.find(x=>String(x.id)===row.dataset.id)||item;
+  openSheet(freshItem);
  }
 });
 
@@ -1913,7 +1987,10 @@ $('filters').addEventListener('click',e=>{
  render();
 });
 
-$('refreshBtn').addEventListener('click',load);
+$('refreshBtn').addEventListener('click',async()=>{
+ if(pendingPaymentChanges.size)await flushPaymentChanges();
+ await load();
+});
 
 
 $('fMonth').addEventListener('change',()=>{
@@ -2081,34 +2158,17 @@ $('connectBtn').addEventListener('click',()=>{
  load();
 });
 
-// Sincronização automática: intervalo maior e pausa após interação do usuário.
+// Atualização de conferência em segundo plano. Navegação e toques não disparam leitura.
 const AUTO_SYNC_INTERVAL=30000;
-const AUTO_SYNC_IDLE_DELAY=3000;
 let pollInFlight=false;
-let lastUserInteractionAt=Date.now();
-
-function noteUserInteraction(){
- lastUserInteractionAt=Date.now();
-}
-['pointerdown','touchstart','click','keydown','input','change'].forEach(eventName=>{
- document.addEventListener(eventName,noteUserInteraction,{capture:true,passive:eventName!=='keydown'});
-});
-function userIsIdle(){
- return Date.now()-lastUserInteractionAt>=AUTO_SYNC_IDLE_DELAY;
-}
 setInterval(async()=>{
- if(document.hidden || !$('overlay').hidden || pollInFlight || writeInFlight || !api() || !userIsIdle()) return;
+ if(document.hidden || !$('overlay').hidden || pollInFlight || writeInFlight ||
+    paymentSyncInFlight || pendingPaymentChanges.size || paymentSyncTimer || !api()) return;
  pollInFlight=true;
  try{await load()}finally{pollInFlight=false}
 },AUTO_SYNC_INTERVAL);
 
-document.addEventListener('visibilitychange',()=>{
- if(!document.hidden && $('overlay').hidden && api() && !pollInFlight && !writeInFlight && userIsIdle()){
-  pollInFlight=true;
-  load().finally(()=>{pollInFlight=false});
- }
-});
-
+// Não há sincronização automática ao trocar de aba ou voltar ao aplicativo.
 load();
 </script>
 </body>
