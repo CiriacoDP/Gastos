@@ -2504,10 +2504,7 @@ $('entryForm').addEventListener('submit',async e=>{
    const linkedFuture=[...existingFuture,...legacyMatches];
    const missingMonths=repeatMonths.filter(key=>key!==item.mes&&!coveredMonths.has(key));
 
-   if(missingMonths.length>1&&!confirm('Serão criadas '+missingMonths.length+' novas ocorrências mensais. Deseja continuar?')){
-    $('saveBtn').disabled=false;
-    return;
-   }
+   // A opção mensal e o mês final já foram escolhidos no formulário; criar apenas as ocorrências ausentes sem popup.
 
    if(editingId)await sendRawSave(item);
    for(const existingItem of linkedFuture){
