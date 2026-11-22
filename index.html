@@ -1288,7 +1288,7 @@ function searchText(value){
  return String(value==null?'':value)
   .toLocaleLowerCase('pt-BR')
   .normalize('NFD')
-  .replace(/[\\u0300-\\u036f]/g,'')
+  .replace(/[\u0300-\u036f]/g,'')
   .trim();
 }
 
@@ -1310,7 +1310,7 @@ function visible(list){
    const typeText=x.tipo==='Entrada'?'entrada receita renda':(category.nature==='Fixa'?'despesa fixa gasto fixo':category.nature==='Variável'?'despesa variavel gasto variavel':'despesa gasto');
    const amountText=money(x.valor);
    const text=[category.description,x.pessoa,x.tipo,category.nature,typeText,state,amountText].map(searchText).join(' ');
-   const digitsQuery=query.replace(/\\D/g,'');
+   const digitsQuery=query.replace(/\D/g,'');
    const digitsText=text.replace(/\\D/g,'')+' '+String(Number(x.valor)||0).replace(/\\D/g,'');
    if(!text.includes(query)&&!(digitsQuery.length>0&&digitsText.includes(digitsQuery)))return false;
   }
