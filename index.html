@@ -1356,7 +1356,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <button type="submit" class="link strong" id="saveBtn">Salvar</button>
   </div>
 
-  <div class="seg" id="typeSeg">
+  <div class="seg" id="typeSeg" hidden>
    <button type="button" data-type="Gasto" class="on">Despesas</button>
    <button type="button" data-type="Entrada">Entradas</button>
   </div>
@@ -2237,7 +2237,9 @@ function openSheet(item,defaultType='Gasto'){
  }:null;
  const c=item?decodeCategory(item.categoria):null;
 
- $('sheetTitle').textContent=item?'Editar lançamento':'Novo lançamento';
+ $('sheetTitle').textContent=item
+  ?(item.tipo==='Entrada'?'Editar entrada':'Editar despesa')
+  :(defaultType==='Entrada'?'Nova entrada':'Nova despesa');
  $('description').value=c?c.description:'';
  $('amount').value=item?item.valor:'';
  $('fMonth').value=item?(item.mes||month):month;
