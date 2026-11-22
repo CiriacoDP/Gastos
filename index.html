@@ -1297,7 +1297,11 @@ function schedulePaymentSync(){
 
 async function flushPaymentChanges(){
  if(paymentSyncTimer){clearTimeout(paymentSyncTimer);paymentSyncTimer=null;}
- if(paymentSyncInFlight||!pendingPaymentChanges.size)return true;
+ // Aguarda qualquer outra gravação terminar antes de enviar os pagamentos.
+ while(paymentSyncInFlight||writeInFlight){
+  await new Promise(resolve=>setTimeout(resolve,50));
+ }
+ if(!pendingPaymentChanges.size)return true;
  if(!api()){
   toast('Pagamentos alterados aguardando conexão com a planilha.',true);
   return false;
@@ -1345,7 +1349,8 @@ async function flushPaymentChanges(){
  }finally{
   paymentSyncInFlight=false;
   writeInFlight=false;
-  if(pendingPaymentChanges.size)schedulePaymentSync();
+  // Mudanças novas feitas enquanto o lote era enviado recebem sua própria espera.
+  if(pendingPaymentChanges.size&&!failure)schedulePaymentSync();
  }
 }
 
@@ -1859,7 +1864,10 @@ async function validateEditingSnapshot(){
 
 $('entryForm').addEventListener('submit',async e=>{
  e.preventDefault();
- if(pendingPaymentChanges.size)await flushPaymentChanges();
+ if(pendingPaymentChanges.size&&!await flushPaymentChanges()){
+  toast('Finalize a sincronização dos pagamentos antes de salvar.',true);
+  return;
+ }
 
  const old=editingId?entries.find(x=>x.id===editingId):null;
  const item={
@@ -1926,7 +1934,10 @@ $('entryForm').addEventListener('submit',async e=>{
 });
 
 $('deleteBtn').addEventListener('click',async()=>{
- if(pendingPaymentChanges.size)await flushPaymentChanges();
+ if(pendingPaymentChanges.size&&!await flushPaymentChanges()){
+  toast('Finalize a sincronização dos pagamentos antes de excluir.',true);
+  return;
+ }
  const unchanged=await validateEditingSnapshot();
  if(!unchanged)return;
  const item=entries.find(x=>String(x.id)===String(editingId));
@@ -1954,7 +1965,10 @@ $('list').addEventListener('click',async e=>{
   render();
   schedulePaymentSync();
  }else{
-  if(pendingPaymentChanges.size)await flushPaymentChanges();
+  if(pendingPaymentChanges.size){
+   const synced=await flushPaymentChanges();
+   if(!synced)return;
+  }
   const freshItem=entries.find(x=>String(x.id)===row.dataset.id)||item;
   openSheet(freshItem);
  }
@@ -1988,7 +2002,7 @@ $('filters').addEventListener('click',e=>{
 });
 
 $('refreshBtn').addEventListener('click',async()=>{
- if(pendingPaymentChanges.size)await flushPaymentChanges();
+ if(pendingPaymentChanges.size&&!await flushPaymentChanges())return;
  await load();
 });
 
