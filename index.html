@@ -568,14 +568,6 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 .sidebar-brand-copy{display:none;min-width:0;flex-direction:column;gap:3px}
 .sidebar-brand-copy strong{font-size:14px;font-weight:780;color:#f2f7fc;white-space:nowrap}
 .sidebar-brand-copy small{font-size:10px;color:#8fa4b9;white-space:nowrap}
-.sidebar-toggle{
- position:absolute;top:73px;left:50%;transform:translateX(-50%);
- width:28px;height:28px;display:grid;place-items:center;
- border:1px solid rgba(165,190,220,.13);border-radius:9px;
- background:#1a2a3b;color:#91c3ff;transition:background .16s,transform .2s;
-}
-.sidebar-toggle:hover{background:#263c54}
-.sidebar-toggle svg{width:15px;height:15px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round;transition:transform .2s}
 .app-sidebar .app-nav{
  display:flex;flex-direction:column;align-items:stretch;gap:8px;
  width:100%;margin:43px 0 0;padding:0;overflow:visible;
@@ -606,20 +598,12 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 .sidebar-status-dot{display:block;flex:0 0 8px;width:8px;height:8px;border-radius:50%;background:#43d6a0;box-shadow:0 0 0 4px rgba(67,214,160,.1)}
 .sidebar-status-dot.off{background:#ff727b;box-shadow:0 0 0 4px rgba(255,114,123,.1)}
 .sidebar-footer>span:last-child{display:none}
-#sidebarToggle{touch-action:manipulation}
 @media(min-width:980px){
  body{padding-left:108px;padding-bottom:42px;transition:padding-left .22s ease}
- body.sidebar-expanded{padding-left:268px}
  .app-sidebar{width:76px}
- body.sidebar-expanded .app-sidebar{width:236px;padding-left:13px;padding-right:13px}
- body.sidebar-expanded .sidebar-brand{justify-content:flex-start;padding-left:3px;padding-right:35px}
- body.sidebar-expanded .sidebar-brand-copy{display:flex}
- body.sidebar-expanded .sidebar-toggle{top:24px;left:auto;right:13px;transform:none}
- body.sidebar-expanded .sidebar-toggle svg{transform:rotate(180deg)}
- body.sidebar-expanded .app-sidebar .app-nav button{justify-content:flex-start;padding-left:13px}
- body.sidebar-expanded .nav-label{display:block}
- body.sidebar-expanded .sidebar-footer{justify-content:flex-start;padding-left:8px}
- body.sidebar-expanded .sidebar-footer>span:last-child{display:block}
+ .app-sidebar .app-nav{margin-top:18px}
+ .sidebar-brand-copy{display:none!important}
+ .nav-label{display:none!important}
  header.shell{width:min(100%,1220px);margin-left:auto;margin-right:auto}
  header .bar{justify-content:flex-end;min-height:28px}
  header .brand{display:none}
@@ -636,7 +620,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
   background:rgba(12,20,30,.96);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);
   box-shadow:0 -10px 32px rgba(0,0,0,.27);
  }
- .sidebar-brand,.sidebar-toggle,.sidebar-footer{display:none!important}
+ .sidebar-brand,.sidebar-footer{display:none!important}
  .app-sidebar .app-nav{
   display:flex;flex-direction:row;align-items:stretch;justify-content:space-around;
   gap:7px;width:min(100%,520px);height:100%;margin:0 auto;padding:0;
@@ -670,9 +654,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
   <div class="brand-mark">R$</div>
   <div class="sidebar-brand-copy"><strong>Meu dinheiro</strong><small>Controle financeiro</small></div>
  </div>
- <button class="sidebar-toggle" id="sidebarToggle" type="button" aria-label="Expandir menu" aria-expanded="false" title="Expandir menu">
-  <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>
- </button>
+
 
   <nav class="app-nav" aria-label="Navegação principal">
   <button class="active" data-view="overview" aria-label="Visão geral" title="Visão geral">
@@ -888,22 +870,6 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 <script>
 const STORAGE_KEY='gastos2026_appweb_url_v1';
 const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
-const SIDEBAR_STORAGE_KEY='gastos2026_sidebar_expanded_v1';
-let sidebarExpanded=false;
-try{sidebarExpanded=localStorage.getItem(SIDEBAR_STORAGE_KEY)==='true'}catch(e){}
-document.body.classList.toggle('sidebar-expanded',sidebarExpanded);
-
-function setSidebarExpanded(expanded,persist=true){
- sidebarExpanded=!!expanded;
- document.body.classList.toggle('sidebar-expanded',sidebarExpanded);
- const btn=$('sidebarToggle');
- btn.setAttribute('aria-expanded',sidebarExpanded?'true':'false');
- btn.setAttribute('aria-label',sidebarExpanded?'Recolher menu':'Expandir menu');
- btn.title=sidebarExpanded?'Recolher menu':'Expandir menu';
- if(persist){try{localStorage.setItem(SIDEBAR_STORAGE_KEY,sidebarExpanded?'true':'false')}catch(e){}}
-}
-
-
 let entries=[],editingId=null,filter='all',type='Gasto',nature='Fixa',monthExists=true;
 let analyticsHistory=new Map();
 let analyticsHistoryBase='';
@@ -1307,8 +1273,6 @@ function switchView(name){
  });
  window.scrollTo({top:0,behavior:'smooth'});
 }
-
-$('sidebarToggle').addEventListener('click',()=>setSidebarExpanded(!sidebarExpanded));
 
 document.querySelector('.app-nav').addEventListener('click',e=>{
  const btn=e.target.closest('[data-view]');
