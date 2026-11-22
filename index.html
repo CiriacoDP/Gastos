@@ -1711,7 +1711,7 @@ function openSheet(item){
  $('repeatMonthly').checked=false;
  $('repeatUntil').value=monthOffset($('fMonth').value,11);
  $('recurrenceFields').hidden=!!item||type==='Entrada';
- $('recurrenceUntilWrap').hidden=false;
+ $('recurrenceUntilWrap').hidden=true;
  $('deleteBtn').hidden=!item;
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
