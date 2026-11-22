@@ -1880,9 +1880,9 @@ function showMobileOverviewSlide(index,manual=false){
  });
  $('mobileOverviewPosition').textContent=(mobileOverviewIndex+1)+' de '+slides.length;
  updateMobileCarouselHeight();
- if(manual)mobileOverviewLastManual=Date.now();
+ mobileOverviewLastAdvance=Date.now();
 }
-let mobileOverviewLastManual=0;
+let mobileOverviewLastAdvance=Date.now();
 $('mobileOverviewDots').addEventListener('click',e=>{
  const dot=e.target.closest('[data-mobile-slide]');
  if(dot)showMobileOverviewSlide(Number(dot.dataset.mobileSlide),true);
@@ -1903,10 +1903,12 @@ $('mobileGoTransactions').addEventListener('click',()=>switchView('transactions'
 window.addEventListener('resize',updateMobileCarouselHeight);
 setInterval(()=>{
  if(!window.matchMedia('(max-width: 979px)').matches)return;
- if(document.hidden||!$('overview').classList.contains('active')||!$('overlay').hidden)return;
- if(Date.now()-mobileOverviewLastManual<5000)return;
- showMobileOverviewSlide(mobileOverviewIndex+1,false);
-},5000);
+ if(document.hidden||!$('overview').classList.contains('active')||!$('overlay').hidden){
+  mobileOverviewLastAdvance=Date.now();
+  return;
+ }
+ if(Date.now()-mobileOverviewLastAdvance>=5000)showMobileOverviewSlide(mobileOverviewIndex+1,false);
+},250);
 showMobileOverviewSlide(0,false);
 
 /* FORMULÁRIO */
@@ -2134,6 +2136,7 @@ $('saveBudget').addEventListener('click',()=>{
   return;
  }
  renderAnalytics(entries.filter(x=>x.mes===month));
+ renderMobileOverview(entries.filter(x=>x.mes===month));
  toast('Meta mensal salva');
 });
 
