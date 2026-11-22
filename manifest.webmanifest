@@ -1,0 +1,17 @@
+{
+  "name": "Meu dinheiro",
+  "short_name": "Meu dinheiro",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#090e14",
+  "theme_color": "#090e14",
+  "icons": [
+    {
+      "src": "./assets/app-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
