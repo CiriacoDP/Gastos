@@ -118,6 +118,10 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
 .t{font-weight:550;overflow-wrap:anywhere}
 .s{font-size:13px;color:var(--mut);margin-top:2px}
 .row.done .t{color:var(--mut)}
+.row.important{background:color-mix(in srgb,var(--blue) 5%,var(--card))}
+.important-star{color:#f5a623;font-size:16px;margin-left:6px;vertical-align:1px}
+.important-toggle{display:flex;align-items:center;gap:9px;padding:13px 16px;min-height:48px;color:var(--ink);font-size:14px}
+.important-toggle input{width:19px;height:19px;accent-color:var(--blue)}
 .amt{font-weight:650;font-variant-numeric:tabular-nums;white-space:nowrap}
 .empty{padding:42px 20px;text-align:center;color:var(--mut);font-size:15px}
 .empty small{display:block;margin-top:8px;font-size:13px}
@@ -321,6 +325,11 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
     </div>
    </div>
   </div>
+
+  <label class="group important-toggle">
+   <input id="importantFlag" type="checkbox">
+   <span>★ Marcar como importante</span>
+  </label>
 
   <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
  </form>
@@ -531,16 +540,23 @@ async function post(payload){
  }
 }
 
+const IMPORTANT_MARKER='[!IMPORTANTE!]';
+
 function decodeCategory(raw){
- const m=String(raw||'').match(/^\[(Fixa|Variável)\]\s*/);
+ const text=String(raw||'');
+ const important=text.includes(IMPORTANT_MARKER);
+ const clean=text.replace(IMPORTANT_MARKER,'').trim();
+ const m=clean.match(/^\[(Fixa|Variável)\]\s*/);
  return {
+  important,
   nature:m?m[1]:'',
-  description:m?String(raw).replace(m[0],''):String(raw||'')
+  description:m?clean.replace(m[0],''):clean
  };
 }
 
-function encodeCategory(desc,nat,tp){
- return tp==='Entrada'?desc:`[${nat}] ${desc}`;
+function encodeCategory(desc,nat,tp,important){
+ const base=tp==='Entrada'?desc:`[${nat}] ${desc}`;
+ return important?base+' '+IMPORTANT_MARKER:base;
 }
 
 function visible(list){
@@ -572,7 +588,11 @@ function render(){
  $('quickExpense').textContent=money(exp);
  $('quickDue').textContent=money(due);
 
- const list=visible(me);
+ const list=visible(me).slice().sort((a,b)=>{
+  const ai=decodeCategory(a.categoria).important?1:0;
+  const bi=decodeCategory(b.categoria).important?1:0;
+  return bi-ai;
+ });
 
  if(!list.length){
   const msg=!api()
@@ -587,10 +607,11 @@ function render(){
   const inEntry=x.tipo==='Entrada';
   const kind=inEntry?'Entrada':(x.tipo==='Dívida'?'Dívida':c.nature||'Despesa');
   const sub=kind+(x.pago?' · '+(inEntry?'recebida':'paga'):'');
-  return `<li class="row${x.pago?' done':''}" data-id="${safe(x.id)}">
+  const important=decodeCategory(x.categoria).important;
+  return `<li class="row${x.pago?' done':''}${important?' important':''}" data-id="${safe(x.id)}">
    <button type="button" class="check${x.pago?' on':''}" aria-label="${x.pago?'Marcar como pendente':(inEntry?'Marcar como recebida':'Marcar como paga')}"></button>
    <div class="main">
-    <div class="t">${safe(c.description||'Sem descrição')}</div>
+    <div class="t">${safe(c.description||'Sem descrição')}${important?'<span class="important-star" title="Importante">★</span>':''}</div>
     <div class="s">${safe(sub)}</div>
    </div>
    <div class="amt ${inEntry?'pos':''}">${inEntry?'+ ':''}${money(x.valor)}</div>
@@ -653,6 +674,7 @@ function openSheet(item){
  setType(item?(item.tipo||'Gasto'):'Gasto');
  setNature(c&&c.nature?c.nature:'Fixa');
 
+ $('importantFlag').checked=!!(c&&c.important);
  $('deleteBtn').hidden=!item;
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
@@ -694,7 +716,7 @@ $('entryForm').addEventListener('submit',async e=>{
   mes:$('fMonth').value,
   pessoa:old?old.pessoa:'',
   tipo:type,
-  categoria:encodeCategory($('description').value.trim(),nature,type),
+  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked),
   valor:Number($('amount').value),
   pago:old?!!old.pago:false
  };
@@ -773,6 +795,21 @@ $('connectBtn').addEventListener('click',()=>{
 
  message('connectionMessage','Conexão salva neste navegador.');
  load();
+});
+
+// Atualização automática: consulta a planilha a cada 10 segundos, sem interromper edição.
+let pollInFlight=false;
+setInterval(async()=>{
+ if(document.hidden || !$('overlay').hidden || pollInFlight || !api()) return;
+ pollInFlight=true;
+ try{await load()}finally{pollInFlight=false}
+},10000);
+
+document.addEventListener('visibilitychange',()=>{
+ if(!document.hidden && $('overlay').hidden && api() && !pollInFlight){
+  pollInFlight=true;
+  load().finally(()=>{pollInFlight=false});
+ }
 });
 
 load();
