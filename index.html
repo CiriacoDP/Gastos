@@ -784,92 +784,6 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  #transactions .row{min-height:64px}
 }
 
-
-/* Carrossel da Visão geral: somente layouts móveis */
-.mobile-overview-carousel{display:none}
-@media(max-width:979px){
- .mobile-overview-carousel{display:block;margin:0 0 16px;min-width:0}
- #overview .overview-grid,#overview .overview-essentials{display:none!important}
- .mobile-overview-viewport{overflow:hidden;min-width:0;height:auto;transition:height .28s ease}
- .mobile-overview-track{display:flex;align-items:flex-start;width:400%;transform:translateX(0);transition:transform .42s cubic-bezier(.22,.75,.25,1);will-change:transform}
- .mobile-overview-slide{flex:0 0 25%;width:25%;min-width:0;align-self:flex-start;padding:0 1px}
- .mobile-panel{
-  min-width:0;padding:22px 19px;border:1px solid rgba(170,194,220,.14);border-radius:21px;
-  background:radial-gradient(circle at 95% 0%,rgba(70,137,205,.13),transparent 13rem),linear-gradient(145deg,rgba(21,32,46,.99),rgba(15,24,35,.99));
-  box-shadow:0 13px 34px rgba(0,0,0,.2)
- }
- .mobile-panel-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:19px}
- .mobile-panel-heading>div{display:flex;flex-direction:column;gap:5px}
- .mobile-panel-heading h3{margin:0;color:#f0f5fb;font-size:18px;font-weight:780;letter-spacing:-.4px}
- .mobile-panel-tag{padding:6px 9px;border:1px solid var(--sep);border-radius:999px;color:#8fb6e1;font-size:9px;font-weight:800;letter-spacing:.8px}
- .mobile-big-balance{display:block;color:#f7fbff;font-size:clamp(38px,10vw,52px);line-height:1.08;font-weight:850;letter-spacing:-1.7px;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
- .mobile-big-balance.neg{color:#ff9298}
- .mobile-balance-caption{margin:8px 0 22px;color:#9db5ce;font-size:11px;line-height:1.45}
- .mobile-summary-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;padding-top:16px;border-top:1px solid rgba(180,207,236,.16)}
- .mobile-summary-grid>div{display:flex;flex-direction:column;gap:7px;min-width:0}
- .mobile-summary-grid span{font-size:10px;color:#a4b9d0}
- .mobile-summary-grid strong{font-size:clamp(12px,3.2vw,15px);font-weight:780;overflow-wrap:anywhere;font-variant-numeric:tabular-nums}
- .mobile-transactions-button{width:100%;margin-top:20px}
- .mobile-ranking-list{display:grid;gap:14px}
- .mobile-ranking-item-top{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:8px}
- .mobile-ranking-position{width:20px;height:20px;display:grid;place-items:center;border-radius:7px;background:rgba(126,174,225,.1);color:#9bbce0;font-size:10px;font-weight:800}
- .mobile-ranking-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#b6c5d5;font-size:11px;font-weight:650}
- .mobile-ranking-name b{color:#f3bd5b}
- .mobile-ranking-item-top>strong{color:#f0f5fb;font-size:11px;font-weight:760;white-space:nowrap;font-variant-numeric:tabular-nums}
- .mobile-ranking-track{height:5px;margin:7px 0 0 28px;background:rgba(255,255,255,.06);border-radius:20px;overflow:hidden}
- .mobile-ranking-track span{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#4e9df4,#74baff)}
- .mobile-ranking-empty{padding:15px 0;text-align:center;color:#8195aa;font-size:11px}
- .mobile-paid-block{margin-top:22px;padding-top:17px;border-top:1px solid var(--sep)}
- .mobile-inline-heading,.mobile-compare-label{display:flex;align-items:center;justify-content:space-between;gap:10px}
- .mobile-inline-heading{margin-bottom:10px}
- .mobile-inline-heading strong:first-child{font-size:12px;color:#b8c7d7}
- .mobile-inline-heading strong:last-child{font-size:13px;color:#69dcae;font-variant-numeric:tabular-nums}
- .mobile-paid-values{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
- .mobile-paid-values>div{display:flex;flex-direction:column;gap:5px}
- .mobile-paid-values small{font-size:10px;color:#8fa2b7}
- .mobile-paid-values strong{font-size:12px;color:#eff5fb;font-weight:760;font-variant-numeric:tabular-nums}
- .mobile-count-note{margin-top:15px;color:#8fa2b7;font-size:10px}
- .mobile-compare-item+.mobile-compare-item{margin-top:18px}
- .mobile-compare-label{margin-bottom:7px}
- .mobile-compare-label span{font-size:12px;color:#a1b1c2}
- .mobile-compare-label strong{font-size:12px;color:#eff5fb;font-weight:760;font-variant-numeric:tabular-nums}
- .mobile-mini-heading{margin:23px 0 11px;color:#dce8f5;font-size:12px;font-weight:750}
- .mobile-indicators{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:7px}
- .mobile-indicators>div{display:flex;flex-direction:column;gap:7px;min-width:0;padding:10px 6px;border:1px solid rgba(165,190,220,.08);border-radius:11px;background:rgba(255,255,255,.035)}
- .mobile-indicators span{font-size:9px;color:#91a4b8;white-space:nowrap}
- .mobile-indicators strong{font-size:21px;line-height:1;font-weight:820;color:#f0f5fb;font-variant-numeric:tabular-nums}
- .mobile-history-heading{margin-top:22px}
- .mobile-panel .history-legend{display:flex;gap:14px;margin:0 0 9px}
- .mobile-panel .history-legend span{display:flex;align-items:center;gap:6px;font-size:9px;color:#99aabd}
- .mobile-panel .history-legend i{width:7px;height:7px;border-radius:50%;display:inline-block}
- .mobile-monthly-history{height:115px;grid-template-columns:repeat(6,minmax(0,1fr));gap:6px;padding:6px 3px 0}
- .mobile-monthly-history .history-bar{width:10px}
- .mobile-monthly-history .history-month small{font-size:9px}
- .mobile-subpanel{margin-top:13px;padding:15px 13px;border:1px solid rgba(165,190,220,.1);border-radius:14px;background:rgba(5,12,20,.2)}
- .mobile-subpanel:first-of-type{margin-top:0}
- .mobile-subpanel-title{margin-bottom:9px;color:#dce8f5;font-size:12px;font-weight:760}
- .mobile-subpanel-title span{margin-left:4px;color:#8096ad;font-size:9px;font-weight:700}
- .mobile-subpanel .forecast-row{gap:8px}
- .mobile-subpanel .forecast-row span{max-width:70%;font-size:10px}
- .mobile-subpanel .forecast-row strong{font-size:11px}
- .mobile-subpanel .forecast-final{margin-top:10px;padding:10px}
- .mobile-subpanel .forecast-final span{font-size:10px}
- .mobile-subpanel .forecast-final strong{font-size:14px}
- .mobile-subpanel .previous-month-main strong{font-size:27px}
- .mobile-subpanel .previous-month-main span{font-size:10px}
- .mobile-subpanel .previous-month-values{margin-top:10px}
- .mobile-subpanel .previous-month-note{font-size:9px}
- .mobile-overview-controls{display:flex;align-items:center;justify-content:center;gap:10px;margin:13px 0 0;min-height:20px}
- .mobile-overview-dots{display:flex;align-items:center;gap:6px}
- .mobile-overview-dots button{width:7px;height:7px;padding:0;border-radius:50%;background:#536579;transition:width .2s,background .2s}
- .mobile-overview-dots button.active{width:19px;border-radius:8px;background:#70b5ff}
- .mobile-overview-controls>span{color:#a9bfd4;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
- .mobile-overview-controls>small{color:#72869b;font-size:9px}
-}
-@media(prefers-reduced-motion:reduce){
- .mobile-overview-track,.mobile-overview-viewport,.mobile-overview-dots button{transition:none!important}
-}
-
 </style>
 </head>
 <body>
@@ -931,96 +845,6 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <b class="monthLabel"></b>
    <button class="next" aria-label="Próximo mês">›</button>
   </div>
-
-  <section class="mobile-overview-carousel" id="mobileOverviewCarousel" aria-label="Resumo financeiro em cartões">
-   <div class="mobile-overview-viewport" id="mobileOverviewViewport">
-    <div class="mobile-overview-track" id="mobileOverviewTrack">
-     <article class="mobile-overview-slide">
-      <section class="mobile-panel mobile-result-panel">
-       <div class="mobile-panel-heading"><div><span class="eyebrow">SEU RESULTADO</span><h3>Saldo previsto</h3></div><span class="balance-period">MÊS SELECIONADO</span></div>
-       <strong class="mobile-big-balance" id="mobileBalance">R$ 0,00</strong>
-       <p class="mobile-balance-caption" id="mobileBalanceCaption">Considerando todas as entradas e despesas.</p>
-       <div class="mobile-summary-grid">
-        <div><span>Entradas</span><strong class="pos" id="mobileIncomeTotal">R$ 0,00</strong></div>
-        <div><span>Despesas</span><strong id="mobileExpenseTotal">R$ 0,00</strong></div>
-        <div><span>A pagar</span><strong id="mobileDueTotal">R$ 0,00</strong></div>
-       </div>
-       <button class="primary mobile-transactions-button" id="mobileGoTransactions" type="button">Ver lançamentos</button>
-      </section>
-     </article>
-
-     <article class="mobile-overview-slide">
-      <section class="mobile-panel">
-       <div class="mobile-panel-heading"><div><span class="eyebrow">CONTROLE DE GASTOS</span><h3>Despesas do mês</h3></div><span class="mobile-panel-tag">TOP 5</span></div>
-       <div class="mobile-ranking-list" id="mobileExpenseRanking"></div>
-       <div class="mobile-paid-block">
-        <div class="mobile-inline-heading"><strong>Despesas pagas</strong><strong id="mobilePaidPercent">0%</strong></div>
-        <div class="progress-track"><span id="mobilePaidProgress"></span></div>
-        <div class="mobile-paid-values"><div><small>Pago</small><strong id="mobilePaidAmount">R$ 0,00</strong></div><div><small>Pendente</small><strong id="mobilePendingAmount">R$ 0,00</strong></div></div>
-       </div>
-       <div class="mobile-count-note" id="mobileExpenseCount">0 despesas · 0 pendentes</div>
-      </section>
-     </article>
-
-     <article class="mobile-overview-slide">
-      <section class="mobile-panel">
-       <div class="mobile-panel-heading"><div><span class="eyebrow">MOVIMENTAÇÃO</span><h3>Entradas x despesas</h3></div></div>
-       <div class="mobile-compare-item"><div class="mobile-compare-label"><span>Entradas</span><strong id="mobileCompareIncome">R$ 0,00</strong></div><div class="compare-track"><span class="compare-income" id="mobileCompareIncomeBar"></span></div></div>
-       <div class="mobile-compare-item"><div class="mobile-compare-label"><span>Despesas</span><strong id="mobileCompareExpense">R$ 0,00</strong></div><div class="compare-track"><span class="compare-expense" id="mobileCompareExpenseBar"></span></div></div>
-       <div class="mobile-mini-heading">Indicadores rápidos</div>
-       <div class="mobile-indicators">
-        <div><span>Despesas</span><strong id="mobileIndicatorExpenses">0</strong></div>
-        <div><span>Pendentes</span><strong id="mobileIndicatorPending">0</strong></div>
-        <div><span>Importantes</span><strong id="mobileIndicatorImportant">0</strong></div>
-        <div><span>Entradas</span><strong id="mobileIndicatorIncome">0</strong></div>
-       </div>
-       <div class="mobile-mini-heading mobile-history-heading">Evolução dos últimos 6 meses</div>
-       <div class="history-legend"><span><i class="history-income-dot"></i>Entradas</span><span><i class="history-expense-dot"></i>Despesas</span></div>
-       <div class="monthly-history mobile-monthly-history" id="mobileMonthlyHistory"></div>
-      </section>
-     </article>
-
-     <article class="mobile-overview-slide">
-      <section class="mobile-panel">
-       <div class="mobile-panel-heading"><div><span class="eyebrow">ORGANIZAÇÃO FINANCEIRA</span><h3>Planejamento</h3></div></div>
-       <section class="mobile-subpanel">
-        <div class="mobile-subpanel-title">Previsão do saldo</div>
-        <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="mobileForecastAvailable">R$ 0,00</strong></div>
-        <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="mobileForecastPending">R$ 0,00</strong></div>
-        <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="mobileForecastFinal">R$ 0,00</strong></div>
-       </section>
-       <section class="mobile-subpanel">
-        <div class="mobile-subpanel-title">Meta de despesas do mês</div>
-        <label class="budget-input-label" for="mobileBudgetInput">Limite que deseja gastar</label>
-        <div class="budget-input-row"><span>R$</span><input id="mobileBudgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="mobileSaveBudget" type="button">Salvar</button></div>
-        <div class="budget-progress-track"><span id="mobileBudgetProgress"></span></div>
-        <div class="budget-feedback" id="mobileBudgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
-        <small class="budget-local-note">Meta salva neste dispositivo.</small>
-       </section>
-       <section class="mobile-subpanel">
-        <div class="mobile-subpanel-title">Comparação com o mês anterior <span id="mobilePreviousMonthName"></span></div>
-        <div class="previous-month-main"><strong id="mobileExpenseChange">—</strong><span id="mobileExpenseChangeLabel">Comparando despesas</span></div>
-        <div class="previous-month-values">
-         <div><small>Mês atual</small><strong id="mobileCurrentMonthExpense">R$ 0,00</strong></div>
-         <div><small>Mês anterior</small><strong id="mobilePreviousMonthExpense">Aguardando dados</strong></div>
-        </div>
-        <p class="previous-month-note" id="mobilePreviousMonthNote">A comparação usa os dados do mês anterior.</p>
-       </section>
-      </section>
-     </article>
-    </div>
-   </div>
-   <div class="mobile-overview-controls">
-    <div class="mobile-overview-dots" id="mobileOverviewDots" aria-label="Escolher painel">
-     <button type="button" class="active" data-mobile-slide="0" aria-label="Painel 1"></button>
-     <button type="button" data-mobile-slide="1" aria-label="Painel 2"></button>
-     <button type="button" data-mobile-slide="2" aria-label="Painel 3"></button>
-     <button type="button" data-mobile-slide="3" aria-label="Painel 4"></button>
-    </div>
-    <span id="mobileOverviewPosition">1 de 4</span>
-    <small>Deslize para navegar</small>
-   </div>
-  </section>
 
   <div class="overview-grid">
    <section class="card summary">
@@ -1650,120 +1474,6 @@ function renderAnalytics(monthEntries){
  $('monthlyHistory').setAttribute('aria-label',historyRows.some(x=>!x.available)?'Histórico parcial; meses anteriores estão sendo carregados':'Evolução de entradas e despesas dos últimos seis meses');
 }
 
-
-function renderMobileOverview(monthEntries){
- const expenses=monthEntries.filter(x=>x.tipo!=='Entrada');
- const incomes=monthEntries.filter(x=>x.tipo==='Entrada');
- const expenseTotal=sum(expenses);
- const incomeTotal=sum(incomes);
- const paid=expenses.filter(x=>x.pago);
- const pending=expenses.filter(x=>!x.pago);
- const paidTotal=sum(paid);
- const pendingTotal=sum(pending);
- const balance=incomeTotal-expenseTotal;
- const pct=expenseTotal>0?Math.round(paidTotal/expenseTotal*100):0;
-
- $('mobileBalance').textContent=money(balance);
- $('mobileBalance').className='mobile-big-balance'+(balance<0?' neg':'');
- $('mobileBalanceCaption').textContent=balance>0?'Você tem um saldo positivo neste mês.':(balance<0?'As despesas superam as entradas neste mês.':'Entradas e despesas estão equilibradas.');
- $('mobileIncomeTotal').textContent=money(incomeTotal);
- $('mobileExpenseTotal').textContent=money(expenseTotal);
- $('mobileDueTotal').textContent=money(pendingTotal);
-
- const top=expenses.slice().sort((a,b)=>Number(b.valor||0)-Number(a.valor||0)).slice(0,5);
- const maxTop=top.length?Math.max(...top.map(x=>Number(x.valor||0))):0;
- $('mobileExpenseRanking').innerHTML=top.length?top.map((item,index)=>{
-  const info=decodeCategory(item.categoria);
-  const width=maxTop?Number(item.valor||0)/maxTop*100:0;
-  return `<div class="mobile-ranking-item">
-   <div class="mobile-ranking-item-top"><span class="mobile-ranking-position">${index+1}</span><span class="mobile-ranking-name">${safe(info.description||'Sem descrição')}${info.important?' <b>★</b>':''}</span><strong>${money(item.valor)}</strong></div>
-   <div class="mobile-ranking-track"><span style="width:${width.toFixed(1)}%"></span></div>
-  </div>`;
- }).join(''):'<div class="mobile-ranking-empty">Nenhuma despesa neste mês.</div>';
- $('mobilePaidPercent').textContent=pct+'%';
- $('mobilePaidProgress').style.width=pct+'%';
- $('mobilePaidAmount').textContent=money(paidTotal);
- $('mobilePendingAmount').textContent=money(pendingTotal);
- $('mobileExpenseCount').textContent=expenses.length+' despesas · '+pending.length+' pendentes';
-
- const compareMax=Math.max(incomeTotal,expenseTotal,1);
- $('mobileCompareIncome').textContent=money(incomeTotal);
- $('mobileCompareExpense').textContent=money(expenseTotal);
- $('mobileCompareIncomeBar').style.width=(incomeTotal/compareMax*100)+'%';
- $('mobileCompareExpenseBar').style.width=(expenseTotal/compareMax*100)+'%';
- $('mobileIndicatorExpenses').textContent=expenses.length;
- $('mobileIndicatorPending').textContent=pending.length;
- $('mobileIndicatorImportant').textContent=monthEntries.filter(x=>decodeCategory(x.categoria).important).length;
- $('mobileIndicatorIncome').textContent=incomes.length;
-
- const historyKeys=Array.from({length:6},(_,i)=>monthOffset(month,i-5));
- const historyRows=historyKeys.map(key=>{
-  const rows=key===month?monthEntries:analyticsHistory.get(key);
-  const available=Array.isArray(rows);
-  return {key,available,income:available?sum(rows.filter(x=>x.tipo==='Entrada')):0,expense:available?sum(rows.filter(x=>x.tipo!=='Entrada')):0};
- });
- const maxHistory=Math.max(1,...historyRows.flatMap(x=>[x.income,x.expense]));
- $('mobileMonthlyHistory').innerHTML=historyRows.map(item=>{
-  const ih=item.available?Math.max(item.income?4:0,item.income/maxHistory*100):0;
-  const eh=item.available?Math.max(item.expense?4:0,item.expense/maxHistory*100):0;
-  return `<div class="history-month${item.key===month?' current':''}" title="${monthLabel(item.key)} · Entradas: ${money(item.income)} · Despesas: ${money(item.expense)}">
-   <div class="history-bars"><span class="history-bar income" style="height:${ih.toFixed(1)}%"></span><span class="history-bar expense" style="height:${eh.toFixed(1)}%"></span></div>
-   <small>${safe(monthShort(item.key))}</small>
-  </div>`;
- }).join('');
-
- const receivedIncome=sum(incomes.filter(x=>x.pago));
- const paidExpenses=sum(paid);
- const projectedBalance=incomeTotal-expenseTotal;
- $('mobileForecastAvailable').textContent=money(receivedIncome-paidExpenses);
- $('mobileForecastPending').textContent=money(pendingTotal);
- $('mobileForecastFinal').textContent=money(projectedBalance);
- $('mobileForecastFinal').className=projectedBalance<0?'negative-value':'positive-value';
-
- const budget=getMonthlyBudget(month);
- if(document.activeElement!==$('mobileBudgetInput'))$('mobileBudgetInput').value=budget>0?budget:'';
- const budgetPct=budget>0?expenseTotal/budget*100:0;
- $('mobileBudgetProgress').style.width=Math.min(100,budgetPct)+'%';
- $('mobileBudgetProgress').className=budgetPct>100?'over-budget':'';
- if(budget>0){
-  const remaining=budget-expenseTotal;
-  $('mobileBudgetFeedback').textContent=remaining>=0?'Restam '+money(remaining)+' da sua meta ('+Math.min(100,Math.round(budgetPct))+'% utilizado).':'Você ultrapassou a meta em '+money(Math.abs(remaining))+'.';
-  $('mobileBudgetFeedback').className='budget-feedback '+(remaining>=0?'within-budget':'over-budget-text');
- }else{
-  $('mobileBudgetFeedback').textContent='Defina uma meta para acompanhar seus gastos.';
-  $('mobileBudgetFeedback').className='budget-feedback';
- }
-
- const previousKey=monthOffset(month,-1);
- const previousRows=analyticsHistory.get(previousKey);
- $('mobilePreviousMonthName').textContent=monthShort(previousKey).toUpperCase()+' '+previousKey.slice(0,4);
- $('mobileCurrentMonthExpense').textContent=money(expenseTotal);
- if(Array.isArray(previousRows)){
-  const previousExpense=sum(previousRows.filter(x=>x.tipo!=='Entrada'));
-  $('mobilePreviousMonthExpense').textContent=money(previousExpense);
-  if(previousExpense>0){
-   const change=(expenseTotal-previousExpense)/previousExpense*100;
-   const rounded=Math.abs(change).toFixed(1).replace('.',',');
-   $('mobileExpenseChange').textContent=(change>0?'+':'')+rounded+'%';
-   $('mobileExpenseChange').className=change>0?'change-up':(change<0?'change-down':'change-neutral');
-   $('mobileExpenseChangeLabel').textContent=change>0?'Despesas aumentaram':(change<0?'Despesas diminuíram':'Despesas sem alteração');
-   $('mobilePreviousMonthNote').textContent=change>0?'Você gastou mais que no mês anterior.':(change<0?'Você gastou menos que no mês anterior.':'Você gastou o mesmo que no mês anterior.');
-  }else{
-   $('mobileExpenseChange').textContent='—';
-   $('mobileExpenseChange').className='change-neutral';
-   $('mobileExpenseChangeLabel').textContent='Sem base de comparação';
-   $('mobilePreviousMonthNote').textContent=expenseTotal>0?'Não houve despesas no mês anterior.':'Nenhuma despesa nos dois meses.';
-  }
- }else{
-  $('mobilePreviousMonthExpense').textContent='Indisponível';
-  $('mobileExpenseChange').textContent='—';
-  $('mobileExpenseChange').className='change-neutral';
-  $('mobileExpenseChangeLabel').textContent='Histórico não carregado';
-  $('mobilePreviousMonthNote').textContent='Não foi possível consultar o mês anterior.';
- }
- updateMobileCarouselHeight();
-}
-
 function render(){
  document.querySelectorAll('.monthLabel').forEach(el=>el.textContent=monthLabel(month));
 
@@ -1785,7 +1495,6 @@ function render(){
  $('quickExpense').textContent=money(exp);
  $('quickDue').textContent=money(due);
  renderAnalytics(me);
- renderMobileOverview(me);
 
  const list=visible(me).slice().reverse().sort((a,b)=>{
   const ai=decodeCategory(a.categoria).important?1:0;
@@ -1851,65 +1560,6 @@ document.querySelectorAll('.prev').forEach(btn=>{
 document.querySelectorAll('.next').forEach(btn=>{
  btn.addEventListener('click',()=>shiftMonth(1));
 });
-
-
-/* Carrossel da Visão geral no celular: troca automática e gesto lateral */
-let mobileOverviewIndex=0;
-let mobileOverviewTouchStart=null;
-function mobileOverviewSlides(){
- return [...document.querySelectorAll('#mobileOverviewTrack .mobile-overview-slide')];
-}
-function updateMobileCarouselHeight(){
- const viewport=$('mobileOverviewViewport');
- const slides=mobileOverviewSlides();
- if(!viewport||!slides.length||!window.matchMedia('(max-width: 979px)').matches)return;
- requestAnimationFrame(()=>{
-  const slide=slides[mobileOverviewIndex];
-  if(slide)viewport.style.height=slide.offsetHeight+'px';
- });
-}
-function showMobileOverviewSlide(index,manual=false){
- const dots=[...document.querySelectorAll('#mobileOverviewDots button')];
- const slides=mobileOverviewSlides();
- if(!slides.length)return;
- mobileOverviewIndex=(index+slides.length)%slides.length;
- $('mobileOverviewTrack').style.transform='translateX(-'+(mobileOverviewIndex*25)+'%)';
- dots.forEach((dot,i)=>{
-  dot.classList.toggle('active',i===mobileOverviewIndex);
-  dot.setAttribute('aria-pressed',i===mobileOverviewIndex?'true':'false');
- });
- $('mobileOverviewPosition').textContent=(mobileOverviewIndex+1)+' de '+slides.length;
- updateMobileCarouselHeight();
- mobileOverviewLastAdvance=Date.now();
-}
-let mobileOverviewLastAdvance=Date.now();
-$('mobileOverviewDots').addEventListener('click',e=>{
- const dot=e.target.closest('[data-mobile-slide]');
- if(dot)showMobileOverviewSlide(Number(dot.dataset.mobileSlide),true);
-});
-$('mobileOverviewViewport').addEventListener('touchstart',e=>{
- if(e.touches.length===1)mobileOverviewTouchStart={x:e.touches[0].clientX,y:e.touches[0].clientY};
-},{passive:true});
-$('mobileOverviewViewport').addEventListener('touchend',e=>{
- if(!mobileOverviewTouchStart||!e.changedTouches.length)return;
- const dx=e.changedTouches[0].clientX-mobileOverviewTouchStart.x;
- const dy=e.changedTouches[0].clientY-mobileOverviewTouchStart.y;
- mobileOverviewTouchStart=null;
- if(Math.abs(dx)>42&&Math.abs(dx)>Math.abs(dy)*1.2){
-  showMobileOverviewSlide(mobileOverviewIndex+(dx<0?1:-1),true);
- }
-},{passive:true});
-$('mobileGoTransactions').addEventListener('click',()=>switchView('transactions'));
-window.addEventListener('resize',updateMobileCarouselHeight);
-setInterval(()=>{
- if(!window.matchMedia('(max-width: 979px)').matches)return;
- if(document.hidden||!$('overview').classList.contains('active')||!$('overlay').hidden){
-  mobileOverviewLastAdvance=Date.now();
-  return;
- }
- if(Date.now()-mobileOverviewLastAdvance>=5000)showMobileOverviewSlide(mobileOverviewIndex+1,false);
-},250);
-showMobileOverviewSlide(0,false);
 
 /* FORMULÁRIO */
 function setType(t){
@@ -2107,23 +1757,6 @@ $('filters').addEventListener('click',e=>{
 
 $('refreshBtn').addEventListener('click',load);
 
-
-$('mobileSaveBudget').addEventListener('click',()=>{
- const target=Number($('mobileBudgetInput').value);
- if(!(target>0)){
-  toast('Informe uma meta maior que zero.',true);
-  $('mobileBudgetInput').focus();
-  return;
- }
- if(!saveMonthlyBudget(month,target)){
-  toast('Não consegui salvar a meta neste dispositivo.',true);
-  return;
- }
- renderAnalytics(entries.filter(x=>x.mes===month));
- renderMobileOverview(entries.filter(x=>x.mes===month));
- toast('Meta mensal salva');
-});
-
 $('saveBudget').addEventListener('click',()=>{
  const target=Number($('budgetInput').value);
  if(!(target>0)){
@@ -2136,7 +1769,6 @@ $('saveBudget').addEventListener('click',()=>{
   return;
  }
  renderAnalytics(entries.filter(x=>x.mes===month));
- renderMobileOverview(entries.filter(x=>x.mes===month));
  toast('Meta mensal salva');
 });
 
