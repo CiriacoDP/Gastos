@@ -934,6 +934,42 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 @media(min-width:980px){
  .header-actions #refreshBtn{display:none!important}
 }
+
+/* Calendário translúcido no cartão de saldo */
+.balance-period{
+ display:flex;align-items:center;gap:10px;min-width:190px;
+ padding:8px 12px;border-radius:15px;
+ border:1px solid rgba(178,211,244,.2);
+ background:linear-gradient(135deg,rgba(202,226,250,.105),rgba(148,185,225,.035));
+ box-shadow:inset 0 1px 0 rgba(255,255,255,.08),0 6px 20px rgba(0,0,0,.10);
+ -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);
+ letter-spacing:normal;white-space:normal;
+}
+.calendar-mark{
+ display:grid;place-items:center;flex:0 0 35px;width:35px;height:35px;
+ border-radius:10px;color:#a8d0fa;
+ background:rgba(149,194,239,.10);
+ border:1px solid rgba(177,211,246,.15);
+ box-shadow:inset 0 1px rgba(255,255,255,.07);
+}
+.calendar-mark svg{display:block;width:20px;height:20px}
+.balance-period-text{display:flex;flex-direction:column;gap:3px;min-width:0}
+.balance-period-text small{
+ color:#91b5da;font-size:8px;font-weight:800;
+ letter-spacing:1px;line-height:1.2;
+}
+.balance-period-text strong{
+ color:#e5f1ff;font-size:11px;font-weight:750;
+ letter-spacing:.1px;line-height:1.25;white-space:nowrap;
+}
+@media(max-width:600px){
+ .balance-period{min-width:0;padding:6px 8px;gap:7px;border-radius:12px}
+ .calendar-mark{flex-basis:30px;width:30px;height:31px;border-radius:8px}
+ .calendar-mark svg{width:18px;height:18px}
+ .balance-period-text small{font-size:7px;letter-spacing:.7px}
+ .balance-period-text strong{font-size:9px}
+}
+
 </style>
 </head>
 <body>
@@ -1000,7 +1036,23 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <section class="card summary">
     <div class="summary-topline">
      <div><span class="eyebrow">SEU RESULTADO</span><small>Saldo previsto</small></div>
-     <span class="balance-period">MÊS SELECIONADO</span>
+     <div class="balance-period" aria-label="Mês selecionado">
+     <span class="calendar-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+       <rect x="3.5" y="5.5" width="17" height="15" rx="3" stroke="currentColor" stroke-width="1.5"/>
+       <path d="M7.5 3.5v4M16.5 3.5v4M3.8 9.5h16.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+       <rect x="7" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor"/>
+       <rect x="11" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".65"/>
+       <rect x="15" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="7" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="11" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+      </svg>
+     </span>
+     <span class="balance-period-text">
+      <small>MÊS SELECIONADO</small>
+      <strong class="monthLabel"></strong>
+     </span>
+    </div>
     </div>
     <strong id="balance">R$ 0,00</strong>
     <div class="balance-caption" id="balanceCaption">Considerando todas as entradas e despesas</div>
