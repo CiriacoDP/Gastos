@@ -2098,21 +2098,21 @@ async function checkForAppUpdate(){
  appUpdateCheckRunning=true;
  try{
   const cacheKey=Date.now().toString();
-  const [versionResponse,htmlResponse]=await Promise.all([
-   fetch('./version.json?check='+cacheKey,{cache:'no-store'}),
-   fetch('./index.html?check='+cacheKey,{cache:'no-store'})
-  ]);
-  if(!versionResponse.ok||!htmlResponse.ok)return;
+  const versionResponse=await fetch('./version.json?check='+cacheKey,{cache:'no-store'});
+  if(!versionResponse.ok)return;
   const release=await versionResponse.json();
   if(!release||release.ready!==true||!validAppVersion(release.version))return;
+  if(compareAppVersions(release.version,APP_VERSION)<=0)return;
+  if(appUpdateDismissedVersion===release.version)return;
+  // Baixa o HTML somente quando o manifesto anunciar uma versão acima da atual.
+  const htmlResponse=await fetch('./index.html?check='+cacheKey,{cache:'no-store'});
+  if(!htmlResponse.ok)return;
   const publishedHtml=await htmlResponse.text();
   const versionMetaTag=publishedHtml.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'';
   const publishedMeta=versionMetaTag.match(/content=["']([^"']+)["']/i);
   const deployedVersion=publishedMeta?.[1]||'';
   // O aviso só é liberado quando o manifesto e o HTML do próprio Pages coincidem.
   if(deployedVersion!==release.version)return;
-  if(compareAppVersions(release.version,APP_VERSION)<=0)return;
-  if(appUpdateDismissedVersion===release.version)return;
   if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
   showAppUpdate(release);
  }catch(error){
