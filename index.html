@@ -1280,7 +1280,54 @@ body.privacy-mode #incomeReceivedTotal,
 body.privacy-mode #incomePendingTotal,
 body.privacy-mode #incomeVisibleTotal,
 body.privacy-mode #list .amt,
-body.privacy-mode #incomeList .amt{color:transparent!important;-webkit-text-fill-color:transparent!important}
+body.privacy-mode #incomeList .amt{
+ position:relative!important;
+ color:transparent!important;
+ -webkit-text-fill-color:transparent!important;
+ text-shadow:none!important;
+ user-select:none!important;
+}
+body.privacy-mode #balance::after,
+body.privacy-mode #incomeTotal::after,
+body.privacy-mode #expenseTotal::after,
+body.privacy-mode #dueTotal::after,
+body.privacy-mode #quickIncome::after,
+body.privacy-mode #quickExpense::after,
+body.privacy-mode #quickDue::after,
+body.privacy-mode #forecastAvailable::after,
+body.privacy-mode #forecastPending::after,
+body.privacy-mode #forecastFinal::after,
+body.privacy-mode #budgetFeedback::after,
+body.privacy-mode #expenseChange::after,
+body.privacy-mode #currentMonthExpense::after,
+body.privacy-mode #previousMonthExpense::after,
+body.privacy-mode #expenseRanking .ranking-item-top>strong::after,
+body.privacy-mode #paidPercent::after,
+body.privacy-mode #paidAmount::after,
+body.privacy-mode #pendingAmount::after,
+body.privacy-mode #compareIncome::after,
+body.privacy-mode #compareExpense::after,
+body.privacy-mode #incomeMonthTotal::after,
+body.privacy-mode #incomeReceivedTotal::after,
+body.privacy-mode #incomePendingTotal::after,
+body.privacy-mode #incomeVisibleTotal::after,
+body.privacy-mode #list .amt::after,
+body.privacy-mode #incomeList .amt::after{
+ content:"••••••";
+ position:absolute;
+ inset:0;
+ display:flex;
+ align-items:center;
+ justify-content:flex-end;
+ color:#9aacc0!important;
+ -webkit-text-fill-color:#9aacc0!important;
+ text-shadow:none!important;
+ font-size:.86em;
+ font-weight:750;
+ letter-spacing:2px;
+ pointer-events:none;
+}
+body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
 
 </style>
 </head>
