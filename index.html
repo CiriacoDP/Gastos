@@ -1205,6 +1205,83 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  }
 }
 
+
+/* Modo de privacidade: mascara valores monetários sem alterar os dados */
+.privacy-toggle svg{display:block;width:20px;height:20px}
+.privacy-toggle .eye-closed{display:none}
+.privacy-toggle.active{
+ background:rgba(55,126,205,.2);
+ border-color:rgba(112,180,246,.27);
+ color:#9bcaff;
+}
+body.privacy-mode .privacy-toggle .eye-open{display:none}
+body.privacy-mode .privacy-toggle .eye-closed{display:block}
+body.privacy-mode .privacy-value{
+ position:relative!important;
+ color:transparent!important;
+ -webkit-text-fill-color:transparent!important;
+ text-shadow:none!important;
+ caret-color:transparent!important;
+ user-select:none!important;
+}
+body.privacy-mode .privacy-value::after{
+ content:"••••••";
+ position:absolute;
+ inset:0;
+ display:flex;
+ align-items:center;
+ justify-content:flex-end;
+ color:#9aacc0!important;
+ -webkit-text-fill-color:#9aacc0!important;
+ font-size:.86em;
+ font-weight:750;
+ letter-spacing:2px;
+ pointer-events:none;
+}
+body.privacy-mode #budgetFeedback::after{justify-content:flex-start}
+body.privacy-mode #monthlyHistory .history-bars{visibility:hidden!important}
+body.privacy-mode .progress-track span,
+body.privacy-mode .compare-track span,
+body.privacy-mode .ranking-track span,
+body.privacy-mode .budget-progress-track span{visibility:hidden!important}
+body.privacy-mode #amount,
+body.privacy-mode #budgetInput{
+ color:transparent!important;
+ -webkit-text-fill-color:transparent!important;
+ caret-color:transparent!important;
+ text-shadow:none!important;
+}
+@media(max-width:979px){
+ .privacy-toggle{margin-right:1px}
+}
+
+body.privacy-mode #balance,
+body.privacy-mode #incomeTotal,
+body.privacy-mode #expenseTotal,
+body.privacy-mode #dueTotal,
+body.privacy-mode #quickIncome,
+body.privacy-mode #quickExpense,
+body.privacy-mode #quickDue,
+body.privacy-mode #forecastAvailable,
+body.privacy-mode #forecastPending,
+body.privacy-mode #forecastFinal,
+body.privacy-mode #budgetFeedback,
+body.privacy-mode #expenseChange,
+body.privacy-mode #currentMonthExpense,
+body.privacy-mode #previousMonthExpense,
+body.privacy-mode #expenseRanking .ranking-item-top>strong,
+body.privacy-mode #paidPercent,
+body.privacy-mode #paidAmount,
+body.privacy-mode #pendingAmount,
+body.privacy-mode #compareIncome,
+body.privacy-mode #compareExpense,
+body.privacy-mode #incomeMonthTotal,
+body.privacy-mode #incomeReceivedTotal,
+body.privacy-mode #incomePendingTotal,
+body.privacy-mode #incomeVisibleTotal,
+body.privacy-mode #list .amt,
+body.privacy-mode #incomeList .amt{color:transparent!important;-webkit-text-fill-color:transparent!important}
+
 </style>
 </head>
 <body>
@@ -1239,7 +1316,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.1.1</small>
+  <small class="sidebar-app-version">Versão 1.2.0</small>
  </div>
 </aside>
 
@@ -1253,6 +1330,10 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    </div>
   </div>
   <div class="header-actions">
+   <button class="icon privacy-toggle" id="privacyToggle" type="button" aria-label="Ocultar saldos e gastos" title="Ocultar saldos e gastos" aria-pressed="false">
+    <svg class="eye-open" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.7"/></svg>
+    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3l18 18M10.6 10.7a2 2 0 0 0 2.7 2.7M9.9 5.3A10.8 10.8 0 0 1 12 5c6.1 0 9.5 7 9.5 7a15.5 15.5 0 0 1-3.1 3.8M6.2 6.3C3.8 7.9 2.5 12 2.5 12s3.4 7 9.5 7a9.8 9.8 0 0 0 3-.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </button>
    <button class="icon" id="refreshBtn" aria-label="Atualizar">↻</button>
   </div>
  </div>
@@ -1602,6 +1683,8 @@ const STORAGE_KEY='gastos2026_appweb_url_v1';
 const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
 let entries=[],editingId=null,editingSnapshot=null,pendingDelete=false,filter='all',detailFilter='all',type='Gasto',nature='Fixa',monthExists=true;
 let quickEntryType='Gasto',quickEntryActive=false;
+let privacyMode=false;
+const PRIVACY_STORAGE_KEY='gastos2026_privacy_mode_v1';
 let analyticsHistory=new Map();
 let analyticsHistoryBase='';
 let analyticsHistoryFetchedAt=0;
@@ -1746,6 +1829,44 @@ function toast(t,err=false){
 }
 
 function api(){return ($('apiUrl').value||stored||'').trim()}
+
+function syncPrivacyHistoryTitles(){
+ document.querySelectorAll('#monthlyHistory .history-month').forEach(el=>{
+  if(privacyMode){
+   if(el.hasAttribute('title')){
+    el.dataset.privacyTitle=el.getAttribute('title');
+    el.removeAttribute('title');
+   }
+  }else if(el.dataset.privacyTitle){
+   el.setAttribute('title',el.dataset.privacyTitle);
+   delete el.dataset.privacyTitle;
+  }
+ });
+}
+
+function setPrivacyMode(hidden,persist=true){
+ privacyMode=!!hidden;
+ document.body.classList.toggle('privacy-mode',privacyMode);
+ const button=$('privacyToggle');
+ if(button){
+  button.classList.toggle('active',privacyMode);
+  button.setAttribute('aria-pressed',String(privacyMode));
+  button.setAttribute('aria-label',privacyMode?'Mostrar saldos e gastos':'Ocultar saldos e gastos');
+  button.title=privacyMode?'Mostrar saldos e gastos':'Ocultar saldos e gastos';
+ }
+ syncPrivacyHistoryTitles();
+ if(persist){
+  try{localStorage.setItem(PRIVACY_STORAGE_KEY,privacyMode?'1':'0')}catch(error){}
+ }
+}
+
+function initPrivacyMode(){
+ let saved=false;
+ try{saved=localStorage.getItem(PRIVACY_STORAGE_KEY)==='1'}catch(error){}
+ setPrivacyMode(saved,false);
+}
+
+$('privacyToggle').addEventListener('click',()=>setPrivacyMode(!privacyMode));
 
 function showBanner(t,cfg){
  const b=$('banner');
@@ -2386,6 +2507,7 @@ function renderAnalytics(monthEntries){
   </div>`;
  }).join('');
  $('monthlyHistory').setAttribute('aria-label',historyRows.some(x=>!x.available)?'Histórico parcial; meses anteriores estão sendo carregados':'Evolução de entradas e despesas dos últimos seis meses');
+ syncPrivacyHistoryTitles();
 }
 
 function render(){
@@ -3212,6 +3334,7 @@ setInterval(async()=>{
 },AUTO_SYNC_INTERVAL);
 
 // Não há sincronização automática ao trocar de aba ou voltar ao aplicativo.
+initPrivacyMode();
 if(!loadCachedMonth(month))render();
 load();
 </script>
