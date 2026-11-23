@@ -2172,7 +2172,8 @@ async function checkForAppUpdate(){
   const workerResponse=await fetch('./sw.js?check='+cacheKey,{cache:'no-store'});
   if(!workerResponse.ok)return;
   const workerSource=await workerResponse.text();
-  const workerVersionMatch=workerSource.match(/const APP_VERSION\\s*=\\s*["']([^"']+)["']/);
+  const workerVersionLine=workerSource.match(/const APP_VERSION[^;]*;/)?.[0]||'';
+  const workerVersionMatch=workerVersionLine.match(/["']([^"']+)["']/);
   if(workerVersionMatch?.[1]!==release.version)return;
   // O aviso só é liberado quando manifesto, HTML e Service Worker coincidem.
   if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
