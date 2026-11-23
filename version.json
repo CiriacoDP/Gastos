@@ -1,6 +1,6 @@
 {
-  "version": "1.5.0",
+  "version": "1.5.1",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Configurações simplificadas: removido backup e restauração e adicionada verificação manual de atualizações, inclusive após escolher Depois."
+  "notes": "Ajusta as proporções do cartão Resumo do mês no celular, reduzindo os espaços sem comprometer a leitura."
 }
