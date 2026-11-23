@@ -1490,6 +1490,30 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  .update-card-copy h2{font-size:21px}
 }
 
+
+/* Confirma a ativação do novo Service Worker antes de concluir a atualização */
+.update-installing-overlay{
+ position:fixed;inset:0;z-index:320;
+ display:flex;align-items:center;justify-content:center;padding:22px;
+ background:rgba(3,8,14,.88);
+ -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);
+}
+.update-installing-overlay[hidden]{display:none!important}
+.update-installing-card{
+ width:min(100%,350px);padding:28px 24px;text-align:center;
+ border:1px solid rgba(147,184,222,.2);border-radius:22px;
+ background:linear-gradient(155deg,#172638,#101a27);
+ box-shadow:0 24px 70px rgba(0,0,0,.42);color:#f1f6fc;
+}
+.update-installing-spinner{
+ display:block;width:34px;height:34px;margin:0 auto 17px;
+ border:3px solid rgba(132,185,240,.18);border-top-color:#76baff;
+ border-radius:50%;animation:update-spin .8s linear infinite;
+}
+@keyframes update-spin{to{transform:rotate(360deg)}}
+.update-installing-card strong{display:block;font-size:16px;font-weight:800}
+.update-installing-card p{margin:8px 0 0;color:#9fb2c7;font-size:12px;line-height:1.5}
+
 </style>
 </head>
 <body>
@@ -1884,6 +1908,14 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  </form>
 </div>
 
+<div class="update-installing-overlay" id="updateInstallingOverlay" hidden>
+ <div class="update-installing-card">
+  <span class="update-installing-spinner" aria-hidden="true"></span>
+  <strong>Finalizando atualização</strong>
+  <p>Preparando a nova versão para as próximas aberturas do aplicativo.</p>
+ </div>
+</div>
+
 <div class="update-overlay" id="updateOverlay" hidden>
  <section class="update-card" role="dialog" aria-modal="true" aria-labelledby="updateTitle" aria-describedby="updateDescription">
   <div class="update-card-top">
@@ -2134,7 +2166,7 @@ function initAppServiceWorker(){
 
    requestWorkerUpdate();
    if(!appServiceWorkerRefreshTimer){
-    appServiceWorkerRefreshTimer=setInterval(requestWorkerUpdate,10*60*1000);
+    appServiceWorkerRefreshTimer=setInterval(requestWorkerUpdate,2*60*1000);
     document.addEventListener('visibilitychange',requestWorkerUpdate);
     window.addEventListener('focus',requestWorkerUpdate);
    }
@@ -2146,6 +2178,48 @@ function initAppServiceWorker(){
   }
  })();
  return appServiceWorkerPromise;
+}
+
+
+function askServiceWorkerVersion(worker){
+ return new Promise(resolve=>{
+  if(!worker||typeof MessageChannel==='undefined'){resolve('');return;}
+  let finished=false;
+  const channel=new MessageChannel();
+  const finish=value=>{
+   if(finished)return;
+   finished=true;
+   clearTimeout(timer);
+   try{channel.port1.close();channel.port2.close()}catch(error){}
+   resolve(value||'');
+  };
+  const timer=setTimeout(()=>finish(''),700);
+  channel.port1.onmessage=event=>finish(event.data?.version||'');
+  try{worker.postMessage('GET_APP_VERSION',[channel.port2])}
+  catch(error){finish('')}
+ });
+}
+
+async function waitForAppServiceWorker(registration,maxWait=15000){
+ if(!registration||!navigator.serviceWorker)return false;
+ const deadline=Date.now()+maxWait;
+ while(Date.now()<deadline){
+  const active=registration.active||navigator.serviceWorker.controller;
+  const activeVersion=await askServiceWorkerVersion(active);
+  if(activeVersion===APP_VERSION)return true;
+  await new Promise(resolve=>setTimeout(resolve,300));
+ }
+ return false;
+}
+
+function clearAppUpdateHandoff(){
+ try{
+  const currentUrl=new URL(window.location.href);
+  if(currentUrl.searchParams.has('_app_update')){
+   currentUrl.searchParams.delete('_app_update');
+   window.history.replaceState(null,'',currentUrl.toString());
+  }
+ }catch(error){}
 }
 
 async function checkForAppUpdate(){
@@ -2187,15 +2261,27 @@ async function checkForAppUpdate(){
 
 function initAppUpdateChecker(){
  appUpdateDismissedVersion='';
- initAppServiceWorker();
- // Remove apenas o parâmetro de cache usado no recarregamento; preserva os demais parâmetros.
- try{
-  const currentUrl=new URL(window.location.href);
-  if(currentUrl.searchParams.has('_app_update')){
-   currentUrl.searchParams.delete('_app_update');
-   window.history.replaceState(null,'',currentUrl.toString());
-  }
- }catch(error){}
+ const updateHandoff=new URL(window.location.href).searchParams.has('_app_update');
+ const serviceWorkerReady=initAppServiceWorker();
+
+ if(updateHandoff){
+  $('updateInstallingOverlay').hidden=false;
+  Promise.resolve(serviceWorkerReady).then(registration=>
+   waitForAppServiceWorker(registration,15000)
+  ).then(ready=>{
+   $('updateInstallingOverlay').hidden=true;
+   clearAppUpdateHandoff();
+   if(ready)toast('Atualização instalada e pronta.');
+   else toast('A versão nova abriu. A instalação do cache será tentada novamente quando a conexão estiver estável.',true);
+  }).catch(()=>{
+   $('updateInstallingOverlay').hidden=true;
+   clearAppUpdateHandoff();
+   toast('A versão nova abriu, mas não foi possível confirmar o cache local.',true);
+  });
+ }else{
+  clearAppUpdateHandoff();
+ }
+
  $('updateNowBtn').addEventListener('click',()=>{
   if(!appUpdatePending)return;
   $('updateNowBtn').disabled=true;
