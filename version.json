@@ -1,6 +1,6 @@
 {
-  "version": "1.3.1",
+  "version": "1.4.0",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Alinhamento do botão de privacidade no cabeçalho."
+  "notes": "Atualização mais confiável no iPhone, com cache versionado, carregamento pela rede e proteção contra retorno a uma versão antiga."
 }
