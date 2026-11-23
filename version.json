@@ -1,6 +1,6 @@
 {
-  "version": "1.4.1",
+  "version": "1.4.2",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Simplifica Configurações removendo os atalhos de inclusão de lançamento em outro mês e exclusão de mês inteiro."
+  "notes": "Ajusta os seletores de período do backup para caberem corretamente no cartão em telas de iPhone."
 }
