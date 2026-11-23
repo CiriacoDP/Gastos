@@ -1340,6 +1340,40 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
 }
 @media(min-width:980px){.mobile-app-version{display:none}}
 
+
+/* Safe areas do iPhone: notch lateral em paisagem, topo e barra inferior */
+:root{
+ --safe-area-top:env(safe-area-inset-top,0px);
+ --safe-area-right:env(safe-area-inset-right,0px);
+ --safe-area-bottom:env(safe-area-inset-bottom,0px);
+ --safe-area-left:env(safe-area-inset-left,0px);
+}
+@media(max-width:979px){
+ body{
+  padding-left:var(--safe-area-left)!important;
+  padding-right:var(--safe-area-right)!important;
+ }
+ header.shell{
+  padding-top:calc(12px + var(--safe-area-top))!important;
+ }
+ .app-sidebar{
+  padding-left:calc(10px + var(--safe-area-left))!important;
+  padding-right:calc(10px + var(--safe-area-right))!important;
+ }
+ .overlay{
+  padding-left:var(--safe-area-left);
+  padding-right:var(--safe-area-right);
+ }
+ .toast{
+  max-width:calc(100% - var(--safe-area-left) - var(--safe-area-right) - 32px);
+ }
+}
+@media(max-width:979px) and (orientation:landscape){
+ header.shell{
+  padding-top:calc(10px + var(--safe-area-top))!important;
+ }
+}
+
 </style>
 </head>
 <body>
@@ -1374,7 +1408,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.2.1</small>
+  <small class="sidebar-app-version">Versão 1.2.2</small>
  </div>
 </aside>
 
@@ -1383,7 +1417,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.2.1</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.2.2</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
