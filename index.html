@@ -2071,7 +2071,10 @@ function compareAppVersions(a,b){
 }
 
 function validAppVersion(value){
- return /^\\d+\\.\\d+\\.\\d+$/.test(String(value||''));
+ const parts=String(value||'').split('.');
+ return parts.length===3&&parts.every(part=>
+  part.length>0&&[...part].every(character=>character>='0'&&character<='9')
+ );
 }
 
 function showAppUpdate(release){
@@ -2103,7 +2106,8 @@ async function checkForAppUpdate(){
   const release=await versionResponse.json();
   if(!release||release.ready!==true||!validAppVersion(release.version))return;
   const publishedHtml=await htmlResponse.text();
-  const publishedMeta=publishedHtml.match(/<meta\\s+name=["']app-version["']\\s+content=["']([^"']+)["']/i);
+  const versionMetaTag=publishedHtml.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'';
+  const publishedMeta=versionMetaTag.match(/content=["']([^"']+)["']/i);
   const deployedVersion=publishedMeta?.[1]||'';
   // O aviso só é liberado quando o manifesto e o HTML do próprio Pages coincidem.
   if(deployedVersion!==release.version)return;
