@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.3.1">
+<meta name="app-version" content="1.4.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1524,7 +1524,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.3.1</small>
+  <small class="sidebar-app-version">Versão 1.4.0</small>
  </div>
 </aside>
 
@@ -1533,7 +1533,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.3.1</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.4.0</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -1897,9 +1897,9 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v1.2.4</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v1.3.1</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v1.3.0</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v1.4.0</strong></div>
   </div>
   <p class="update-release-notes" id="updateReleaseNotes">Atualizações e melhorias do aplicativo.</p>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2103,6 +2103,51 @@ function closeAppUpdate(){
  $('updateOverlay').hidden=true;
 }
 
+
+let appServiceWorkerPromise=null;
+let appServiceWorkerRegistration=null;
+let appServiceWorkerLastCheck=0;
+let appServiceWorkerRefreshTimer=null;
+
+function initAppServiceWorker(){
+ if(!('serviceWorker' in navigator))return Promise.resolve(null);
+ if(location.protocol!=='https:'&&location.hostname!=='localhost')return Promise.resolve(null);
+ if(appServiceWorkerPromise)return appServiceWorkerPromise;
+
+ appServiceWorkerPromise=(async()=>{
+  try{
+   const appRoot=new URL('./',document.baseURI);
+   const workerUrl=new URL('sw.js',appRoot);
+   const registration=await navigator.serviceWorker.register(workerUrl.href,{
+    scope:appRoot.pathname,
+    updateViaCache:'none'
+   });
+   appServiceWorkerRegistration=registration;
+
+   const requestWorkerUpdate=()=>{
+    if(document.hidden||!appServiceWorkerRegistration)return;
+    const now=Date.now();
+    if(now-appServiceWorkerLastCheck<60000)return;
+    appServiceWorkerLastCheck=now;
+    appServiceWorkerRegistration.update().catch(()=>{});
+   };
+
+   requestWorkerUpdate();
+   if(!appServiceWorkerRefreshTimer){
+    appServiceWorkerRefreshTimer=setInterval(requestWorkerUpdate,10*60*1000);
+    document.addEventListener('visibilitychange',requestWorkerUpdate);
+    window.addEventListener('focus',requestWorkerUpdate);
+   }
+   return registration;
+  }catch(error){
+   // O app continua utilizável mesmo se o navegador bloquear Service Workers.
+   appServiceWorkerPromise=null;
+   return null;
+  }
+ })();
+ return appServiceWorkerPromise;
+}
+
 async function checkForAppUpdate(){
  if(appUpdateCheckRunning||document.hidden||!$('updateOverlay').hidden||!$('overlay').hidden)return;
  appUpdateCheckRunning=true;
@@ -2121,8 +2166,15 @@ async function checkForAppUpdate(){
   const versionMetaTag=publishedHtml.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'';
   const publishedMeta=versionMetaTag.match(/content=["']([^"']+)["']/i);
   const deployedVersion=publishedMeta?.[1]||'';
-  // O aviso só é liberado quando o manifesto e o HTML do próprio Pages coincidem.
   if(deployedVersion!==release.version)return;
+
+  // Confirma também que o Service Worker da mesma versão já está publicado.
+  const workerResponse=await fetch('./sw.js?check='+cacheKey,{cache:'no-store'});
+  if(!workerResponse.ok)return;
+  const workerSource=await workerResponse.text();
+  const workerVersionMatch=workerSource.match(/const APP_VERSION\\s*=\\s*["']([^"']+)["']/);
+  if(workerVersionMatch?.[1]!==release.version)return;
+  // O aviso só é liberado quando manifesto, HTML e Service Worker coincidem.
   if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
   showAppUpdate(release);
  }catch(error){
@@ -2134,6 +2186,7 @@ async function checkForAppUpdate(){
 
 function initAppUpdateChecker(){
  appUpdateDismissedVersion='';
+ initAppServiceWorker();
  // Remove apenas o parâmetro de cache usado no recarregamento; preserva os demais parâmetros.
  try{
   const currentUrl=new URL(window.location.href);
