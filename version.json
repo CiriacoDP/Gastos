@@ -1,6 +1,6 @@
 {
-  "version": "1.5.1",
+  "version": "1.5.2",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Ajusta as proporções do cartão Resumo do mês no celular, reduzindo os espaços sem comprometer a leitura."
+  "notes": "Preserva IDs e marcadores de despesas recorrentes na planilha e mostra a quantidade anônima de dispositivos online."
 }
