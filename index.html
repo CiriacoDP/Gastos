@@ -1404,6 +1404,14 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  }
 }
 
+
+/* Status de conexão ainda mais compacto em telas estreitas */
+@media(max-width:979px){
+ .status{padding:3px 7px;font-size:10px;letter-spacing:-.12px}
+ .status i{width:6px;height:6px;flex-basis:6px}
+ .status span{min-width:0}
+}
+
 </style>
 </head>
 <body>
@@ -1438,7 +1446,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.2.3</small>
+  <small class="sidebar-app-version">Versão 1.2.4</small>
  </div>
 </aside>
 
@@ -1447,7 +1455,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.2.3</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.2.4</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -2083,7 +2091,7 @@ async function load(){
   const syncedAt=new Date();
   $('lastSyncText').textContent=syncedAt.toLocaleDateString('pt-BR')+' às '+syncedAt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
   const shortMonth=monthShort(month);
-  setStatus('Conectada · '+entries.length+' lançamentos · '+shortMonth.charAt(0).toUpperCase()+shortMonth.slice(1)+'/'+month.slice(0,4),true);
+  setStatus('Conectada · '+entries.length+' · '+shortMonth.charAt(0).toUpperCase()+shortMonth.slice(1)+'/'+month.slice(0,4),true);
   showBanner('');
   render();
   loadAnalyticsHistory();
