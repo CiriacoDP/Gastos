@@ -75,6 +75,12 @@ self.addEventListener('install', event => {
   })());
 });
 
+self.addEventListener('message', event => {
+  if (event.data === 'GET_APP_VERSION' && event.ports && event.ports[0]) {
+    event.ports[0].postMessage({ version: APP_VERSION });
+  }
+});
+
 self.addEventListener('activate', event => {
   event.waitUntil((async () => {
     const keys = await caches.keys();
