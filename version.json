@@ -1,6 +1,6 @@
 {
-  "version": "1.3.0",
+  "version": "1.3.1",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Agora o aplicativo verifica quando uma nova versão está publicada e avisa antes de atualizar."
+  "notes": "Alinhamento do botão de privacidade no cabeçalho."
 }
