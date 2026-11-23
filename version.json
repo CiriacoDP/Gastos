@@ -2,5 +2,5 @@
   "version": "1.4.0",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Atualização mais confiável no iPhone, com cache versionado, carregamento pela rede e proteção contra retorno a uma versão antiga."
+  "notes": "Atualização mais confiável no iPhone: cache versionado, carregamento pela rede, proteção contra retorno a versões antigas e confirmação da ativação do cache na primeira atualização."
 }
