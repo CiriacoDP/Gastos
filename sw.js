@@ -19,31 +19,35 @@ async function fetchNoStore(url) {
 }
 
 async function installCurrentShell() {
-  const [htmlResponse, versionResponse] = await Promise.all([
-    fetchNoStore(INDEX_URL),
-    fetchNoStore(VERSION_URL)
-  ]);
-
-  if (!htmlResponse.ok || !versionResponse.ok) {
-    throw new Error('O site ainda não publicou todos os arquivos da versão ' + APP_VERSION);
+  const htmlResponse = await fetchNoStore(INDEX_URL);
+  if (!htmlResponse.ok) {
+    throw new Error('O HTML da versão ' + APP_VERSION + ' ainda não está disponível');
   }
 
-  const [html, release] = await Promise.all([
-    htmlResponse.clone().text(),
-    versionResponse.clone().json()
-  ]);
-
+  const html = await htmlResponse.clone().text();
   const expectedMeta = '<meta name="app-version" content="' + APP_VERSION + '">';
-  if (!html.includes(expectedMeta) || release.version !== APP_VERSION || release.ready !== true) {
-    throw new Error('A publicação ainda não está sincronizada com a versão ' + APP_VERSION);
+  if (!html.includes(expectedMeta)) {
+    throw new Error('O HTML publicado ainda não corresponde à versão ' + APP_VERSION);
   }
 
   const cache = await caches.open(CACHE_NAME);
 
-  // O HTML só entra no cache novo depois de confirmar a versão publicada.
+  // O HTML só entra no cache novo depois de confirmar sua versão.
   await cache.put(ROOT_KEY, htmlResponse.clone());
   await cache.put(INDEX_URL, htmlResponse.clone());
-  await cache.put(VERSION_URL, versionResponse.clone());
+
+  // O manifesto pode estar terminando de propagar; só o guarda quando corresponder.
+  try {
+    const versionResponse = await fetchNoStore(VERSION_URL);
+    if (versionResponse.ok) {
+      const release = await versionResponse.clone().json();
+      if (release.version === APP_VERSION && release.ready === true) {
+        await cache.put(VERSION_URL, versionResponse.clone());
+      }
+    }
+  } catch (error) {
+    // A checagem de versão sempre tenta a rede antes de usar esta cópia local.
+  }
 
   // Arquivos auxiliares são opcionais; a versão principal não depende deles.
   for (const url of [MANIFEST_URL, ICON_URL]) {
