@@ -1,6 +1,6 @@
 {
-  "version": "1.4.4",
+  "version": "1.4.5",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Redesenha a navegação inferior no celular com ícones mais claros, rótulos e um dock flutuante mais discreto."
+  "notes": "Ajusta a posição da navegação inferior no iPhone, aproximando-a um pouco do rodapé sem encostar na borda."
 }
