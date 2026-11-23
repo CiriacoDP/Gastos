@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.5.1">
+<meta name="app-version" content="1.5.2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1597,6 +1597,19 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  }
 }
 
+
+/* Contagem anônima de dispositivos conectados */
+.online-devices,.sidebar-online-line{
+ display:flex;align-items:center;gap:7px;margin-top:5px;
+ color:#8296ab;font-size:10px;line-height:1.25;letter-spacing:.05px;
+}
+.online-dot{
+ display:inline-block;flex:0 0 6px;width:6px;height:6px;border-radius:50%;
+ background:#43d6a0;box-shadow:0 0 0 3px rgba(67,214,160,.10);
+}
+.sidebar-online-line{padding-left:17px;margin-top:7px}
+@media(min-width:980px){.online-devices{display:none}}
+@media(max-width:979px){.sidebar-online-line{display:none}}
 </style>
 </head>
 <body>
@@ -1631,7 +1644,8 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.5.1</small>
+  <div class="sidebar-online-line" aria-live="polite"><i class="online-dot" aria-hidden="true"></i><span id="sidebarOnlineDevicesText">Contagem indisponível</span></div>
+  <small class="sidebar-app-version">Versão 1.5.2</small>
  </div>
 </aside>
 
@@ -1640,8 +1654,9 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.1</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.2</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
+    <div class="online-devices" aria-live="polite"><i class="online-dot" aria-hidden="true"></i><span id="onlineDevicesText">Contagem indisponível</span></div>
    </div>
   </div>
   <div class="header-actions">
@@ -2149,6 +2164,78 @@ function toast(t,err=false){
 }
 
 function api(){return ($('apiUrl').value||stored||'').trim()}
+
+const PRESENCE_DEVICE_STORAGE_KEY='meuDinheiroPresenceDeviceV1';
+let presenceRequestInFlight=false;
+let presenceTimer=null;
+
+function presenceDeviceId(){
+ try{
+  let id=localStorage.getItem(PRESENCE_DEVICE_STORAGE_KEY)||'';
+  if(!/^[A-Za-z0-9_-]{8,80}$/.test(id)){
+   id=window.crypto?.randomUUID?.().replace(/-/g,'')||
+    ('d'+Date.now().toString(36)+Math.random().toString(36).slice(2,14));
+   localStorage.setItem(PRESENCE_DEVICE_STORAGE_KEY,id);
+  }
+  return id;
+ }catch(error){
+  return 'd'+Date.now().toString(36)+Math.random().toString(36).slice(2,14);
+ }
+}
+function setOnlinePresenceLabel(value){
+ const text=String(value||'Contagem indisponível');
+ ['onlineDevicesText','sidebarOnlineDevicesText'].forEach(id=>{
+  const node=$(id);
+  if(node)node.textContent=text;
+ });
+}
+async function checkOnlinePresence(){
+ const base=api();
+ if(!base){setOnlinePresenceLabel('Configure a conexão');return false;}
+ if(presenceRequestInFlight||document.hidden)return false;
+ presenceRequestInFlight=true;
+ try{
+  const heartbeat=await fetch(base,{
+   method:'POST',
+   headers:{'Content-Type':'text/plain;charset=utf-8'},
+   body:JSON.stringify({action:'presence',deviceId:presenceDeviceId()})
+  });
+  if(!heartbeat.ok)throw new Error('Falha ao registrar presença');
+  const heartbeatData=await heartbeat.json();
+  if(heartbeatData?.ok===false||heartbeatData?.success===false)
+   throw new Error(heartbeatData.error||'O backend ainda não oferece contagem online');
+
+  const endpoint=base+(base.includes('?')?'&':'?')+'action=presence&_='+Date.now();
+  const response=await fetch(endpoint,{cache:'no-store'});
+  if(!response.ok)throw new Error('Falha ao consultar presença');
+  const data=await response.json();
+  if(data?.ok===false||!Number.isFinite(Number(data?.count)))
+   throw new Error(data?.error||'Resposta de presença inválida');
+
+  const count=Math.max(0,Math.floor(Number(data.count)));
+  setOnlinePresenceLabel(count===0?'Nenhum dispositivo online':
+   count===1?'1 dispositivo online':count+' dispositivos online');
+  return true;
+ }catch(error){
+  setOnlinePresenceLabel('Contagem indisponível');
+  return false;
+ }finally{
+  presenceRequestInFlight=false;
+ }
+}
+function initOnlinePresence(){
+ if(presenceTimer)clearInterval(presenceTimer);
+ if(!api()){setOnlinePresenceLabel('Configure a conexão');return;}
+ void checkOnlinePresence();
+ presenceTimer=setInterval(()=>{
+  if(!document.hidden)void checkOnlinePresence();
+ },45000);
+ document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden)void checkOnlinePresence();
+ });
+ window.addEventListener('focus',()=>void checkOnlinePresence());
+}
+
 
 
 const APP_VERSION=document.querySelector('meta[name="app-version"]')?.content||'0.0.0';
@@ -3619,6 +3706,7 @@ $('connectBtn').addEventListener('click',()=>{
 
  message('connectionMessage','Conexão salva neste navegador.');
  load();
+ void checkOnlinePresence();
 });
 
 // Atualização de conferência em segundo plano. Navegação e toques não disparam leitura.
@@ -3636,6 +3724,7 @@ initPrivacyMode();
 initAppUpdateChecker();
 if(!loadCachedMonth(month))render();
 load();
+initOnlinePresence();
 </script>
 </body>
 </html>
