@@ -1847,7 +1847,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="view-heading">
    <div>
     <h2>Configurações</h2>
-    <p>Gerencie sua conexão e os dados da sua planilha</p>
+    <p>Gerencie a conexão da planilha e as atualizações do aplicativo.</p>
    </div>
   </div>
 
@@ -2267,8 +2267,12 @@ async function checkForAppUpdate(manual=false){
    if(manual)message('manualUpdateMessage','O arquivo de versão ainda não está pronto. Tente novamente em instantes.',true);
    return;
   }
-  if(compareAppVersions(release.version,APP_VERSION)<=0){
-   if(manual)message('manualUpdateMessage','Você já está usando a versão mais recente (v'+APP_VERSION+').');
+  const versionOrder=compareAppVersions(release.version,APP_VERSION);
+  if(versionOrder<=0){
+   if(manual){
+    if(versionOrder===0)message('manualUpdateMessage','Você já está usando a versão mais recente (v'+APP_VERSION+').');
+    else message('manualUpdateMessage','A publicação da versão atual ainda está sendo concluída. Tente novamente em instantes.',true);
+   }
    return;
   }
   if(appUpdateDismissedVersion===release.version&&!manual)return;
