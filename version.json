@@ -1,6 +1,6 @@
 {
-  "version": "1.4.2",
+  "version": "1.4.3",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Ajusta os seletores de período do backup para caberem corretamente no cartão em telas de iPhone."
+  "notes": "Melhora a apresentação dos campos De e Até do backup no iPhone: agora ficam empilhados e ocupam toda a largura do cartão."
 }
