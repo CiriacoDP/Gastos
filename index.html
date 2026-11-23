@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.4.2">
+<meta name="app-version" content="1.4.3">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1494,13 +1494,20 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  min-width:0!important;max-width:100%;box-sizing:border-box;
 }
 @media(max-width:979px){
- .data-tools-card .backup-range{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
- .data-tools-card .backup-range input[type="month"]{
-  width:100%;padding:12px 8px;font-size:13px;
+ .data-tools-card .backup-range{
+  grid-template-columns:minmax(0,1fr);
+  gap:14px;
  }
-}
-@media(max-width:360px){
- .data-tools-card .backup-range{grid-template-columns:minmax(0,1fr)}
+ .data-tools-card .backup-range label{
+  gap:7px;font-size:12px;
+ }
+ .data-tools-card .backup-range input[type="month"]{
+  display:block;inline-size:100%;width:100%;
+  min-inline-size:0;min-width:0;max-inline-size:100%;max-width:100%;
+  height:52px;padding:0 14px;font-size:15px;
+  text-align:left;overflow:hidden;
+  -webkit-appearance:none;appearance:none;
+ }
 }
 
 </style>
@@ -1537,7 +1544,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.4.2</small>
+  <small class="sidebar-app-version">Versão 1.4.3</small>
  </div>
 </aside>
 
@@ -1546,7 +1553,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.4.2</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.4.3</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
