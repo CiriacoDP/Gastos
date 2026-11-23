@@ -5,6 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
+<meta name="app-version" content="1.3.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1412,6 +1413,73 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  .status span{min-width:0}
 }
 
+
+/* Tela de atualização: só aparece depois da confirmação do GitHub Pages */
+.update-overlay{
+ position:fixed;inset:0;z-index:280;
+ display:flex;align-items:center;justify-content:center;
+ padding:20px;
+ background:rgba(3,8,14,.78);
+ -webkit-backdrop-filter:blur(13px);backdrop-filter:blur(13px);
+}
+.update-overlay[hidden]{display:none!important}
+.update-card{
+ width:min(100%,430px);max-height:calc(100dvh - 40px);overflow:auto;
+ padding:24px 22px 18px;border-radius:25px;
+ border:1px solid rgba(147,184,222,.2);
+ background:linear-gradient(155deg,#172638 0%,#101a27 72%,#0d1722 100%);
+ box-shadow:0 28px 90px rgba(0,0,0,.48),inset 0 1px rgba(255,255,255,.06);
+ color:#f1f6fc;
+ animation:update-card-in .22s ease-out;
+}
+@keyframes update-card-in{
+ from{opacity:0;transform:translateY(12px) scale(.985)}
+ to{opacity:1;transform:translateY(0) scale(1)}
+}
+.update-card-top{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.update-status-pill{
+ display:inline-flex;align-items:center;gap:7px;padding:6px 10px;
+ border:1px solid rgba(68,210,157,.2);border-radius:999px;
+ background:rgba(47,183,135,.1);color:#82e1bd;font-size:10px;font-weight:800;
+ letter-spacing:.3px;
+}
+.update-status-pill i{width:7px;height:7px;border-radius:50%;background:#45d3a0;box-shadow:0 0 0 4px rgba(69,211,160,.1)}
+.update-version-mark{
+ display:grid;place-items:center;width:48px;height:48px;flex:0 0 48px;
+ border-radius:15px;border:1px solid rgba(110,177,241,.2);
+ background:rgba(67,145,225,.13);color:#8fc5ff;
+}
+.update-version-mark svg{width:25px;height:25px}
+.update-card-copy{margin-top:21px}
+.update-card-copy h2{margin:0;color:#f4f8fd;font-size:23px;line-height:1.2;font-weight:800;letter-spacing:-.55px}
+.update-card-copy p{margin:9px 0 0;color:#a5b6c8;font-size:13px;line-height:1.55}
+.update-version-comparison{
+ display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);
+ align-items:center;gap:10px;margin-top:21px;padding:15px;
+ border:1px solid rgba(150,182,215,.13);border-radius:15px;
+ background:rgba(255,255,255,.035);
+}
+.update-version-comparison>div{display:flex;flex-direction:column;gap:5px;min-width:0}
+.update-version-comparison small{color:#8298af;font-size:10px}
+.update-version-comparison strong{color:#f2f7fd;font-size:16px;font-variant-numeric:tabular-nums}
+.update-version-comparison>div:last-child strong{color:#6ee0b3}
+.update-version-comparison>span{color:#7890a9;font-size:19px}
+.update-release-notes{
+ margin:14px 2px 18px;color:#afbed0;font-size:12px;line-height:1.55;
+}
+.update-now-button{width:100%;min-height:48px;border-radius:13px;font-size:14px;font-weight:800}
+.update-later-button{
+ display:block;width:100%;padding:13px 10px;margin-top:3px;
+ color:#9eb1c5;font-size:13px;font-weight:650;
+}
+.update-later-button:active{color:#fff}
+.update-data-note{display:block;margin-top:8px;text-align:center;color:#71869c;font-size:10px;line-height:1.4}
+.update-now-button:disabled,.update-later-button:disabled{opacity:.55;cursor:wait}
+@media(max-width:420px){
+ .update-card{padding:21px 18px 16px;border-radius:22px}
+ .update-card-copy h2{font-size:21px}
+}
+
 </style>
 </head>
 <body>
@@ -1446,7 +1514,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.2.4</small>
+  <small class="sidebar-app-version">Versão 1.3.0</small>
  </div>
 </aside>
 
@@ -1455,7 +1523,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.2.4</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.3.0</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -1806,6 +1874,30 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  </form>
 </div>
 
+<div class="update-overlay" id="updateOverlay" hidden>
+ <section class="update-card" role="dialog" aria-modal="true" aria-labelledby="updateTitle" aria-describedby="updateDescription">
+  <div class="update-card-top">
+   <span class="update-status-pill"><i></i> Nova versão disponível</span>
+   <span class="update-version-mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </span>
+  </div>
+  <div class="update-card-copy">
+   <h2 id="updateTitle">Tem novidade no Meu dinheiro!</h2>
+   <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
+  </div>
+  <div class="update-version-comparison">
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v1.2.4</strong></div>
+   <span aria-hidden="true">→</span>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v1.3.0</strong></div>
+  </div>
+  <p class="update-release-notes" id="updateReleaseNotes">Atualizações e melhorias do aplicativo.</p>
+  <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
+  <button class="update-later-button" id="updateLaterBtn" type="button">Depois</button>
+  <small class="update-data-note">Seus lançamentos e configurações serão preservados.</small>
+ </section>
+</div>
+
 <div class="toast" id="toast" role="status"></div>
 
 <script>
@@ -1959,6 +2051,115 @@ function toast(t,err=false){
 }
 
 function api(){return ($('apiUrl').value||stored||'').trim()}
+
+
+const APP_VERSION=document.querySelector('meta[name="app-version"]')?.content||'0.0.0';
+const APP_UPDATE_INTERVAL=20000;
+let appUpdateCheckRunning=false;
+let appUpdateDismissedVersion='';
+let appUpdatePending=null;
+
+function compareAppVersions(a,b){
+ const left=String(a||'').split('.').map(x=>Number.parseInt(x,10));
+ const right=String(b||'').split('.').map(x=>Number.parseInt(x,10));
+ if(left.length!==3||right.length!==3||[...left,...right].some(x=>!Number.isInteger(x)||x<0))return 0;
+ for(let i=0;i<3;i++){
+  if(left[i]>right[i])return 1;
+  if(left[i]<right[i])return -1;
+ }
+ return 0;
+}
+
+function validAppVersion(value){
+ return /^\\d+\\.\\d+\\.\\d+$/.test(String(value||''));
+}
+
+function showAppUpdate(release){
+ if(!release||!$('updateOverlay').hidden||!$('overlay').hidden)return;
+ appUpdatePending=release;
+ $('updateCurrentVersion').textContent='v'+APP_VERSION;
+ $('updateNewVersion').textContent='v'+release.version;
+ $('updateReleaseNotes').textContent=String(release.notes||'Atualizações e melhorias do aplicativo.');
+ $('updateOverlay').hidden=false;
+ $('updateNowBtn').disabled=false;
+ $('updateLaterBtn').disabled=false;
+ $('updateNowBtn').textContent='Atualizar agora';
+}
+
+function closeAppUpdate(){
+ $('updateOverlay').hidden=true;
+}
+
+async function checkForAppUpdate(){
+ if(appUpdateCheckRunning||document.hidden||!$('updateOverlay').hidden||!$('overlay').hidden)return;
+ appUpdateCheckRunning=true;
+ try{
+  const cacheKey=Date.now().toString();
+  const [versionResponse,htmlResponse]=await Promise.all([
+   fetch('./version.json?check='+cacheKey,{cache:'no-store'}),
+   fetch('./index.html?check='+cacheKey,{cache:'no-store'})
+  ]);
+  if(!versionResponse.ok||!htmlResponse.ok)return;
+  const release=await versionResponse.json();
+  if(!release||release.ready!==true||!validAppVersion(release.version))return;
+  const publishedHtml=await htmlResponse.text();
+  const publishedMeta=publishedHtml.match(/<meta\\s+name=["']app-version["']\\s+content=["']([^"']+)["']/i);
+  const deployedVersion=publishedMeta?.[1]||'';
+  // O aviso só é liberado quando o manifesto e o HTML do próprio Pages coincidem.
+  if(deployedVersion!==release.version)return;
+  if(compareAppVersions(release.version,APP_VERSION)<=0)return;
+  if(appUpdateDismissedVersion===release.version)return;
+  if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
+  showAppUpdate(release);
+ }catch(error){
+  // Sem conexão, publicação ainda em andamento ou resposta em cache: tentar novamente depois.
+ }finally{
+  appUpdateCheckRunning=false;
+ }
+}
+
+function initAppUpdateChecker(){
+ appUpdateDismissedVersion='';
+ // Remove apenas o parâmetro de cache usado no recarregamento; preserva os demais parâmetros.
+ try{
+  const currentUrl=new URL(window.location.href);
+  if(currentUrl.searchParams.has('_app_update')){
+   currentUrl.searchParams.delete('_app_update');
+   window.history.replaceState(null,'',currentUrl.toString());
+  }
+ }catch(error){}
+ $('updateNowBtn').addEventListener('click',()=>{
+  if(!appUpdatePending)return;
+  $('updateNowBtn').disabled=true;
+  $('updateLaterBtn').disabled=true;
+  $('updateNowBtn').textContent='Atualizando…';
+  try{
+   const target=new URL(window.location.href);
+   target.searchParams.set('_app_update',Date.now().toString());
+   window.location.replace(target.toString());
+  }catch(error){
+   window.location.reload();
+  }
+ });
+ $('updateLaterBtn').addEventListener('click',()=>{
+  if(appUpdatePending)appUpdateDismissedVersion=appUpdatePending.version;
+  closeAppUpdate();
+ });
+ setTimeout(checkForAppUpdate,1200);
+ setInterval(()=>{
+  if(!document.hidden)checkForAppUpdate();
+ },APP_UPDATE_INTERVAL);
+ document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden){
+   appUpdateDismissedVersion='';
+   checkForAppUpdate();
+  }
+ });
+ window.addEventListener('focus',()=>{
+  appUpdateDismissedVersion='';
+  checkForAppUpdate();
+ });
+}
 
 function syncPrivacyHistoryTitles(){
  document.querySelectorAll('#monthlyHistory .history-month').forEach(el=>{
@@ -3466,6 +3667,7 @@ setInterval(async()=>{
 
 // Não há sincronização automática ao trocar de aba ou voltar ao aplicativo.
 initPrivacyMode();
+initAppUpdateChecker();
 if(!loadCachedMonth(month))render();
 load();
 </script>
