@@ -2168,18 +2168,23 @@ function api(){return ($('apiUrl').value||stored||'').trim()}
 const PRESENCE_DEVICE_STORAGE_KEY='meuDinheiroPresenceDeviceV1';
 let presenceRequestInFlight=false;
 let presenceTimer=null;
+let presenceFallbackDeviceId='';
+let presenceListenersBound=false;
 
 function presenceDeviceId(){
  try{
   let id=localStorage.getItem(PRESENCE_DEVICE_STORAGE_KEY)||'';
   if(!/^[A-Za-z0-9_-]{8,80}$/.test(id)){
-   id=window.crypto?.randomUUID?.().replace(/-/g,'')||
+   const generated=window.crypto?.randomUUID?.()||'';
+   id=generated?generated.replace(/-/g,''):
     ('d'+Date.now().toString(36)+Math.random().toString(36).slice(2,14));
    localStorage.setItem(PRESENCE_DEVICE_STORAGE_KEY,id);
   }
   return id;
  }catch(error){
-  return 'd'+Date.now().toString(36)+Math.random().toString(36).slice(2,14);
+  if(!presenceFallbackDeviceId)
+   presenceFallbackDeviceId='d'+Date.now().toString(36)+Math.random().toString(36).slice(2,14);
+  return presenceFallbackDeviceId;
  }
 }
 function setOnlinePresenceLabel(value){
@@ -2230,10 +2235,13 @@ function initOnlinePresence(){
  presenceTimer=setInterval(()=>{
   if(!document.hidden)void checkOnlinePresence();
  },45000);
- document.addEventListener('visibilitychange',()=>{
-  if(!document.hidden)void checkOnlinePresence();
- });
- window.addEventListener('focus',()=>void checkOnlinePresence());
+ if(!presenceListenersBound){
+  document.addEventListener('visibilitychange',()=>{
+   if(!document.hidden)void checkOnlinePresence();
+  });
+  window.addEventListener('focus',()=>void checkOnlinePresence());
+  presenceListenersBound=true;
+ }
 }
 
 
@@ -3706,7 +3714,7 @@ $('connectBtn').addEventListener('click',()=>{
 
  message('connectionMessage','Conexão salva neste navegador.');
  load();
- void checkOnlinePresence();
+ initOnlinePresence();
 });
 
 // Atualização de conferência em segundo plano. Navegação e toques não disparam leitura.
