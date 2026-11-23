@@ -1,6 +1,6 @@
 {
-  "version": "1.4.5",
+  "version": "1.5.0",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Ajusta a posição da navegação inferior no iPhone, aproximando-a um pouco do rodapé sem encostar na borda."
+  "notes": "Configurações simplificadas: removido backup e restauração e adicionada verificação manual de atualizações, inclusive após escolher Depois."
 }
