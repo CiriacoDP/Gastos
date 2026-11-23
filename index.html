@@ -1168,6 +1168,43 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  .settings-action-card{padding:22px}
 }
 
+
+/* Correção definitiva do rodapé mobile: barra e espaço reservado usam a mesma altura */
+:root{
+ --mobile-nav-content-height:68px;
+ --mobile-safe-bottom:env(safe-area-inset-bottom,0px);
+ --mobile-nav-total-height:calc(var(--mobile-nav-content-height) + var(--mobile-safe-bottom));
+}
+@media(max-width:979px){
+ html{min-height:100%;background:var(--bg)}
+ body{
+  min-height:100vh;
+  min-height:100dvh;
+  padding-bottom:var(--mobile-nav-total-height)!important;
+ }
+ .app-sidebar{
+  position:fixed!important;
+  left:0!important;right:0!important;top:auto!important;bottom:0!important;
+  width:100%!important;
+  height:var(--mobile-nav-total-height)!important;
+  min-height:var(--mobile-nav-total-height)!important;
+  margin:0!important;
+  padding:7px 10px calc(7px + var(--mobile-safe-bottom))!important;
+  box-sizing:border-box!important;
+  transform:none!important;
+  flex-direction:row;align-items:stretch;justify-content:center;
+ }
+ .app-sidebar .app-nav{
+  height:100%;min-height:0;
+  margin:0 auto!important;
+  align-items:stretch;justify-content:space-around;
+ }
+ .app-sidebar .app-nav button{
+  height:100%;min-height:0;
+  justify-content:center;align-items:center;
+ }
+}
+
 </style>
 </head>
 <body>
@@ -1202,7 +1239,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.1.0</small>
+  <small class="sidebar-app-version">Versão 1.1.1</small>
  </div>
 </aside>
 
