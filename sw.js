@@ -85,17 +85,42 @@ self.addEventListener('activate', event => {
   })());
 });
 
+function extractVersionFromHtml(html) {
+  const tag = html.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0] || '';
+  return tag.match(/content=["']([^"']+)["']/i)?.[1] || '';
+}
+
+function compareVersions(a, b) {
+  const left = String(a || '').split('.').map(Number);
+  const right = String(b || '').split('.').map(Number);
+  if (left.length !== 3 || right.length !== 3 || [...left, ...right].some(n => !Number.isInteger(n))) return 0;
+  for (let i = 0; i < 3; i++) {
+    if (left[i] > right[i]) return 1;
+    if (left[i] < right[i]) return -1;
+  }
+  return 0;
+}
+
 async function networkFirstDocument(request) {
+  const cache = await caches.open(CACHE_NAME);
   try {
     const response = await fetch(request, { cache: 'no-store' });
     if (response && response.ok) {
-      const cache = await caches.open(CACHE_NAME);
-      await cache.put(ROOT_KEY, response.clone());
-      await cache.put(INDEX_URL, response.clone());
+      const html = await response.clone().text();
+      const deployedVersion = extractVersionFromHtml(html);
+
+      // Nunca substitui uma cópia mais nova por HTML antigo servido temporariamente pela CDN.
+      if (deployedVersion && compareVersions(deployedVersion, APP_VERSION) >= 0) {
+        await cache.put(ROOT_KEY, response.clone());
+        await cache.put(INDEX_URL, response.clone());
+        return response;
+      }
+
+      const current = await cache.match(ROOT_KEY) || await cache.match(INDEX_URL);
+      return current || response;
     }
     return response;
   } catch (error) {
-    const cache = await caches.open(CACHE_NAME);
     const cached = await cache.match(ROOT_KEY) || await cache.match(INDEX_URL);
     if (cached) return cached;
     return new Response(
