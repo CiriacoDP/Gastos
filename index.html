@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.4.5">
+<meta name="app-version" content="1.5.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -797,36 +797,12 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 }
 
 
-/* Backup, restauração e despesas recorrentes */
-.data-tools-card{margin-top:16px}
-.backup-range{
- display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
- gap:10px;margin:12px 0;width:100%;min-width:0;
-}
-.backup-range label{
- display:flex;flex-direction:column;gap:6px;
- min-width:0;width:100%;overflow:hidden;
- color:#9aadc1;font-size:12px;
-}
-.settings-card .backup-range input{
- display:block;width:100%;max-width:100%;min-width:0;
- margin:0;box-sizing:border-box;
-}
-.backup-restore{margin-top:20px;padding-top:17px;border-top:1px solid var(--sep)}
-.backup-restore>label{display:block;margin:0 0 7px;color:#9aadc1;font-size:12px}
-.backup-restore input[type=file]{width:100%;padding:10px;font-size:12px}
-.backup-restore .primary{width:100%;margin-top:10px}
-.data-tools-card>.primary{width:100%}
-.data-tools-card .msg{margin-top:12px;line-height:1.5}
-.backup-progress{height:7px;margin-top:10px;border-radius:20px;overflow:hidden;background:rgba(255,255,255,.08)}
-.backup-progress span{display:block;width:0;height:100%;border-radius:20px;background:linear-gradient(90deg,#438fe5,#43d6a0);transition:width .15s}
+/* Despesas recorrentes */
 .recurrence-fields{margin-top:12px;padding:0 14px 12px}
 .recurrence-fields .recurrence-toggle{margin:0 -14px;border-radius:14px 14px 0 0}
 .recurrence-until{padding:10px 0 7px}
 .recurrence-until input{width:145px;max-width:55%;border:0;background:transparent;text-align:right;color:var(--ink)}
 .recurrence-note{margin:3px 0 0;color:#8195aa;font-size:10px;line-height:1.45}
-@media(max-width:390px){.backup-range{gap:7px}}
-
 
 /* Identidade visual compartilhada pelo cabeçalho e menu lateral */
 .brand-mark{overflow:hidden;background:transparent!important;border:1px solid rgba(110,177,241,.18);box-shadow:0 5px 16px rgba(0,0,0,.24)}
@@ -1486,31 +1462,6 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
 .update-installing-card p{margin:8px 0 0;color:#9fb2c7;font-size:12px;line-height:1.5}
 
 
-/* Evita que o seletor nativo de mês ultrapasse o cartão no iPhone */
-.data-tools-card{min-width:0}
-.data-tools-card .backup-range,
-.data-tools-card .backup-range label,
-.data-tools-card .backup-range input[type="month"]{
- min-width:0!important;max-width:100%;box-sizing:border-box;
-}
-@media(max-width:979px){
- .data-tools-card .backup-range{
-  grid-template-columns:minmax(0,1fr);
-  gap:14px;
- }
- .data-tools-card .backup-range label{
-  gap:7px;font-size:12px;
- }
- .data-tools-card .backup-range input[type="month"]{
-  display:block;inline-size:100%;width:100%;
-  min-inline-size:0;min-width:0;max-inline-size:100%;max-width:100%;
-  height:52px;padding:0 14px;font-size:15px;
-  text-align:left;overflow:hidden;
-  -webkit-appearance:none;appearance:none;
- }
-}
-
-
 /* Navegação mobile redesenhada: dock flutuante, ícones semânticos e rótulos */
 @media(max-width:979px){
  .app-sidebar{
@@ -1580,6 +1531,37 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  .app-sidebar .nav-label{font-size:8px!important}
 }
 
+
+/* Verificação manual de atualizações em Configurações */
+.app-update-settings-card{margin-top:16px}
+.app-update-settings-heading{display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.app-update-settings-heading h3{margin:0 0 4px}
+.app-update-settings-heading p{margin:0;font-size:12px;line-height:1.5}
+.app-update-settings-icon{
+ display:grid;place-items:center;flex:0 0 42px;width:42px;height:42px;
+ border-radius:13px;background:rgba(75,150,225,.12);
+ border:1px solid rgba(112,175,235,.18);color:#91c5ff;
+}
+.app-update-settings-icon svg{width:22px;height:22px;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.app-update-current-line{
+ display:flex;align-items:center;justify-content:space-between;gap:12px;
+ margin:0 0 13px;padding:11px 0;border-top:1px solid var(--sep);
+ color:#92a6bc;font-size:12px;
+}
+.app-update-current-line strong{color:#eaf3fc;font-size:13px;font-variant-numeric:tabular-nums}
+.app-update-check-button{
+ display:flex!important;align-items:center;justify-content:center;gap:9px;
+ width:100%;min-height:45px;
+}
+.app-update-check-button svg{width:17px;height:17px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.app-update-check-message{margin-top:9px;min-height:17px;font-size:11px;line-height:1.45}
+.app-update-check-button:disabled{opacity:.65;cursor:wait}
+.update-check-spinner{
+ display:inline-block;width:15px;height:15px;flex:none;
+ border:2px solid rgba(255,255,255,.25);border-top-color:#fff;
+ border-radius:50%;animation:update-spin .75s linear infinite;
+}
+
 </style>
 </head>
 <body>
@@ -1614,7 +1596,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.4.5</small>
+  <small class="sidebar-app-version">Versão 1.5.0</small>
  </div>
 </aside>
 
@@ -1623,7 +1605,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.4.5</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.0</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -1879,22 +1861,22 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <div class="last-sync-line"><span>Última sincronização</span><strong id="lastSyncText">Ainda não sincronizado</strong></div>
   </section>
 
-  <section class="card settings-card data-tools-card">
-   <h3>Backup e restauração</h3>
-   <p>Exporte os lançamentos por período em um arquivo JSON. A restauração mescla os dados do backup sem excluir os lançamentos que já estão na planilha.</p>
-   <div class="backup-range">
-    <label>De <input id="backupStart" type="month"></label>
-    <label>Até <input id="backupEnd" type="month"></label>
+  <section class="card settings-card app-update-settings-card">
+   <div class="app-update-settings-heading">
+    <div class="app-update-settings-icon" aria-hidden="true">
+     <svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+    </div>
+    <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
-   <button class="primary" id="exportBackup" type="button">Baixar backup</button>
-   <div class="backup-restore">
-    <label for="backupFile">Arquivo de backup (.json)</label>
-    <input id="backupFile" type="file" accept=".json,application/json">
-    <button class="primary" id="restoreBackup" type="button" disabled>Restaurar e mesclar</button>
+   <div class="app-update-current-line">
+    <span>Versão instalada</span><strong id="settingsAppVersion">v1.5.0</strong>
    </div>
-   <div class="msg" id="backupMessage" role="status"></div>
-   <div class="backup-progress" id="backupProgress" hidden><span id="backupProgressBar"></span></div>
-  </section>
+   <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+    Verificar atualizações
+   </button>
+   <div class="msg app-update-check-message" id="manualUpdateMessage" role="status" aria-live="polite">Toque para procurar uma versão nova.</div>
+  </section>  </section>
  </section>
 </main>
 
@@ -1971,9 +1953,9 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v1.4.4</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v1.4.5</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v1.4.5</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v1.5.0</strong></div>
   </div>
   <p class="update-release-notes" id="updateReleaseNotes">Atualizações e melhorias do aplicativo.</p>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2261,45 +2243,83 @@ function clearAppUpdateHandoff(){
  }catch(error){}
 }
 
-async function checkForAppUpdate(){
- if(appUpdateCheckRunning||document.hidden||!$('updateOverlay').hidden||!$('overlay').hidden)return;
+async function checkForAppUpdate(manual=false){
+ if(appUpdateCheckRunning||document.hidden||!$('updateOverlay').hidden||!$('overlay').hidden){
+  if(manual)message('manualUpdateMessage','Já existe uma verificação em andamento.',true);
+  return;
+ }
  appUpdateCheckRunning=true;
+ const manualButton=manual?$('manualUpdateCheck'):null;
+ if(manualButton){
+  manualButton.disabled=true;
+  manualButton.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';
+  message('manualUpdateMessage','Consultando a publicação mais recente…');
+ }
  try{
   const cacheKey=Date.now().toString();
   const versionResponse=await fetch('./version.json?check='+cacheKey,{cache:'no-store'});
-  if(!versionResponse.ok)return;
+  if(!versionResponse.ok){
+   if(manual)message('manualUpdateMessage','Não consegui consultar a versão. Verifique sua conexão e tente novamente.',true);
+   return;
+  }
   const release=await versionResponse.json();
-  if(!release||release.ready!==true||!validAppVersion(release.version))return;
-  if(compareAppVersions(release.version,APP_VERSION)<=0)return;
-  if(appUpdateDismissedVersion===release.version)return;
-  // Baixa o HTML somente quando o manifesto anunciar uma versão acima da atual.
+  if(!release||release.ready!==true||!validAppVersion(release.version)){
+   if(manual)message('manualUpdateMessage','O arquivo de versão ainda não está pronto. Tente novamente em instantes.',true);
+   return;
+  }
+  if(compareAppVersions(release.version,APP_VERSION)<=0){
+   if(manual)message('manualUpdateMessage','Você já está usando a versão mais recente (v'+APP_VERSION+').');
+   return;
+  }
+  if(appUpdateDismissedVersion===release.version&&!manual)return;
+
   const htmlResponse=await fetch('./index.html?check='+cacheKey,{cache:'no-store'});
-  if(!htmlResponse.ok)return;
+  if(!htmlResponse.ok){
+   if(manual)message('manualUpdateMessage','A nova versão foi anunciada, mas a publicação ainda está terminando. Tente novamente em instantes.',true);
+   return;
+  }
   const publishedHtml=await htmlResponse.text();
   const versionMetaTag=publishedHtml.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'';
   const publishedMeta=versionMetaTag.match(/content=["']([^"']+)["']/i);
   const deployedVersion=publishedMeta?.[1]||'';
-  if(deployedVersion!==release.version)return;
+  if(deployedVersion!==release.version){
+   if(manual)message('manualUpdateMessage','A atualização ainda está sendo publicada. Aguarde um pouco e verifique novamente.',true);
+   return;
+  }
 
-  // Confirma também que o Service Worker da mesma versão já está publicado.
   const workerResponse=await fetch('./sw.js?check='+cacheKey,{cache:'no-store'});
-  if(!workerResponse.ok)return;
+  if(!workerResponse.ok){
+   if(manual)message('manualUpdateMessage','O arquivo de atualização ainda não está disponível. Tente novamente em instantes.',true);
+   return;
+  }
   const workerSource=await workerResponse.text();
   const workerVersionLine=workerSource.match(/const APP_VERSION[^;]*;/)?.[0]||'';
   const workerVersionMatch=workerVersionLine.match(/["']([^"']+)["']/);
-  if(workerVersionMatch?.[1]!==release.version)return;
-  // O aviso só é liberado quando manifesto, HTML e Service Worker coincidem.
+  if(workerVersionMatch?.[1]!==release.version){
+   if(manual)message('manualUpdateMessage','A instalação da nova versão ainda está sendo preparada. Tente novamente em instantes.',true);
+   return;
+  }
   if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
+  appUpdateDismissedVersion='';
   showAppUpdate(release);
+  if(manual)message('manualUpdateMessage','Nova versão v'+release.version+' pronta para instalar.');
  }catch(error){
-  // Sem conexão, publicação ainda em andamento ou resposta em cache: tentar novamente depois.
+  if(manual)message('manualUpdateMessage','Não foi possível verificar agora. Confira a conexão e tente novamente.',true);
  }finally{
   appUpdateCheckRunning=false;
+  if(manualButton){
+   manualButton.disabled=false;
+   manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
+  }
  }
 }
-
 function initAppUpdateChecker(){
  appUpdateDismissedVersion='';
+ $('settingsAppVersion').textContent='v'+APP_VERSION;
+ $('manualUpdateCheck').addEventListener('click',()=>{
+  appUpdateDismissedVersion='';
+  checkForAppUpdate(true);
+ });
  const updateHandoff=new URL(window.location.href).searchParams.has('_app_update');
  const serviceWorkerReady=initAppServiceWorker();
 
@@ -2632,7 +2652,6 @@ async function post(payload,refreshAfterSave=true){
 }
 
 
-const BACKUP_SCHEMA='meu-dinheiro-backup';
 function monthKeysBetween(start,end,maxMonths=60){
  if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(start)||!/^\d{4}-(0[1-9]|1[0-2])$/.test(end))throw new Error('Informe os meses inicial e final.');
  if(start>end)throw new Error('O mês inicial não pode ser posterior ao mês final.');
@@ -2644,44 +2663,6 @@ function monthKeysBetween(start,end,maxMonths=60){
   cursor=monthOffset(cursor,1);
  }
  return keys;
-}
-async function fetchMonthForBackup(monthKey){
- const url=api();
- if(!url)throw new Error('Configure a conexão com a planilha primeiro.');
- const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(monthKey)+'&_='+Date.now();
- const response=await fetch(endpoint,{cache:'no-store'});
- if(!response.ok)throw new Error('Falha ao consultar '+monthLabel(monthKey)+'.');
- const data=await response.json();
- if(data?.ok===false||data?.success===false)throw new Error(data.error||'Falha ao consultar '+monthLabel(monthKey)+'.');
- const rows=extractEntries(data);
- if(!rows)throw new Error('A resposta de '+monthLabel(monthKey)+' não contém lançamentos.');
- return rows.map(normalizeEntry).map(x=>({
-  mes:monthKey,pessoa:x.pessoa||'',tipo:x.tipo||'Gasto',categoria:x.categoria||'',
-  valor:Number(x.valor||0),pago:!!x.pago
- }));
-}
-function downloadBackupFile(data){
- const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'});
- const objectUrl=URL.createObjectURL(blob);
- const a=document.createElement('a');
- a.href=objectUrl;
- a.download='meu-dinheiro-backup-'+data.period.from+'-a-'+data.period.to+'.json';
- document.body.appendChild(a);
- a.click();
- a.remove();
- setTimeout(()=>URL.revokeObjectURL(objectUrl),1500);
-}
-function setBackupProgress(done,total){
- const wrap=$('backupProgress');
- wrap.hidden=!(total>0);
- $('backupProgressBar').style.width=(total?Math.min(100,done/total*100):0)+'%';
-}
-function backupFingerprint(item){
- return JSON.stringify([
-  normMonth(item.mes),String(item.pessoa||''),String(item.tipo||'Gasto'),
-  String(item.categoria||''),Math.round(Number(item.valor||0)*100),
-  !!item.pago
- ]);
 }
 async function sendRawSave(item){
  const url=api();
@@ -3585,131 +3566,6 @@ $('saveBudget').addEventListener('click',()=>{
  toast('Meta mensal salva');
 });
 
-
-$('backupStart').value=monthNow.slice(0,4)+'-01';
-$('backupEnd').value=monthNow;
-let selectedBackupFile=null;
-$('backupFile').addEventListener('change',()=>{
- selectedBackupFile=$('backupFile').files?.[0]||null;
- $('restoreBackup').disabled=!selectedBackupFile;
- $('backupMessage').textContent=selectedBackupFile?'Arquivo selecionado: '+selectedBackupFile.name:'';
- $('backupMessage').className='msg';
-});
-$('exportBackup').addEventListener('click',async()=>{
- const button=$('exportBackup');
- let keys;
- try{keys=monthKeysBetween($('backupStart').value,$('backupEnd').value,60);}
- catch(error){message('backupMessage',error.message,true);return;}
- button.disabled=true;
- $('restoreBackup').disabled=true;
- message('backupMessage','Consultando '+keys.length+' meses da planilha…');
- setBackupProgress(0,keys.length);
- try{
-  const all=[];
-  for(let i=0;i<keys.length;i++){
-   all.push(...await fetchMonthForBackup(keys[i]));
-   setBackupProgress(i+1,keys.length);
-   message('backupMessage','Lendo '+monthLabel(keys[i])+' ('+(i+1)+'/'+keys.length+')…');
-  }
-  const budgets={};
-  try{
-   for(let i=0;i<localStorage.length;i++){
-    const key=localStorage.key(i);
-    if(key&&key.startsWith(BUDGET_STORAGE_PREFIX)){
-     const monthKey=key.slice(BUDGET_STORAGE_PREFIX.length);
-     if(/^\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))budgets[monthKey]=Number(localStorage.getItem(key))||0;
-    }
-   }
-  }catch(error){}
-  const backup={
-   schema:BACKUP_SCHEMA,version:1,exportedAt:new Date().toISOString(),
-   period:{from:keys[0],to:keys[keys.length-1]},months:keys,
-   entries:all,budgets
-  };
-  downloadBackupFile(backup);
-  message('backupMessage','Backup concluído: '+all.length+' lançamentos em '+keys.length+' meses.');
- }catch(error){
-  message('backupMessage','Não foi possível concluir o backup: '+error.message,true);
- }finally{
-  button.disabled=false;
-  $('restoreBackup').disabled=!selectedBackupFile;
- }
-});
-$('restoreBackup').addEventListener('click',async()=>{
- const file=selectedBackupFile;
- if(!file)return;
- if(file.size>15*1024*1024){message('backupMessage','O arquivo excede o limite de 15 MB.',true);return;}
- const button=$('restoreBackup');
- button.disabled=true;
- $('exportBackup').disabled=true;
- setBackupProgress(0,1);
- let saved=0;
- try{
-  const data=JSON.parse(await file.text());
-  if(data?.schema!==BACKUP_SCHEMA||data?.version!==1||!Array.isArray(data.entries))throw new Error('Este arquivo não é um backup válido do Meu dinheiro.');
-  const grouped=new Map();
-  for(const raw of data.entries){
-   const monthKey=normMonth(raw.mes);
-   if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(monthKey))throw new Error('O backup contém um mês inválido.');
-   const value=Number(raw.valor);
-   if(!Number.isFinite(value)||value<=0)throw new Error('O backup contém um valor inválido.');
-   const item={
-    mes:monthKey,pessoa:String(raw.pessoa||''),tipo:String(raw.tipo||'Gasto'),
-    categoria:String(raw.categoria||''),valor:value,pago:!!raw.pago
-   };
-   if(!['Gasto','Entrada','Dívida'].includes(item.tipo))throw new Error('O backup contém um tipo de lançamento desconhecido.');
-   if(!grouped.has(monthKey))grouped.set(monthKey,[]);
-   grouped.get(monthKey).push(item);
-  }
-  if(!confirm('A restauração vai mesclar '+data.entries.length+' lançamentos com a planilha, sem apagar ou substituir registros existentes. Deseja continuar?'))return;
-  const monthKeys=[...grouped.keys()].sort();
-  const existingByMonth=new Map();
-  for(let i=0;i<monthKeys.length;i++){
-   existingByMonth.set(monthKeys[i],await fetchMonthForBackup(monthKeys[i]));
-   message('backupMessage','Comparando '+monthLabel(monthKeys[i])+' ('+(i+1)+'/'+monthKeys.length+')…');
-  }
-  const toAdd=[];
-  for(const monthKey of monthKeys){
-   const existing=existingByMonth.get(monthKey)||[];
-   const counts=new Map();
-   existing.forEach(x=>{
-    const sig=backupFingerprint(x);
-    counts.set(sig,(counts.get(sig)||0)+1);
-   });
-   const seen=new Map();
-   for(const item of grouped.get(monthKey)){
-    const sig=backupFingerprint(item);
-    const occurrence=(seen.get(sig)||0)+1;
-    seen.set(sig,occurrence);
-    if(occurrence>(counts.get(sig)||0))toAdd.push(item);
-   }
-  }
-  if(!toAdd.length){
-   message('backupMessage','A planilha já contém todos os lançamentos deste backup. Nada foi duplicado.');
-  }else{
-   writeInFlight=true;
-   for(let i=0;i<toAdd.length;i++){
-    await sendRawSave(toAdd[i]);
-    saved++;
-    setBackupProgress(saved,toAdd.length);
-    message('backupMessage','Restaurando '+saved+' de '+toAdd.length+' lançamentos…');
-   }
-   message('backupMessage','Restauração concluída: '+saved+' lançamentos adicionados. Os dados existentes foram preservados.');
-  }
-  if(data.budgets&&typeof data.budgets==='object'){
-   for(const [monthKey,value] of Object.entries(data.budgets)){
-    if(/^\d{4}-(0[1-9]|1[0-2])$/.test(monthKey)&&Number(value)>0)saveMonthlyBudget(monthKey,Number(value));
-   }
-  }
- }catch(error){
-  message('backupMessage','A restauração parou após '+saved+' lançamentos adicionados: '+error.message,true);
- }finally{
-  writeInFlight=false;
-  button.disabled=!selectedBackupFile;
-  $('exportBackup').disabled=false;
-  await load();
- }
-});
 
 $('connectBtn').addEventListener('click',()=>{
  const url=$('apiUrl').value.trim();
