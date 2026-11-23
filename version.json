@@ -1,6 +1,6 @@
 {
-  "version": "1.4.3",
+  "version": "1.4.4",
   "ready": true,
   "releasedAt": "2026-11-23",
-  "notes": "Melhora a apresentação dos campos De e Até do backup no iPhone: agora ficam empilhados e ocupam toda a largura do cartão."
+  "notes": "Redesenha a navegação inferior no celular com ícones mais claros, rótulos e um dock flutuante mais discreto."
 }
