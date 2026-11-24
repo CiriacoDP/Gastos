@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.7.1">
+<meta name="app-version" content="1.7.2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -3108,7 +3108,20 @@ function sameExpenseIdentity(candidate,reference){
 
 const IMPORTANT_MARKER='[!IMPORTANTE!]';
 // Aceita também o marcador antigo, criado antes de armazenar o mês final da série.
-const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80})(?::(\d{4}-(?:0[1-9]|1[0-2])))?!\]/;
+const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80})(?::([^!\]]*))?!\]/;
+
+function normalizeSeriesEnd(value){
+ const raw=String(value||'').trim();
+ if(/^\d{4}-(?:0[1-9]|1[0-2])$/.test(raw))return raw;
+ const parsed=new Date(raw);
+ if(!Number.isNaN(parsed.getTime()))return parsed.getUTCFullYear()+'-'+pad(parsed.getUTCMonth()+1);
+ const match=raw.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+(\d{4})\b/i);
+ if(match){
+  const months={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12};
+  return match[2]+'-'+pad(months[match[1].toLowerCase()]);
+ }
+ return '';
+}
 
 function createSeriesId(){
  const generated=window.crypto?.randomUUID?.();
@@ -3125,7 +3138,7 @@ function decodeCategory(raw){
  return {
   important,
   seriesId:seriesMatch?seriesMatch[1]:'',
-  seriesEnd:seriesMatch?seriesMatch[2]:'',
+  seriesEnd:seriesMatch?normalizeSeriesEnd(seriesMatch[2]):'',
   nature:m?m[1]:'',
   category:categoryMatch?categoryMatch[1]:'',
   description:m?clean.replace(m[0],''):clean
