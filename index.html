@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.8.0">
+<meta name="app-version" content="1.8.1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2374,7 +2374,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
      <div class="budget-input-row"><span>R$</span><input id="budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="saveBudget" type="button">Salvar</button></div>
      <div class="budget-progress-track"><span id="budgetProgress"></span></div>
      <div class="budget-feedback" id="budgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
-     <small class="budget-local-note">Meta salva neste dispositivo.</small>
+     <small class="budget-local-note">Meta sincronizada pela planilha em todos os dispositivos.</small>
     </section>
     <section class="analytics-card previous-month-card">
      <div class="analytics-title-row"><h3>Comparação mensal</h3><span id="previousMonthName">MÊS ANTERIOR</span></div>
@@ -2661,7 +2661,7 @@ let analyticsHistory=new Map();
 let analyticsHistoryBase='';
 let analyticsHistoryFetchedAt=0;
 let analyticsHistoryLoading=false;
-const BUDGET_STORAGE_PREFIX='gastos2026_budget_month_';
+let monthlyBudgets=Object.create(null);
 
 const MONTH_CACHE_PREFIX='gastos2026_month_snapshot_v1_';
 function cacheAccountKey(){
@@ -3227,7 +3227,8 @@ async function load(){
   const rows=extractEntries(d);
   if(!rows)throw Error('A resposta do Apps Script não trouxe a lista de lançamentos.');
 
-  const freshRows=rows.map(normalizeEntry);
+  if(Object.prototype.hasOwnProperty.call(d,'budget'))monthlyBudgets[requestedMonth]=Math.max(0,Number(d.budget)||0);
+   const freshRows=rows.map(normalizeEntry);
   applyPendingPaymentChanges(freshRows);
   saveMonthCache(requestedMonth,freshRows,d.exists!==false);
   // Uma resposta atrasada nunca deve substituir a tela de outro mês.
@@ -3655,10 +3656,7 @@ async function loadAnalyticsHistory(force=false){
  }
 }
 function getMonthlyBudget(monthKey){
- try{return Number(localStorage.getItem(BUDGET_STORAGE_PREFIX+monthKey)||0)||0}catch(e){return 0}
-}
-function saveMonthlyBudget(monthKey,value){
- try{localStorage.setItem(BUDGET_STORAGE_PREFIX+monthKey,String(value));return true}catch(e){return false}
+ return Number(monthlyBudgets[monthKey]||0)||0;
 }
 
 function renderCategoryBreakdown(expenses){
@@ -4534,19 +4532,22 @@ $('repeatMonthly').addEventListener('change',()=>{
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
 });
 
-$('saveBudget').addEventListener('click',()=>{
+$('saveBudget').addEventListener('click',async()=>{
  const target=Number($('budgetInput').value);
  if(!(target>0)){
   toast('Informe uma meta maior que zero.',true);
   $('budgetInput').focus();
   return;
  }
- if(!saveMonthlyBudget(month,target)){
-  toast('Não consegui salvar a meta neste dispositivo.',true);
+ if(!api()){
+  toast('Conecte o aplicativo à planilha para sincronizar a meta.',true);
   return;
  }
+ const saved=await post({action:'saveBudget',month,value:target},true);
+ if(!saved)return;
+ monthlyBudgets[month]=target;
  renderAnalytics(entries.filter(x=>x.mes===month));
- toast('Meta mensal salva');
+ toast('Meta sincronizada com todos os dispositivos');
 });
 
 
