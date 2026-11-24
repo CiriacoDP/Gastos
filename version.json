@@ -1,6 +1,6 @@
 {
-  "version": "1.5.2",
+  "version": "1.5.3",
   "ready": true,
-  "releasedAt": "2026-11-23",
-  "notes": "Preserva IDs e marcadores de despesas recorrentes na planilha e mostra a quantidade anônima de dispositivos online."
+  "releasedAt": "2026-11-24",
+  "notes": "Classifica automaticamente despesas por palavras-chave e reaproveita a natureza de descrições já cadastradas."
 }
