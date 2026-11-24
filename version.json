@@ -1,6 +1,6 @@
 {
-  "version": "1.6.3",
+  "version": "1.6.4",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Melhora o espaçamento entre o cabeçalho e o conteúdo em telas móveis."
+  "notes": "Adiciona gráfico de pizza com valores e percentuais das despesas por categoria."
 }
