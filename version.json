@@ -1,6 +1,6 @@
 {
-  "version": "1.7.5",
+  "version": "1.7.6",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Layout desktop adaptativo à largura, altura e proporção da janela; ajustes de distribuição sem alterar o mobile."
+  "notes": "Interface desktop própria com dashboard e tabelas de lançamentos e entradas; cartões mobile preservados."
 }
