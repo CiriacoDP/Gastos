@@ -1,6 +1,6 @@
 {
-  "version": "1.6.4",
+  "version": "1.6.5",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Adiciona gráfico de pizza com valores e percentuais das despesas por categoria."
+  "notes": "Refina os filtros adicionais de lançamentos para telas móveis."
 }
