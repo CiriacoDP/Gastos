@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.5.3">
+<meta name="app-version" content="1.5.4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1460,6 +1460,9 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
 @keyframes update-spin{to{transform:rotate(360deg)}}
 .update-installing-card strong{display:block;font-size:16px;font-weight:800}
 .update-installing-card p{margin:8px 0 0;color:#9fb2c7;font-size:12px;line-height:1.5}
+.update-progress{height:8px;margin:22px 0 10px;overflow:hidden;border-radius:99px;background:rgba(132,185,240,.14);border:1px solid rgba(132,185,240,.12)}
+.update-progress-fill{display:block;width:0;height:100%;border-radius:inherit;background:linear-gradient(90deg,#438fe8,#75c2ff);box-shadow:0 0 14px rgba(92,169,255,.35);transition:width .22s ease}
+.update-progress-meta{display:flex;justify-content:space-between;gap:10px;color:#8fa8c2;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
 
 
 /* Navegação mobile redesenhada: dock flutuante, ícones semânticos e rótulos */
@@ -1646,7 +1649,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span id="sidebarStatusText">Desconectado</span>
   </div>
   <div class="sidebar-online-line" aria-live="polite"><i class="online-dot" aria-hidden="true"></i><span id="sidebarOnlineDevicesText">Contagem indisponível</span></div>
-  <small class="sidebar-app-version">Versão 1.5.3</small>
+  <small class="sidebar-app-version">Versão 1.5.4</small>
  </div>
 </aside>
 
@@ -1655,7 +1658,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.3</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.4</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
     <div class="online-devices" aria-live="polite"><i class="online-dot" aria-hidden="true"></i><span id="onlineDevicesText">Contagem indisponível</span></div>
    </div>
@@ -1986,8 +1989,12 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
 <div class="update-installing-overlay" id="updateInstallingOverlay" hidden>
  <div class="update-installing-card">
   <span class="update-installing-spinner" aria-hidden="true"></span>
-  <strong>Finalizando atualização</strong>
-  <p>Preparando a nova versão para as próximas aberturas do aplicativo.</p>
+  <strong id="updateInstallingTitle">Baixando atualização</strong>
+  <p id="updateInstallingText">Preparando os arquivos da nova versão…</p>
+  <div class="update-progress" role="progressbar" aria-label="Progresso da atualização" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+   <span class="update-progress-fill" id="updateProgressFill"></span>
+  </div>
+  <div class="update-progress-meta"><span id="updateProgressLabel">Aguarde um instante</span><strong id="updateProgressPercent">0%</strong></div>
  </div>
 </div>
 
@@ -2460,14 +2467,35 @@ function initAppUpdateChecker(){
 
  if(updateHandoff){
   $('updateInstallingOverlay').hidden=false;
+  let progress=0;
+  const paintUpdateProgress=value=>{
+   progress=Math.max(0,Math.min(100,Math.round(value)));
+   $('updateProgressFill').style.width=progress+'%';
+   $('updateProgressPercent').textContent=progress+'%';
+   $('updateProgressFill').parentElement.setAttribute('aria-valuenow',String(progress));
+   $('updateInstallingTitle').textContent=progress<65?'Baixando atualização':'Instalando atualização';
+   $('updateInstallingText').textContent=progress<65
+    ?'Baixando e preparando os arquivos da nova versão…'
+    :'Aplicando os arquivos e preparando o aplicativo…';
+   $('updateProgressLabel').textContent=progress<65?'Transferindo arquivos':'Finalizando instalação';
+  };
+  paintUpdateProgress(0);
+  const progressTimer=setInterval(()=>{
+   if(progress<88)paintUpdateProgress(progress+(progress<55?3:1));
+  },180);
   Promise.resolve(serviceWorkerReady).then(registration=>
    waitForAppServiceWorker(registration,15000)
   ).then(ready=>{
-   $('updateInstallingOverlay').hidden=true;
-   clearAppUpdateHandoff();
-   if(ready)toast('Atualização instalada e pronta.');
-   else toast('A versão nova abriu. A instalação do cache será tentada novamente quando a conexão estiver estável.',true);
+   clearInterval(progressTimer);
+   if(ready)paintUpdateProgress(100);
+   setTimeout(()=>{
+    $('updateInstallingOverlay').hidden=true;
+    clearAppUpdateHandoff();
+    if(ready)toast('Atualização instalada e pronta.');
+    else toast('A versão nova abriu. A instalação do cache será tentada novamente quando a conexão estiver estável.',true);
+   },ready?450:0);
   }).catch(()=>{
+   clearInterval(progressTimer);
    $('updateInstallingOverlay').hidden=true;
    clearAppUpdateHandoff();
    toast('A versão nova abriu, mas não foi possível confirmar o cache local.',true);
