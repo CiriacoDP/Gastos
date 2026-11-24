@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.7.0">
+<meta name="app-version" content="1.7.1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2705,10 +2705,11 @@ function normMonth(v){
 
 function normalizeEntry(x){
  const paid=x.pago??x.Pago??x.paid??false;
- const categoriaDespesa=String(x.categoriaDespesa??x.CategoriaDespesa??'').trim();
  let categoria=String(x.categoria??x.Categoria??x.category??'');
- // Compatibilidade: se a categoria vier da coluna nova, mantém também o marcador
- // que o frontend atual já utiliza para filtros, ícones e recorrências.
+ const markerCategory=(categoria.match(/\[!CAT:([A-Za-z]+)!\]/)||[])[1]||'';
+ const storedCategory=String(x.categoriaDespesa??x.CategoriaDespesa??'').trim();
+ const categoriaDespesa=storedCategory||markerCategory;
+ // Compatibilidade entre o formato antigo (marcador) e a coluna nova.
  if(categoriaDespesa&&!/\[!CAT:[A-Za-z]+!\]/.test(categoria)){
   categoria+=' [!CAT:'+categoriaDespesa+'!]';
  }
