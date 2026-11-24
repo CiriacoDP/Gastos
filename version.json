@@ -1,6 +1,6 @@
 {
-  "version": "1.5.9",
+  "version": "1.6.0",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Aplica ícones vetoriais Lucide com cores individuais por categoria."
+  "notes": "Amplia reconhecimento automático de cartões e lojas na categoria Compras."
 }
