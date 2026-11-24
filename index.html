@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.7.8">
+<meta name="app-version" content="1.7.9">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2118,6 +2118,19 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   margin-left:auto!important;
   margin-right:auto!important;
  }
+}
+
+
+/* Personalização dos cards da Visão geral — somente desktop. */
+@media (min-width:1100px){
+ #overview .dashboard-custom-tools{display:flex;justify-content:flex-end;align-items:center;margin:0 0 10px}
+ #overview .dashboard-reset{border:1px solid rgba(150,180,210,.22);background:rgba(18,30,44,.8);color:#aebfd1;border-radius:8px;padding:7px 11px;font-size:11px;cursor:pointer}
+ #overview .dashboard-card{position:relative;min-width:0;min-height:130px;overflow:auto;resize:both;box-sizing:border-box;align-self:stretch}
+ #overview .dashboard-card-grip{position:absolute;z-index:5;top:8px;right:8px;width:27px;height:25px;display:grid;place-items:center;border:1px solid rgba(150,180,210,.24);border-radius:7px;background:rgba(8,16,26,.82);color:#9eb3c9;cursor:grab;touch-action:none;font-size:15px;line-height:1}
+ #overview .dashboard-card-grip:active{cursor:grabbing}
+ #overview .dashboard-card.is-dragging{opacity:.42}
+ #overview .dashboard-drop-target{outline:2px dashed rgba(105,170,235,.7);outline-offset:-4px}
+ #overview .dashboard-card[style*="width"]{max-width:100%}
 }
 
 </style>
@@ -4507,6 +4520,92 @@ setInterval(async()=>{
 },AUTO_SYNC_INTERVAL);
 
 // Não há sincronização automática ao trocar de aba ou voltar ao aplicativo.
+
+/* Cards ajustáveis da Visão geral: ordem e dimensões ficam salvas neste navegador. */
+function initOverviewCardCustomization(){
+ if(!window.matchMedia('(min-width:1100px)').matches)return;
+ const root=$('overview');
+ if(!root||root.dataset.customCardsReady)return;
+ root.dataset.customCardsReady='1';
+ const storageKey='meuDinheiro.overviewCards.v1';
+ const groups=[
+  {id:'main',selector:'.overview-grid',cards:['.summary','.quick-card']},
+  {id:'analytics',selector:'.overview-analytics-grid',cards:['.ranking-card','.progress-card','.comparison-card','.indicators-card','.history-card']},
+  {id:'essentials',selector:'.overview-essentials',cards:['.forecast-card','.budget-card','.previous-month-card']}
+ ];
+ let saved={};
+ try{saved=JSON.parse(localStorage.getItem(storageKey)||'{}')||{}}catch(error){saved={}}
+ const persist=()=>{
+  try{localStorage.setItem(storageKey,JSON.stringify(saved))}catch(error){}
+ };
+ groups.forEach(group=>{
+  const container=root.querySelector(group.selector);
+  if(!container)return;
+  const cards=group.cards.map(selector=>container.querySelector(selector)).filter(Boolean);
+  cards.forEach(card=>{
+   card.classList.add('dashboard-card');
+   const key=group.id+':'+group.cards.find(selector=>card.matches(selector));
+   card.dataset.dashboardKey=key;
+   const grip=document.createElement('button');
+   grip.type='button';grip.className='dashboard-card-grip';
+   grip.textContent='⠿';grip.title='Arraste para reorganizar este card';
+   grip.setAttribute('aria-label','Mover card');
+   grip.draggable=true;
+   card.appendChild(grip);
+   const size=saved.sizes?.[key];
+   if(size?.width)card.style.width=size.width+'px';
+   if(size?.height)card.style.height=size.height+'px';
+   grip.addEventListener('dragstart',event=>{
+    card.classList.add('is-dragging');
+    event.dataTransfer.effectAllowed='move';
+    event.dataTransfer.setData('text/plain',key);
+   });
+   grip.addEventListener('dragend',()=>{card.classList.remove('is-dragging');container.querySelectorAll('.dashboard-drop-target').forEach(el=>el.classList.remove('dashboard-drop-target'));saveOrder();});
+   card.addEventListener('dragover',event=>{event.preventDefault();if(!card.classList.contains('is-dragging'))card.classList.add('dashboard-drop-target');});
+   card.addEventListener('dragleave',()=>card.classList.remove('dashboard-drop-target'));
+   card.addEventListener('drop',event=>{
+    event.preventDefault();card.classList.remove('dashboard-drop-target');
+    const dragged=container.querySelector('.is-dragging');
+    if(!dragged||dragged===card)return;
+    const rect=card.getBoundingClientRect();
+    const after=event.clientY>rect.top+rect.height/2;
+    container.insertBefore(dragged,after?card.nextSibling:card);
+    saveOrder();
+   });
+  });
+  const order=saved.orders?.[group.id];
+  if(Array.isArray(order)){
+   order.forEach(key=>{const card=cards.find(item=>item.dataset.dashboardKey===key);if(card)container.appendChild(card)});
+  }
+  function saveOrder(){saved.orders=saved.orders||{};saved.orders[group.id]=[...container.querySelectorAll('.dashboard-card')].map(card=>card.dataset.dashboardKey);persist()}
+  container.addEventListener('pointerup',()=>{
+   requestAnimationFrame(()=>{
+    saved.sizes=saved.sizes||{};
+    container.querySelectorAll('.dashboard-card').forEach(card=>{
+     const rect=card.getBoundingClientRect();
+     if(card.style.width||card.style.height){
+      saved.sizes[card.dataset.dashboardKey]={width:Math.round(rect.width),height:Math.round(rect.height)};
+     }
+    });
+    persist();
+   });
+  });
+ });
+ const tools=document.createElement('div');
+ tools.className='dashboard-custom-tools';
+ const reset=document.createElement('button');
+ reset.type='button';reset.className='dashboard-reset';reset.textContent='Restaurar cards';
+ reset.addEventListener('click',()=>{
+  if(!confirm('Restaurar a posição e o tamanho original dos cards?'))return;
+  try{localStorage.removeItem(storageKey)}catch(error){}
+  location.reload();
+ });
+ tools.appendChild(reset);
+ const heading=root.querySelector('.view-heading');
+ if(heading)heading.insertAdjacentElement('afterend',tools);
+}
+
+initOverviewCardCustomization();
 initPrivacyMode();
 initAppUpdateChecker();
 if(!loadCachedMonth(month))render();
