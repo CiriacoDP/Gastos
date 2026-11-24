@@ -1,6 +1,6 @@
 {
-  "version": "1.6.7",
+  "version": "1.6.8",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Unifica filtros em uma barra compacta com painel expansível."
+  "notes": "Unifica a versão exibida no cabeçalho, barra lateral e configurações."
 }
