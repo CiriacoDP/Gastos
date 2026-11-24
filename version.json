@@ -1,6 +1,6 @@
 {
-  "version": "1.6.8",
+  "version": "1.6.9",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Unifica a versão exibida no cabeçalho, barra lateral e configurações."
+  "notes": "Corrige a apresentação visual dos filtros de categoria."
 }
