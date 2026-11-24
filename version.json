@@ -1,6 +1,6 @@
 {
-  "version": "1.6.6",
+  "version": "1.6.7",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Adiciona filtros combináveis por categorias, natureza e importância."
+  "notes": "Unifica filtros em uma barra compacta com painel expansível."
 }
