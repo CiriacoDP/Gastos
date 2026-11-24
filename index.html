@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.6.7">
+<meta name="app-version" content="1.6.8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1747,7 +1747,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.6.0</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 1.0.0</small>
  </div>
 </aside>
 
@@ -1756,7 +1756,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.6.0</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v1.0.0</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -2526,6 +2526,8 @@ async function checkForAppUpdate(manual=false){
 function initAppUpdateChecker(){
  appUpdateDismissedVersion='';
  $('settingsAppVersion').textContent='v'+APP_VERSION;
+ $('headerAppVersion').textContent='v'+APP_VERSION;
+ $('sidebarAppVersion').textContent='Versão '+APP_VERSION;
  $('manualUpdateCheck').addEventListener('click',()=>{
   appUpdateDismissedVersion='';
   checkForAppUpdate(true);
