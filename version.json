@@ -1,6 +1,6 @@
 {
-  "version": "1.5.4",
+  "version": "1.5.5",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Adiciona barra visual de progresso durante a instalação da atualização."
+  "notes": "Exibe natureza, recorrência mensal e categoria nas despesas."
 }
