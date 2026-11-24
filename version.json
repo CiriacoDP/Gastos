@@ -1,6 +1,6 @@
 {
-  "version": "1.5.6",
+  "version": "1.5.7",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Estende a animação visual da instalação da atualização para cerca de 10 segundos."
+  "notes": "Remove o indicador de dispositivos conectados."
 }
