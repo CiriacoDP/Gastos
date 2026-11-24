@@ -1,5 +1,5 @@
 {
-  "version": "1.7.1",
+  "version": "1.7.2",
   "ready": true,
   "releasedAt": "2026-11-24",
   "notes": "Corrige comparação de edição entre categoria antiga e coluna separada."
