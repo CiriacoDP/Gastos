@@ -1,6 +1,6 @@
 {
-  "version": "1.5.8",
+  "version": "1.5.9",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Aprimora categorias automáticas, ícones e edição manual das despesas."
+  "notes": "Aplica ícones vetoriais Lucide com cores individuais por categoria."
 }
