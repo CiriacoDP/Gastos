@@ -1,6 +1,6 @@
 {
-  "version": "1.7.7",
+  "version": "1.7.8",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Reestruturação do desktop com dashboard compacto e tabelas alinhadas; visualização mobile preservada."
+  "notes": "Ajuste de largura para monitores 4K; visualização mobile preservada."
 }
