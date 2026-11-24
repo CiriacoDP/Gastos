@@ -1,6 +1,6 @@
 {
-  "version": "1.5.3",
+  "version": "1.5.4",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Classifica automaticamente despesas por palavras-chave e reaproveita a natureza de descrições já cadastradas."
+  "notes": "Adiciona barra visual de progresso durante a instalação da atualização."
 }
