@@ -2486,33 +2486,45 @@ function initAppUpdateChecker(){
 
  if(updateHandoff){
   $('updateInstallingOverlay').hidden=false;
+  const progressStartedAt=Date.now();
+  const minimumDisplayTime=10000;
   let progress=0;
   const paintUpdateProgress=value=>{
    progress=Math.max(0,Math.min(100,Math.round(value)));
    $('updateProgressFill').style.width=progress+'%';
    $('updateProgressPercent').textContent=progress+'%';
    $('updateProgressFill').parentElement.setAttribute('aria-valuenow',String(progress));
-   $('updateInstallingTitle').textContent=progress<65?'Baixando atualização':'Instalando atualização';
-   $('updateInstallingText').textContent=progress<65
+   $('updateInstallingTitle').textContent=progress<58?'Baixando atualização':'Instalando atualização';
+   $('updateInstallingText').textContent=progress<58
     ?'Baixando e preparando os arquivos da nova versão…'
     :'Aplicando os arquivos e preparando o aplicativo…';
-   $('updateProgressLabel').textContent=progress<65?'Transferindo arquivos':'Finalizando instalação';
+   $('updateProgressLabel').textContent=progress<58?'Transferindo arquivos':'Finalizando instalação';
   };
   paintUpdateProgress(0);
   const progressTimer=setInterval(()=>{
-   if(progress<88)paintUpdateProgress(progress+(progress<55?3:1));
-  },180);
+   const elapsed=Date.now()-progressStartedAt;
+   // Progresso visual suave de aproximadamente 10 segundos; só chega a 100% após confirmação real.
+   paintUpdateProgress(Math.min(92,(elapsed/9000)*92));
+  },100);
   Promise.resolve(serviceWorkerReady).then(registration=>
    waitForAppServiceWorker(registration,15000)
-  ).then(ready=>{
-   clearInterval(progressTimer);
-   if(ready)paintUpdateProgress(100);
-   setTimeout(()=>{
+  ).then(async ready=>{
+   if(ready){
+    const remaining=Math.max(0,minimumDisplayTime-(Date.now()-progressStartedAt));
+    if(remaining)await new Promise(resolve=>setTimeout(resolve,remaining));
+    clearInterval(progressTimer);
+    paintUpdateProgress(100);
+    setTimeout(()=>{
+     $('updateInstallingOverlay').hidden=true;
+     clearAppUpdateHandoff();
+     toast('Atualização instalada e pronta.');
+    },450);
+   }else{
+    clearInterval(progressTimer);
     $('updateInstallingOverlay').hidden=true;
     clearAppUpdateHandoff();
-    if(ready)toast('Atualização instalada e pronta.');
-    else toast('A versão nova abriu. A instalação do cache será tentada novamente quando a conexão estiver estável.',true);
-   },ready?450:0);
+    toast('A versão nova abriu. A instalação do cache será tentada novamente quando a conexão estiver estável.',true);
+   }
   }).catch(()=>{
    clearInterval(progressTimer);
    $('updateInstallingOverlay').hidden=true;
