@@ -1,6 +1,6 @@
 {
-  "version": "1.8.1",
+  "version": "1.8.2",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Meta de despesas sincronizada pela planilha entre dispositivos."
+  "notes": "Organização visual aprimorada na tela Geral para desktop; experiência mobile preservada."
 }
