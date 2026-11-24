@@ -1,6 +1,6 @@
 {
-  "version": "1.8.0",
+  "version": "1.8.1",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Restaura os cards originais nas abas Lançamentos e Entradas no mobile."
+  "notes": "Meta de despesas sincronizada pela planilha entre dispositivos."
 }
