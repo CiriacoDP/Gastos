@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.6.1">
+<meta name="app-version" content="1.6.2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -3308,9 +3308,41 @@ function categoryIconMarkup(category,isIncome=false){
  const path=CATEGORY_ICON_SVG[meta.icon]||CATEGORY_ICON_SVG.package;
  return '<span class="category-icon cat-'+meta.color+'" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+path+'</svg></span>';
 }
+const CATEGORY_LEARNING_KEY='meuDinheiro.categoryLearning.v1';
+const CATEGORY_LEARNING_STOPWORDS=new Set(['conta','pagamento','despesa','gasto','compra','mensalidade','fatura','debito','credito','cartao','servico','servicos','de','da','do','das','dos']);
+function learnedCategoryRules(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(CATEGORY_LEARNING_KEY)||'[]');
+  return Array.isArray(saved)?saved.filter(x=>x&&typeof x.term==='string'&&typeof x.category==='string'):[];
+ }catch(error){return [];}
+}
+function categoryLearningTerm(description){
+ const words=searchText(description).split(/\\s+/).filter(Boolean);
+ return words.find(word=>word.length>=3&&!CATEGORY_LEARNING_STOPWORDS.has(word))||'';
+}
+function learnExpenseCategory(description,category){
+ const term=categoryLearningTerm(description);
+ if(!term||!EXPENSE_CATEGORY_META[category])return false;
+ const rules=learnedCategoryRules();
+ const existing=rules.findIndex(rule=>rule.term===term);
+ const updated={term,category,updatedAt:Date.now()};
+ if(existing>=0)rules[existing]=updated;
+ else rules.push(updated);
+ try{localStorage.setItem(CATEGORY_LEARNING_KEY,JSON.stringify(rules));return true;}
+ catch(error){return false;}
+}
+function inferLearnedCategory(description){
+ const words=searchText(description).split(/\\s+/).filter(Boolean);
+ if(!words.length)return '';
+ const matches=learnedCategoryRules().filter(rule=>words.includes(rule.term)).sort((a,b)=>b.term.length-a.term.length);
+ return matches[0]?.category||'';
+}
+
 function inferExpenseCategory(description){
  const key=searchText(description);
  if(!key)return '';
+ const learned=inferLearnedCategory(description);
+ if(learned)return learned;
  const rules=[
   {category:'Streaming',test:/\b(spotify|netflix|disney\+?|prime video|amazon prime|hbo max|max|paramount\+?|globoplay|youtube premium|deezer|apple music)\b/},
   {category:'Combustivel',test:/\b(shell|ipiranga|ale combustiveis|posto|abastecimento|gasolina|etanol|diesel|combustivel)\b/},
@@ -3498,6 +3530,13 @@ $('entryForm').addEventListener('submit',async e=>{
  if(!unchanged){
   $('saveBtn').disabled=false;
   return;
+ }
+
+ // Só uma escolha manual ensina o classificador. Mudanças corrigem a regra anterior.
+ if(!pendingDelete&&type!=='Entrada'&&categoryManuallySelected&&
+    $('expenseCategory').value&&
+    (!oldCategory||oldCategory.category!==$('expenseCategory').value)){
+  learnExpenseCategory($('description').value.trim(),$('expenseCategory').value);
  }
 
  if(pendingDelete){
