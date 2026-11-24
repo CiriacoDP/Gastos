@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.5.7">
+<meta name="app-version" content="1.5.8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -345,6 +345,8 @@ header{padding-top:calc(20px + env(safe-area-inset-top))}
 }
 
 #expenseCategory{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);text-align:right;font:inherit;outline:none}
+.category-icon{display:flex;align-items:center;justify-content:center;flex:0 0 38px;width:38px;height:38px;border-radius:12px;background:rgba(124,158,196,.13);font-size:19px}
+.category-pill{display:inline-flex;align-items:center;gap:5px;margin-left:6px;padding:3px 8px;border-radius:999px;background:rgba(124,158,196,.12);color:#b8cbe0;font-size:10px;font-weight:650;white-space:nowrap}
 #expenseCategory option{background:#182432;color:#f1f6fc}
 /* Lançamentos: resumo compacto + filtros + um cartão independente por item. */
 .transaction-overview{
@@ -368,7 +370,7 @@ header{padding-top:calc(20px + env(safe-area-inset-top))}
  background:transparent;border:0;box-shadow:none;border-radius:0;
 }
 .row{
- display:grid;grid-template-columns:27px minmax(0,1fr) auto;
+ display:grid;grid-template-columns:27px 38px minmax(0,1fr) auto;
  align-items:center;gap:12px;min-height:74px;padding:15px 17px;
  position:relative;cursor:pointer;overflow:hidden;
  border:1px solid rgba(161,187,215,.12);border-radius:17px;
@@ -1638,7 +1640,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.5.7</small>
+  <small class="sidebar-app-version">Versão 1.5.8</small>
  </div>
 </aside>
 
@@ -1647,7 +1649,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.7</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.8</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -1953,6 +1955,8 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <label class="cell" id="categoryCell"><span>Categoria</span>
     <select id="expenseCategory" aria-label="Categoria da despesa">
      <option value="">Sem categoria</option>
+     <option value="Streaming">Streaming</option>
+     <option value="Mercado">Mercado</option>
      <option value="Alimentacao">Alimentação</option>
      <option value="Combustivel">Combustível</option>
      <option value="Moradia">Moradia</option>
@@ -3163,12 +3167,14 @@ function render(){
   const inEntry=x.tipo==='Entrada';
   const kind=inEntry?'Entrada':(x.tipo==='Dívida'?'Dívida':c.nature||'Despesa');
   const monthly=c.seriesId?'Mensal':'';
-  const categoryLabel=c.category?({Alimentacao:'Alimentação',Combustivel:'Combustível',Moradia:'Moradia',Saude:'Saúde',Transporte:'Transporte',Educacao:'Educação',Lazer:'Lazer',Compras:'Compras',Servicos:'Serviços',Assinaturas:'Assinaturas',Impostos:'Impostos',Outros:'Outros'}[c.category]||c.category):'';
+  const effectiveCategory=c.category||inferExpenseCategory(c.description);
+  const categoryLabel=effectiveCategory?(EXPENSE_CATEGORY_META[effectiveCategory]?.label||effectiveCategory):'';
   const tags=[kind,...(monthly?[monthly]:[]),...(categoryLabel?[categoryLabel]:[])];
   const sub=tags.join(' · ')+(x.pago?' · '+(inEntry?'recebida':'paga'):'');
   const important=c.important;
   return `<li class="row${x.pago?' done':''}${important?' important':''}" data-id="${safe(x.id)}">
    <button type="button" class="check${x.pago?' on':''}" aria-label="${x.pago?'Marcar como pendente':(inEntry?'Marcar como recebida':'Marcar como paga')}"></button>
+   <span class="category-icon" aria-hidden="true">${inEntry?'↗️':(EXPENSE_CATEGORY_META[c.category||inferExpenseCategory(c.description)]||EXPENSE_CATEGORY_META.Outros).icon}</span>
    <div class="main">
     <div class="t">${safe(c.description||'Sem descrição')}${important?'<span class="important-star" title="Importante">★</span>':''}</div>
     <div class="s">${safe(sub)}</div>
@@ -3247,18 +3253,25 @@ function inferNatureFromDescription(description){
  return match?match.nature:'';
 }
 
+const EXPENSE_CATEGORY_META={
+ Streaming:{label:'Streaming',icon:'▶️'},Combustivel:{label:'Combustível',icon:'⛽'},Mercado:{label:'Mercado',icon:'🛒'},Alimentacao:{label:'Alimentação',icon:'🍽️'},Moradia:{label:'Moradia',icon:'🏠'},Saude:{label:'Saúde',icon:'💊'},Transporte:{label:'Transporte',icon:'🚗'},Educacao:{label:'Educação',icon:'📚'},Lazer:{label:'Lazer',icon:'🎟️'},Compras:{label:'Compras',icon:'🛍️'},Servicos:{label:'Serviços',icon:'🧾'},Assinaturas:{label:'Assinaturas',icon:'📱'},Impostos:{label:'Impostos',icon:'🏛️'},Outros:{label:'Outros',icon:'📦'}
+};
 function inferExpenseCategory(description){
  const key=searchText(description);
+ if(!key)return '';
  const rules=[
-  {category:'Alimentacao',test:/\b(alimentacao|mercado|supermercado|feira|acougue|padaria|restaurante|lanchonete|delivery|ifood|comida)\b/},
-  {category:'Combustivel',test:/\b(posto|combustivel|gasolina|etanol|diesel|abastecimento)\b/},
-  {category:'Moradia',test:/\b(aluguel|condominio|iptu|agua|luz|energia|eletricidade|esgoto|saneamento|casa|reforma|moveis)\b/},
-  {category:'Saude',test:/\b(farmacia|remedio|medicamento|medico|consulta|hospital|dentista|exame|plano de saude)\b/},
-  {category:'Transporte',test:/\b(uber|taxi|onibus|passagem|estacionamento|pedagio|oficina|manutencao do carro)\b/},
+  {category:'Streaming',test:/\b(spotify|netflix|disney\+?|prime video|amazon prime|hbo max|max|paramount\+?|globoplay|youtube premium|deezer|apple music)\b/},
+  {category:'Combustivel',test:/\b(shell|ipiranga|ale combustiveis|posto|abastecimento|gasolina|etanol|diesel|combustivel)\b/},
+  {category:'Mercado',test:/\b(atacadao|assai|carrefour|fort atacadista|comper|supermercado|mercado|hortifruti|feira|acougue)\b/},
+  {category:'Alimentacao',test:/\b(ifood|rappi|ubereats|restaurante|lanchonete|pizzaria|hamburgueria|padaria|cafeteria|delivery|almoco|jantar)\b/},
+  {category:'Saude',test:/\b(farmacia|drogasil|droga raia|pague menos|remedio|medicamento|medico|consulta|hospital|dentista|exame|laboratorio|plano de saude)\b/},
+  {category:'Moradia',test:/\b(aluguel|condominio|iptu|agua|luz|energia|eletricidade|esgoto|saneamento|reforma|moveis|gas de cozinha)\b/},
+  {category:'Transporte',test:/\b(uber|99 app|taxi|onibus|passagem|estacionamento|pedagio|oficina|mecanica|lavagem automotiva)\b/},
   {category:'Educacao',test:/\b(escola|faculdade|curso|livro|material escolar|mensalidade escolar)\b/},
-  {category:'Lazer',test:/\b(cinema|viagem|passeio|streaming|jogo|show|lazer)\b/},
-  {category:'Assinaturas',test:/\b(internet|telefone|celular|assinatura|mensalidade|netflix|spotify)\b/},
-  {category:'Impostos',test:/\b(imposto|ipva|irpf|taxa|multa)\b/}
+  {category:'Lazer',test:/\b(cinema|viagem|passeio|jogo|show|parque|teatro|lazer)\b/},
+  {category:'Compras',test:/\b(roupa|vestuario|calcado|tenis|shopping|loja|presente|eletronico)\b/},
+  {category:'Assinaturas',test:/\b(internet|telefone|celular|plano de celular|assinatura|mensalidade)\b/},
+  {category:'Impostos',test:/\b(imposto|ipva|irpf|taxa|multa|licenciamento)\b/}
  ];
  const match=rules.find(rule=>rule.test.test(key));
  return match?match.category:'';
@@ -3296,12 +3309,13 @@ function openSheet(item,defaultType='Gasto'){
   categoria:item.categoria,valor:Number(item.valor),pago:!!item.pago
  }:null;
  const c=item?decodeCategory(item.categoria):null;
+ categoryManuallySelected=!!(c&&c.category);
 
  $('sheetTitle').textContent=item
   ?(item.tipo==='Entrada'?'Editar entrada':'Editar despesa')
   :(defaultType==='Entrada'?'Nova entrada':'Nova despesa');
  $('description').value=c?c.description:'';
- $('expenseCategory').value=c?c.category:'';
+ $('expenseCategory').value=c&&c.category?c.category:inferExpenseCategory(c?c.description:'');
  $('amount').value=item?item.valor:'';
  $('fMonth').value=item?(item.mes||month):month;
 
@@ -3346,13 +3360,14 @@ $('natureSeg').addEventListener('click',e=>{
  if(b)setNature(b.dataset.nature);
 });
 
+let categoryManuallySelected=false;
+$('expenseCategory').addEventListener('change',()=>{categoryManuallySelected=true;});
 $('description').addEventListener('input',()=>{
  if(editingId||type==='Entrada')return;
  const description=$('description').value;
  const detected=inferNatureFromDescription(description);
  if(detected)setNature(detected);
- const category=inferExpenseCategory(description);
- if(category)$('expenseCategory').value=category;
+ if(!categoryManuallySelected)$('expenseCategory').value=inferExpenseCategory(description);
 });
 
 $('cancelBtn').addEventListener('click',closeSheet);
