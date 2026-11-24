@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.6.8">
+<meta name="app-version" content="1.6.9">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -3305,7 +3305,7 @@ function renderCategoryFilterOptions(expenses){
  });
  const order=Object.keys(EXPENSE_CATEGORY_META).filter(key=>available.has(key));
  if(available.has('Sem categoria'))order.push('Sem categoria');
- const button=(key,label)=>'<button type="button" class="category-filter-chip'+(selectedCategoryFilters.has(key)?' active':'')+'" data-category-filter="'+safe(key)+'" aria-pressed="'+selectedCategoryFilters.has(key)+'">'+safe(label)+'</button>';
+ const button=(key,label)=>'<button type="button" class="advanced-filter-chip'+(selectedCategoryFilters.has(key)?' active':'')+'" data-category-filter="'+safe(key)+'" aria-pressed="'+selectedCategoryFilters.has(key)+'">'+safe(label)+'</button>';
  $('categoryFilters').innerHTML=button('all','Todas as categorias')+order.map(key=>button(key,key==='Sem categoria'?key:(EXPENSE_CATEGORY_META[key]?.label||key))).join('');
  $('categoryFilters').querySelector('[data-category-filter="all"]').classList.toggle('active',selectedCategoryFilters.size===0);
 }
