@@ -3972,7 +3972,6 @@ $('filterToggle').addEventListener('click',()=>{
  $('filterToggle').setAttribute('aria-expanded',String(opening));
  $('filterChevron').textContent=opening?'⌃':'⌄';
 });
-$('detailFilters').addEventListener('click',()=>{});
 $('natureFilterOptions').addEventListener('click',e=>{
  const button=e.target.closest('[data-detail-filter]');
  if(!button)return;
@@ -4002,6 +4001,7 @@ $('clearAdvancedFilters').addEventListener('click',()=>{
  updateAdvancedFilterUI();
  render();
 });
+updateAdvancedFilterUI();
 
 $('filters').addEventListener('click',e=>{
  const b=e.target.closest('[data-filter]');
