@@ -1,6 +1,6 @@
 {
-  "version": "1.5.7",
+  "version": "1.5.8",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Remove o indicador de dispositivos conectados."
+  "notes": "Aprimora categorias automáticas, ícones e edição manual das despesas."
 }
