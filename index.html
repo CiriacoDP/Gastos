@@ -3317,7 +3317,7 @@ function learnedCategoryRules(){
  }catch(error){return [];}
 }
 function categoryLearningTerm(description){
- const words=searchText(description).split(/\\s+/).filter(Boolean);
+ const words=searchText(description).split(/\s+/).filter(Boolean);
  return words.find(word=>word.length>=3&&!CATEGORY_LEARNING_STOPWORDS.has(word))||'';
 }
 function learnExpenseCategory(description,category){
@@ -3332,7 +3332,7 @@ function learnExpenseCategory(description,category){
  catch(error){return false;}
 }
 function inferLearnedCategory(description){
- const words=searchText(description).split(/\\s+/).filter(Boolean);
+ const words=searchText(description).split(/\s+/).filter(Boolean);
  if(!words.length)return '';
  const matches=learnedCategoryRules().filter(rule=>words.includes(rule.term)).sort((a,b)=>b.term.length-a.term.length);
  return matches[0]?.category||'';
