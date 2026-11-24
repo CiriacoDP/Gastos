@@ -1,6 +1,6 @@
 {
-  "version": "1.6.0",
+  "version": "1.6.1",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Amplia reconhecimento automático de cartões e lojas na categoria Compras."
+  "notes": "Corrige proporção dos cartões de entradas em telas móveis."
 }
