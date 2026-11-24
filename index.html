@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.5.9">
+<meta name="app-version" content="1.6.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1656,7 +1656,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version">Versão 1.5.9</small>
+  <small class="sidebar-app-version">Versão 1.6.0</small>
  </div>
 </aside>
 
@@ -1665,7 +1665,7 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.5.9</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version">v1.6.0</small></div>
     <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
    </div>
   </div>
@@ -3320,7 +3320,7 @@ function inferExpenseCategory(description){
   {category:'Transporte',test:/\b(uber|99 app|taxi|onibus|passagem|estacionamento|pedagio|oficina|mecanica|lavagem automotiva)\b/},
   {category:'Educacao',test:/\b(escola|faculdade|curso|livro|material escolar|mensalidade escolar)\b/},
   {category:'Lazer',test:/\b(cinema|viagem|passeio|jogo|show|parque|teatro|lazer)\b/},
-  {category:'Compras',test:/\b(roupa|vestuario|calcado|tenis|shopping|loja|presente|eletronico)\b/},
+  {category:'Compras',test:/\b(cartao(?: de credito)?(?: madalena)?|roupa|vestuario|calcado|tenis|shopping|loja|presente|eletronico|mercado livre|amazon|shopee|magazine luiza|magalu|shein)\b/},
   {category:'Assinaturas',test:/\b(internet|telefone|celular|plano de celular|assinatura|mensalidade)\b/},
   {category:'Impostos',test:/\b(imposto|ipva|irpf|taxa|multa|licenciamento)\b/}
  ];
