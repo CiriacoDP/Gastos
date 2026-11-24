@@ -1,6 +1,6 @@
 {
-  "version": "1.7.8",
+  "version": "1.7.9",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Ajuste de largura para monitores 4K; visualização mobile preservada."
+  "notes": "Cards da Visão geral podem ser reorganizados e redimensionados no desktop."
 }
