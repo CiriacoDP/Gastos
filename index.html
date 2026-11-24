@@ -344,6 +344,8 @@ header{padding-top:calc(20px + env(safe-area-inset-top))}
  box-shadow:inset 0 0 0 1px rgba(151,190,232,.15),0 2px 8px rgba(0,0,0,.17);
 }
 
+#expenseCategory{flex:1;min-width:0;border:0;background:transparent;color:var(--ink);text-align:right;font:inherit;outline:none}
+#expenseCategory option{background:#182432;color:#f1f6fc}
 /* Lançamentos: resumo compacto + filtros + um cartão independente por item. */
 .transaction-overview{
  display:flex;align-items:center;justify-content:space-between;gap:12px;
@@ -1962,6 +1964,23 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
      <button type="button" data-nature="Variável">Variável</button>
     </div>
    </div>
+   <label class="cell" id="categoryCell"><span>Categoria</span>
+    <select id="expenseCategory" aria-label="Categoria da despesa">
+     <option value="">Sem categoria</option>
+     <option value="Alimentacao">Alimentação</option>
+     <option value="Combustivel">Combustível</option>
+     <option value="Moradia">Moradia</option>
+     <option value="Saude">Saúde</option>
+     <option value="Transporte">Transporte</option>
+     <option value="Educacao">Educação</option>
+     <option value="Lazer">Lazer</option>
+     <option value="Compras">Compras</option>
+     <option value="Servicos">Serviços</option>
+     <option value="Assinaturas">Assinaturas</option>
+     <option value="Impostos">Impostos</option>
+     <option value="Outros">Outros</option>
+    </select>
+   </label>
   </div>
 
   <label class="group important-toggle">
@@ -2905,20 +2924,23 @@ function decodeCategory(raw){
  const text=String(raw||'');
  const important=text.includes(IMPORTANT_MARKER);
  const seriesMatch=text.match(SERIES_MARKER_REGEX);
- const clean=text.replace(IMPORTANT_MARKER,'').replace(SERIES_MARKER_REGEX,'').trim();
+ const categoryMatch=text.match(/\[!CAT:([A-Za-z]+)!\]/);
+ const clean=text.replace(IMPORTANT_MARKER,'').replace(SERIES_MARKER_REGEX,'').replace(/\[!CAT:[A-Za-z]+!\]/,'').trim();
  const m=clean.match(/^\[(Fixa|Variável)\]\s*/);
  return {
   important,
   seriesId:seriesMatch?seriesMatch[1]:'',
   seriesEnd:seriesMatch?seriesMatch[2]:'',
   nature:m?m[1]:'',
+  category:categoryMatch?categoryMatch[1]:'',
   description:m?clean.replace(m[0],''):clean
  };
 }
 
-function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd=''){
+function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd='',category=''){
  const base=tp==='Entrada'?desc:`[${nat}] ${desc}`;
  return base
+  +(category?' [!CAT:'+category+'!]':'')
   +(important?' '+IMPORTANT_MARKER:'')
   +(seriesId?' [!SERIE:'+seriesId+':'+seriesEnd+'!]':'');
 }
@@ -3223,8 +3245,11 @@ function render(){
   const c=decodeCategory(x.categoria);
   const inEntry=x.tipo==='Entrada';
   const kind=inEntry?'Entrada':(x.tipo==='Dívida'?'Dívida':c.nature||'Despesa');
-  const sub=kind+(x.pago?' · '+(inEntry?'recebida':'paga'):'');
-  const important=decodeCategory(x.categoria).important;
+  const monthly=c.seriesId?'Mensal':'';
+  const categoryLabel=c.category?({Alimentacao:'Alimentação',Combustivel:'Combustível',Moradia:'Moradia',Saude:'Saúde',Transporte:'Transporte',Educacao:'Educação',Lazer:'Lazer',Compras:'Compras',Servicos:'Serviços',Assinaturas:'Assinaturas',Impostos:'Impostos',Outros:'Outros'}[c.category]||c.category):'';
+  const tags=[kind,...(monthly?[monthly]:[]),...(categoryLabel?[categoryLabel]:[])];
+  const sub=tags.join(' · ')+(x.pago?' · '+(inEntry?'recebida':'paga'):'');
+  const important=c.important;
   return `<li class="row${x.pago?' done':''}${important?' important':''}" data-id="${safe(x.id)}">
    <button type="button" class="check${x.pago?' on':''}" aria-label="${x.pago?'Marcar como pendente':(inEntry?'Marcar como recebida':'Marcar como paga')}"></button>
    <div class="main">
@@ -3304,6 +3329,23 @@ function inferNatureFromDescription(description){
  return match?match.nature:'';
 }
 
+function inferExpenseCategory(description){
+ const key=searchText(description);
+ const rules=[
+  {category:'Alimentacao',test:/\b(alimentacao|mercado|supermercado|feira|acougue|padaria|restaurante|lanchonete|delivery|ifood|comida)\b/},
+  {category:'Combustivel',test:/\b(posto|combustivel|gasolina|etanol|diesel|abastecimento)\b/},
+  {category:'Moradia',test:/\b(aluguel|condominio|iptu|agua|luz|energia|eletricidade|esgoto|saneamento|casa|reforma|moveis)\b/},
+  {category:'Saude',test:/\b(farmacia|remedio|medicamento|medico|consulta|hospital|dentista|exame|plano de saude)\b/},
+  {category:'Transporte',test:/\b(uber|taxi|onibus|passagem|estacionamento|pedagio|oficina|manutencao do carro)\b/},
+  {category:'Educacao',test:/\b(escola|faculdade|curso|livro|material escolar|mensalidade escolar)\b/},
+  {category:'Lazer',test:/\b(cinema|viagem|passeio|streaming|jogo|show|lazer)\b/},
+  {category:'Assinaturas',test:/\b(internet|telefone|celular|assinatura|mensalidade|netflix|spotify)\b/},
+  {category:'Impostos',test:/\b(imposto|ipva|irpf|taxa|multa)\b/}
+ ];
+ const match=rules.find(rule=>rule.test.test(key));
+ return match?match.category:'';
+}
+
 function setPendingDeleteState(value){
  pendingDelete=!!value;
  const button=$('deleteBtn');
@@ -3320,11 +3362,12 @@ function setPendingDeleteState(value){
   ?'Exclusão marcada. Ao clicar em “Salvar exclusão”, toda a sequência mensal, incluindo este lançamento, será removida da planilha.'
   :'Exclusão marcada. Ao clicar em “Salvar exclusão”, este lançamento será removido da planilha.';
 
- ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{
+ ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil','expenseCategory'].forEach(id=>{
   const field=$(id);
   if(field)field.disabled=pendingDelete;
  });
  $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=pendingDelete);
+ $('expenseCategory').disabled=pendingDelete;
 }
 
 function openSheet(item,defaultType='Gasto'){
@@ -3340,6 +3383,7 @@ function openSheet(item,defaultType='Gasto'){
   ?(item.tipo==='Entrada'?'Editar entrada':'Editar despesa')
   :(defaultType==='Entrada'?'Nova entrada':'Nova despesa');
  $('description').value=c?c.description:'';
+ $('expenseCategory').value=c?c.category:'';
  $('amount').value=item?item.valor:'';
  $('fMonth').value=item?(item.mes||month):month;
 
@@ -3358,6 +3402,7 @@ function openSheet(item,defaultType='Gasto'){
  $('saveBtn').textContent='Salvar';
  ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{if($(id))$(id).disabled=false;});
  $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=false);
+ $('expenseCategory').disabled=false;
  document.body.classList.add('sheet-open');
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
@@ -3385,8 +3430,11 @@ $('natureSeg').addEventListener('click',e=>{
 
 $('description').addEventListener('input',()=>{
  if(editingId||type==='Entrada')return;
- const detected=inferNatureFromDescription($('description').value);
+ const description=$('description').value;
+ const detected=inferNatureFromDescription(description);
  if(detected)setNature(detected);
+ const category=inferExpenseCategory(description);
+ if(category)$('expenseCategory').value=category;
 });
 
 $('cancelBtn').addEventListener('click',closeSheet);
@@ -3449,7 +3497,7 @@ $('entryForm').addEventListener('submit',async e=>{
   mes:$('fMonth').value,
   pessoa:old?old.pessoa:'',
   tipo:type,
-  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd),
+  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd,$('expenseCategory').value),
   valor:Number($('amount').value),
   pago:old?!!old.pago:false
  };
@@ -3610,7 +3658,7 @@ $('entryForm').addEventListener('submit',async e=>{
    if(editingId)await sendRawSave(item);
    for(const existingItem of linkedFuture){
     const c=decodeCategory(existingItem.categoria);
-    const category=encodeCategory(c.description,c.nature||'Fixa',existingItem.tipo,c.important,seriesId,seriesEnd);
+    const category=encodeCategory(c.description,c.nature||'Fixa',existingItem.tipo,c.important,seriesId,seriesEnd,$('expenseCategory').value);
     if(category!==existingItem.categoria)await sendRawSave({...existingItem,categoria:category});
    }
 
