@@ -1,6 +1,6 @@
 {
-  "version": "1.7.0",
+  "version": "1.7.1",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Integra a classificação de despesas com a coluna própria da planilha."
+  "notes": "Corrige comparação de edição entre categoria antiga e coluna separada."
 }
