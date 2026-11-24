@@ -1,6 +1,6 @@
 {
-  "version": "1.6.2",
+  "version": "1.6.3",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Aprende categorias com correções manuais e reutiliza as associações localmente."
+  "notes": "Melhora o espaçamento entre o cabeçalho e o conteúdo em telas móveis."
 }
