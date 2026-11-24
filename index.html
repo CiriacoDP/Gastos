@@ -3270,7 +3270,7 @@ function inferNatureFromDescription(description){
 
  const rules=[
   {nature:'Fixa',test:/\b(internet|energia|eletricidade|eletrica|conta de luz|luz|agua|saneamento|esgoto|aluguel|condominio|iptu|ipva|seguro|financiamento|prestacao|mensalidade|assinatura|streaming|telefone|celular|plano de saude|escola|faculdade)\b/},
-  {nature:'Variável',test:/\b(cartao|cartao de credito|fatura|mercado|supermercado| feira|acougue|padaria|restaurante|lanchonete|delivery|ifood|combustivel|gasolina|etanol|diesel|farmacia|remedio|roupa|vestuario|lazer|cinema|viagem|presente|manutencao|estacionamento|pedagio)\b/}
+  {nature:'Variável',test:/\b(cartao|cartao de credito|fatura|mercado|supermercado|feira|acougue|padaria|restaurante|lanchonete|delivery|ifood|combustivel|gasolina|etanol|diesel|farmacia|remedio|roupa|vestuario|lazer|cinema|viagem|presente|manutencao|estacionamento|pedagio)\b/}
  ];
  const match=rules.find(rule=>rule.test.test(key));
  return match?match.nature:'';
