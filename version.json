@@ -1,6 +1,6 @@
 {
-  "version": "1.5.5",
+  "version": "1.5.6",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Exibe natureza, recorrência mensal e categoria nas despesas."
+  "notes": "Estende a animação visual da instalação da atualização para cerca de 10 segundos."
 }
