@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.7.3">
+<meta name="app-version" content="1.7.4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1834,6 +1834,75 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 @media(min-width:980px) and (max-width:1199px){
  #connection{grid-template-columns:minmax(0,1fr) minmax(290px,.85fr);gap:16px}
  #connection>.settings-card{padding:22px}
+}
+
+
+/* Experiência desktop: mais área útil e maior densidade, sem alterar o mobile. */
+@media(min-width:1200px){
+ body{padding-right:34px}
+ header.shell,main.shell{
+  width:min(calc(100% - 56px),1480px);
+ }
+ main.shell{margin-top:10px}
+ .view-heading{margin:2px 0 16px}
+ .view-heading h2{font-size:23px;letter-spacing:-.55px}
+ .view-heading p{font-size:11px}
+ .months{margin-bottom:12px}
+ .overview-grid{
+  grid-template-columns:minmax(0,1.35fr) minmax(330px,.9fr);
+  gap:14px;
+ }
+ .summary{padding:22px 25px;border-radius:18px}
+ .summary #balance{font-size:clamp(38px,2.8vw,48px);margin:8px 0 3px}
+ .balance-caption{margin:5px 0 15px;font-size:10px}
+ .trio{padding-top:12px;gap:8px}
+ .trio small{font-size:9px}
+ .trio strong{font-size:13px;margin-top:4px}
+ .quick-card{padding:19px;border-radius:18px}
+ .section-title{font-size:13px;margin-bottom:11px}
+ .quick-row span{font-size:11px}
+ .quick-row strong{font-size:12px}
+ .quick-row+.quick-row{margin-top:9px;padding-top:9px}
+ .month-note{font-size:10px;margin-top:9px}
+ .category-breakdown{margin-top:14px}
+ .overview-analytics{margin-top:17px}
+ .analytics-heading{margin-bottom:10px}
+ .analytics-heading h3{font-size:16px}
+ .overview-analytics-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+ .analytics-card{padding:15px 16px;border-radius:15px}
+ .analytics-title-row h3{font-size:12px}
+ .overview-essentials{grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-top:12px}
+ .overview-essentials .analytics-card{padding:15px 16px;border-radius:15px}
+ #transactions .view-heading{margin-bottom:14px}
+ #transactions .months{margin-bottom:12px}
+ #transactions .transactions-main{max-width:none}
+ #transactions .transaction-search{max-width:none;min-height:42px;margin-bottom:9px}
+ #transactions .transaction-overview{margin-bottom:9px}
+ #transactions .filters{max-width:none;margin:0 0 9px}
+ #transactions .filter-toolbar{margin-bottom:8px}
+ #transactions .list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #transactions .row{min-height:61px;padding:10px 13px;gap:9px;border-radius:13px}
+ #transactions .row .category-icon{width:32px;height:32px;flex-basis:32px}
+ #transactions .t{font-size:12px}
+ #transactions .s{font-size:9px;margin-top:3px}
+ #transactions .amt{font-size:11px;padding:5px 8px}
+ #income .income-month-summary{margin-bottom:13px;padding:17px 21px}
+ #income .income-workspace{max-width:none}
+ #income .income-list{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+ #income .row{min-height:61px;padding:10px 13px}
+ #income .t{font-size:12px}
+ #income .s{font-size:9px}
+ #connection.active{column-gap:16px;row-gap:16px}
+ #connection>.settings-card{padding:22px}
+}
+@media(min-width:1600px){
+ header.shell,main.shell{width:min(calc(100% - 72px),1580px)}
+ .overview-grid{grid-template-columns:minmax(0,1.45fr) minmax(360px,.85fr);gap:16px}
+ .overview-analytics-grid{grid-template-columns:repeat(4,minmax(0,1fr))}
+ .ranking-card{grid-row:span 2}
+ .history-card{grid-column:span 2}
+ .overview-essentials{gap:12px}
+ #transactions .list,#income .income-list{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
 
 </style>
