@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.6.6">
+<meta name="app-version" content="1.6.7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -763,9 +763,10 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
  #transactions .filters{order:2;display:flex;width:100%;margin:0 0 10px;padding:4px;gap:4px;overflow-x:auto;scrollbar-width:none}
  #transactions .filters::-webkit-scrollbar{display:none}
  #transactions .filters button{flex:1 0 auto;min-width:66px;padding:9px 8px;font-size:12px}
- #transactions .detail-filters{order:3;display:flex;flex-wrap:nowrap;gap:7px;overflow-x:auto;scrollbar-width:none;margin:0 -1px 13px;padding:1px 1px 5px}
- #transactions .detail-filters::-webkit-scrollbar{display:none}
- #transactions .detail-filters button{flex:0 0 auto;min-height:34px;padding:8px 12px;font-size:11px}
+ #transactions .filter-toolbar{order:3;margin:0 0 11px}
+ #transactions .advanced-filters{order:4}
+ #transactions .filter-toggle{min-height:36px}
+ #transactions .filter-summary{font-size:9px}
  #transactions .list{order:4;display:grid;gap:8px;overflow:visible}
  #transactions .row{min-width:0;grid-template-columns:25px 38px minmax(0,1fr) auto;gap:10px;padding:14px 12px;min-height:70px;border-radius:14px}
  #transactions .row+.row::before{display:none}
@@ -1693,12 +1694,24 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  #transactions .detail-filters button{min-height:34px;padding:8px 12px;font-size:10px;border-radius:11px}
 }
 
-/* Filtros por categoria, combináveis com natureza e importância */
-#transactions .category-filters{display:flex;align-items:center;gap:7px;overflow-x:auto;flex-wrap:nowrap;margin:-3px 0 14px;padding:1px 1px 7px;scrollbar-width:none;-webkit-overflow-scrolling:touch}
-#transactions .category-filters::-webkit-scrollbar{display:none}
-#transactions .category-filter-chip{flex:0 0 auto;min-height:32px;padding:7px 11px;border:1px solid rgba(155,181,210,.13);border-radius:10px;background:rgba(18,27,39,.58);color:#91a4b8;font-size:10px;font-weight:680;white-space:nowrap}
-#transactions .category-filter-chip.active{color:#eaf4ff;border-color:rgba(92,171,247,.42);background:rgba(54,123,199,.2);box-shadow:inset 0 1px 0 rgba(255,255,255,.05)}
-#transactions .category-filter-chip:focus-visible{outline:2px solid rgba(105,183,255,.75);outline-offset:2px}
+/* Barra única e painel expansível para filtros avançados */
+#transactions .filter-toolbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;min-width:0}
+#transactions .filter-toggle{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:38px;padding:8px 13px;border:1px solid rgba(145,177,210,.2);border-radius:12px;background:rgba(21,34,49,.82);color:#dce9f7;font-size:12px;font-weight:750}
+#transactions .filter-toggle.has-active{border-color:rgba(87,169,244,.48);background:rgba(48,112,176,.2)}
+#transactions .filter-toggle-icon{font-size:16px;color:#82baff}
+#transactions .filter-active-count{display:grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#3989d8;color:white;font-size:10px}
+#transactions .filter-chevron{color:#8ea5bc;font-size:15px}
+#transactions .filter-summary{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#8296aa;font-size:10px}
+#transactions .advanced-filters{margin:-3px 0 13px;padding:14px;border:1px solid rgba(145,177,210,.16);border-radius:15px;background:linear-gradient(145deg,rgba(22,35,50,.98),rgba(14,25,37,.98));box-shadow:0 10px 28px rgba(0,0,0,.16)}
+#transactions .advanced-filter-group+.advanced-filter-group{margin-top:14px;padding-top:13px;border-top:1px solid rgba(145,177,210,.12)}
+#transactions .advanced-filter-group>strong{display:flex;align-items:center;gap:8px;margin-bottom:9px;color:#dce8f5;font-size:11px}
+#transactions .advanced-filter-group>strong span{color:#8296aa;font-size:9px;font-weight:500}
+#transactions .advanced-filter-options{display:flex;flex-wrap:wrap;gap:7px}
+#transactions .advanced-filter-chip,#transactions .important-filter-option{min-height:31px;padding:7px 11px;border:1px solid rgba(145,177,210,.16);border-radius:9px;background:rgba(255,255,255,.025);color:#9aadc1;font-size:10px;font-weight:650}
+#transactions .advanced-filter-chip.active,#transactions .important-filter-option.active{border-color:rgba(88,169,242,.48);background:rgba(51,124,194,.22);color:#eaf4ff}
+#transactions .advanced-filter-footer{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-top:14px;padding-top:12px;border-top:1px solid rgba(145,177,210,.12)}
+#transactions .important-filter-option{color:#e6bd70}
+#transactions .clear-advanced-filters{padding:7px 4px;background:transparent;color:#8fb9e5;font-size:10px;font-weight:700}
 
 </style>
 </head>
@@ -1979,14 +1992,31 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
      <button data-filter="pending">Pendentes</button>
      <button data-filter="paid">Pagas</button>
     </div>
-    <div class="detail-filters" id="detailFilters" aria-label="Filtros por natureza e importância">
-     <button class="active" data-detail-filter="all">Todas as naturezas</button>
-     <button data-detail-filter="fixed">Fixas</button>
-     <button data-detail-filter="variable">Variáveis</button>
-     <button data-important-filter="true" aria-pressed="false">★ Importantes</button>
+    <div class="filter-toolbar">
+     <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="advancedFilters">
+      <span class="filter-toggle-icon">☷</span><span>Filtros</span><span class="filter-active-count" id="filterActiveCount" hidden>0</span><span class="filter-chevron" id="filterChevron">⌄</span>
+     </button>
+     <div class="filter-summary" id="filterSummary">Nenhum filtro adicional</div>
     </div>
-    <div class="category-filters" id="categoryFilters" aria-label="Filtrar por categorias">
-     <button class="category-filter-chip active" data-category-filter="all">Todas as categorias</button>
+    <div class="advanced-filters" id="advancedFilters" hidden>
+     <div class="advanced-filter-group">
+      <strong>Natureza</strong>
+      <div class="advanced-filter-options" id="natureFilterOptions">
+       <button type="button" class="advanced-filter-chip active" data-detail-filter="all">Todas</button>
+       <button type="button" class="advanced-filter-chip" data-detail-filter="fixed">Fixas</button>
+       <button type="button" class="advanced-filter-chip" data-detail-filter="variable">Variáveis</button>
+      </div>
+     </div>
+     <div class="advanced-filter-group">
+      <strong>Categorias <span>Você pode selecionar várias</span></strong>
+      <div class="advanced-filter-options category-filters" id="categoryFilters">
+       <button class="advanced-filter-chip active" data-category-filter="all">Todas</button>
+      </div>
+     </div>
+     <div class="advanced-filter-footer">
+      <button type="button" class="important-filter-option" id="importantFilterOption" aria-pressed="false">★ Somente importantes</button>
+      <button type="button" class="clear-advanced-filters" id="clearAdvancedFilters">Limpar filtros</button>
+     </div>
     </div>
     <ul class="list" id="list"></ul>
    </div>
@@ -3920,19 +3950,35 @@ $('incomeFilters').addEventListener('click',e=>{
  [...$('incomeFilters').children].forEach(item=>item.classList.toggle('on',item===button));
  render();
 });
-$('detailFilters').addEventListener('click',e=>{
- const natureButton=e.target.closest('[data-detail-filter]');
- const importantButton=e.target.closest('[data-important-filter]');
- if(natureButton){
-  detailFilter=natureButton.dataset.detailFilter;
-  [...$('detailFilters').querySelectorAll('[data-detail-filter]')].forEach(x=>x.classList.toggle('active',x===natureButton));
- }
- if(importantButton){
-  importantFilter=!importantFilter;
-  importantButton.classList.toggle('active',importantFilter);
-  importantButton.setAttribute('aria-pressed',String(importantFilter));
- }
- if(natureButton||importantButton)render();
+function updateAdvancedFilterUI(){
+ const selected=[];
+ if(detailFilter==='fixed')selected.push('Fixas');
+ if(detailFilter==='variable')selected.push('Variáveis');
+ selectedCategoryFilters.forEach(key=>selected.push(EXPENSE_CATEGORY_META[key]?.label||key));
+ if(importantFilter)selected.push('Importantes');
+ const count=selected.length;
+ $('filterActiveCount').textContent=count;
+ $('filterActiveCount').hidden=!count;
+ $('filterSummary').textContent=count?selected.join(' · '):'Nenhum filtro adicional';
+ $('filterToggle').classList.toggle('has-active',count>0);
+ $('importantFilterOption').classList.toggle('active',importantFilter);
+ $('importantFilterOption').setAttribute('aria-pressed',String(importantFilter));
+ [...$('natureFilterOptions').querySelectorAll('[data-detail-filter]')].forEach(button=>button.classList.toggle('active',button.dataset.detailFilter===detailFilter));
+}
+$('filterToggle').addEventListener('click',()=>{
+ const panel=$('advancedFilters');
+ const opening=panel.hidden;
+ panel.hidden=!opening;
+ $('filterToggle').setAttribute('aria-expanded',String(opening));
+ $('filterChevron').textContent=opening?'⌃':'⌄';
+});
+$('detailFilters').addEventListener('click',()=>{});
+$('natureFilterOptions').addEventListener('click',e=>{
+ const button=e.target.closest('[data-detail-filter]');
+ if(!button)return;
+ detailFilter=button.dataset.detailFilter;
+ updateAdvancedFilterUI();
+ render();
 });
 $('categoryFilters').addEventListener('click',e=>{
  const button=e.target.closest('[data-category-filter]');
@@ -3941,6 +3987,19 @@ $('categoryFilters').addEventListener('click',e=>{
  if(key==='all')selectedCategoryFilters.clear();
  else if(selectedCategoryFilters.has(key))selectedCategoryFilters.delete(key);
  else selectedCategoryFilters.add(key);
+ render();
+ updateAdvancedFilterUI();
+});
+$('importantFilterOption').addEventListener('click',()=>{
+ importantFilter=!importantFilter;
+ updateAdvancedFilterUI();
+ render();
+});
+$('clearAdvancedFilters').addEventListener('click',()=>{
+ detailFilter='all';
+ importantFilter=false;
+ selectedCategoryFilters.clear();
+ updateAdvancedFilterUI();
  render();
 });
 
