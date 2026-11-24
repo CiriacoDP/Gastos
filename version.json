@@ -1,6 +1,6 @@
 {
-  "version": "1.7.9",
+  "version": "1.8.0",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Cards da Visão geral podem ser reorganizados e redimensionados no desktop."
+  "notes": "Restaura os cards originais nas abas Lançamentos e Entradas no mobile."
 }
