@@ -1,6 +1,6 @@
 {
-  "version": "1.6.9",
+  "version": "1.7.0",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Corrige a apresentação visual dos filtros de categoria."
+  "notes": "Integra a classificação de despesas com a coluna própria da planilha."
 }
