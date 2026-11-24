@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.7.9">
+<meta name="app-version" content="1.8.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2131,6 +2131,62 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  #overview .dashboard-card.is-dragging{opacity:.42}
  #overview .dashboard-drop-target{outline:2px dashed rgba(105,170,235,.7);outline-offset:-4px}
  #overview .dashboard-card[style*="width"]{max-width:100%}
+}
+
+
+/* RESTAURAÇÃO DOS CARDS MOBILE — mantém a tabela somente no desktop. */
+@media(max-width:979px){
+ .desktop-table-head{display:none!important}
+ #transactions .list{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;width:100%;margin:0;padding:0;
+  border:0!important;border-radius:0!important;overflow:visible!important;
+  background:transparent!important;
+ }
+ #transactions .list .row{
+  display:grid!important;
+  grid-template-columns:23px 38px minmax(0,1fr) auto!important;
+  align-items:center;gap:9px;min-width:0;min-height:66px;
+  padding:13px 10px!important;border:1px solid rgba(161,187,215,.12)!important;
+  border-radius:15px!important;
+  background:linear-gradient(110deg,rgba(23,33,46,.98),rgba(17,26,38,.98))!important;
+  box-shadow:0 5px 16px rgba(0,0,0,.12)!important;
+ }
+ #transactions .list .row.important{
+  border-color:rgba(243,189,91,.35)!important;
+  border-left:3px solid var(--gold)!important;
+  background:linear-gradient(105deg,rgba(74,57,31,.32),rgba(20,29,40,.98) 46%)!important;
+ }
+ #transactions .list .category-icon{display:grid!important}
+ #transactions .list .main{grid-column:auto!important;min-width:0}
+ #transactions .list .desktop-category,
+ #transactions .list .desktop-nature,
+ #transactions .list .desktop-status{display:none!important}
+ #transactions .list .amt{
+  grid-column:auto!important;justify-self:end;max-width:112px;
+  padding:6px 7px;font-size:11px;text-align:right;white-space:nowrap;
+ }
+ #income .income-list{
+  display:grid!important;grid-template-columns:minmax(0,1fr)!important;
+  gap:8px!important;width:100%;margin:0;padding:0;
+  border:0!important;border-radius:0!important;overflow:visible!important;
+  background:transparent!important;
+ }
+ #income .income-list .row{
+  display:grid!important;grid-template-columns:23px minmax(0,1fr) auto!important;
+  align-items:center;gap:11px;min-width:0;min-height:68px;
+  padding:14px 13px!important;border:1px solid rgba(67,214,160,.26)!important;
+  border-left:2px solid rgba(67,214,160,.4)!important;border-radius:14px!important;
+  background:linear-gradient(110deg,rgba(23,33,46,.98),rgba(17,26,38,.98))!important;
+  box-shadow:0 5px 16px rgba(0,0,0,.12)!important;
+ }
+ #income .income-list .row.important{border-left:3px solid var(--gold)!important}
+ #income .income-list .main{grid-column:2!important;min-width:0}
+ #income .income-list .desktop-status{display:none!important}
+ #income .income-list .amt{
+  grid-column:3!important;justify-self:end;font-size:11px;
+  padding:6px 7px;white-space:nowrap;
+ }
 }
 
 </style>
