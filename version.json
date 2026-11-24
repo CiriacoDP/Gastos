@@ -1,6 +1,6 @@
 {
-  "version": "1.6.1",
+  "version": "1.6.2",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Corrige proporção dos cartões de entradas em telas móveis."
+  "notes": "Aprende categorias com correções manuais e reutiliza as associações localmente."
 }
