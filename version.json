@@ -1,8 +1,9 @@
 {
-  "version": "1.9.45",
+  "version": "2.0.0",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Preserva a largura e o alinhamento originais do indicador, com duas cápsulas do mesmo tamanho."
+    "Migração para o novo padrão de versionamento do aplicativo.",
+    "A partir desta versão, 25 PATCHES completam 1 MINOR e 15 MINORS completam 1 MAJOR."
   ]
 }
