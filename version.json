@@ -1,9 +1,8 @@
 {
-  "version": "1.9.34",
+  "version": "1.9.35",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Remove a prioridade automática dos lançamentos importantes na lista.",
-    "Adiciona a opção de cadastrar uma despesa já como paga."
+    "Mantém despesas pagas no fim da lista, preservando a ordem dos demais lançamentos."
   ]
 }
