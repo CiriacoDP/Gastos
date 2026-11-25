@@ -1,6 +1,6 @@
 {
-  "version": "1.9.13",
+  "version": "1.9.14",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Adiciona relatório financeiro mensal em PDF, com resumo e lançamentos do mês selecionado, pronto para impressão."
+  "notes": "Aprimora o tema claro em lançamentos, navegação inferior, filtros, ícones e controles, preservando o tema escuro."
 }
