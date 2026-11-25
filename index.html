@@ -1108,6 +1108,136 @@ function applyAppearance(){
 function saveAppSettings(){
  try{localStorage.setItem(SETTINGS_STORAGE_KEY,JSON.stringify(appSettings))}catch(error){toast('Não foi possível salvar as preferências neste aparelho.',true)}
 }
+
+const MARKET_FREE_SYMBOLS=new Set(['PETR4','VALE3','MGLU3','ITUB4']);
+let marketTickerTimer=null;
+let marketTickerBusy=false;
+function marketFormat(value,currency='BRL'){
+ if(!Number.isFinite(Number(value)))return '—';
+ return Number(value).toLocaleString('pt-BR',{style:'currency',currency,maximumFractionDigits:currency==='BRL'?2:2});
+}
+function marketPct(value){
+ const n=Number(value);
+ if(!Number.isFinite(n))return '';
+ return (n>0?'+':'')+n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})+'%';
+}
+function marketEscape(value){return String(value??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
+function renderMarketSymbols(){
+ const host=$('marketSymbolList');
+ if(!host)return;
+ const symbols=Array.isArray(appSettings.marketSymbols)?appSettings.marketSymbols:[];
+ host.innerHTML=symbols.length?symbols.map(symbol=>'<span class="market-symbol-chip">'+marketEscape(symbol)+'<button type="button" data-remove-market-symbol="'+marketEscape(symbol)+'" aria-label="Remover '+marketEscape(symbol)+'">×</button></span>').join(''):'<small>Nenhuma ação selecionada.</small>';
+}
+function initMarketTickerSettings(){
+ $('marketBitcoin').checked=!!appSettings.marketBitcoin;
+ $('marketEthereum').checked=!!appSettings.marketEthereum;
+ $('marketDollar').checked=!!appSettings.marketDollar;
+ $('marketIbovespa').checked=!!appSettings.marketIbovespa;
+ $('marketApiToken').value=appSettings.marketApiToken||'';
+ renderMarketSymbols();
+ $('marketAddSymbol').addEventListener('click',()=>{
+  const symbol=$('marketSymbolInput').value.trim().toUpperCase().replace(/[^A-Z0-9.\-^]/g,'');
+  if(!symbol){$('marketSymbolInput').focus();return;}
+  if((appSettings.marketSymbols||[]).includes(symbol)){toast('Esse ativo já está na lista.');return;}
+  if((appSettings.marketSymbols||[]).length>=12){toast('Você pode selecionar até 12 ativos da B3.',true);return;}
+  appSettings.marketSymbols=[...(appSettings.marketSymbols||[]),symbol];
+  $('marketSymbolInput').value='';renderMarketSymbols();saveAppSettings();
+ });
+ $('marketSymbolInput').addEventListener('keydown',e=>{if(e.key==='Enter'){e.preventDefault();$('marketAddSymbol').click();}});
+ $('marketSymbolList').addEventListener('click',e=>{
+  const button=e.target.closest('[data-remove-market-symbol]');
+  if(!button)return;
+  appSettings.marketSymbols=(appSettings.marketSymbols||[]).filter(x=>x!==button.dataset.removeMarketSymbol);
+  renderMarketSymbols();saveAppSettings();refreshMarketTicker();
+ });
+ $('saveMarketSettings').addEventListener('click',()=>{
+  appSettings.marketBitcoin=$('marketBitcoin').checked;
+  appSettings.marketEthereum=$('marketEthereum').checked;
+  appSettings.marketDollar=$('marketDollar').checked;
+  appSettings.marketIbovespa=$('marketIbovespa').checked;
+  appSettings.marketApiToken=$('marketApiToken').value.trim();
+  saveAppSettings();refreshMarketTicker();
+  $('marketSettingsStatus').textContent='Preferências salvas neste aparelho.';
+  toast('Faixa do mercado atualizada.');
+ });
+}
+function marketItem(symbol,label,price,change,currency='BRL'){
+ const positive=Number(change)>=0;
+ return {symbol,label,price:marketFormat(price,currency),change:marketPct(change),positive};
+}
+function renderMarketTicker(items){
+ const ticker=$('marketTicker'),track=$('marketTickerTrack');
+ if(!ticker||!track)return;
+ if(!items.length){ticker.hidden=true;track.innerHTML='';return;}
+ const html=items.map(item=>'<span class="market-ticker-item"><strong>'+marketEscape(item.label)+'</strong><b>'+marketEscape(item.price)+'</b>'+(item.change?'<em class="'+(item.positive?'up':'down')+'">'+(item.positive?'▲':'▼')+' '+marketEscape(item.change)+'</em>':'')+'</span>').join('');
+ track.innerHTML=html+html;
+ ticker.hidden=false;
+}
+async function marketFetchJson(url,headers={}){
+ const response=await fetch(url,{headers,cache:'no-store'});
+ if(!response.ok)throw new Error('Cotação indisponível ('+response.status+')');
+ return response.json();
+}
+async function refreshMarketTicker(){
+ if(marketTickerBusy)return;
+ const symbols=Array.isArray(appSettings.marketSymbols)?appSettings.marketSymbols:[];
+ const enabled= symbols.length||appSettings.marketBitcoin||appSettings.marketEthereum||appSettings.marketDollar||appSettings.marketIbovespa;
+ if(!enabled){renderMarketTicker([]);return;}
+ marketTickerBusy=true;
+ try{
+  const tasks=[];
+  for(const symbol of symbols){
+   tasks.push((async()=>{
+    const token=appSettings.marketApiToken||'';
+    if(!token&&!MARKET_FREE_SYMBOLS.has(symbol))return null;
+    try{
+     const data=await marketFetchJson('https://brapi.dev/api/quote/'+encodeURIComponent(symbol),token?{Authorization:'Bearer '+token}:{});
+     const q=data.results?.[0];
+     if(!q||!Number.isFinite(Number(q.regularMarketPrice)))return null;
+     return marketItem(symbol,q.shortName||symbol,q.regularMarketPrice,q.regularMarketChangePercent);
+    }catch(error){return null;}
+   })());
+  }
+  if(appSettings.marketBitcoin||appSettings.marketEthereum){
+   tasks.push((async()=>{
+    try{
+     const ids=[...(appSettings.marketBitcoin?['bitcoin']:[]),...(appSettings.marketEthereum?['ethereum']:[])].join(',');
+     const data=await marketFetchJson('https://api.coingecko.com/api/v3/simple/price?ids='+ids+'&vs_currencies=brl&include_24hr_change=true');
+     return ['bitcoin','ethereum'].filter(id=>data[id]).map(id=>marketItem(id,id==='bitcoin'?'BITCOIN':'ETHEREUM',data[id].brl,data[id].brl_24h_change));
+    }catch(error){return [];}
+   })());
+  }
+  if(appSettings.marketDollar){
+   tasks.push((async()=>{
+    try{
+     const data=await marketFetchJson('https://economia.awesomeapi.com.br/json/last/USD-BRL');
+     const q=data.USDBRL;
+     return q?[marketItem('USD','DÓLAR',q.bid,Number(q.pctChange),'BRL')]:[];
+    }catch(error){return [];}
+   })());
+  }
+  if(appSettings.marketIbovespa){
+   tasks.push((async()=>{
+    try{
+     const data=await marketFetchJson('https://brapi.dev/api/quote/%5EBVSP');
+     const q=data.results?.[0];
+     return q?[marketItem('IBOV','IBOVESPA',q.regularMarketPrice,q.regularMarketChangePercent,'BRL')]:[];
+    }catch(error){return [];}
+   })());
+  }
+  const results=await Promise.all(tasks);
+  const items=results.flat().filter(Boolean);
+  renderMarketTicker(items);
+  if(!items.length&&$('marketSettingsStatus'))$('marketSettingsStatus').textContent='Não foi possível obter cotações agora. Confira a conexão e a chave brapi para ativos adicionais.';
+  else if($('marketSettingsStatus'))$('marketSettingsStatus').textContent='Última atualização: '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+ }finally{marketTickerBusy=false;}
+}
+function startMarketTicker(){
+ refreshMarketTicker();
+ if(marketTickerTimer)clearInterval(marketTickerTimer);
+ marketTickerTimer=setInterval(refreshMarketTicker,10*60*1000);
+}
+
 function initAppSettings(){
  readAppSettings();applyAppearance();
  $('appearanceSetting').value=appSettings.appearance;
