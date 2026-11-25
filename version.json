@@ -1,8 +1,8 @@
 {
-  "version": "1.9.44",
+  "version": "1.9.45",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Exibe somente o horário, com segundos, na linha de última atualização do cabeçalho."
+    "Preserva a largura e o alinhamento originais do indicador, com duas cápsulas do mesmo tamanho."
   ]
 }
