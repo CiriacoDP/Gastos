@@ -1,8 +1,8 @@
 {
-  "version": "1.9.25",
+  "version": "1.9.26",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Corrige as cores dos cartões de Entradas no tema automático claro em celulares."
+    "Padroniza o tamanho dos campos de busca em 16px para evitar zoom automático no iPhone."
   ]
 }
