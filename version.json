@@ -1,8 +1,8 @@
 {
-  "version": "1.9.38",
+  "version": "1.9.39",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Exibe as quatro opções da despesa em linhas separadas e mantém o alinhamento do botão Filtros."
+    "Remove a seção de anexos de documentos da conta; mantém o leitor e o código de pagamento."
   ]
 }
