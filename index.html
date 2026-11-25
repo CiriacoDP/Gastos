@@ -2071,6 +2071,8 @@ function setType(t){
  [...$('typeSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.type===t));
  $('natureCell').hidden=t==='Entrada';
  $('recurrenceFields').hidden=t==='Entrada';
+ $('repeatMonthly').closest('label').hidden=t==='Entrada';
+ $('installmentOptionWrap').hidden=t==='Entrada';
  $('categoryCell').hidden=t==='Entrada';
  $('paymentPanel').hidden=t==='Entrada';
  $('documentsPanel').hidden=t==='Entrada';
