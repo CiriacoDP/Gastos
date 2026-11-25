@@ -2756,3 +2756,35 @@ header .brand .status>.status-sync-pill svg{
 
 /* Respeita o atributo hidden nas opções do formulário: entradas mostram apenas Importante. */
 .expense-options-row>.important-toggle[hidden]{display:none!important}
+
+
+/* Alinhamento unificado do cabeçalho: logo, bloco de status e ações no mesmo eixo vertical */
+header .bar{
+ display:flex!important;align-items:center!important;justify-content:space-between!important;
+}
+header .brand{
+ display:flex!important;align-items:center!important;align-self:center!important;
+ min-height:0!important;
+}
+header .brand-mark{align-self:center!important;margin:0!important}
+header .brand>div:last-child{
+ align-self:center!important;display:flex;flex-direction:column;justify-content:center;
+ min-width:0;
+}
+header .brand-name{display:flex;align-items:center;min-height:22px;margin:0!important}
+header .brand .status{align-self:stretch!important;margin-top:3px!important}
+header .header-actions{
+ display:flex!important;align-items:center!important;align-self:center!important;
+ justify-content:center!important;margin:0!important;padding:0!important;
+}
+header .header-actions .icon{align-self:center!important;margin:0!important}
+@media(max-width:979px){
+ header .bar{align-items:center!important;gap:10px!important}
+ header .brand{align-items:center!important;flex:1 1 0!important;min-width:0!important}
+ header .brand-mark{flex:0 0 46px!important;width:46px!important;height:46px!important}
+ header .brand>div:last-child{flex:1 1 0!important;min-width:0!important}
+ header .brand-name{align-items:center!important;min-height:22px!important}
+ header .brand .status{margin-top:3px!important}
+ header .header-actions{flex:0 0 auto!important;align-items:center!important;gap:8px!important}
+ header .header-actions .icon{display:grid!important;place-items:center!important;flex:0 0 40px!important;width:40px!important;height:40px!important}
+}
