@@ -1,8 +1,8 @@
 {
-  "version": "1.9.24",
+  "version": "1.9.25",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Corrige o tema escuro manual quando o aparelho está configurado no modo claro."
+    "Corrige as cores dos cartões de Entradas no tema automático claro em celulares."
   ]
 }
