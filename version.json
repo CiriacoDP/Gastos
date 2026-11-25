@@ -1,10 +1,8 @@
 {
-  "version": "1.9.22",
+  "version": "1.9.23",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Mantém a busca de Lançamentos aberta ao editar e salvar uma conta.",
-    "Encerra a busca ao sair da aba ou ao limpar o texto e tocar fora do campo.",
-    "Ajusta o tamanho da fonte das buscas para evitar zoom automático no iPhone."
+    "Corrige a aplicação dos temas claro, escuro e automático, respeitando a opção escolhida nas configurações."
   ]
 }
