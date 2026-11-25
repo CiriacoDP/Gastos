@@ -2711,3 +2711,25 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 .filter-toolbar{display:flex;align-items:center;gap:10px;margin-top:0}
 .filter-toggle{flex:0 0 auto}
 .filter-summary{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+
+/* Correção do cabeçalho: somente as duas cápsulas, sem contêiner externo */
+header .brand .status{
+ display:flex;flex-direction:column;align-items:flex-start;align-self:flex-start;
+ width:max-content;max-width:100%;min-width:0;gap:5px;margin:4px 0 0;padding:0;
+ overflow:visible;white-space:normal;border:0;border-radius:0;background:transparent;
+}
+header .brand .status .status-pill{
+ display:flex;flex:0 0 auto;width:max-content;max-width:100%;min-width:0;
+ padding:4px 11px;overflow:visible;white-space:nowrap;
+}
+header .brand .status .status-pill span{
+ display:inline;flex:0 0 auto;min-width:0;overflow:visible;text-overflow:clip;white-space:nowrap;
+}
+header .brand .status .status-pill i{flex:0 0 8px;width:8px;height:8px}
+@media(max-width:979px){
+ header .brand>div:last-child{flex:0 1 auto;min-width:0}
+ header .brand .status{width:max-content;max-width:100%;padding:0;font-size:11px;overflow:visible}
+ header .brand .status .status-pill{max-width:100%;padding:4px 10px}
+ header .brand .status .status-pill span{flex:0 0 auto;min-width:0}
+}
