@@ -1,8 +1,8 @@
 {
-  "version": "1.9.41",
+  "version": "1.9.42",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Organiza o indicador de conexão em duas linhas, com a data atual e o horário da última sincronização."
+    "Corrige o cabeçalho para exibir apenas as duas cápsulas de status, sem contêiner externo ou expansão indevida."
   ]
 }
