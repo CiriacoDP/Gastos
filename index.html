@@ -689,10 +689,12 @@ function monthLabel(m){
  return s.charAt(0).toUpperCase()+s.slice(1);
 }
 
+let pendingDeferredCheckMonth='';
 function shiftMonth(d){
  const [y,mo]=month.split('-').map(Number);
  const dt=new Date(y,mo-1+d,1);
  month=`${dt.getFullYear()}-${pad(dt.getMonth()+1)}`;
+ pendingDeferredCheckMonth=month;
  saveCurrentMonth();
  if(!loadCachedMonth(month)){
   entries=[];
@@ -1294,6 +1296,10 @@ async function load(){
   showBanner('');
   render();
   loadAnalyticsHistory();
+  if(pendingDeferredCheckMonth===requestedMonth){
+   pendingDeferredCheckMonth='';
+   void checkDeferredInstallments(requestedMonth,freshRows);
+  }
   return true;
 
  }catch(e){
@@ -1503,6 +1509,66 @@ async function fetchSeriesRange(startMonth,endMonth,seriesId){
  if(!seriesId)return [];
  return (await fetchMonthRange(startMonth,endMonth))
   .filter(row=>decodeCategory(row.categoria).seriesId===seriesId);
+}
+
+async function checkDeferredInstallments(targetMonth,currentRows){
+ try{
+  if(!api())return;
+  const historyStart=monthOffset(targetMonth,-35);
+  const historyEnd=monthOffset(targetMonth,-1);
+  const historical=await fetchMonthRange(historyStart,historyEnd);
+  const schedules=new Map();
+
+  historical.forEach(row=>{
+   const category=decodeCategory(row.categoria);
+   if(!category.seriesId||!category.installmentStart||!category.installmentCount)return;
+   if(targetMonth<=category.installmentStart||targetMonth>category.seriesEnd)return;
+   const previous=schedules.get(category.seriesId);
+   if(!previous||row.mes===category.installmentStart)schedules.set(category.seriesId,{row,category});
+  });
+
+  const due=[...schedules.entries()].filter(([seriesId])=>
+   !currentRows.some(row=>decodeCategory(row.categoria).seriesId===seriesId)
+  );
+  if(!due.length)return;
+
+  const descriptions=due.map(([,schedule])=>{
+   const installment=monthKeysBetween(schedule.category.installmentStart,targetMonth,36).length;
+   return '• '+schedule.category.description+' — parcela '+installment+'/'+schedule.category.installmentCount;
+  });
+  const confirmed=confirm(
+   'Você tem '+due.length+' parcela(s) programada(s) para '+monthLabel(targetMonth)+':\\n\\n'+
+   descriptions.join('\\n')+'\\n\\nDeseja adicionar agora?'
+  );
+  if(!confirmed)return;
+
+  writeInFlight=true;
+  let created=0;
+  try{
+   for(const [,schedule] of due){
+    const source=schedule.row;
+    const category=schedule.category;
+    await sendRawSave({
+     id:undefined,
+     mes:targetMonth,
+     pessoa:source.pessoa||'',
+     tipo:source.tipo,
+     categoria:source.categoria,
+     categoriaDespesa:source.categoriaDespesa||category.category||'',
+     valor:Number(source.valor),
+     pago:false
+    });
+    created++;
+   }
+  }finally{
+   writeInFlight=false;
+  }
+  toast(created+' parcela(s) adicionada(s) a '+monthLabel(targetMonth)+'.');
+  await load();
+ }catch(error){
+  writeInFlight=false;
+  toast('Não consegui conferir as parcelas deste mês: '+error.message,true);
+ }
 }
 
 function sameExpenseIdentity(candidate,reference){
