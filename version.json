@@ -1,6 +1,6 @@
 {
-  "version": "1.9.9",
+  "version": "1.9.10",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Resumo de entradas e previsão do saldo reunidos em um único cartão."
+  "notes": "Seletor de mês ampliado e lupa compacta circular alinhada no canto da barra."
 }
