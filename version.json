@@ -1,6 +1,6 @@
 {
-  "version": "1.9.0",
+  "version": "1.9.1",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Tema claro e escuro automático conforme a configuração do aparelho."
+  "notes": "Busca de lançamentos compactada em botão de lupa, com campo expansível."
 }
