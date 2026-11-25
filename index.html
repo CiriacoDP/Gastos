@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.7">
+<meta name="app-version" content="1.9.8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2944,8 +2944,6 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   <section class="analytics-card forecast-card income-forecast-card">
    <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
    <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="incomeForecastAvailable">R$ 0,00</strong></div>
-   <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="incomeForecastPending">R$ 0,00</strong></div>
-   <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="incomeForecastFinal">R$ 0,00</strong></div>
   </section>
 
   <div class="income-workspace">
@@ -4253,12 +4251,7 @@ function renderIncomeView(monthEntries){
  $('incomePendingTotal').textContent=money(sum(all.filter(x=>!x.pago)));
  const expenses=monthEntries.filter(x=>x.tipo!=='Entrada');
  const availableAfterPaid=sum(all.filter(x=>x.pago))-sum(expenses.filter(x=>x.pago));
- const pendingExpenses=sum(expenses.filter(x=>!x.pago));
- const projectedBalance=sum(all)-sum(expenses);
  $('incomeForecastAvailable').textContent=money(availableAfterPaid);
- $('incomeForecastPending').textContent=money(pendingExpenses);
- $('incomeForecastFinal').textContent=money(projectedBalance);
- $('incomeForecastFinal').className=projectedBalance<0?'negative-value':'positive-value';
  $('incomeVisibleCount').textContent=visibleRows.length;
  $('incomeVisibleLabel').textContent=$('incomeSearch').value.trim()?'resultados encontrados':'entradas exibidas';
  $('incomeVisibleTotal').textContent=money(sum(visibleRows));
