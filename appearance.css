@@ -2690,3 +2690,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 #transactions .transactions-month-search.search-open .months{
  display:none!important;
 }
+
+/* Campos da programação progressiva de parcelas */
+.recurrence-fields .installment-toggle{margin-top:8px;border-radius:12px}
+.installment-count input{width:92px;max-width:38%;font-variant-numeric:tabular-nums}
