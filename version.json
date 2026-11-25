@@ -1,6 +1,6 @@
 {
-  "version": "1.9.12",
+  "version": "1.9.13",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Refina o cartão de Personalização e os seletores de aparência e tela inicial, preservando as opções e funções existentes."
+  "notes": "Adiciona relatório financeiro mensal em PDF, com resumo e lançamentos do mês selecionado, pronto para impressão."
 }
