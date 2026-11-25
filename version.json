@@ -1,8 +1,8 @@
 {
-  "version": "1.9.40",
+  "version": "1.9.41",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Faz a notificação toast desaparecer com fade-out sem deslocamento vertical."
+    "Organiza o indicador de conexão em duas linhas, com a data atual e o horário da última sincronização."
   ]
 }
