@@ -1,8 +1,8 @@
 {
-  "version": "1.9.28",
+  "version": "1.9.29",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Oculta as opções de filtro enquanto há uma busca ativa nos lançamentos; elas reaparecem ao limpar a busca."
+    "A busca expandida substitui completamente a seção de meses, sem deixar espaço reservado."
   ]
 }
