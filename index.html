@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.21">
+<meta name="app-version" content="1.9.22">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1931,6 +1931,14 @@ function render(){
 
 /* NAVEGAÇÃO ENTRE TELAS */
 function switchView(name){
+ if(name!=='transactions'){
+  const search=$('listSearch');
+  if(search){
+   search.value='';
+   $('clearSearch').hidden=true;
+   if(!$('transactionSearch').classList.contains('search-collapsed'))setTransactionSearchOpen(false);
+  }
+ }
  document.querySelectorAll('.view').forEach(v=>{
   v.classList.toggle('active',v.id===name);
  });
@@ -2724,19 +2732,17 @@ function setTransactionSearchOpen(open){
  wrapper.classList.toggle('search-collapsed',!open);
  container.classList.toggle('search-open',open);
  container.querySelector('.months').hidden=open;
- $('searchToggle').setAttribute('aria-label',open?'Fechar busca':'Abrir busca');
+ $('searchToggle').setAttribute('aria-label',open?'Focar busca':'Abrir busca');
 }
 $('searchToggle').addEventListener('click',()=>{
- const opening=$('transactionSearch').classList.contains('search-collapsed');
- setTransactionSearchOpen(opening);
- if(opening)$('listSearch').focus();
- else $('listSearch').blur();
+ if($('transactionSearch').classList.contains('search-collapsed'))setTransactionSearchOpen(true);
+ $('listSearch').focus();
 });
-$('listSearch').addEventListener('keydown',e=>{
- if(e.key==='Escape'&&!$('listSearch').value){
-  setTransactionSearchOpen(false);
-  $('searchToggle').focus();
- }
+document.addEventListener('click',e=>{
+ const wrapper=$('transactionSearch');
+ if(!wrapper||wrapper.classList.contains('search-collapsed'))return;
+ if(wrapper.contains(e.target))return;
+ if(!$('listSearch').value.trim())setTransactionSearchOpen(false);
 });
 $('listSearch').addEventListener('input',()=>{
  $('clearSearch').hidden=!$('listSearch').value;
