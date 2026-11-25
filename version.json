@@ -1,10 +1,9 @@
 {
-  "version": "1.9.20",
+  "version": "1.9.21",
   "ready": true,
-  "releasedAt": "2026-11-24",
+  "releasedAt": "2026-11-25",
   "notes": [
-    "Tela de atualização com aparência alinhada ao tema claro ou escuro do aplicativo.",
-    "Novidades da versão apresentadas em itens curtos e fáceis de consultar.",
-    "Informações da atualização correspondentes às mudanças publicadas."
+    "Corrige a aparência dos cartões de Lançamentos no tema automático claro em celulares.",
+    "Preserva o destaque dourado dos lançamentos importantes e o visual original do tema escuro."
   ]
 }
