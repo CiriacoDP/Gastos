@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.36">
+<meta name="app-version" content="1.9.37">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -472,27 +472,28 @@
    </label>
   </div>
 
-  <label class="group important-toggle">
-   <input id="importantFlag" type="checkbox">
-   <span>★ Marcar como importante</span>
-  </label>
-  <label class="group important-toggle" id="paidOnCreateWrap">
-   <input id="paidOnCreate" type="checkbox">
-   <span>✓ Já está paga</span>
-  </label>
-
-  <section class="recurrence-fields" id="recurrenceFields" hidden>
+  <div class="expense-options-row">
+   <label class="group important-toggle">
+    <input id="importantFlag" type="checkbox">
+    <span>★ Importante</span>
+   </label>
+   <label class="group important-toggle" id="paidOnCreateWrap">
+    <input id="paidOnCreate" type="checkbox">
+    <span>✓ Já paga</span>
+   </label>
    <label class="group important-toggle recurrence-toggle">
     <input id="repeatMonthly" type="checkbox">
-    <span>Repetir esta despesa mensalmente</span>
+    <span>Repetir mensalmente</span>
    </label>
+   <label class="group important-toggle recurrence-toggle installment-toggle" id="installmentOptionWrap">
+    <input id="deferredInstallments" type="checkbox">
+    <span>Parcelas progressivas</span>
+   </label>
+  </div>
+  <section class="recurrence-fields" id="recurrenceFields" hidden>
    <label class="group cell recurrence-until" id="recurrenceUntilWrap">
     <span>Repetir até</span>
     <input id="repeatUntil" type="month">
-   </label>
-   <label class="group important-toggle recurrence-toggle installment-toggle">
-    <input id="deferredInstallments" type="checkbox">
-    <span>Parcelas: adicionar conforme avançar os meses</span>
    </label>
    <label class="group cell recurrence-until installment-count" id="installmentCountWrap" hidden>
     <span>Quantidade de parcelas</span>
