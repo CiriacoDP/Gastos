@@ -1,8 +1,8 @@
 {
-  "version": "1.9.35",
+  "version": "1.9.36",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Mantém despesas pagas no fim da lista, preservando a ordem dos demais lançamentos."
+    "Padroniza as opções de recorrência e parcelas em cartões independentes."
   ]
 }
