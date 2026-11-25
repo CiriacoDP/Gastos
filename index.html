@@ -745,7 +745,18 @@ function showAppUpdate(release){
  appUpdatePending=release;
  $('updateCurrentVersion').textContent='v'+APP_VERSION;
  $('updateNewVersion').textContent='v'+release.version;
- $('updateReleaseNotes').textContent=String(release.notes||'Atualizações e melhorias do aplicativo.');
+ const notes=$('updateReleaseNotes');
+ notes.replaceChildren();
+ const rawNotes=Array.isArray(release.notes)?release.notes:String(release.notes||'Melhorias e ajustes no aplicativo.');
+ const noteItems=(Array.isArray(rawNotes)?rawNotes:rawNotes.split(/\\r?\\n|;/)).map(item=>String(item).trim()).filter(Boolean);
+ if(noteItems.length>1){
+  const list=document.createElement('ul');
+  list.className='update-release-list';
+  noteItems.forEach(item=>{const li=document.createElement('li');li.textContent=item;list.appendChild(li)});
+  notes.appendChild(list);
+ }else{
+  notes.textContent=noteItems[0]||'Melhorias e ajustes no aplicativo.';
+ }
  $('updateOverlay').hidden=false;
  $('updateNowBtn').disabled=false;
  $('updateLaterBtn').disabled=false;
