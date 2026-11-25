@@ -2752,3 +2752,7 @@ header .brand .status>.status-sync-pill svg{
  header .brand .status>.status-pill{width:100%!important;max-width:100%!important;min-height:21px!important;padding:1px 8px!important;gap:5px!important}
  header .brand .status>.status-sync-pill svg{display:block!important;flex:0 0 12px!important;width:12px!important;height:12px!important}
 }
+
+
+/* Respeita o atributo hidden nas opções do formulário: entradas mostram apenas Importante. */
+.expense-options-row>.important-toggle[hidden]{display:none!important}
