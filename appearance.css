@@ -2696,3 +2696,19 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 .recurrence-fields .installment-toggle{margin-top:8px;border-radius:12px}
 .installment-count input{width:92px;max-width:38%;font-variant-numeric:tabular-nums}
 
+
+/* Opções da despesa em uma única linha */
+.expense-options-row{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin-top:12px}
+.expense-options-row .important-toggle{margin:0;min-width:0;min-height:52px;padding:9px 10px;gap:7px;border-radius:12px;font-size:12px;line-height:1.2}
+.expense-options-row .important-toggle span{min-width:0}
+.expense-options-row .important-toggle input{flex:0 0 17px;width:17px;height:17px}
+.recurrence-fields{margin-top:8px}
+#filters{display:flex;align-items:center;gap:8px}
+.filter-toolbar{display:flex;align-items:center;gap:10px;margin-top:0}
+.filter-toggle{flex:0 0 auto}
+.filter-summary{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(max-width:480px){
+ .expense-options-row{grid-template-columns:repeat(4,minmax(0,1fr));gap:5px}
+ .expense-options-row .important-toggle{padding:8px 5px;gap:5px;font-size:10px}
+ .expense-options-row .important-toggle input{flex-basis:15px;width:15px;height:15px}
+}
