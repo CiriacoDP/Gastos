@@ -1,6 +1,6 @@
 {
-  "version": "1.9.10",
+  "version": "1.9.11",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Seletor de mês ampliado e lupa compacta circular alinhada no canto da barra."
+  "notes": "Ajuste exclusivo do seletor mensal e da lupa na aba Lançamentos, preservando o padrão visual do app."
 }
