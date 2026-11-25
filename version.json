@@ -1,6 +1,6 @@
 {
-  "version": "1.9.2",
+  "version": "1.9.3",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Correção do tema claro nos cartões de lançamentos e ajuste da lupa compacta."
+  "notes": "Cartão de conexão com a planilha mais compacto em telas de celular."
 }
