@@ -2716,3 +2716,10 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   overflow:hidden;
  }
 }
+
+
+/* Novidades da versão: leitura rápida em itens curtos. */
+.update-release-list{display:grid;gap:8px;margin:0;padding-left:19px}
+.update-release-list li{padding-left:2px}
+.update-release-list li::marker{color:#78baff}
+.update-release-notes:empty{display:none}
