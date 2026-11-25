@@ -1,6 +1,6 @@
 {
-  "version": "1.9.3",
+  "version": "1.9.5",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Cartão de conexão com a planilha mais compacto em telas de celular."
+  "notes": "Configurações ampliadas: aparência automática ou clara, privacidade, tela inicial, resumo de pendências e exportação CSV/JSON."
 }
