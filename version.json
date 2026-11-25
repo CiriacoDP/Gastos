@@ -1,6 +1,6 @@
 {
-  "version": "1.9.5",
+  "version": "1.9.6",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Configurações ampliadas: aparência automática ou clara, privacidade, tela inicial, resumo de pendências e exportação CSV/JSON."
+  "notes": "Adicionada opção para forçar o modo escuro nas configurações de aparência."
 }
