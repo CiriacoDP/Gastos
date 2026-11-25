@@ -1,8 +1,8 @@
 {
-  "version": "1.9.26",
+  "version": "1.9.27",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Padroniza o tamanho dos campos de busca em 16px para evitar zoom automático no iPhone."
+    "Corrige as cores da barra inferior no tema automático claro do iPhone."
   ]
 }
