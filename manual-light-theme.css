@@ -167,3 +167,8 @@
  .income-summary-forecast span{color:#648879!important}.income-summary-forecast strong{color:#204b3e!important}
  @media(max-width:979px){.app-sidebar{background:rgba(255,255,255,.96)!important;border:1px solid rgba(48,70,96,.14)!important;border-bottom:0!important;border-radius:20px 20px 0 0!important;box-shadow:0 -8px 28px rgba(31,55,82,.13)!important}.app-sidebar .app-nav button.active{background:#e8f2fc!important;color:#176fc1!important}#transactions .filter-toggle{background:#eaf0f6!important;color:#35516d!important}}
 
+/* Tema claro: contêiner arredondado em todos os seletores de mês, em todas as abas. */
+.months{
+ border-radius:15px!important;
+ overflow:hidden;
+}
