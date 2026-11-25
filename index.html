@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.38">
+<meta name="app-version" content="1.9.39">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -513,20 +513,6 @@
   </div>
   <textarea class="payment-code" id="paymentCodeInput" placeholder="O código escaneado aparecerá aqui. Você também pode colar o código manualmente." autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
   <div class="payment-meta"><span id="paymentCodeStatus" role="status" aria-live="polite">Nenhum código salvo nesta conta.</span><span id="paymentCodeKind"></span></div>
- </section>
- <section class="group documents-panel" id="documentsPanel">
-  <h3>Documentos da conta</h3>
-  <p class="documents-help">Anexe boleto em PDF ou imagem (JPG, PNG, WEBP). Limite de 8 MB por arquivo. Para vincular corretamente, salve a conta primeiro. Os arquivos ficam no Google Drive.</p>
-  <div class="documents-fields">
-   <select id="documentKind" aria-label="Tipo de anexo">
-    <option value="boleto">Boleto</option><option value="pix">QR Code Pix</option>
-    <option value="comprovante">Comprovante</option><option value="documento">Outro documento</option>
-   </select>
-   <textarea id="documentPaymentCode" placeholder="Código Pix Copia e Cola ou linha digitável (salvo junto ao anexo)"></textarea>
-   <input id="documentFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple>
-  </div>
-  <div class="documents-list" id="documentsList"></div>
-  <div class="documents-status" id="documentsStatus" role="status" aria-live="polite"></div>
  </section>
   <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
   <p class="delete-pending-note" id="deletePendingNote" hidden></p>
@@ -2075,7 +2061,6 @@ function setType(t){
  $('installmentOptionWrap').hidden=t==='Entrada';
  $('categoryCell').hidden=t==='Entrada';
  $('paymentPanel').hidden=t==='Entrada';
- $('documentsPanel').hidden=t==='Entrada';
  $('paidOnCreateWrap').hidden=t==='Entrada'||!!editingId;
 }
 
@@ -2219,91 +2204,6 @@ function setPendingDeleteState(value){
  $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=pendingDelete);
  $('expenseCategory').disabled=pendingDelete;
 }
-
-
-let pendingDocumentFiles=[];
-let documentsRequestBusy=false;
-function setDocumentsStatus(message,isError=false){
- const el=$('documentsStatus');if(!el)return;
- el.textContent=message;el.style.color=isError?'var(--red)':'var(--mut)';
-}
-async function documentsPost(payload){
- const url=api();if(!url)throw new Error('Configure a conexão com a planilha primeiro.');
- const response=await fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
- if(!response.ok)throw new Error('Erro HTTP '+response.status+' ao acessar documentos.');
- const data=await response.json();if(data?.ok===false)throw new Error(data.error||'Falha ao acessar documentos.');
- return data;
-}
-async function refreshDocuments(entryId){
- if(!entryId){$('documentsList').innerHTML='';return;}
- try{
-  const data=await documentsPost({action:'listDocuments',entryId});
-  $('documentsList').innerHTML=(data.documents||[]).map(doc=>
-   '<div class="document-item"><a href="'+safe(doc.url)+'" target="_blank" rel="noopener">'+safe(doc.name)+'</a>'+
-   '<button type="button" data-delete-document="'+safe(doc.id)+'" aria-label="Excluir '+safe(doc.name)+'">Excluir</button></div>'
-  ).join('')||'<p class="documents-help">Nenhum documento anexado.</p>';
- }catch(error){setDocumentsStatus(error.message,true);}
-}
-function readFileAsBase64(file){
- return new Promise((resolve,reject)=>{
-  const reader=new FileReader();
-  reader.onload=()=>resolve(String(reader.result||'').split(',').pop());
-  reader.onerror=()=>reject(new Error('Não foi possível ler '+file.name+'.'));
-  reader.readAsDataURL(file);
- });
-}
-async function uploadPendingDocuments(entryId){
- if(!pendingDocumentFiles.length)return;
- const files=[...pendingDocumentFiles];
- const paymentCode=$('documentPaymentCode').value.trim();
- for(const file of files){
-  if(file.size>8*1024*1024){setDocumentsStatus(file.name+': arquivo maior que 8 MB.',true);continue;}
-  setDocumentsStatus('Enviando '+file.name+'…');
-  const base64=await readFileAsBase64(file);
-  await documentsPost({action:'uploadDocument',entryId,kind:$('documentKind').value,paymentCode,
-   file:{name:file.name,mimeType:file.type,base64}});
- }
- $('documentFiles').value='';pendingDocumentFiles=[];
- setDocumentsStatus(files.length+' arquivo(s) enviado(s).');
- await refreshDocuments(entryId);
-}
-async function resolveSavedDocumentEntry(item){
- const url=api();
- const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(item.mes)+'&_='+Date.now();
- const response=await fetch(endpoint,{cache:'no-store'});
- if(!response.ok)throw new Error('A conta foi salva, mas não consegui localizar seu registro para anexar o arquivo.');
- const data=await response.json();
- const rows=extractEntries(data);if(!rows)throw new Error('A conta foi salva, mas a resposta não trouxe os lançamentos.');
- const target=decodeCategory(item.categoria);
- const matches=rows.map(normalizeEntry).filter(row=>{
-  const c=decodeCategory(row.categoria);
-  return row.mes===item.mes&&row.tipo===item.tipo&&Number(row.valor)===Number(item.valor)&&
-   c.description===target.description&&c.nature===target.nature;
- });
- if(matches.length!==1)throw new Error('A conta foi salva, mas encontrei '+matches.length+' registros iguais. Não anexei o arquivo para evitar vinculá-lo à conta errada.');
- return String(matches[0].id);
-}
-$('documentFiles').addEventListener('change',async()=>{
- pendingDocumentFiles=[...$('documentFiles').files];
- if(!pendingDocumentFiles.length)return;
- if(editingId){
-  try{documentsRequestBusy=true;await uploadPendingDocuments(String(editingId));}
-  catch(error){setDocumentsStatus(error.message,true);pendingDocumentFiles=[...$('documentFiles').files];}
-  finally{documentsRequestBusy=false;}
- }else{
-  setDocumentsStatus('Arquivos selecionados. Salve a conta para anexá-los.');
- }
-});
-$('documentsList').addEventListener('click',async event=>{
- const button=event.target.closest('[data-delete-document]');if(!button)return;
- if(!confirm('Excluir este documento do lançamento?'))return;
- try{
-  button.disabled=true;
-  await documentsPost({action:'deleteDocument',documentId:button.dataset.deleteDocument});
-  setDocumentsStatus('Documento excluído.');
-  if(editingId)await refreshDocuments(String(editingId));
- }catch(error){button.disabled=false;setDocumentsStatus(error.message,true);}
-});
 
 
 // Scanner de QR Pix e código de barras de boleto.
@@ -2485,10 +2385,7 @@ function openSheet(item,defaultType='Gasto'){
  $('deleteBtn').textContent='Excluir lançamento';
  $('deleteBtn').classList.remove('marked');
  $('deletePendingNote').hidden=true;
- pendingDocumentFiles=[];$('documentFiles').value='';$('documentPaymentCode').value='';$('documentsList').innerHTML='';
- $('documentsPanel').hidden=type==='Entrada';
  $('paymentPanel').hidden=type==='Entrada';
- setDocumentsStatus(item?'Carregando documentos…':'Salve a conta antes de anexar arquivos.');
  $('saveBtn').textContent='Salvar';
  ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil','deferredInstallments','installmentCount'].forEach(id=>{if($(id))$(id).disabled=false;});
  $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=false);
@@ -2496,7 +2393,6 @@ function openSheet(item,defaultType='Gasto'){
  document.body.classList.add('sheet-open');
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
- if(item&&item.tipo!=='Entrada')void refreshDocuments(String(item.id));
 
  if(!item)setTimeout(()=>$('amount').focus(),320);
 }
@@ -2803,8 +2699,7 @@ $('entryForm').addEventListener('submit',async e=>{
     return;
    }
   }
-  if(pendingDocumentFiles.length){const docId=editingId?String(editingId):await resolveSavedDocumentEntry(item);await uploadPendingDocuments(docId);}
- }catch(error){
+  }catch(error){
   toast('Não foi possível concluir a alteração: '+error.message,true);
  }finally{
   writeInFlight=false;
