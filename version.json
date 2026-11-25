@@ -1,8 +1,8 @@
 {
-  "version": "1.9.42",
+  "version": "1.9.43",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Corrige o cabeçalho para exibir apenas as duas cápsulas de status, sem contêiner externo ou expansão indevida."
+    "Corrige o layout mobile do indicador de status e força a atualização do arquivo CSS."
   ]
 }
