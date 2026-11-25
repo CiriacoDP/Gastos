@@ -1,6 +1,6 @@
 {
-  "version": "1.8.8",
+  "version": "1.8.9",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Busca de lançamentos alinhada ao seletor de mês no desktop; melhorias na leitura de QR Pix e boleto."
+  "notes": "Busca e seletor de mês lado a lado no celular e desktop; melhorias na leitura de QR Pix e boleto."
 }
