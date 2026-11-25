@@ -1,6 +1,6 @@
 {
-  "version": "1.8.3",
+  "version": "1.8.4",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Anexos de documentos em lançamentos; demais funções preservadas."
+  "notes": "Layout padrão dos cards da tela Geral restaurado; anexos de documentos mantidos."
 }
