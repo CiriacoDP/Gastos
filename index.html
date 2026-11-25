@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.8.6">
+<meta name="app-version" content="1.8.7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -4328,14 +4328,15 @@ async function startPaymentScanner(){
   const hints=new Map();
   hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS,formats);
   hints.set(ZXing.DecodeHintType.TRY_HARDER,true);
-  paymentScannerReader=new ZXing.BrowserMultiFormatReader(hints,250);
+  if(ZXing.DecodeHintType.ALSO_INVERTED)hints.set(ZXing.DecodeHintType.ALSO_INVERTED,true);
+  paymentScannerReader=new ZXing.BrowserMultiFormatReader(hints,350);
   $('paymentScannerStatus').textContent='Solicitando permissão para usar a câmera traseira…';
 
   // Solicita explicitamente a câmera traseira, em vez de aceitar a primeira câmera listada pelo iOS.
   let controls;
   try{
    controls=await paymentScannerReader.decodeFromConstraints(
-    {audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}},
+    {audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30},focusMode:{ideal:'continuous'}}},
     $('paymentScannerVideo'),
     (result,error,activeControls)=>{
      if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
