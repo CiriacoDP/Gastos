@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.34">
+<meta name="app-version" content="1.9.35">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1976,7 +1976,7 @@ function render(){
  renderAnalytics(me);
  renderIncomeView(me);
 
- const list=visible(outs).slice().reverse();
+ const list=visible(outs).slice().reverse().sort((a,b)=>Number(!!a.pago)-Number(!!b.pago));
  $('visibleCount').textContent=list.length;
  $('visibleCountLabel').textContent=$('listSearch').value.trim()?'resultados encontrados':'lançamentos exibidos';
  const searching=!!$('listSearch').value.trim();
