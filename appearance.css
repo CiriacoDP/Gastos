@@ -813,9 +813,10 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 
 
 /* Despesas recorrentes */
-.recurrence-fields{margin-top:12px;padding:0 14px 12px}
-.recurrence-fields .recurrence-toggle{margin:0 -14px;border-radius:14px 14px 0 0}
-.recurrence-until{padding:10px 0 7px}
+.recurrence-fields{margin-top:0;padding:0}
+.recurrence-fields .recurrence-toggle{margin:12px 0 0;border-radius:14px}
+.recurrence-fields .installment-toggle{margin-top:12px;border-radius:14px}
+.recurrence-until{margin-top:8px;padding:10px 14px;border-radius:14px}
 .recurrence-until input{width:145px;max-width:55%;border:0;background:transparent;text-align:right;color:var(--ink)}
 .recurrence-note{margin:3px 0 0;color:#8195aa;font-size:10px;line-height:1.45}
 
