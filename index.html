@@ -2671,7 +2671,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
     <option value="boleto">Boleto</option><option value="pix">QR Code Pix</option>
     <option value="comprovante">Comprovante</option><option value="documento">Outro documento</option>
    </select>
-   <textarea id="documentPaymentCode" placeholder="Código Pix Copia e Cola ou linha digitável (opcional)"></textarea>
+   <textarea id="documentPaymentCode" placeholder="Código Pix Copia e Cola ou linha digitável (salvo junto ao anexo)"></textarea>
    <input id="documentFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple>
   </div>
   <div class="documents-list" id="documentsList"></div>
@@ -4163,7 +4163,7 @@ function readFileAsBase64(file){
 }
 async function uploadPendingDocuments(entryId){
  if(!pendingDocumentFiles.length)return;
- const files=[...pendingDocumentFiles];pendingDocumentFiles=[];
+ const files=[...pendingDocumentFiles];
  const paymentCode=$('documentPaymentCode').value.trim();
  for(const file of files){
   if(file.size>8*1024*1024){setDocumentsStatus(file.name+': arquivo maior que 8 MB.',true);continue;}
@@ -4172,7 +4172,7 @@ async function uploadPendingDocuments(entryId){
   await documentsPost({action:'uploadDocument',entryId,kind:$('documentKind').value,paymentCode,
    file:{name:file.name,mimeType:file.type,base64}});
  }
- $('documentFiles').value='';
+ $('documentFiles').value='';pendingDocumentFiles=[];
  setDocumentsStatus(files.length+' arquivo(s) enviado(s).');
  await refreshDocuments(entryId);
 }
