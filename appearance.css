@@ -2713,51 +2713,34 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 .filter-summary{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 
 
-/* Correção do cabeçalho: somente as duas cápsulas, sem contêiner externo */
-header .brand .status{
- display:flex;flex-direction:column;align-items:flex-start;align-self:flex-start;
- width:max-content;max-width:100%;min-width:0;gap:5px;margin:4px 0 0;padding:0;
- overflow:visible;white-space:normal;border:0;border-radius:0;background:transparent;
+/* Indicador do cabeçalho: preserva a largura e o alinhamento do status original */
+header .brand .status,
+header .brand .status.off{
+ display:flex!important;flex-direction:column!important;align-items:stretch!important;
+ gap:5px!important;width:100%!important;max-width:100%!important;min-width:0!important;
+ height:auto!important;min-height:0!important;margin:4px 0 0!important;padding:0!important;
+ border:0!important;border-radius:0!important;background:transparent!important;
+ box-shadow:none!important;overflow:visible!important;white-space:normal!important;
 }
-header .brand .status .status-pill{
- display:flex;flex:0 0 auto;width:max-content;max-width:100%;min-width:0;
- padding:4px 11px;overflow:visible;white-space:nowrap;
+header .brand .status>.status-pill{
+ display:flex!important;align-items:center!important;justify-content:flex-start!important;
+ flex:0 1 auto!important;width:100%!important;max-width:100%!important;min-width:0!important;
+ min-height:29px!important;height:auto!important;margin:0!important;padding:4px 11px!important;
+ box-sizing:border-box!important;border:1px solid var(--sep)!important;border-radius:999px!important;
+ background:rgba(255,255,255,.035)!important;box-shadow:none!important;
+ overflow:hidden!important;white-space:nowrap!important;
 }
-header .brand .status .status-pill span{
- display:inline;flex:0 0 auto;min-width:0;overflow:visible;text-overflow:clip;white-space:nowrap;
+header .brand .status>.status-pill span{
+ display:inline!important;flex:0 1 auto!important;min-width:0!important;
+ overflow:hidden!important;text-overflow:ellipsis!important;white-space:nowrap!important;
 }
-header .brand .status .status-pill i{flex:0 0 8px;width:8px;height:8px}
+header .brand .status>.status-pill i{display:block!important;flex:0 0 7px!important;width:7px!important;height:7px!important}
 @media(max-width:979px){
- header .brand>div:last-child{flex:0 1 auto;min-width:0}
- header .brand .status{width:max-content;max-width:100%;padding:0;font-size:11px;overflow:visible}
- header .brand .status .status-pill{max-width:100%;padding:4px 10px}
- header .brand .status .status-pill span{flex:0 0 auto;min-width:0}
-}
-
-
-/* Status mobile: cápsulas individuais sem moldura externa */
-@media(max-width:979px){
- header .brand>div:last-child{flex:0 1 auto!important;width:auto!important;min-width:0!important}
- header .brand .status,
- header .brand .status.off{
-  display:flex!important;flex-direction:column!important;align-items:flex-start!important;
-  align-self:flex-start!important;justify-content:flex-start!important;
-  width:max-content!important;max-width:100%!important;min-width:0!important;
-  height:auto!important;min-height:0!important;gap:5px!important;
-  margin:4px 0 0!important;padding:0!important;
-  border:0!important;border-radius:0!important;background:transparent!important;
-  box-shadow:none!important;overflow:visible!important;white-space:normal!important;
+ header .brand>div:last-child{flex:1 1 0!important;min-width:0!important;width:auto!important}
+ header .brand .status,header .brand .status.off{
+  display:flex!important;flex-direction:column!important;align-items:stretch!important;
+  width:100%!important;max-width:100%!important;min-width:0!important;padding:0!important;
+  overflow:visible!important;font-size:10px!important;letter-spacing:-.12px!important;
  }
- header .brand .status>.status-pill{
-  display:flex!important;align-items:center!important;justify-content:flex-start!important;
-  flex:0 0 auto!important;width:max-content!important;max-width:100%!important;min-width:0!important;
-  min-height:29px!important;height:auto!important;margin:0!important;padding:4px 10px!important;
-  border:1px solid var(--sep)!important;border-radius:999px!important;
-  background:var(--fill)!important;box-shadow:none!important;overflow:visible!important;
- }
- header .brand .status>.status-pill span{
-  display:inline!important;flex:0 0 auto!important;min-width:0!important;
-  overflow:visible!important;text-overflow:clip!important;white-space:nowrap!important;
- }
- header .brand .status>.status-pill i{display:block!important;flex:0 0 8px!important;width:8px!important;height:8px!important}
+ header .brand .status>.status-pill{width:100%!important;max-width:100%!important;padding:4px 9px!important}
 }
