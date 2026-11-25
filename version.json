@@ -1,6 +1,6 @@
 {
-  "version": "1.9.18",
+  "version": "1.9.19",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Arredonda os seletores de mês do tema claro em todas as abas."
+  "notes": "Melhora o layout do relatório mensal em PDF e corrige a ação de impressão."
 }
