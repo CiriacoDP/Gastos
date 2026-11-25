@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.3">
+<meta name="app-version" content="1.9.4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2546,6 +2546,26 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  }
 }
 
+
+/* Novas preferências e ferramentas da área de configurações. */
+.settings-select{display:block;width:100%;min-height:44px;padding:0 12px;border:1px solid var(--sep);border-radius:11px;background:var(--fill);color:var(--ink);font:inherit;font-size:13px}
+.settings-switch-row{display:flex!important;align-items:center;justify-content:space-between;gap:14px;margin:14px 0 0!important;padding:12px 0;border-top:1px solid var(--sep);cursor:pointer}
+.settings-switch-row span{display:flex;flex-direction:column;gap:4px}
+.settings-switch-row strong{font-size:13px;color:var(--ink)}
+.settings-switch-row small,.settings-footnote{font-size:11px;line-height:1.45;color:var(--mut)}
+.settings-switch-row input{width:19px;height:19px;flex:0 0 19px;accent-color:var(--blue)}
+.settings-action-row{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.settings-action{min-height:43px;padding:9px 10px;border:1px solid var(--sep);border-radius:11px;background:var(--fill);color:var(--ink);font-size:12px;font-weight:700}
+.settings-footnote{display:block;margin-top:12px}
+.preferences-card{margin-top:14px}
+@media(max-width:979px){
+ #connection.active{display:block}
+ #connection>.preferences-card{margin-top:12px!important;padding:18px!important}
+ #connection .settings-select{min-height:42px;font-size:12px}
+ #connection .settings-action-row{grid-template-columns:1fr}
+ #connection .settings-action{min-height:42px}
+}
+
 </style>
 </head>
 <body>
@@ -2897,7 +2917,41 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
     Verificar atualizações
    </button>
    <div class="msg app-update-check-message" id="manualUpdateMessage" role="status" aria-live="polite">Toque para procurar uma versão nova.</div>
-  </section>  </section>
+  </section>
+  <section class="card settings-card preferences-card">
+   <h3>Personalização</h3>
+   <p>Escolha como o Meu Dinheiro deve se comportar neste aparelho.</p>
+   <label for="appearanceSetting">Aparência</label>
+   <select id="appearanceSetting" class="settings-select">
+    <option value="system">Automática · seguir o aparelho</option>
+    <option value="light">Sempre clara</option>
+    <option value="dark">Sempre escura</option>
+   </select>
+   <label for="defaultViewSetting">Tela ao abrir o aplicativo</label>
+   <select id="defaultViewSetting" class="settings-select">
+    <option value="overview">Visão geral</option>
+    <option value="income">Entradas</option>
+    <option value="transactions">Lançamentos</option>
+   </select>
+   <label class="settings-switch-row" for="privacyStartupSetting"><span><strong>Ocultar valores ao abrir</strong><small>Protege seus saldos quando iniciar o aplicativo.</small></span><input id="privacyStartupSetting" type="checkbox"></label>
+   <label class="settings-switch-row" for="pendingReminderSetting"><span><strong>Resumo de pendências ao abrir</strong><small>Mostra um aviso com despesas e entradas ainda não concluídas no mês.</small></span><input id="pendingReminderSetting" type="checkbox"></label>
+  </section>
+
+  <section class="card settings-card preferences-card">
+   <h3>Dados e segurança</h3>
+   <p>Exporte uma cópia dos lançamentos que estão carregados no aplicativo neste aparelho.</p>
+   <div class="settings-action-row">
+    <button class="secondary settings-action" id="exportCsvBtn" type="button">Exportar planilha CSV</button>
+    <button class="secondary settings-action" id="backupJsonBtn" type="button">Salvar cópia JSON</button>
+   </div>
+   <small class="settings-footnote">A exportação inclui os lançamentos disponíveis na memória do aplicativo no momento. Para garantir todos os meses, carregue cada mês antes de exportar.</small>
+  </section>
+
+  <section class="card settings-card preferences-card about-settings-card">
+   <h3>Sobre o aplicativo</h3>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v1.9.3</strong></div>
+   <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
+  </section>
  </section>
 </main>
 
@@ -3521,9 +3575,71 @@ function setPrivacyMode(hidden,persist=true){
  }
 }
 
+const SETTINGS_STORAGE_KEY='gastos2026_preferences_v1';
+const DEFAULT_SETTINGS={appearance:'system',defaultView:'overview',privacyStartup:false,pendingReminder:true};
+let appSettings={...DEFAULT_SETTINGS};
+function readAppSettings(){
+ try{const saved=JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)||'{}');appSettings={...DEFAULT_SETTINGS,...saved}}catch(error){appSettings={...DEFAULT_SETTINGS}}
+}
+function applyAppearance(){
+ const root=document.documentElement;
+ root.dataset.theme=appSettings.appearance==='system'?'system':appSettings.appearance;
+ if(appSettings.appearance==='system')root.style.colorScheme='';
+ else root.style.colorScheme=appSettings.appearance;
+}
+function saveAppSettings(){
+ try{localStorage.setItem(SETTINGS_STORAGE_KEY,JSON.stringify(appSettings))}catch(error){toast('Não foi possível salvar as preferências neste aparelho.',true)}
+}
+function initAppSettings(){
+ readAppSettings();applyAppearance();
+ $('appearanceSetting').value=appSettings.appearance;
+ $('defaultViewSetting').value=appSettings.defaultView;
+ $('privacyStartupSetting').checked=!!appSettings.privacyStartup;
+ $('pendingReminderSetting').checked=appSettings.pendingReminder!==false;
+ $('aboutAppVersion').textContent='v'+APP_VERSION;
+ $('appearanceSetting').addEventListener('change',()=>{appSettings.appearance=$('appearanceSetting').value;applyAppearance();saveAppSettings()});
+ $('defaultViewSetting').addEventListener('change',()=>{appSettings.defaultView=$('defaultViewSetting').value;saveAppSettings();toast('Tela inicial atualizada')});
+ $('privacyStartupSetting').addEventListener('change',()=>{appSettings.privacyStartup=$('privacyStartupSetting').checked;setPrivacyMode(appSettings.privacyStartup);saveAppSettings()});
+ $('pendingReminderSetting').addEventListener('change',()=>{appSettings.pendingReminder=$('pendingReminderSetting').checked;saveAppSettings()});
+ $('exportCsvBtn').addEventListener('click',exportLoadedEntriesCsv);
+ $('backupJsonBtn').addEventListener('click',exportLoadedEntriesJson);
+}
+function downloadSettingsFile(content,type,filename){
+ const blob=new Blob(['\ufeff'+content],{type});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download=filename;a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function exportLoadedEntriesCsv(){
+ if(!entries.length){toast('Não há lançamentos carregados para exportar.',true);return}
+ const fields=['id','mes','pessoa','tipo','categoria','categoriaDespesa','valor','pago'];
+ const quote=value=>'"'+String(value??'').replace(/"/g,'""')+'"';
+ const csv=[fields.join(';'),...entries.map(row=>fields.map(key=>quote(key==='valor'?Number(row[key]||0).toFixed(2).replace('.',','):key==='pago'?(row[key]?'Sim':'Não'):row[key])).join(';'))].join('\r\n');
+ downloadSettingsFile(csv,'text/csv;charset=utf-8','meu-dinheiro-lancamentos.csv');
+ toast('Arquivo CSV preparado');
+}
+function exportLoadedEntriesJson(){
+ if(!entries.length){toast('Não há lançamentos carregados para salvar.',true);return}
+ const data={app:'Meu Dinheiro',version:APP_VERSION,exportedAt:new Date().toISOString(),month,entries};
+ downloadSettingsFile(JSON.stringify(data,null,2),'application/json;charset=utf-8','meu-dinheiro-backup.json');
+ toast('Cópia JSON preparada');
+}
+function showPendingReminder(){
+ if(!appSettings.pendingReminder)return;
+ const expenses=entries.filter(x=>x.tipo!=='Entrada'&&!x.pago);
+ const income=entries.filter(x=>x.tipo==='Entrada'&&!x.pago);
+ if(expenses.length||income.length){
+  const parts=[];
+  if(expenses.length)parts.push(expenses.length+' despesa(s) pendente(s)');
+  if(income.length)parts.push(income.length+' entrada(s) a receber');
+  toast('Resumo do mês: '+parts.join(' · '),false);
+ }
+}
+
 function initPrivacyMode(){
  let saved=false;
  try{saved=localStorage.getItem(PRIVACY_STORAGE_KEY)==='1'}catch(error){}
+ if(appSettings.privacyStartup)saved=true;
  setPrivacyMode(saved,false);
 }
 
@@ -5240,10 +5356,12 @@ setInterval(async()=>{
  else if(media.addListener)media.addListener(update);
 })();
 
+initAppSettings();
 initPrivacyMode();
 initAppUpdateChecker();
 if(!loadCachedMonth(month))render();
 load();
+setTimeout(showPendingReminder,1800);
 
 /* Mede a área real da janela e atualiza o perfil ao redimensionar/orientar. */
 (function syncViewportProfile(){
