@@ -1,6 +1,6 @@
 {
-  "version": "1.9.7",
+  "version": "1.9.8",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Cartão Previsão do saldo também disponível na aba Entradas."
+  "notes": "Cartão Previsão do saldo na aba Entradas ajustado para exibir somente o indicador mostrado na Visão geral."
 }
