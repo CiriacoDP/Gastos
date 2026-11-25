@@ -1,8 +1,8 @@
 {
-  "version": "1.9.31",
+  "version": "1.9.32",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Adiciona faixa rolante de cotações configurável em Configurações, com seleção e remoção de ativos."
+    "Remove a faixa rolante de cotações do mercado financeiro."
   ]
 }
