@@ -1,6 +1,6 @@
 {
-  "version": "1.9.14",
+  "version": "1.9.15",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Aprimora o tema claro em lançamentos, navegação inferior, filtros, ícones e controles, preservando o tema escuro."
+  "notes": "Ajusta a busca de Lançamentos para expandir em largura total e ocultar temporariamente o seletor de mês."
 }
