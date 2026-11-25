@@ -476,6 +476,10 @@
    <input id="importantFlag" type="checkbox">
    <span>★ Marcar como importante</span>
   </label>
+  <label class="group important-toggle" id="paidOnCreateWrap">
+   <input id="paidOnCreate" type="checkbox">
+   <span>✓ Já está paga</span>
+  </label>
 
   <section class="group recurrence-fields" id="recurrenceFields" hidden>
    <label class="important-toggle recurrence-toggle">
@@ -1972,11 +1976,7 @@ function render(){
  renderAnalytics(me);
  renderIncomeView(me);
 
- const list=visible(outs).slice().reverse().sort((a,b)=>{
-  const ai=decodeCategory(a.categoria).important?1:0;
-  const bi=decodeCategory(b.categoria).important?1:0;
-  return bi-ai;
- });
+ const list=visible(outs).slice().reverse();
  $('visibleCount').textContent=list.length;
  $('visibleCountLabel').textContent=$('listSearch').value.trim()?'resultados encontrados':'lançamentos exibidos';
  const searching=!!$('listSearch').value.trim();
@@ -2073,6 +2073,7 @@ function setType(t){
  $('categoryCell').hidden=t==='Entrada';
  $('paymentPanel').hidden=t==='Entrada';
  $('documentsPanel').hidden=t==='Entrada';
+ $('paidOnCreateWrap').hidden=t==='Entrada'||!!editingId;
 }
 
 function setNature(n){
@@ -2462,6 +2463,8 @@ function openSheet(item,defaultType='Gasto'){
  setNature(c&&c.nature?c.nature:'Fixa');
 
  $('importantFlag').checked=!!(c&&c.important);
+ $('paidOnCreate').checked=!!(item&&item.pago);
+ $('paidOnCreateWrap').hidden=type==='Entrada'||!!item;
  $('paymentCodeInput').value=c&&c.paymentCode?c.paymentCode:'';
  $('paymentCodeStatus').textContent=c&&c.paymentCode?'Código salvo nesta conta.':'Nenhum código salvo nesta conta.';
  $('paymentCodeKind').textContent=c&&c.paymentKind?(c.paymentKind==='BOLETO'?'Boleto':'Pix'):'';
@@ -2591,7 +2594,7 @@ $('entryForm').addEventListener('submit',async e=>{
   categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd,$('expenseCategory').value,$('paymentCodeInput').value,$('paymentCodeInput').value.trim()?(String($('paymentCodeKind').textContent).toLowerCase().includes('boleto')?'BOLETO':'PIX'):'',installmentStart,installmentCount),
   categoriaDespesa:type==='Entrada'?'':$('expenseCategory').value,
   valor:Number($('amount').value),
-  pago:old?!!old.pago:false
+  pago:old?!!old.pago:(type!=='Entrada'&&$('paidOnCreate').checked)
  };
 
  let repeatMonths=[];
