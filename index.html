@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.0">
+<meta name="app-version" content="1.9.1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2439,6 +2439,35 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  .category-icon.cat-income{color:#16865f}
 }
 
+
+/* Busca compacta: lupa no lugar da barra; expande somente ao tocar. */
+#transactions .transaction-search.search-collapsed{
+ width:46px;min-width:46px;max-width:46px;height:46px;min-height:46px;
+ margin:0 0 12px auto;padding:0;justify-content:center;gap:0;
+ border:1px solid rgba(105,169,235,.28);border-radius:50%;
+ background:rgba(17,27,40,.97);box-shadow:0 5px 15px rgba(0,0,0,.16);
+}
+#transactions .transaction-search .search-toggle{
+ display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;
+ border-radius:50%;color:#82baff;background:transparent;padding:0;
+}
+#transactions .transaction-search .search-toggle svg{width:23px;height:23px;display:block}
+#transactions .transaction-search.search-collapsed input,
+#transactions .transaction-search.search-collapsed #clearSearch{display:none}
+#transactions .transaction-search:not(.search-collapsed){
+ width:100%;max-width:none;min-width:0;margin:0 0 12px auto;
+ border-radius:14px;
+}
+@media(max-width:979px){
+ #transactions .transaction-search.search-collapsed{
+  position:relative;top:auto;width:46px;min-width:46px;max-width:46px;
+  min-height:46px;height:46px;margin:0 0 12px auto;padding:0;
+  border-radius:50%;
+ }
+ #transactions .transaction-search.search-collapsed .search-toggle{width:44px;height:44px}
+ #transactions .transaction-search:not(.search-collapsed){position:sticky;top:7px;z-index:24}
+}
+
 </style>
 </head>
 <body>
@@ -2703,11 +2732,13 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
     <b class="monthLabel"></b>
     <button class="next" aria-label="Próximo mês">›</button>
    </div>
-   <label class="transaction-search" role="search">
-     <span aria-hidden="true">⌕</span>
-     <input id="listSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar lançamentos" placeholder="Buscar conta por nome, pessoa ou valor..." autocomplete="off">
+   <div class="transaction-search search-collapsed" id="transactionSearch" role="search">
+    <button type="button" class="search-toggle" id="searchToggle" aria-label="Abrir busca" title="Buscar lançamentos">
+     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="2.2"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <input id="listSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar lançamentos" placeholder="Buscar conta por nome, pessoa ou valor..." autocomplete="off">
     <button type="button" id="clearSearch" aria-label="Limpar busca" hidden>×</button>
-   </label>
+   </div>
   </div>
 
   <div class="transactions-layout">
@@ -4956,6 +4987,21 @@ async function handleRowClick(e){
 $('list').addEventListener('click',handleRowClick);
 $('incomeList').addEventListener('click',handleRowClick);
 
+$('searchToggle').addEventListener('click',()=>{
+ const wrapper=$('transactionSearch');
+ const opening=wrapper.classList.contains('search-collapsed');
+ wrapper.classList.toggle('search-collapsed',!opening);
+ $('searchToggle').setAttribute('aria-label',opening?'Fechar busca':'Abrir busca');
+ if(opening)$('listSearch').focus();
+ else if(!$('listSearch').value){$('listSearch').blur()}
+});
+$('listSearch').addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&!$('listSearch').value){
+  $('transactionSearch').classList.add('search-collapsed');
+  $('searchToggle').setAttribute('aria-label','Abrir busca');
+  $('searchToggle').focus();
+ }
+});
 $('listSearch').addEventListener('input',()=>{
  $('clearSearch').hidden=!$('listSearch').value;
  render();
