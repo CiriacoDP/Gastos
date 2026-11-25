@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.29">
+<meta name="app-version" content="1.9.30">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -486,7 +486,15 @@
     <span>Repetir até</span>
     <input id="repeatUntil" type="month">
    </label>
-   <p class="recurrence-note">Ative para criar ocorrências até o mês escolhido. Ao desativar uma série, você poderá excluir os meses seguintes ou mantê-los como despesas independentes.</p>
+   <label class="important-toggle recurrence-toggle installment-toggle">
+    <input id="deferredInstallments" type="checkbox">
+    <span>Parcelas: adicionar conforme avançar os meses</span>
+   </label>
+   <label class="cell recurrence-until installment-count" id="installmentCountWrap" hidden>
+    <span>Quantidade de parcelas</span>
+    <input id="installmentCount" type="number" min="2" max="36" step="1" inputmode="numeric" value="2">
+   </label>
+   <p class="recurrence-note">Nas parcelas progressivas, o aplicativo cadastra a primeira agora e pergunta antes de adicionar cada mês seguinte. A planilha só recebe os meses quando você confirmar.</p>
   </section>
 
  <section class="group payment-panel" id="paymentPanel">
@@ -1509,6 +1517,7 @@ function sameExpenseIdentity(candidate,reference){
 const IMPORTANT_MARKER='[!IMPORTANTE!]';
 // Aceita também o marcador antigo, criado antes de armazenar o mês final da série.
 const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80})(?::([^!\]]*))?!\]/;
+const INSTALLMENT_MARKER_REGEX=/\[!PARCELAS:(\d{4}-(?:0[1-9]|1[0-2])):(\d{1,2})!\]/;
 
 function normalizeSeriesEnd(value){
  const raw=String(value||'').trim();
@@ -1532,9 +1541,10 @@ function decodeCategory(raw){
  const text=String(raw||'');
  const important=text.includes(IMPORTANT_MARKER);
  const seriesMatch=text.match(SERIES_MARKER_REGEX);
+ const installmentMatch=text.match(INSTALLMENT_MARKER_REGEX);
  const categoryMatch=text.match(/\[!CAT:([A-Za-z]+)!\]/);
  const paymentMatch=text.match(/\[!PGTO:(PIX|BOLETO):([A-Za-z0-9_-]+)!\]/);
- const clean=text.replace(IMPORTANT_MARKER,'').replace(SERIES_MARKER_REGEX,'').replace(/\[!CAT:[A-Za-z]+!\]/,'').replace(/\[!PGTO:(?:PIX|BOLETO):[A-Za-z0-9_-]+!\]/,'').trim();
+ const clean=text.replace(IMPORTANT_MARKER,'').replace(SERIES_MARKER_REGEX,'').replace(INSTALLMENT_MARKER_REGEX,'').replace(/\[!CAT:[A-Za-z]+!\]/,'').replace(/\[!PGTO:(?:PIX|BOLETO):[A-Za-z0-9_-]+!\]/,'').trim();
  const m=clean.match(/^\[(Fixa|Variável)\]\s*/);
  let paymentCode='';
  if(paymentMatch){try{paymentCode=decodeURIComponent(escape(atob(paymentMatch[2].replace(/-/g,'+').replace(/_/g,'/'))));}catch(error){}}
@@ -1542,6 +1552,8 @@ function decodeCategory(raw){
   important,
   seriesId:seriesMatch?seriesMatch[1]:'',
   seriesEnd:seriesMatch?normalizeSeriesEnd(seriesMatch[2]):'',
+  installmentStart:installmentMatch?installmentMatch[1]:'',
+  installmentCount:installmentMatch?Number(installmentMatch[2]):0,
   nature:m?m[1]:'',
   category:categoryMatch?categoryMatch[1]:'',
   paymentKind:paymentMatch?paymentMatch[1]:'',
@@ -1550,7 +1562,7 @@ function decodeCategory(raw){
  };
 }
 
-function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd='',category='',paymentCode='',paymentKind=''){
+function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd='',category='',paymentCode='',paymentKind='',installmentStart='',installmentCount=0){
  const base=tp==='Entrada'?desc:`[${nat}] ${desc}`;
  const code=String(paymentCode||'').trim();
  const encoded=code?btoa(unescape(encodeURIComponent(code))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''):'';
@@ -1558,6 +1570,7 @@ function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd='',category=
   +(category?' [!CAT:'+category+'!]':'')
   +(important?' '+IMPORTANT_MARKER:'')
   +(seriesId?' [!SERIE:'+seriesId+':'+seriesEnd+'!]':'')
+  +(installmentStart&&installmentCount?' [!PARCELAS:'+installmentStart+':'+installmentCount+'!]':'')
   +(encoded?' [!PGTO:'+(paymentKind==='BOLETO'?'BOLETO':'PIX')+':'+encoded+'!]':'');
 }
 
@@ -2380,10 +2393,13 @@ function openSheet(item,defaultType='Gasto'){
  $('paymentCodeInput').value=c&&c.paymentCode?c.paymentCode:'';
  $('paymentCodeStatus').textContent=c&&c.paymentCode?'Código salvo nesta conta.':'Nenhum código salvo nesta conta.';
  $('paymentCodeKind').textContent=c&&c.paymentKind?(c.paymentKind==='BOLETO'?'Boleto':'Pix'):'';
- $('repeatMonthly').checked=!!(item&&c&&c.seriesId);
+ $('repeatMonthly').checked=!!(item&&c&&c.seriesId&&!c.installmentCount);
  $('repeatUntil').value=(c&&c.seriesEnd)||monthOffset($('fMonth').value,11);
+ $('deferredInstallments').checked=!!(item&&c&&c.installmentCount);
+ $('installmentCount').value=(c&&c.installmentCount)||2;
  $('recurrenceFields').hidden=type==='Entrada';
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
+ $('installmentCountWrap').hidden=!$('deferredInstallments').checked;
  $('deleteBtn').hidden=!item;
  $('deleteBtn').textContent='Excluir lançamento';
  $('deleteBtn').classList.remove('marked');
@@ -2393,7 +2409,7 @@ function openSheet(item,defaultType='Gasto'){
  $('paymentPanel').hidden=type==='Entrada';
  setDocumentsStatus(item?'Carregando documentos…':'Salve a conta antes de anexar arquivos.');
  $('saveBtn').textContent='Salvar';
- ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{if($(id))$(id).disabled=false;});
+ ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil','deferredInstallments','installmentCount'].forEach(id=>{if($(id))$(id).disabled=false;});
  $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=false);
  $('expenseCategory').disabled=false;
  document.body.classList.add('sheet-open');
@@ -2485,14 +2501,19 @@ $('entryForm').addEventListener('submit',async e=>{
  const oldCategory=old?decodeCategory(old.categoria):null;
  const wasSeriesId=oldCategory?.seriesId||'';
  const wantsMonthly=type!=='Entrada'&&$('repeatMonthly').checked;
- const seriesId=wantsMonthly?(wasSeriesId||createSeriesId()):'';
- const seriesEnd=wantsMonthly?$('repeatUntil').value:'';
+ const wantsDeferred=type!=='Entrada'&&$('deferredInstallments').checked;
+ if(wantsMonthly&&wantsDeferred){toast('Escolha repetição mensal ou parcelas progressivas, não as duas opções.');$('saveBtn').disabled=false;return;}
+ const installmentCount=wantsDeferred?Number($('installmentCount').value):0;
+ if(wantsDeferred&&(!Number.isInteger(installmentCount)||installmentCount<2||installmentCount>36)){toast('Informe entre 2 e 36 parcelas.',true);$('installmentCount').focus();return;}
+ const installmentStart=wantsDeferred?(oldCategory?.installmentStart||$('fMonth').value):'';
+ const seriesId=(wantsMonthly||wantsDeferred)?(wasSeriesId||createSeriesId()):'';
+ const seriesEnd=wantsDeferred?monthOffset(installmentStart,installmentCount-1):(wantsMonthly?$('repeatUntil').value:'');
  const item={
   id:editingId||undefined,
   mes:$('fMonth').value,
   pessoa:old?old.pessoa:'',
   tipo:type,
-  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd,$('expenseCategory').value,$('paymentCodeInput').value,$('paymentCodeInput').value.trim()?(String($('paymentCodeKind').textContent).toLowerCase().includes('boleto')?'BOLETO':'PIX'):''),
+  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd,$('expenseCategory').value,$('paymentCodeInput').value,$('paymentCodeInput').value.trim()?(String($('paymentCodeKind').textContent).toLowerCase().includes('boleto')?'BOLETO':'PIX'):'',installmentStart,installmentCount),
   categoriaDespesa:type==='Entrada'?'':$('expenseCategory').value,
   valor:Number($('amount').value),
   pago:old?!!old.pago:false
@@ -2572,7 +2593,7 @@ $('entryForm').addEventListener('submit',async e=>{
  saveCurrentMonth();
 
  // A retirada da recorrência exige uma confirmação antes de fechar e excluir os próximos meses.
- const removingMonthlySeries=!!(wasSeriesId&&!wantsMonthly);
+ const removingMonthlySeries=!!(wasSeriesId&&!wantsMonthly&&!wantsDeferred);
  let cancelledSeriesRemoval=false;
  if(!removingMonthlySeries){
   closeSheet();
@@ -2613,6 +2634,13 @@ $('entryForm').addEventListener('submit',async e=>{
    toast(deleted
     ?'Repetição desativada. '+deleted+' ocorrência(s) futura(s) excluída(s).'
     :'Repetição desativada. Não havia ocorrências futuras.');
+   return;
+  }
+
+  if(wantsDeferred){
+   setStatus('Salvando programação de parcelas…',true);
+   await sendRawSave(item);
+   toast(editingId?'Programação de parcelas atualizada.':'Primeira parcela salva. O aplicativo perguntará antes de cadastrar cada mês seguinte.');
    return;
   }
 
@@ -2853,7 +2881,12 @@ $('fMonth').addEventListener('change',()=>{
  }
 });
 $('repeatMonthly').addEventListener('change',()=>{
+ if($('repeatMonthly').checked){$('deferredInstallments').checked=false;$('installmentCountWrap').hidden=true;}
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
+});
+$('deferredInstallments').addEventListener('change',()=>{
+ if($('deferredInstallments').checked){$('repeatMonthly').checked=false;$('recurrenceUntilWrap').hidden=true;}
+ $('installmentCountWrap').hidden=!$('deferredInstallments').checked;
 });
 
 $('saveBudget').addEventListener('click',async()=>{
