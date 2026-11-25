@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.8.5">
+<meta name="app-version" content="1.8.6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -4263,6 +4263,23 @@ function loadZXingLibrary(){
  });
  return zxingLoadPromise;
 }
+function boletoBarcodeToLine(value){
+ const digits=String(value||'').replace(/\D/g,'');
+ if(digits.length!==44)return String(value||'').trim();
+ const mod10=field=>{
+  let sum=0,weight=2;
+  for(let i=field.length-1;i>=0;i--){
+   const product=Number(field[i])*weight;
+   sum+=Math.floor(product/10)+(product%10);
+   weight=weight===2?1:2;
+  }
+  return String((10-(sum%10))%10);
+ };
+ const field1=digits.slice(0,4)+digits.slice(19,24);
+ const field2=digits.slice(24,34);
+ const field3=digits.slice(34,44);
+ return field1+mod10(field1)+field2+mod10(field2)+field3+mod10(field3)+digits.slice(4,5)+digits.slice(5,19);
+}
 function closePaymentScanner(){
  try{paymentScannerControls?.stop();}catch(error){}
  paymentScannerControls=null;try{paymentScannerReader?.reset();}catch(error){}
@@ -4283,8 +4300,9 @@ async function startPaymentScanner(){
    if(!result)return;
    const raw=String(result.getText()||'').trim();if(!raw)return;
    const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
-   $('paymentCodeInput').value=raw;$('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
-   $('paymentCodeStatus').textContent='Código lido. Salve a conta para guardar.';
+   const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
+   $('paymentCodeInput').value=savedCode;$('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
+   $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
    closePaymentScanner();toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
   });
   if(!paymentScannerControls)paymentScannerControls=controls;
