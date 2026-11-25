@@ -2788,3 +2788,11 @@ header .header-actions .icon{align-self:center!important;margin:0!important}
  header .header-actions{flex:0 0 auto!important;align-items:center!important;gap:8px!important}
  header .header-actions .icon{display:grid!important;place-items:center!important;flex:0 0 40px!important;width:40px!important;height:40px!important}
 }
+
+
+/* Animação do indicador enquanto os dados são buscados na planilha */
+@keyframes status-sync-spin{to{transform:rotate(360deg)}}
+header .status.syncing .status-sync-pill svg{
+ animation:status-sync-spin .85s linear infinite!important;
+ transform-origin:50% 50%;
+}
