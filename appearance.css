@@ -2622,10 +2622,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  #income .income-summary-forecast span{max-width:68%;font-size:10px}
  #income .income-summary-forecast strong{font-size:15px}
 }
-@media(prefers-color-scheme:light){
- #income .income-summary-forecast{border-top-color:rgba(35,150,112,.2)}
- #income .income-summary-forecast span{color:#648879}
- #income .income-summary-forecast strong{color:#204b3e}
+@media(prefers-color-scheme:light){:root[data-theme="system"] #income .income-summary-forecast{border-top-color:rgba(35,150,112,.2)}:root[data-theme="system"] #income .income-summary-forecast span{color:#648879}:root[data-theme="system"] #income .income-summary-forecast strong{color:#204b3e}
 }
 
 
@@ -2724,17 +2721,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 .update-release-list li::marker{color:#78baff}
 .update-release-notes:empty{display:none}
 
-@media(prefers-color-scheme:light){
- .update-overlay{background:rgba(28,43,59,.32)!important;-webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important}
- .update-card{background:linear-gradient(155deg,#fff 0%,#f7faff 100%)!important;border-color:#dce6f0!important;box-shadow:0 24px 70px rgba(31,55,82,.2),inset 0 1px #fff!important;color:#1d2b3a!important}
- .update-card-copy h2{color:#1d2b3a!important}.update-card-copy p{color:#68798b!important}
- .update-version-comparison{background:#f1f5f9!important;border-color:#dfe7ef!important}
- .update-version-comparison small{color:#748397!important}.update-version-comparison strong{color:#26384b!important}.update-version-comparison>span{color:#8292a4!important}
- .update-release-notes{color:#536579!important}.update-release-list li::marker{color:#2478bd}
- .update-later-button{color:#64758a!important}.update-data-note{color:#7d8b9b!important}
- .update-installing-overlay{background:rgba(28,43,59,.38)!important;-webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important}
- .update-installing-card{background:linear-gradient(155deg,#fff,#f5f8fc)!important;border-color:#dce6f0!important;box-shadow:0 22px 60px rgba(31,55,82,.2)!important;color:#1d2b3a!important}
- .update-installing-card p,.update-progress-meta{color:#718196!important}.update-progress{background:#e8eef5!important;border-color:#dce5ef!important}
+@media(prefers-color-scheme:light){:root[data-theme="system"] .update-overlay{background:rgba(28,43,59,.32)!important;-webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important}:root[data-theme="system"] .update-card{background:linear-gradient(155deg,#fff 0%,#f7faff 100%)!important;border-color:#dce6f0!important;box-shadow:0 24px 70px rgba(31,55,82,.2),inset 0 1px #fff!important;color:#1d2b3a!important}:root[data-theme="system"] .update-card-copy h2{color:#1d2b3a!important}:root[data-theme="system"] .update-card-copy p{color:#68798b!important}:root[data-theme="system"] .update-version-comparison{background:#f1f5f9!important;border-color:#dfe7ef!important}:root[data-theme="system"] .update-version-comparison small{color:#748397!important}:root[data-theme="system"] .update-version-comparison strong{color:#26384b!important}:root[data-theme="system"] .update-version-comparison>span{color:#8292a4!important}:root[data-theme="system"] .update-release-notes{color:#536579!important}:root[data-theme="system"] .update-release-list li::marker{color:#2478bd}:root[data-theme="system"] .update-later-button{color:#64758a!important}:root[data-theme="system"] .update-data-note{color:#7d8b9b!important}:root[data-theme="system"] .update-installing-overlay{background:rgba(28,43,59,.38)!important;-webkit-backdrop-filter:blur(12px)!important;backdrop-filter:blur(12px)!important}:root[data-theme="system"] .update-installing-card{background:linear-gradient(155deg,#fff,#f5f8fc)!important;border-color:#dce6f0!important;box-shadow:0 22px 60px rgba(31,55,82,.2)!important;color:#1d2b3a!important}:root[data-theme="system"] .update-installing-card p,:root[data-theme="system"] .update-progress-meta{color:#718196!important}:root[data-theme="system"] .update-progress{background:#e8eef5!important;border-color:#dce5ef!important}
 }
 
 
