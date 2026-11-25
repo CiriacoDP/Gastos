@@ -2681,3 +2681,12 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   box-shadow:none!important;
  }
 }
+
+
+/* Busca expandida: substitui por completo a navegação mensal. */
+#transactions .transactions-month-search.search-open{
+ display:block!important;
+}
+#transactions .transactions-month-search.search-open .months{
+ display:none!important;
+}
