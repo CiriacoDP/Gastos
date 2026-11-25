@@ -2707,3 +2707,12 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 #transactions .transactions-month-search.search-open .transaction-search #clearSearch{
  flex:0 0 auto!important;display:grid;place-items:center;min-width:30px;min-height:34px;
 }
+
+
+/* Lançamentos no celular: arredonda o contêiner para acompanhar os seletores circulares. */
+@media(max-width:979px){
+ #transactions .transactions-month-search .months{
+  border-radius:15px!important;
+  overflow:hidden;
+ }
+}
