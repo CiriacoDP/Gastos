@@ -1,6 +1,6 @@
 {
-  "version": "1.8.4",
+  "version": "1.8.5",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Layout padrão dos cards da tela Geral restaurado; anexos de documentos mantidos."
+  "notes": "Scanner de QR Code Pix e código de barras de boleto; códigos salvos na conta para copiar ao pagar."
 }
