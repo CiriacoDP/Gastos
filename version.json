@@ -1,8 +1,8 @@
 {
-  "version": "1.9.43",
+  "version": "1.9.44",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Corrige o layout mobile do indicador de status e força a atualização do arquivo CSS."
+    "Exibe somente o horário, com segundos, na linha de última atualização do cabeçalho."
   ]
 }
