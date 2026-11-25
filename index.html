@@ -2060,6 +2060,24 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  #income .income-list .t{font-size:13px}
  #income .income-list .s{font-size:10px}
  /* Lançamentos: tabela de seis colunas, inclusive o espaço do controle de pagamento. */
+ /* Lançamentos: mês + busca na primeira linha; abas + filtros na segunda. */
+ #transactions .months{
+  display:inline-flex!important;vertical-align:middle;width:230px!important;
+  max-width:28%;margin:0 16px 14px 0!important;
+ }
+ #transactions .transaction-search{
+  display:inline-flex!important;vertical-align:middle;width:calc(72% - 16px)!important;
+  max-width:none!important;margin:0 0 14px!important;
+ }
+ #transactions .seg.filters{
+  display:inline-flex!important;vertical-align:middle;width:max-content;max-width:48%;
+  margin:0 14px 12px 0!important;
+ }
+ #transactions .filter-toolbar{
+  display:inline-flex!important;vertical-align:middle;width:calc(52% - 14px);
+  margin:0 0 12px!important;
+ }
+ #transactions .filter-summary{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
  .expense-table-head{grid-template-columns:25px minmax(220px,1.7fr) minmax(115px,.9fr) minmax(100px,.75fr) 120px 150px;margin-top:14px}
  .expense-table-head:before{content:""}
  #transactions .transactions-main{max-width:none}
