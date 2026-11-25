@@ -1,6 +1,6 @@
 {
-  "version": "1.8.6",
+  "version": "1.8.7",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Scanner de QR Code Pix e boleto; código salvo na conta e linha digitável preparada para copiar."
+  "notes": "Melhora da leitura de QR Pix e boleto no iPhone; código salvo na conta e linha digitável preparada para copiar."
 }
