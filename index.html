@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.1">
+<meta name="app-version" content="1.9.2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2466,6 +2466,32 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  }
  #transactions .transaction-search.search-collapsed .search-toggle{width:44px;height:44px}
  #transactions .transaction-search:not(.search-collapsed){position:sticky;top:7px;z-index:24}
+}
+
+
+/* Ajustes finais do tema claro e da lupa compacta após as regras responsivas. */
+@media(prefers-color-scheme:light){
+ #transactions .transaction-search.search-collapsed{
+  width:46px!important;min-width:46px!important;max-width:46px!important;
+  height:46px!important;min-height:46px!important;
+  justify-self:end;align-self:center;flex:0 0 46px;
+  border-radius:50%!important;background:#fff!important;
+  border:1px solid rgba(48,105,160,.2)!important;
+  box-shadow:0 5px 15px rgba(31,55,82,.10)!important;
+ }
+ #transactions .transaction-search.search-collapsed .search-toggle{color:#397dbb}
+ #transactions .row{
+  background:linear-gradient(110deg,#fff,#f8fafc)!important;
+  border-color:rgba(48,70,96,.13)!important;
+  box-shadow:0 4px 13px rgba(31,55,82,.07)!important;
+ }
+ #transactions .row.important{
+  background:linear-gradient(105deg,rgba(255,239,208,.85),#fff 65%)!important;
+  border-color:rgba(169,107,8,.3)!important;
+ }
+ #transactions .row .t{color:#20364d!important}
+ #transactions .row .s{color:#718196!important}
+ #transactions .row .amt{background:#edf2f7!important;color:#20364d!important;border-color:rgba(48,70,96,.12)!important}
 }
 
 </style>
