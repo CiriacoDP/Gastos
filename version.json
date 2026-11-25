@@ -1,6 +1,6 @@
 {
-  "version": "1.8.5",
+  "version": "1.8.6",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Scanner de QR Code Pix e código de barras de boleto; códigos salvos na conta para copiar ao pagar."
+  "notes": "Scanner de QR Code Pix e boleto; código salvo na conta e linha digitável preparada para copiar."
 }
