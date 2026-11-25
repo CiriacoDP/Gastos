@@ -1,8 +1,8 @@
 {
-  "version": "1.9.36",
+  "version": "1.9.37",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Padroniza as opções de recorrência e parcelas em cartões independentes."
+    "Organiza as quatro opções da despesa em uma única linha e alinha o botão Filtros às abas de status."
   ]
 }
