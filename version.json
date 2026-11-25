@@ -1,6 +1,6 @@
 {
-  "version": "1.9.6",
+  "version": "1.9.7",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Adicionada opção para forçar o modo escuro nas configurações de aparência."
+  "notes": "Cartão Previsão do saldo também disponível na aba Entradas."
 }
