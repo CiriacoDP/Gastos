@@ -1548,12 +1548,15 @@ async function checkDeferredInstallments(targetMonth,currentRows){
    for(const [,schedule] of due){
     const source=schedule.row;
     const category=schedule.category;
+    const installment=monthKeysBetween(category.installmentStart,targetMonth,36).length;
+    const installmentDescription=category.description+' (Parcela '+installment+'/'+category.installmentCount+')';
+    const installmentCategory=encodeCategory(installmentDescription,category.nature||'Fixa',source.tipo,category.important,category.seriesId,category.seriesEnd,category.category,category.paymentCode,category.paymentKind,category.installmentStart,category.installmentCount);
     await sendRawSave({
      id:undefined,
      mes:targetMonth,
      pessoa:source.pessoa||'',
      tipo:source.tipo,
-     categoria:source.categoria,
+     categoria:installmentCategory,
      categoriaDespesa:source.categoriaDespesa||category.category||'',
      valor:Number(source.valor),
      pago:false
