@@ -1,9 +1,10 @@
 {
-  "version": "1.9.21",
+  "version": "1.9.22",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Corrige a aparência dos cartões de Lançamentos no tema automático claro em celulares.",
-    "Preserva o destaque dourado dos lançamentos importantes e o visual original do tema escuro."
+    "Mantém a busca de Lançamentos aberta ao editar e salvar uma conta.",
+    "Encerra a busca ao sair da aba ou ao limpar o texto e tocar fora do campo.",
+    "Ajusta o tamanho da fonte das buscas para evitar zoom automático no iPhone."
   ]
 }
