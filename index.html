@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.13">
+<meta name="app-version" content="1.9.14">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2823,6 +2823,48 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  .category-icon.cat-services{color:#526b84}.category-icon.cat-subscriptions{color:#4268b2}
  .category-icon.cat-taxes{color:#87602d}.category-icon.cat-other{color:#64778c}
  .category-icon.cat-income{color:#16865f}
+ /* Acabamento complementar do tema claro: componentes que ainda herdavam cores escuras. */
+ body{color:#172334}
+ .app-sidebar{background:rgba(255,255,255,.96)!important;border:1px solid rgba(48,70,96,.13)!important;border-radius:18px 18px 0 0!important;box-shadow:0 -8px 28px rgba(31,55,82,.12)!important;-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px)}
+ .app-sidebar .app-nav{background:transparent!important;box-shadow:none!important}
+ .app-sidebar .app-nav button{color:#718196!important}
+ .app-sidebar .app-nav button.active{color:#176fc1!important;background:#eaf3fc!important;border:1px solid rgba(23,111,193,.13)!important;box-shadow:none!important}
+ .sidebar-footer,.sidebar-brand-copy strong{color:#52677e}.sidebar-brand-copy small{color:#8493a3}
+ #transactions .list .row,#income .income-list .row{color:#20364d!important;background:linear-gradient(110deg,#fff,#f8fafc)!important;border:1px solid rgba(48,70,96,.14)!important;box-shadow:0 4px 13px rgba(31,55,82,.07)!important}
+ #transactions .list .row.important{background:linear-gradient(105deg,#fff5e5,#fff 72%)!important;border-color:rgba(169,107,8,.3)!important;border-left:3px solid #b77a16!important}
+ #income .income-list .row.important{background:linear-gradient(105deg,#eaf8f1,#fff 72%)!important;border-left:3px solid #16865f!important}
+ #transactions .list .row .t,#income .income-list .row .t{color:#20364d!important}
+ #transactions .list .row .s,#income .income-list .row .s{color:#718196!important}
+ #transactions .list .row .amt,#income .income-list .row .amt{color:#20364d!important;background:#edf2f7!important;border:1px solid rgba(48,70,96,.12)!important;border-radius:10px}
+ #transactions .list .row .amt.pos,#income .income-list .row .amt.pos{color:#147a57!important;background:#eaf6ef!important;border-color:rgba(22,134,95,.18)!important}
+ #transactions .list .row .check,#income .income-list .row .check{background:#fff!important;border-color:#9aa9b8!important}
+ #transactions .list .row .check.on,#income .income-list .row .check.on{background:#16865f!important;border-color:#16865f!important}
+ #transactions .filter-toggle{color:#35516d!important;background:#eaf0f6!important;border:1px solid rgba(48,70,96,.14)!important;box-shadow:0 2px 7px rgba(31,55,82,.06)!important}
+ #transactions .filter-toggle .filter-toggle-icon,#transactions .filter-toggle .filter-chevron{color:#3979b7!important}
+ #transactions .filter-summary{color:#718196!important}
+ #transactions .advanced-filters{color:#344b63!important;background:#fff!important;border:1px solid rgba(48,70,96,.14)!important;box-shadow:0 8px 22px rgba(31,55,82,.07)!important}
+ #transactions .advanced-filter-group>strong{color:#344b63!important}
+ #transactions .advanced-filter-options button,#transactions .detail-filters button{color:#61758a!important;background:#f2f6fa!important;border:1px solid rgba(48,70,96,.13)!important}
+ #transactions .advanced-filter-options button.active,#transactions .detail-filters button.active{color:#205b91!important;background:#e8f2fc!important;border-color:rgba(23,111,193,.28)!important}
+ #transactions .important-filter-option{color:#94600c!important;background:#fff6e7!important;border-color:rgba(169,107,8,.2)!important}
+ .category-icon{background:#edf2f7!important}
+ .category-icon.cat-streaming{color:#7755b7!important;background:#f0eafd!important}.category-icon.cat-fuel{color:#16865f!important;background:#e8f6ef!important}
+ .category-icon.cat-market{color:#98600b!important;background:#fff4df!important}.category-icon.cat-food{color:#b65c32!important;background:#fff0e8!important}
+ .category-icon.cat-home{color:#2875b5!important;background:#eaf3fc!important}.category-icon.cat-health{color:#c04e70!important;background:#fcecf1!important}
+ .category-icon.cat-transport{color:#247d91!important;background:#e8f5f7!important}.category-icon.cat-education{color:#7751a8!important;background:#f1ebfa!important}
+ .category-icon.cat-leisure{color:#946c13!important;background:#fbf4e5!important}.category-icon.cat-shopping{color:#ad4d83!important;background:#faedf4!important}
+ .category-icon.cat-services{color:#526b84!important;background:#edf2f7!important}.category-icon.cat-subscriptions{color:#4268b2!important;background:#edf1fb!important}
+ .category-icon.cat-taxes{color:#87602d!important;background:#f6f0e7!important}.category-icon.cat-other{color:#64778c!important;background:#edf1f5!important}
+ .category-icon.cat-income{color:#16865f!important;background:#e8f6ef!important}
+ .transaction-search,#transactions .transaction-search{background:#fff!important;color:#526b84!important;border-color:rgba(48,105,160,.2)!important;box-shadow:0 5px 15px rgba(31,55,82,.07)!important}
+ #transactions .months{background:rgba(255,255,255,.82)!important;border:1px solid rgba(48,70,96,.12)!important}
+ .settings-card,.payment-panel,.documents-panel{color:#20364d}
+ .settings-card input,.settings-card select,.settings-card textarea{color:#172334;background:#f0f3f7}
+ .settings-card input::placeholder{color:#8493a3}
+ .settings-action{color:#29435e!important;background:#edf2f7!important}
+ .pdf-export-panel{background:#f1f6fb!important}
+ .income-summary-forecast span{color:#648879!important}.income-summary-forecast strong{color:#204b3e!important}
+ @media(max-width:979px){.app-sidebar{background:rgba(255,255,255,.96)!important;border:1px solid rgba(48,70,96,.14)!important;border-bottom:0!important;border-radius:20px 20px 0 0!important;box-shadow:0 -8px 28px rgba(31,55,82,.13)!important}.app-sidebar .app-nav button.active{background:#e8f2fc!important;color:#176fc1!important}#transactions .filter-toggle{background:#eaf0f6!important;color:#35516d!important}}
 
 </style>
 </head>
