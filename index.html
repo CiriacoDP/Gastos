@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.12">
+<meta name="app-version" content="1.9.13">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2553,6 +2553,15 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 }
 
 
+/* Exportação mensal: cartão de PDF integrado às opções de dados. */
+.pdf-export-panel{display:flex;align-items:center;justify-content:space-between;gap:14px;margin-top:16px;padding:14px;border:1px solid var(--sep);border-radius:13px;background:color-mix(in srgb,var(--blue) 5%,var(--card))}
+.pdf-export-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
+.pdf-export-copy strong{font-size:13px;font-weight:750;color:var(--ink)}
+.pdf-export-copy small{font-size:11px;line-height:1.45;color:var(--mut)}
+.pdf-export-button{display:flex!important;align-items:center;justify-content:center;gap:8px;flex:0 0 auto;min-height:42px;margin:0!important;padding:0 13px!important;border-radius:10px!important;font-size:11px!important;white-space:nowrap}
+.pdf-export-button svg{width:16px;height:16px;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+@media(max-width:979px){#connection .pdf-export-panel{align-items:stretch;flex-direction:column}#connection .pdf-export-button{width:100%;min-height:44px}}
+
 /* Personalização: controles alinhados à identidade visual do aplicativo. */
 .personalization-card{padding:22px!important}
 .preferences-heading{display:flex;align-items:center;gap:12px;margin-bottom:19px}
@@ -3207,7 +3216,11 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
     <button class="secondary settings-action" id="exportCsvBtn" type="button">Exportar planilha CSV</button>
     <button class="secondary settings-action" id="backupJsonBtn" type="button">Salvar cópia JSON</button>
    </div>
-   <small class="settings-footnote">A exportação inclui os lançamentos disponíveis na memória do aplicativo no momento. Para garantir todos os meses, carregue cada mês antes de exportar.</small>
+   <div class="pdf-export-panel">
+    <div class="pdf-export-copy"><strong>Relatório mensal em PDF</strong><small>Versão organizada do mês selecionado, pronta para imprimir ou salvar em PDF.</small></div>
+    <button class="primary pdf-export-button" id="exportMonthPdfBtn" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M8 15h8M8 18h5"/></svg>Gerar PDF do mês</button>
+   </div>
+   <small class="settings-footnote">O PDF inclui somente os lançamentos do mês selecionado.</small>
   </section>
 
   <section class="card settings-card preferences-card about-settings-card">
@@ -3866,6 +3879,7 @@ function initAppSettings(){
  $('privacyStartupSetting').addEventListener('change',()=>{appSettings.privacyStartup=$('privacyStartupSetting').checked;setPrivacyMode(appSettings.privacyStartup);saveAppSettings()});
  $('pendingReminderSetting').addEventListener('change',()=>{appSettings.pendingReminder=$('pendingReminderSetting').checked;saveAppSettings()});
  $('exportCsvBtn').addEventListener('click',exportLoadedEntriesCsv);
+ $('exportMonthPdfBtn').addEventListener('click',exportMonthPdf);
  $('backupJsonBtn').addEventListener('click',exportLoadedEntriesJson);
 }
 function downloadSettingsFile(content,type,filename){
@@ -3874,6 +3888,56 @@ function downloadSettingsFile(content,type,filename){
  const a=document.createElement('a');a.href=url;a.download=filename;a.click();
  setTimeout(()=>URL.revokeObjectURL(url),1000);
 }
+function exportMonthPdf(){
+ const monthEntries=entries.filter(item=>item.mes===month);
+ const reportMonth=monthLabel(month);
+ const totalIncome=sum(monthEntries.filter(item=>item.tipo==='Entrada'));
+ const totalExpenses=sum(monthEntries.filter(item=>item.tipo!=='Entrada'));
+ const balance=totalIncome-totalExpenses;
+ const paidIncome=sum(monthEntries.filter(item=>item.tipo==='Entrada'&&item.pago));
+ const pendingIncome=sum(monthEntries.filter(item=>item.tipo==='Entrada'&&!item.pago));
+ const paidExpenses=sum(monthEntries.filter(item=>item.tipo!=='Entrada'&&item.pago));
+ const pendingExpenses=sum(monthEntries.filter(item=>item.tipo!=='Entrada'&&!item.pago));
+ const printWindow=window.open('','_blank');
+ if(!printWindow){toast('Permita a abertura de janelas para gerar o PDF.',true);return;}
+ const rows=monthEntries.slice().sort((a,b)=>{
+  if(a.tipo!==b.tipo)return a.tipo==='Entrada'?1:-1;
+  return decodeCategory(a.categoria).description.localeCompare(decodeCategory(b.categoria).description,'pt-BR');
+ });
+ const tableRows=rows.map(item=>{
+  const info=decodeCategory(item.categoria);
+  const isIncome=item.tipo==='Entrada';
+  const category=isIncome?'Entrada':(info.category||inferExpenseCategory(info.description)||'Sem categoria');
+  const nature=isIncome?'—':(info.nature||'—');
+  return '<tr><td><span class="type '+(isIncome?'income':'expense')+'">'+(isIncome?'Entrada':'Despesa')+'</span></td>'+
+   '<td><strong>'+safe(info.description||'Sem descrição')+(info.important?' ★':'')+'</strong></td>'+
+   '<td>'+safe(category)+(nature!=='—'?'<small>'+safe(nature)+'</small>':'')+'</td>'+
+   '<td>'+safe(item.pessoa||'—')+'</td>'+
+   '<td><span class="status '+(item.pago?'paid':'pending')+'">'+(item.pago?(isIncome?'Recebida':'Paga'):(isIncome?'A receber':'Pendente'))+'</span></td>'+
+   '<td class="amount '+(isIncome?'positive':'')+'">'+(isIncome?'+ ':'− ')+safe(money(item.valor))+'</td></tr>';
+ }).join('');
+ const generatedAt=new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+ const html='<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Meu Dinheiro · '+safe(reportMonth)+'</title><style>'+
+ '*{box-sizing:border-box}body{margin:0;background:#eef2f6;color:#172334;font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.page{max-width:980px;margin:28px auto;padding:34px;background:#fff;border:1px solid #e2e8ef;border-radius:18px;box-shadow:0 12px 36px rgba(25,45,70,.08)}'+
+ '.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:22px;border-bottom:2px solid #176fc1}.brand{font-size:12px;font-weight:800;letter-spacing:1.7px;color:#176fc1;text-transform:uppercase}.title{margin:8px 0 3px;font-size:27px;line-height:1.15;letter-spacing:-.7px}.subtitle{margin:0;color:#68788b;font-size:12px}.period{padding:9px 13px;border:1px solid #dce5ef;border-radius:10px;background:#f6f9fc;color:#53677d;font-size:11px;font-weight:700;white-space:nowrap}'+
+ '.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 15px}.metric{padding:15px;border:1px solid #e2e9f0;border-radius:12px;background:#f9fbfd}.metric span{display:block;color:#68788b;font-size:10px;font-weight:750;letter-spacing:.65px;text-transform:uppercase}.metric strong{display:block;margin-top:7px;font-size:19px;letter-spacing:-.4px}.metric.income strong{color:#16865f}.metric.expense strong{color:#c34c55}.metric.balance strong{color:'+ (balance>=0?'#16865f':'#c34c55') +'}'+
+ '.details{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 25px}.detail{padding:10px 12px;border-radius:9px;background:#f3f6f9}.detail span{display:block;color:#758497;font-size:10px}.detail strong{display:block;margin-top:3px;font-size:12px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}.section-title h2{margin:0;font-size:15px}.section-title span{color:#758497;font-size:10px}'+
+ 'table{width:100%;border-collapse:collapse;font-size:11px}thead{display:table-header-group}th{padding:10px 8px;background:#f0f4f8;color:#53677d;text-align:left;font-size:9px;letter-spacing:.55px;text-transform:uppercase;border-bottom:1px solid #dce5ed}td{padding:10px 8px;border-bottom:1px solid #e8edf2;vertical-align:middle}td strong{font-size:11px}td small{display:block;margin-top:2px;color:#8290a0;font-size:9px}.type,.status{display:inline-block;padding:4px 7px;border-radius:6px;font-size:9px;font-weight:750;white-space:nowrap}.type.income{background:#e6f5ee;color:#16865f}.type.expense{background:#fff0ed;color:#b94c46}.status.paid{background:#eaf5ef;color:#16865f}.status.pending{background:#fff5df;color:#986b16}.amount{text-align:right;white-space:nowrap;font-weight:750;font-variant-numeric:tabular-nums}.amount.positive{color:#16865f}.empty{padding:28px;text-align:center;color:#758497;background:#f8fafc;border:1px dashed #d5dee8;border-radius:10px}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:24px;padding-top:12px;border-top:1px solid #e3e9ef;color:#8793a1;font-size:9px}'+
+ '.actions{display:flex;justify-content:flex-end;gap:8px;max-width:980px;margin:0 auto 18px}.actions button{padding:10px 16px;border:0;border-radius:9px;background:#176fc1;color:#fff;font-weight:700;font-size:12px;cursor:pointer}.actions .secondary{background:#e6edf4;color:#34485d}'+
+ '@page{size:A4 portrait;margin:12mm}@media print{body{background:#fff}.page{max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}.actions{display:none}.metric,.detail,th,.period{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{break-inside:avoid;page-break-inside:avoid}.section-title{break-after:avoid}thead{display:table-header-group}}@media(max-width:650px){.page{margin:0;padding:18px;border-radius:0}.title{font-size:22px}.summary{gap:7px}.metric{padding:10px}.metric strong{font-size:15px}.details{grid-template-columns:repeat(2,minmax(0,1fr))}table{font-size:9px}th,td{padding:8px 5px}.top{align-items:flex-start}.period{font-size:9px}}'+
+ '</style></head><body><div class="actions"><button class="secondary" onclick="window.close()">Fechar</button><button onclick="window.print()">Imprimir / Salvar PDF</button></div><main class="page">'+
+ '<header class="top"><div><div class="brand">Meu Dinheiro</div><h1 class="title">Relatório financeiro</h1><p class="subtitle">Resumo de movimentações e situação financeira do período</p></div><div class="period">'+safe(reportMonth)+'</div></header>'+
+ '<section class="summary"><div class="metric income"><span>Total de entradas</span><strong>'+safe(money(totalIncome))+'</strong></div><div class="metric expense"><span>Total de despesas</span><strong>'+safe(money(totalExpenses))+'</strong></div><div class="metric balance"><span>Saldo do mês</span><strong>'+safe(money(balance))+'</strong></div></section>'+
+ '<section class="details"><div class="detail"><span>Entradas recebidas</span><strong>'+safe(money(paidIncome))+'</strong></div><div class="detail"><span>Entradas a receber</span><strong>'+safe(money(pendingIncome))+'</strong></div><div class="detail"><span>Despesas pagas</span><strong>'+safe(money(paidExpenses))+'</strong></div><div class="detail"><span>Despesas pendentes</span><strong>'+safe(money(pendingExpenses))+'</strong></div></section>'+
+ '<section><div class="section-title"><h2>Lançamentos do mês</h2><span>'+rows.length+' '+(rows.length===1?'registro':'registros')+'</span></div>'+
+ (rows.length?'<table><thead><tr><th>Tipo</th><th>Descrição</th><th>Categoria</th><th>Pessoa</th><th>Status</th><th style="text-align:right">Valor</th></tr></thead><tbody>'+tableRows+'</tbody></table>':'<div class="empty">Nenhum lançamento cadastrado neste mês.</div>')+
+ '</section><footer class="footer"><span>Documento gerado pelo Meu Dinheiro</span><span>Gerado em '+safe(generatedAt)+'</span></footer></main><script>window.addEventListener("load",()=>setTimeout(()=>window.print(),350));<\/script></body></html>';
+ try{
+  printWindow.document.open();printWindow.document.write(html);printWindow.document.close();
+  toast('Relatório do mês preparado para impressão.');
+ }catch(error){printWindow.close();toast('Não foi possível preparar o relatório em PDF.',true);}
+}
+
 function exportLoadedEntriesCsv(){
  if(!entries.length){toast('Não há lançamentos carregados para exportar.',true);return}
  const fields=['id','mes','pessoa','tipo','categoria','categoriaDespesa','valor','pago'];
