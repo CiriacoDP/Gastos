@@ -2694,3 +2694,34 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 /* Campos da programação progressiva de parcelas */
 .recurrence-fields .installment-toggle{margin-top:8px;border-radius:12px}
 .installment-count input{width:92px;max-width:38%;font-variant-numeric:tabular-nums}
+
+
+/* Faixa rolante de cotações do mercado */
+.market-ticker{width:100%;overflow:hidden;border-top:1px solid var(--sep);border-bottom:1px solid var(--sep);background:var(--card);margin:4px 0 18px;min-height:40px;display:flex;align-items:center}
+.market-ticker[hidden]{display:none!important}
+.market-ticker-track{display:flex;align-items:center;width:max-content;animation:marketTickerScroll 48s linear infinite;will-change:transform}
+.market-ticker:hover .market-ticker-track{animation-play-state:paused}
+.market-ticker-item{display:inline-flex;align-items:center;gap:9px;padding:0 22px;min-height:40px;border-right:1px solid var(--sep);white-space:nowrap;font-size:11px;color:var(--ink)}
+.market-ticker-item strong{font-size:10px;letter-spacing:.04em;color:var(--mut)}
+.market-ticker-item b{font-variant-numeric:tabular-nums;font-weight:700}
+.market-ticker-item em{font-style:normal;font-size:10px;font-weight:700;font-variant-numeric:tabular-nums}
+.market-ticker-item .up{color:var(--green)}
+.market-ticker-item .down{color:var(--red)}
+@keyframes marketTickerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.market-settings-card{display:grid;gap:18px}
+.market-settings-section{display:grid;gap:10px}
+.market-settings-section>strong{font-size:13px}
+.market-add-row{display:flex;gap:8px}
+.market-add-row input,.market-token-label+input{min-width:0;width:100%;border:1px solid var(--sep);border-radius:10px;background:var(--fill);padding:11px 12px;color:var(--ink)}
+.market-add-row button{padding:0 16px;border-radius:10px;background:var(--fill);border:1px solid var(--sep);font-size:12px;font-weight:700}
+.market-symbol-list{display:flex;flex-wrap:wrap;gap:7px}
+.market-symbol-chip{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--sep);background:var(--fill);border-radius:999px;padding:5px 7px 5px 11px;font-size:11px;font-weight:700}
+.market-symbol-chip button{width:20px;height:20px;border-radius:50%;background:var(--card);font-size:15px;line-height:1}
+.market-settings-section>small,.market-token-label{font-size:10px;color:var(--mut)}
+.market-token-label{margin-top:4px}
+.market-settings-section .settings-switch-row{border-top:1px solid var(--sep);padding:10px 0}
+.market-settings-footer{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.market-settings-footer>span{font-size:10px;color:var(--mut)}
+.market-settings-footer button{padding:10px 16px}
+@media(prefers-reduced-motion:reduce){.market-ticker-track{animation:none}}
+@media(max-width:600px){.market-ticker{margin:0 0 14px}.market-ticker-track{animation-duration:36s}.market-settings-footer{align-items:stretch}.market-settings-footer button{width:100%}}
