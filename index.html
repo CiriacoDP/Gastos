@@ -443,7 +443,7 @@
 
   <div class="group">
    <label class="cell"><span>Descrição</span><input id="description" placeholder="Ex.: Salário, aluguel" maxlength="90" required></label>
-   <label class="cell"><span>Mês</span><input id="fMonth" type="month" required></label>
+   <label class="cell"><span id="fMonthLabel">Mês</span><input id="fMonth" type="month" required></label>
    <div class="cell" id="natureCell">
     <span>Tipo</span>
     <div class="seg" id="natureSeg">
@@ -2472,6 +2472,7 @@ function openSheet(item,defaultType='Gasto'){
  $('installmentCountWrap').hidden=!$('deferredInstallments').checked;
  $('monthlyRecurrenceNote').hidden=!$('repeatMonthly').checked;
  $('installmentNote').hidden=!$('deferredInstallments').checked;
+ $('fMonthLabel').textContent=$('deferredInstallments').checked?'Mês da primeira parcela':'Mês';
  $('deleteBtn').hidden=!item;
  $('deleteBtn').textContent='Excluir lançamento';
  $('deleteBtn').classList.remove('marked');
@@ -2957,12 +2958,14 @@ $('repeatMonthly').addEventListener('change',()=>{
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
  $('monthlyRecurrenceNote').hidden=!$('repeatMonthly').checked;
  $('installmentNote').hidden=true;
+ $('fMonthLabel').textContent='Mês';
 });
 $('deferredInstallments').addEventListener('change',()=>{
  if($('deferredInstallments').checked){$('repeatMonthly').checked=false;$('recurrenceUntilWrap').hidden=true;}
  $('installmentCountWrap').hidden=!$('deferredInstallments').checked;
  $('installmentNote').hidden=!$('deferredInstallments').checked;
  $('monthlyRecurrenceNote').hidden=true;
+ $('fMonthLabel').textContent=$('deferredInstallments').checked?'Mês da primeira parcela':'Mês';
 });
 
 $('saveBudget').addEventListener('click',async()=>{
