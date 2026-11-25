@@ -1,6 +1,6 @@
 {
-  "version": "1.9.1",
+  "version": "1.9.2",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Busca de lançamentos compactada em botão de lupa, com campo expansível."
+  "notes": "Correção do tema claro nos cartões de lançamentos e ajuste da lupa compacta."
 }
