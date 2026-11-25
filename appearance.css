@@ -165,8 +165,8 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
 .cell .seg{width:190px}
 .danger{width:100%;margin-top:18px;padding:13px;border-radius:14px;background:var(--card);color:var(--red);font-weight:550}
 .toast{
- position:fixed;left:50%;top:calc(12px + env(safe-area-inset-top));
- transform:translate(-50%,-160%);z-index:220;max-width:calc(100% - 32px);
+ position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));
+ transform:translate(-50%,160%);z-index:220;max-width:calc(100% - 32px);
  padding:11px 16px;border-radius:14px;background:rgba(44,44,46,.94);
  color:#fff;font-size:14px;transition:transform .3s;
  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)
