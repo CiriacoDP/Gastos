@@ -2663,6 +2663,20 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
    <p class="recurrence-note">Ative para criar ocorrências até o mês escolhido. Ao desativar uma série, você poderá excluir os meses seguintes ou mantê-los como despesas independentes.</p>
   </section>
 
+ <section class="group documents-panel" id="documentsPanel">
+  <h3>Documentos da conta</h3>
+  <p class="documents-help">Anexe boleto em PDF ou imagem (JPG, PNG, WEBP). Limite de 8 MB por arquivo. Para vincular corretamente, salve a conta primeiro. Os arquivos ficam no Google Drive.</p>
+  <div class="documents-fields">
+   <select id="documentKind" aria-label="Tipo de anexo">
+    <option value="boleto">Boleto</option><option value="pix">QR Code Pix</option>
+    <option value="comprovante">Comprovante</option><option value="documento">Outro documento</option>
+   </select>
+   <textarea id="documentPaymentCode" placeholder="Código Pix Copia e Cola ou linha digitável (opcional)"></textarea>
+   <input id="documentFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple>
+  </div>
+  <div class="documents-list" id="documentsList"></div>
+  <div class="documents-status" id="documentsStatus" role="status" aria-live="polite"></div>
+ </section>
   <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
   <p class="delete-pending-note" id="deletePendingNote" hidden></p>
  </form>
@@ -4230,6 +4244,9 @@ function openSheet(item,defaultType='Gasto'){
  $('deleteBtn').textContent='Excluir lançamento';
  $('deleteBtn').classList.remove('marked');
  $('deletePendingNote').hidden=true;
+ pendingDocumentFiles=[];$('documentFiles').value='';$('documentPaymentCode').value='';$('documentsList').innerHTML='';
+ $('documentsPanel').hidden=type==='Entrada';
+ setDocumentsStatus(item?'Carregando documentos…':'Salve a conta antes de anexar arquivos.');
  $('saveBtn').textContent='Salvar';
  ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{if($(id))$(id).disabled=false;});
  $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=false);
@@ -4237,6 +4254,7 @@ function openSheet(item,defaultType='Gasto'){
  document.body.classList.add('sheet-open');
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
+ if(item&&item.tipo!=='Entrada')void refreshDocuments(String(item.id));
 
  if(!item)setTimeout(()=>$('amount').focus(),320);
 }
