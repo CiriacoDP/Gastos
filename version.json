@@ -1,6 +1,6 @@
 {
-  "version": "1.8.9",
+  "version": "1.9.0",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Busca e seletor de mês lado a lado no celular e desktop; melhorias na leitura de QR Pix e boleto."
+  "notes": "Tema claro e escuro automático conforme a configuração do aparelho."
 }
