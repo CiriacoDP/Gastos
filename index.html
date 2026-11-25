@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.35">
+<meta name="app-version" content="1.9.36">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -481,20 +481,20 @@
    <span>✓ Já está paga</span>
   </label>
 
-  <section class="group recurrence-fields" id="recurrenceFields" hidden>
-   <label class="important-toggle recurrence-toggle">
+  <section class="recurrence-fields" id="recurrenceFields" hidden>
+   <label class="group important-toggle recurrence-toggle">
     <input id="repeatMonthly" type="checkbox">
     <span>Repetir esta despesa mensalmente</span>
    </label>
-   <label class="cell recurrence-until" id="recurrenceUntilWrap">
+   <label class="group cell recurrence-until" id="recurrenceUntilWrap">
     <span>Repetir até</span>
     <input id="repeatUntil" type="month">
    </label>
-   <label class="important-toggle recurrence-toggle installment-toggle">
+   <label class="group important-toggle recurrence-toggle installment-toggle">
     <input id="deferredInstallments" type="checkbox">
     <span>Parcelas: adicionar conforme avançar os meses</span>
    </label>
-   <label class="cell recurrence-until installment-count" id="installmentCountWrap" hidden>
+   <label class="group cell recurrence-until installment-count" id="installmentCountWrap" hidden>
     <span>Quantidade de parcelas</span>
     <input id="installmentCount" type="number" min="2" max="36" step="1" inputmode="numeric" value="2">
    </label>
