@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.43">
+<meta name="app-version" content="1.9.44">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -643,7 +643,7 @@ function loadCachedMonth(monthKey){
  monthExists=cached.exists;
  hydrateAnalyticsCache(monthKey);
  $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
- $('headerLastSyncText').textContent='Última atualização · '+formatCacheDate(cached.savedAt);
+ $('headerLastSyncText').textContent='Última atualização · '+new Date(cached.savedAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
  setStatus('Dados salvos · atualizando',false);
  render();
  return true;
@@ -1311,7 +1311,7 @@ async function load(){
    monthExists=cached.exists;
    applyPendingPaymentChanges(entries);
    $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
-   $('headerLastSyncText').textContent='Última atualização · '+formatCacheDate(cached.savedAt);
+   $('headerLastSyncText').textContent='Última atualização · '+new Date(cached.savedAt).toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
    setStatus('Sem conexão · dados locais',false);
    message('connectionMessage','Sem conexão com a planilha. Exibindo a última cópia salva neste aparelho.',true);
    showBanner('Sem conexão com a planilha. Os dados exibidos são a última cópia salva neste aparelho, de '+formatCacheDate(cached.savedAt)+'.');
