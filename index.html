@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.4">
+<meta name="app-version" content="1.9.5">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2567,6 +2567,134 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 }
 
 </style>
+
+<style id="manualLightTheme" disabled>
+
+ :root{
+  color-scheme:light;
+  --bg:#f3f6fa;--card:#ffffff;--ink:#172334;--mut:#68788b;
+  --sep:rgba(48,70,96,.14);--fill:#e8edf3;--segon:#ffffff;
+  --blue:#176fc1;--green:#16865f;--red:#d83e4d;--gold:#a96b08;
+  --shadow:0 12px 30px rgba(31,55,82,.09);
+ }
+ html{background:var(--bg)}
+ body{background:radial-gradient(ellipse at 14% -8%,rgba(47,111,183,.08),transparent 38rem),radial-gradient(ellipse at 94% 5%,rgba(48,112,135,.045),transparent 30rem),var(--bg);color:var(--ink)}
+ .status{background:rgba(30,65,100,.035)}
+ .icon{background:#e7eff8;color:#176fc1}
+ .app-nav{background:rgba(231,237,245,.94);border-color:var(--sep);box-shadow:0 8px 24px rgba(31,55,82,.07)}
+ .app-nav button{color:#64758a}
+ .app-nav button.active{color:#17314d;background:#fff;box-shadow:inset 0 0 0 1px rgba(45,87,130,.08),0 3px 10px rgba(31,55,82,.1)}
+ .card,.analytics-card,.overview-essentials .analytics-card{background:linear-gradient(145deg,#fff,#f9fbfd);border-color:rgba(48,70,96,.12);box-shadow:var(--shadow)}
+ .months{background:rgba(255,255,255,.72);border-color:var(--sep)}
+ .months button{background:#e8eff7;color:#176fc1}
+ .summary{background:radial-gradient(circle at 93% 5%,rgba(82,157,240,.12),transparent 16rem),linear-gradient(135deg,#e7f2ff 0%,#dceafa 54%,#eaf2fb 100%);border-color:rgba(66,132,199,.24);box-shadow:0 14px 34px rgba(37,83,130,.12),inset 0 1px rgba(255,255,255,.8)}
+ .eyebrow{color:#3979b7}
+ .summary-topline small{color:#526d89}
+ .balance-period{background:rgba(255,255,255,.58);border-color:rgba(75,124,173,.2);color:#45617e;box-shadow:inset 0 1px rgba(255,255,255,.8),0 4px 14px rgba(40,76,113,.06)}
+ .calendar-mark{color:#397bb9;background:rgba(255,255,255,.65);border-color:rgba(75,124,173,.18)}
+ .balance-period-text small{color:#6484a5}
+ .balance-period-text strong{color:#294866}
+ #balance{color:#173653;text-shadow:none}
+ #balance.neg{color:#c43c4b}
+ .balance-caption,.trio small{color:#607b98}
+ .trio{border-color:rgba(62,105,148,.2)}
+ .quick-row span,.month-note{color:#687b90}
+ .seg{background:#e8edf3;border-color:rgba(48,70,96,.12)}
+ .seg button{color:#62758a}
+ .seg button.on{color:#1e4e7d;background:#fff;box-shadow:inset 0 0 0 1px rgba(45,87,130,.1),0 2px 7px rgba(31,55,82,.1)}
+ .category-pill{background:#e9f0f7;color:#536d87}
+ #expenseCategory option{background:#fff;color:#172334}
+ .transaction-count strong{color:#203b58}
+ .transaction-count span{color:#718196}
+ .priority-count{background:rgba(195,133,31,.08);border-color:rgba(169,107,8,.2);color:#94600c}
+ .row{background:linear-gradient(110deg,#fff,#f8fafc);border-color:rgba(48,70,96,.13);box-shadow:0 4px 13px rgba(31,55,82,.07)}
+ .row.important{background:linear-gradient(105deg,rgba(255,239,208,.85),#fff 65%);border-color:rgba(169,107,8,.3)}
+ .check{border-color:#9aa9b8;background:#fff}
+ .t,.amt,.ranking-item-top>strong,.progress-values strong,.compare-label strong,.quick-indicators strong{color:#20364d}
+ .row.done .t{color:#78899a}
+ .s,.empty small,.analytics-empty,.history-month small{color:#718196}
+ .amt{background:#edf2f7;border-color:rgba(48,70,96,.12)}
+ .amt.pos{color:#147a57;background:rgba(22,134,95,.08);border-color:rgba(22,134,95,.18)}
+ .empty{color:#65778b;border-color:rgba(48,70,96,.2);background:rgba(255,255,255,.72)}
+ .banner{background:rgba(216,62,77,.08);border-color:rgba(216,62,77,.18);color:#b93645}
+ .settings-card input{background:#f0f3f7;color:#172334;border-color:rgba(48,70,96,.16)}
+ .settings-card input:focus{border-color:rgba(23,111,193,.55);box-shadow:0 0 0 3px rgba(23,111,193,.1)}
+ .sheet{background:#f3f6fa;border-color:rgba(48,70,96,.14);box-shadow:0 -14px 44px rgba(31,55,82,.18)}
+ .sheet-head h2{color:#20364d}
+ .group{background:#fff;border-color:rgba(48,70,96,.13)}
+ .cell input{color:#172334}
+ .important-toggle{background:#fff4df;color:#87580c}
+ .danger{background:#fff1f2;border-color:rgba(216,62,77,.18)}
+ .toast{background:rgba(35,51,69,.96);color:#fff}
+ .analytics-heading h3,.analytics-title-row h3,.overview-essentials .analytics-title-row h3{color:#20364d}
+ .analytics-title-row>span,.overview-essentials .analytics-title-row>span{color:#73869b}
+ .ranking-position{background:#e9f0f7;color:#52769a}
+ .ranking-name{color:#52677e}
+ .ranking-track,.progress-track,.compare-track{background:rgba(48,70,96,.1)}
+ .progress-values small,.compare-label span,.quick-indicators span,.history-legend span{color:#6d8095}
+ .quick-indicators>div{background:#f2f6fa;border-color:rgba(48,70,96,.1)}
+ .monthly-history{border-color:rgba(48,70,96,.12)}
+ .monthly-history::before{background:repeating-linear-gradient(to bottom,rgba(85,112,140,.13) 0,rgba(85,112,140,.13) 1px,transparent 1px,transparent 48px)}
+ .history-month.current small{color:#294d70}
+ .app-sidebar{background:linear-gradient(180deg,rgba(255,255,255,.98),rgba(242,246,250,.99));border-color:rgba(48,70,96,.14);box-shadow:0 18px 48px rgba(31,55,82,.13)}
+ .sidebar-brand-copy strong{color:#20364d}
+ .sidebar-brand-copy small,.sidebar-footer{color:#71849a}
+ .app-sidebar .app-nav button{color:#60758b}
+ .app-sidebar .app-nav button:hover{background:rgba(45,116,184,.08);color:#244d75}
+ .app-sidebar .app-nav button.active{color:#fff;background:linear-gradient(135deg,#287fc9,#1762a9);border-color:rgba(40,112,181,.2);box-shadow:0 7px 18px rgba(24,102,192,.16)}
+ .sidebar-footer{border-color:rgba(48,70,96,.12)}
+ .app-sidebar .app-nav button.active{color:#176fc1;background:rgba(48,124,207,.1);border-color:rgba(48,124,207,.12)}
+ .transaction-search,#transactions .transaction-search{background:rgba(255,255,255,.96);border-color:rgba(48,105,160,.2);color:#5d7894;box-shadow:0 7px 20px rgba(31,55,82,.09)}
+ .transaction-search>span,#transactions .transaction-search>span{color:#397dbb}
+ .transaction-search input{color:#20364d}
+ .transaction-search input::placeholder,#transactions .transaction-search input::placeholder{color:#8495a7}
+ .transaction-search button{color:#617a94}
+ .transaction-search button{background:rgba(48,70,96,.07)}
+ .detail-filters button{background:#fff;border-color:rgba(48,70,96,.14);color:#63788e}
+ .detail-filters button.active{color:#205b91;border-color:rgba(23,111,193,.25);background:rgba(23,111,193,.08)}
+ .forecast-row span,.budget-input-label,.budget-feedback,.previous-month-main span,.previous-month-values small,.previous-month-note{color:#687e94}
+ .forecast-row strong,.previous-month-values strong{color:#29435e}
+ .forecast-final{background:rgba(52,130,204,.07);border-color:rgba(52,130,204,.15)}
+ .forecast-final span{color:#526f8b}
+ .budget-input-row{background:#f1f5f9;border-color:rgba(48,70,96,.14)}
+ .budget-input-row>span,.budget-input-row input{color:#29435e}
+ .budget-progress-track{background:rgba(48,70,96,.1)}
+ .budget-local-note{color:#8494a5}
+ .previous-month-values>div{background:#f1f5f9}
+ .last-sync-line strong{color:#526b84}
+ .balance-period-text strong{color:#294866}
+ .income-month-summary{background:radial-gradient(circle at 100% 0,rgba(57,190,147,.09),transparent 19rem),linear-gradient(115deg,#e2f5ee,#e8f5f2 58%,#edf5f7);border-color:rgba(35,150,112,.2);box-shadow:0 10px 26px rgba(31,80,67,.08)}
+ .income-summary-main small{color:#21845f}
+ .income-summary-main>strong{color:#204b3e}
+ .income-summary-main>span,.income-summary-side span{color:#648879}
+ .income-summary-side strong{color:#315d4e}
+ .income-summary-side>div:first-child strong,.income-list-total strong{color:#16865f}
+ .income-list-total span{color:#718b82}
+ .income-list .row{border-left-color:rgba(22,134,95,.28)}
+ .delete-pending-note{background:rgba(216,62,77,.07);border-color:rgba(216,62,77,.2);color:#b93645}
+ .danger.marked{color:#b93645;background:rgba(216,62,77,.08);border-color:rgba(216,62,77,.24)}
+ .history-card{background:linear-gradient(145deg,#fff,#f8fafc)}
+ .history-card .analytics-title-row>span{background:rgba(48,124,207,.06);border-color:rgba(48,124,207,.16);color:#52789e}
+ .history-legend span{color:#6b8095}
+ .history-legend i{box-shadow:0 0 0 3px rgba(48,70,96,.05)}
+ .history-month.current small::after{background:#397fc0}
+ .payment-scanner-card{background:#fff;color:#172334}
+ .payment-scanner-head button{color:#176fc1}
+ .payment-scanner-status{color:#536b84}
+ .payment-scanner-hint{color:#71869a}
+ .payment-code{background:#edf2f7;color:#172334}
+ .document-item{background:rgba(48,70,96,.025)}
+ .document-item a{color:#176fc1}
+ .category-icon.cat-streaming{color:#7755b7}.category-icon.cat-fuel{color:#16865f}
+ .category-icon.cat-market{color:#98600b}.category-icon.cat-food{color:#b65c32}
+ .category-icon.cat-home{color:#2875b5}.category-icon.cat-health{color:#c04e70}
+ .category-icon.cat-transport{color:#247d91}.category-icon.cat-education{color:#7751a8}
+ .category-icon.cat-leisure{color:#946c13}.category-icon.cat-shopping{color:#ad4d83}
+ .category-icon.cat-services{color:#526b84}.category-icon.cat-subscriptions{color:#4268b2}
+ .category-icon.cat-taxes{color:#87602d}.category-icon.cat-other{color:#64778c}
+ .category-icon.cat-income{color:#16865f}
+
+</style>
 </head>
 <body>
 
@@ -2925,7 +3053,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
    <select id="appearanceSetting" class="settings-select">
     <option value="system">Automática · seguir o aparelho</option>
     <option value="light">Sempre clara</option>
-    <option value="dark">Sempre escura</option>
+    
    </select>
    <label for="defaultViewSetting">Tela ao abrir o aplicativo</label>
    <select id="defaultViewSetting" class="settings-select">
@@ -3584,8 +3712,9 @@ function readAppSettings(){
 function applyAppearance(){
  const root=document.documentElement;
  root.dataset.theme=appSettings.appearance==='system'?'system':appSettings.appearance;
- if(appSettings.appearance==='system')root.style.colorScheme='';
- else root.style.colorScheme=appSettings.appearance;
+ const manualLight=document.getElementById('manualLightTheme');
+ if(manualLight)manualLight.disabled=appSettings.appearance!=='light';
+ root.style.colorScheme=appSettings.appearance==='system'?'':appSettings.appearance;
 }
 function saveAppSettings(){
  try{localStorage.setItem(SETTINGS_STORAGE_KEY,JSON.stringify(appSettings))}catch(error){toast('Não foi possível salvar as preferências neste aparelho.',true)}
@@ -5360,8 +5489,8 @@ initAppSettings();
 initPrivacyMode();
 initAppUpdateChecker();
 if(!loadCachedMonth(month))render();
-load();
-setTimeout(showPendingReminder,1800);
+switchView(appSettings.defaultView||'overview');
+load().then(showPendingReminder);
 
 /* Mede a área real da janela e atualiza o perfil ao redimensionar/orientar. */
 (function syncViewportProfile(){
