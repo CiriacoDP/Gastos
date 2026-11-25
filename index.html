@@ -14,7 +14,7 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=1.9.45-header-align">
+<link rel="stylesheet" href="./appearance.css?v=1.9.45-syncing">
 
 <link rel="stylesheet" href="./manual-light-theme.css" id="manualLightTheme" disabled>
 </head>
@@ -700,9 +700,11 @@ function shiftMonth(d){
 }
 
 function setStatus(t,ok){
+ const syncing=/atualizando|sincronizando/i.test(t);
  $('statusText').textContent=ok?'Conectada':t;
  $('headerDateText').textContent=new Date().toLocaleDateString('pt-BR');
- $('status').className='status'+(ok?'':' off');
+ $('status').className='status'+(ok?'':' off')+(syncing?' syncing':'');
+ if(syncing)$('headerLastSyncText').textContent='Sincronizando...';
  $('sidebarStatusText').textContent=t;
  $('sidebarStatusDot').className='sidebar-status-dot'+(ok?'':' off');
 }
