@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.6">
+<meta name="app-version" content="1.9.7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1289,6 +1289,12 @@ body.privacy-mode #quickExpense::after,
 body.privacy-mode #quickDue::after,
 body.privacy-mode #forecastAvailable::after,
 body.privacy-mode #forecastPending::after,
+body.privacy-mode #incomeForecastAvailable,
+body.privacy-mode #incomeForecastPending,
+body.privacy-mode #incomeForecastFinal,
+body.privacy-mode #incomeForecastAvailable::after,
+body.privacy-mode #incomeForecastPending::after,
+body.privacy-mode #incomeForecastFinal::after,
 body.privacy-mode #forecastFinal::after,
 body.privacy-mode #budgetFeedback::after,
 body.privacy-mode #expenseChange::after,
@@ -2566,6 +2572,18 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  #connection .settings-action{min-height:42px}
 }
 
+
+/* Cartão de previsão também na área de Entradas. */
+.income-forecast-card{margin:14px 0}
+.income-forecast-card .forecast-row{padding:10px 0}
+@media(max-width:979px){
+ .income-forecast-card{margin:12px 0;padding:18px!important}
+ .income-forecast-card .analytics-title-row h3{font-size:14px}
+ .income-forecast-card .forecast-row span{font-size:10px}
+ .income-forecast-card .forecast-row strong{font-size:11px}
+ .income-forecast-card .forecast-final strong{font-size:15px}
+}
+
 </style>
 
 <style id="manualLightTheme" disabled>
@@ -2921,6 +2939,13 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
    <div class="income-summary-symbol" aria-hidden="true">
     <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-opacity=".28"/><path d="M24 34V14m0 0-8 8m8-8 8 8M12 36h24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
    </div>
+  </section>
+
+  <section class="analytics-card forecast-card income-forecast-card">
+   <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
+   <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="incomeForecastAvailable">R$ 0,00</strong></div>
+   <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="incomeForecastPending">R$ 0,00</strong></div>
+   <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="incomeForecastFinal">R$ 0,00</strong></div>
   </section>
 
   <div class="income-workspace">
@@ -4226,6 +4251,14 @@ function renderIncomeView(monthEntries){
  $('incomeMonthCount').textContent=all.length+' '+(all.length===1?'lançamento':'lançamentos');
  $('incomeReceivedTotal').textContent=money(sum(all.filter(x=>x.pago)));
  $('incomePendingTotal').textContent=money(sum(all.filter(x=>!x.pago)));
+ const expenses=monthEntries.filter(x=>x.tipo!=='Entrada');
+ const availableAfterPaid=sum(all.filter(x=>x.pago))-sum(expenses.filter(x=>x.pago));
+ const pendingExpenses=sum(expenses.filter(x=>!x.pago));
+ const projectedBalance=sum(all)-sum(expenses);
+ $('incomeForecastAvailable').textContent=money(availableAfterPaid);
+ $('incomeForecastPending').textContent=money(pendingExpenses);
+ $('incomeForecastFinal').textContent=money(projectedBalance);
+ $('incomeForecastFinal').className=projectedBalance<0?'negative-value':'positive-value';
  $('incomeVisibleCount').textContent=visibleRows.length;
  $('incomeVisibleLabel').textContent=$('incomeSearch').value.trim()?'resultados encontrados':'entradas exibidas';
  $('incomeVisibleTotal').textContent=money(sum(visibleRows));
