@@ -1,6 +1,6 @@
 {
-  "version": "1.9.16",
+  "version": "1.9.17",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Separa os estilos gerais e o tema claro manual em arquivos CSS próprios, preservando a aparência atual."
+  "notes": "Arredonda o contêiner do seletor de mês na aba Lançamentos em telas de celular."
 }
