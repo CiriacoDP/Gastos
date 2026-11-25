@@ -1,8 +1,8 @@
 {
-  "version": "1.9.32",
+  "version": "1.9.33",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Remove a faixa rolante de cotações do mercado financeiro."
+    "Posiciona as notificações rápidas na parte inferior, com animação de entrada e saída para baixo."
   ]
 }
