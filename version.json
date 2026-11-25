@@ -1,6 +1,6 @@
 {
-  "version": "1.8.7",
+  "version": "1.8.8",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Melhora da leitura de QR Pix e boleto no iPhone; código salvo na conta e linha digitável preparada para copiar."
+  "notes": "Busca de lançamentos alinhada ao seletor de mês no desktop; melhorias na leitura de QR Pix e boleto."
 }
