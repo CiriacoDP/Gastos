@@ -494,7 +494,8 @@
     <span>Quantidade de parcelas</span>
     <input id="installmentCount" type="number" min="2" max="36" step="1" inputmode="numeric" value="2">
    </label>
-   <p class="recurrence-note">Nas parcelas progressivas, o aplicativo cadastra a primeira agora e pergunta antes de adicionar cada mês seguinte. A planilha só recebe os meses quando você confirmar.</p>
+   <p class="recurrence-note" id="monthlyRecurrenceNote" hidden>A repetição mensal tradicional continua criando as ocorrências futuras imediatamente, até o mês final escolhido.</p>
+   <p class="recurrence-note" id="installmentNote" hidden>O mês selecionado acima será a primeira parcela. O aplicativo cadastra somente essa parcela e pergunta antes de adicionar cada mês seguinte.</p>
   </section>
 
  <section class="group payment-panel" id="paymentPanel">
@@ -2469,6 +2470,8 @@ function openSheet(item,defaultType='Gasto'){
  $('recurrenceFields').hidden=type==='Entrada';
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
  $('installmentCountWrap').hidden=!$('deferredInstallments').checked;
+ $('monthlyRecurrenceNote').hidden=!$('repeatMonthly').checked;
+ $('installmentNote').hidden=!$('deferredInstallments').checked;
  $('deleteBtn').hidden=!item;
  $('deleteBtn').textContent='Excluir lançamento';
  $('deleteBtn').classList.remove('marked');
@@ -2952,10 +2955,14 @@ $('fMonth').addEventListener('change',()=>{
 $('repeatMonthly').addEventListener('change',()=>{
  if($('repeatMonthly').checked){$('deferredInstallments').checked=false;$('installmentCountWrap').hidden=true;}
  $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
+ $('monthlyRecurrenceNote').hidden=!$('repeatMonthly').checked;
+ $('installmentNote').hidden=true;
 });
 $('deferredInstallments').addEventListener('change',()=>{
  if($('deferredInstallments').checked){$('repeatMonthly').checked=false;$('recurrenceUntilWrap').hidden=true;}
  $('installmentCountWrap').hidden=!$('deferredInstallments').checked;
+ $('installmentNote').hidden=!$('deferredInstallments').checked;
+ $('monthlyRecurrenceNote').hidden=true;
 });
 
 $('saveBudget').addEventListener('click',async()=>{
