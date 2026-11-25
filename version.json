@@ -1,8 +1,8 @@
 {
-  "version": "1.9.39",
+  "version": "1.9.40",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Remove a seção de anexos de documentos da conta; mantém o leitor e o código de pagamento."
+    "Faz a notificação toast desaparecer com fade-out sem deslocamento vertical."
   ]
 }
