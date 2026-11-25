@@ -2623,4 +2623,31 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   border-color:rgba(169,107,8,.3)!important;
   border-left:3px solid #a96b08!important;
  }:root[data-theme="system"] #transactions .list .row .t{color:#20364d!important}:root[data-theme="system"] #transactions .list .row .s{color:#718196!important}:root[data-theme="system"] #transactions .list .row .amt{background:#edf2f7!important;color:#20364d!important;border-color:rgba(48,70,96,.12)!important}
+ :root[data-theme="system"] #income .income-list .row{
+  color:#20364d!important;
+  background:linear-gradient(110deg,#fff,#f8fafc)!important;
+  border:1px solid rgba(48,70,96,.14)!important;
+  border-left:2px solid rgba(22,134,95,.28)!important;
+  box-shadow:0 4px 13px rgba(31,55,82,.07)!important;
+ }
+ :root[data-theme="system"] #income .income-list .row.important{
+  background:linear-gradient(105deg,#eaf8f1,#fff 72%)!important;
+  border-left:3px solid #16865f!important;
+ }
+ :root[data-theme="system"] #income .income-list .row .t{color:#20364d!important}
+ :root[data-theme="system"] #income .income-list .row .s{color:#718196!important}
+ :root[data-theme="system"] #income .income-list .row .amt{
+  color:#20364d!important;background:#edf2f7!important;
+  border:1px solid rgba(48,70,96,.12)!important;border-radius:10px;
+ }
+ :root[data-theme="system"] #income .income-list .row .amt.pos{
+  color:#147a57!important;background:#eaf6ef!important;
+  border-color:rgba(22,134,95,.18)!important;
+ }
+ :root[data-theme="system"] #income .income-list .row .check{
+  background:#fff!important;border-color:#9aa9b8!important;
+ }
+ :root[data-theme="system"] #income .income-list .row .check.on{
+  background:#16865f!important;border-color:#16865f!important;
+ }
 }
