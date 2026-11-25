@@ -14,6 +14,15 @@
   --blue:#0a84ff;--green:#30d158;--red:#ff453a;--shadow:none
  }
 }
+
+/* Tema escuro manual: mantém as mesmas cores do tema escuro automático,
+   independentemente da aparência configurada no aparelho. */
+:root[data-theme="dark"]{
+ color-scheme:dark;
+ --bg:#000;--card:#1c1c1e;--ink:#fff;--mut:#98989f;
+ --sep:#38383a;--fill:#2c2c2e;--segon:#636366;
+ --blue:#0a84ff;--green:#30d158;--red:#ff453a;--shadow:none
+}
 *{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
 [hidden]{display:none!important}
 body{
