@@ -4272,12 +4272,23 @@ function loadZXingLibrary(){
  if(window.ZXing?.BrowserMultiFormatReader)return Promise.resolve(window.ZXing);
  if(zxingLoadPromise)return zxingLoadPromise;
  zxingLoadPromise=new Promise((resolve,reject)=>{
-  let script=document.getElementById('zxingPaymentLibrary');
-  if(!script){script=document.createElement('script');script.id='zxingPaymentLibrary';script.src='https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js';script.async=true;}
-  script.addEventListener('load',()=>window.ZXing?.BrowserMultiFormatReader?resolve(window.ZXing):reject(new Error('Não consegui carregar o leitor de códigos.')));
-  script.addEventListener('error',()=>reject(new Error('Não consegui carregar o leitor. Confira sua conexão com a internet.')));
-  if(!script.isConnected)document.head.appendChild(script);
-  if(window.ZXing?.BrowserMultiFormatReader)resolve(window.ZXing);
+  const sources=[
+   'https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js',
+   'https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js'
+  ];
+  let index=0;
+  const loadNext=()=>{
+   if(window.ZXing?.BrowserMultiFormatReader){resolve(window.ZXing);return;}
+   if(index>=sources.length){reject(new Error('Não consegui carregar o leitor. Confira sua conexão com a internet.'));return;}
+   const script=document.createElement('script');
+   script.id='zxingPaymentLibrary';
+   script.src=sources[index++];
+   script.async=true;
+   script.onload=()=>window.ZXing?.BrowserMultiFormatReader?resolve(window.ZXing):loadNext();
+   script.onerror=loadNext;
+   document.head.appendChild(script);
+  };
+  loadNext();
  });
  return zxingLoadPromise;
 }
@@ -4305,27 +4316,77 @@ function closePaymentScanner(){
 }
 async function startPaymentScanner(){
  if(paymentScannerOpening)return;
- paymentScannerOpening=true;$('paymentScanner').hidden=false;$('paymentScannerStatus').textContent='Preparando a câmera…';
+ paymentScannerOpening=true;
+ $('paymentScanner').hidden=false;
+ $('paymentScannerStatus').textContent='Preparando a câmera traseira…';
  try{
-  if(!navigator.mediaDevices?.getUserMedia)throw new Error('Este navegador não liberou acesso à câmera. Abra o aplicativo pelo Safari ou Chrome.');
+  if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia){
+   throw new Error('O iPhone só libera a câmera em uma conexão HTTPS. Abra o Meu Dinheiro pelo endereço seguro no Safari.');
+  }
   const ZXing=await loadZXingLibrary();
   const formats=[ZXing.BarcodeFormat.QR_CODE,ZXing.BarcodeFormat.ITF,ZXing.BarcodeFormat.CODE_128,ZXing.BarcodeFormat.CODE_39];
-  const hints=new Map();hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS,formats);hints.set(ZXing.DecodeHintType.TRY_HARDER,true);
+  const hints=new Map();
+  hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS,formats);
+  hints.set(ZXing.DecodeHintType.TRY_HARDER,true);
   paymentScannerReader=new ZXing.BrowserMultiFormatReader(hints,250);
-  $('paymentScannerStatus').textContent='Solicitando acesso à câmera…';
-  const controls=await paymentScannerReader.decodeFromVideoDevice(undefined,$('paymentScannerVideo'),(result,error,activeControls)=>{
-   if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
-   if(!result)return;
-   const raw=String(result.getText()||'').trim();if(!raw)return;
-   const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
-   const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
-   $('paymentCodeInput').value=savedCode;$('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
-   $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
-   closePaymentScanner();toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
-  });
+  $('paymentScannerStatus').textContent='Solicitando permissão para usar a câmera traseira…';
+
+  // Solicita explicitamente a câmera traseira, em vez de aceitar a primeira câmera listada pelo iOS.
+  let controls;
+  try{
+   controls=await paymentScannerReader.decodeFromConstraints(
+    {audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1280},height:{ideal:720}}},
+    $('paymentScannerVideo'),
+    (result,error,activeControls)=>{
+     if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
+     if(!result||$('paymentScanner').hidden)return;
+     const raw=String(result.getText()||'').trim();
+     if(!raw)return;
+     const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
+     const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
+     $('paymentCodeInput').value=savedCode;
+     $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
+     $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
+     closePaymentScanner();
+     toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+    }
+   );
+  }catch(cameraError){
+   // Compatibilidade com versões do Safari que não aceitam facingMode em decodeFromConstraints.
+   controls=await paymentScannerReader.decodeFromVideoDevice(
+    undefined,
+    $('paymentScannerVideo'),
+    (result,error,activeControls)=>{
+     if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
+     if(!result||$('paymentScanner').hidden)return;
+     const raw=String(result.getText()||'').trim();
+     if(!raw)return;
+     const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
+     const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
+     $('paymentCodeInput').value=savedCode;
+     $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
+     $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
+     closePaymentScanner();
+     toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+    }
+   );
+  }
   if(!paymentScannerControls)paymentScannerControls=controls;
-  paymentScannerOpening=false;$('paymentScannerStatus').textContent='Aponte a câmera para o QR Code Pix ou código de barras do boleto.';
- }catch(error){paymentScannerOpening=false;zxingLoadPromise=null;closePaymentScanner();toast(error.message||'Não foi possível abrir a câmera.',true);}
+  paymentScannerOpening=false;
+  $('paymentScannerStatus').textContent='Aponte a câmera traseira para o QR Code Pix ou código de barras do boleto.';
+ }catch(error){
+  paymentScannerOpening=false;
+  zxingLoadPromise=null;
+  closePaymentScanner();
+  const message=error?.name==='NotAllowedError'
+   ?'O iPhone bloqueou o acesso à câmera. Permita a câmera para o Safari nos Ajustes do iPhone e tente novamente.'
+   :error?.name==='NotFoundError'
+    ?'Não encontrei uma câmera disponível neste aparelho.'
+    :error?.name==='NotReadableError'
+     ?'A câmera está sendo usada por outro aplicativo. Feche-o e tente novamente.'
+     :(error.message||'Não foi possível abrir a câmera.');
+  toast(message,true);
+ }
 }
 $('scanPaymentBtn').addEventListener('click',startPaymentScanner);
 $('closePaymentScanner').addEventListener('click',closePaymentScanner);
