@@ -1,8 +1,9 @@
 {
-  "version": "1.9.29",
+  "version": "1.9.30",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "A busca expandida substitui completamente a seção de meses, sem deixar espaço reservado."
+    "Adiciona parcelas progressivas: cadastra a primeira parcela e pergunta antes de incluir as próximas ao avançar os meses.",
+    "Mantém a repetição mensal existente como opção separada."
   ]
 }
