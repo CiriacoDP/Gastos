@@ -1,8 +1,9 @@
 {
-  "version": "1.9.33",
+  "version": "1.9.34",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Posiciona as notificações rápidas na parte inferior, com animação de entrada e saída para baixo."
+    "Remove a prioridade automática dos lançamentos importantes na lista.",
+    "Adiciona a opção de cadastrar uma despesa já como paga."
   ]
 }
