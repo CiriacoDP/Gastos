@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.2">
+<meta name="app-version" content="1.9.3">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2492,6 +2492,58 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  #transactions .row .t{color:#20364d!important}
  #transactions .row .s{color:#718196!important}
  #transactions .row .amt{background:#edf2f7!important;color:#20364d!important;border-color:rgba(48,70,96,.12)!important}
+}
+
+
+/* Configuração da conexão mais compacta no celular. */
+@media(max-width:979px){
+ #connection>.settings-card:not(.app-update-settings-card){
+  padding:18px!important;
+  border-radius:20px;
+ }
+ #connection>.settings-card:not(.app-update-settings-card) h3{
+  font-size:16px!important;
+  line-height:1.25;
+  margin:0 0 5px!important;
+ }
+ #connection>.settings-card:not(.app-update-settings-card)>p{
+  font-size:12px!important;
+  line-height:1.45!important;
+  margin:0 0 13px!important;
+ }
+ #connection>.settings-card:not(.app-update-settings-card) label{
+  font-size:12px!important;
+  margin:10px 0 5px!important;
+ }
+ #connection #apiUrl{
+  min-height:44px!important;
+  padding:0 11px!important;
+  font-size:12px!important;
+  border-radius:10px!important;
+ }
+ #connection>.settings-card:not(.app-update-settings-card) .primary{
+  min-height:43px!important;
+  margin-top:10px!important;
+  padding:10px 14px!important;
+  font-size:13px!important;
+  border-radius:11px!important;
+ }
+ #connection>.settings-card:not(.app-update-settings-card) .msg{
+  min-height:0;
+  margin-top:6px;
+  font-size:11px;
+ }
+ #connection .last-sync-line{
+  gap:8px!important;
+  margin-top:12px!important;
+  padding-top:10px!important;
+  font-size:11px!important;
+ }
+ #connection .last-sync-line strong{
+  max-width:58%;
+  font-size:10px!important;
+  line-height:1.35;
+ }
 }
 
 </style>
