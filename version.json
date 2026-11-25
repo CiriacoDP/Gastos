@@ -1,6 +1,6 @@
 {
-  "version": "1.9.11",
+  "version": "1.9.12",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Ajuste exclusivo do seletor mensal e da lupa na aba Lançamentos, preservando o padrão visual do app."
+  "notes": "Refina o cartão de Personalização e os seletores de aparência e tela inicial, preservando as opções e funções existentes."
 }
