@@ -1,6 +1,10 @@
 {
-  "version": "1.9.19",
+  "version": "1.9.20",
   "ready": true,
   "releasedAt": "2026-11-24",
-  "notes": "Melhora o layout do relatório mensal em PDF e corrige a ação de impressão."
+  "notes": [
+    "Tela de atualização com aparência alinhada ao tema claro ou escuro do aplicativo.",
+    "Novidades da versão apresentadas em itens curtos e fáceis de consultar.",
+    "Informações da atualização correspondentes às mudanças publicadas."
+  ]
 }
