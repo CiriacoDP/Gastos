@@ -166,12 +166,12 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
 .danger{width:100%;margin-top:18px;padding:13px;border-radius:14px;background:var(--card);color:var(--red);font-weight:550}
 .toast{
  position:fixed;left:50%;bottom:calc(12px + env(safe-area-inset-bottom));
- transform:translate(-50%,160%);z-index:220;max-width:calc(100% - 32px);
+ transform:translate(-50%,0);opacity:0;pointer-events:none;z-index:220;max-width:calc(100% - 32px);
  padding:11px 16px;border-radius:14px;background:rgba(44,44,46,.94);
- color:#fff;font-size:14px;transition:transform .3s;
+ color:#fff;font-size:14px;transition:opacity .3s ease;
  -webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px)
 }
-.toast.show{transform:translate(-50%,0)}
+.toast.show{opacity:1;pointer-events:auto}
 .toast.err{background:rgba(255,59,48,.96)}
 @media(min-width:760px){
  .overview-grid{grid-template-columns:minmax(0,1.5fr) minmax(260px,1fr);align-items:start}
