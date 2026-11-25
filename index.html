@@ -15,3 +15,2901 @@
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
 <link rel="stylesheet" href="./appearance.css">
+
+<link rel="stylesheet" href="./manual-light-theme.css" id="manualLightTheme" disabled>
+</head>
+<body>
+
+<aside class="app-sidebar" id="appSidebar" aria-label="Menu principal">
+ <div class="sidebar-brand">
+  <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
+  <div class="sidebar-brand-copy"><strong>Meu dinheiro</strong><small>Controle financeiro</small></div>
+ </div>
+
+
+  <nav class="app-nav" aria-label="Navegação principal">
+  <button class="active" data-view="overview" aria-label="Visão geral" title="Visão geral" aria-current="page">
+   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="8" height="8" rx="2"/><rect x="13" y="3" width="8" height="5" rx="2"/><rect x="13" y="10" width="8" height="11" rx="2"/><rect x="3" y="13" width="8" height="8" rx="2"/></svg></span>
+   <span class="nav-label">Visão geral</span>
+  </button>
+  <button data-view="income" aria-label="Entradas" title="Entradas">
+   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8.5h16a1.5 1.5 0 0 1 1.5 1.5v9a2 2 0 0 1-2 2h-15a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h13"/><path d="M4 9h17.5M15.5 14h3"/><path d="M10 2.5v8m-3-3 3 3 3-3"/></svg></span>
+   <span class="nav-label">Entradas</span>
+  </button>
+  <button data-view="transactions" aria-label="Lançamentos" title="Lançamentos">
+   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="m7 8 1.5 1.5L11 7M13.5 8H18M7 15l1.5 1.5L11 14M13.5 15H18"/></svg></span>
+   <span class="nav-label">Lançamentos</span>
+  </button>
+  <button data-view="connection" aria-label="Configurações" title="Configurações">
+   <span class="nav-icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h16M4 12h16M4 18h16"/><circle cx="9" cy="6" r="2.2"/><circle cx="15" cy="12" r="2.2"/><circle cx="7" cy="18" r="2.2"/></svg></span>
+   <span class="nav-label">Configurações</span>
+  </button>
+ </nav>
+ <div class="sidebar-footer">
+  <div class="sidebar-footer-line">
+   <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
+   <span id="sidebarStatusText">Desconectado</span>
+  </div>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 1.0.0</small>
+ </div>
+</aside>
+
+<header class="shell">
+ <div class="bar">
+  <div class="brand">
+   <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
+   <div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v1.0.0</small></div>
+    <div class="status off" id="status"><i></i><span id="statusText">Desconectado</span></div>
+   </div>
+  </div>
+  <div class="header-actions">
+   <button class="icon privacy-toggle" id="privacyToggle" type="button" aria-label="Ocultar saldos e gastos" title="Ocultar saldos e gastos" aria-pressed="false">
+    <svg class="eye-open" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.7"/></svg>
+    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3l18 18M10.6 10.7a2 2 0 0 0 2.7 2.7M9.9 5.3A10.8 10.8 0 0 1 12 5c6.1 0 9.5 7 9.5 7a15.5 15.5 0 0 1-3.1 3.8M6.2 6.3C3.8 7.9 2.5 12 2.5 12s3.4 7 9.5 7a9.8 9.8 0 0 0 3-.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </button>
+   <button class="icon" id="refreshBtn" aria-label="Atualizar">↻</button>
+  </div>
+ </div>
+
+
+</header>
+
+<main class="shell">
+ <div class="banner" id="banner" hidden></div>
+
+ <section class="view active" id="overview">
+  <div class="view-heading">
+   <div>
+    <h2>Visão geral</h2>
+    <p>Acompanhe sua situação financeira</p>
+   </div>
+  </div>
+
+  <div class="months">
+   <button class="prev" aria-label="Mês anterior">‹</button>
+   <b class="monthLabel"></b>
+   <button class="next" aria-label="Próximo mês">›</button>
+  </div>
+
+  <div class="overview-grid">
+   <section class="card summary">
+    <div class="summary-topline">
+     <div><span class="eyebrow">SEU RESULTADO</span><small>Saldo previsto</small></div>
+     <div class="balance-period" aria-label="Mês selecionado">
+     <span class="calendar-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+       <rect x="3.5" y="5.5" width="17" height="15" rx="3" stroke="currentColor" stroke-width="1.5"/>
+       <path d="M7.5 3.5v4M16.5 3.5v4M3.8 9.5h16.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+       <rect x="7" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor"/>
+       <rect x="11" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".65"/>
+       <rect x="15" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="7" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="11" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+      </svg>
+     </span>
+     <span class="balance-period-text">
+      <small>MÊS SELECIONADO</small>
+      <strong class="monthLabel"></strong>
+     </span>
+    </div>
+    </div>
+    <strong id="balance">R$ 0,00</strong>
+    <div class="balance-caption" id="balanceCaption">Considerando todas as entradas e despesas</div>
+    <div class="trio">
+     <div><small>Entradas</small><strong class="pos" id="incomeTotal">R$ 0,00</strong></div>
+     <div><small>Despesas</small><strong id="expenseTotal">R$ 0,00</strong></div>
+     <div><small>A pagar</small><strong id="dueTotal">R$ 0,00</strong></div>
+    </div>
+   </section>
+
+   <section class="card quick-card">
+    <h3 class="section-title">Resumo do mês</h3>
+    <div class="quick-row"><span>Total de entradas</span><strong class="pos" id="quickIncome">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Total de despesas</span><strong id="quickExpense">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Valores pendentes</span><strong id="quickDue">R$ 0,00</strong></div>
+    <p class="month-note">Os valores são referentes ao mês selecionado.</p>
+    <div class="category-breakdown" aria-label="Despesas por categoria">
+     <div class="category-breakdown-heading"><strong>Despesas por categoria</strong><span id="categoryBreakdownCount">0 categorias</span></div>
+     <div class="category-breakdown-content">
+      <div class="category-donut-wrap">
+       <div class="category-donut" id="categoryDonut" role="img" aria-label="Gráfico de despesas por categoria">
+        <div class="category-donut-center"><strong id="categoryDonutTotal">R$ 0,00</strong><span>Total gasto</span></div>
+       </div>
+      </div>
+      <div class="category-legend" id="categoryLegend"><div class="category-breakdown-empty">Nenhuma despesa neste mês.</div></div>
+     </div>
+    </div>
+    <button class="primary" id="goTransactions" type="button" style="width:100%;margin-top:14px">Ver lançamentos</button>
+   </section>
+  </div>
+
+  <section class="overview-analytics" aria-label="Análises financeiras">
+   <div class="analytics-heading">
+    <div><span class="eyebrow">ANÁLISE FINANCEIRA</span><h3>Desempenho do mês</h3></div>
+    <span class="analytics-heading-month" id="analyticsMonthLabel"></span>
+   </div>
+   <div class="overview-analytics-grid">
+    <section class="analytics-card ranking-card">
+     <div class="analytics-title-row"><h3>Maiores gastos</h3><span>TOP 5</span></div>
+     <div class="ranking-list" id="expenseRanking"></div>
+    </section>
+    <section class="analytics-card progress-card">
+     <div class="analytics-title-row"><h3>Despesas pagas</h3><strong id="paidPercent">0%</strong></div>
+     <div class="progress-track"><span id="paidProgress"></span></div>
+     <div class="progress-values">
+      <div><small>Pago</small><strong id="paidAmount">R$ 0,00</strong></div>
+      <div><small>Pendente</small><strong id="pendingAmount">R$ 0,00</strong></div>
+     </div>
+    </section>
+    <section class="analytics-card comparison-card">
+     <div class="analytics-title-row"><h3>Entradas x despesas</h3></div>
+     <div class="compare-item"><div class="compare-label"><span>Entradas</span><strong id="compareIncome">R$ 0,00</strong></div><div class="compare-track"><span class="compare-income" id="compareIncomeBar"></span></div></div>
+     <div class="compare-item"><div class="compare-label"><span>Despesas</span><strong id="compareExpense">R$ 0,00</strong></div><div class="compare-track"><span class="compare-expense" id="compareExpenseBar"></span></div></div>
+    </section>
+    <section class="analytics-card indicators-card">
+     <div class="analytics-title-row"><h3>Indicadores rápidos</h3></div>
+     <div class="quick-indicators">
+      <div><span>Despesas</span><strong id="indicatorExpenses">0</strong></div>
+      <div><span>Pendentes</span><strong id="indicatorPending">0</strong></div>
+      <div><span>Importantes</span><strong id="indicatorImportant">0</strong></div>
+      <div><span>Entradas</span><strong id="indicatorIncome">0</strong></div>
+     </div>
+    </section>
+    <section class="analytics-card history-card">
+     <div class="analytics-title-row"><h3>Evolução mensal</h3><span>6 MESES</span></div>
+     <div class="history-legend"><span><i class="history-income-dot"></i>Entradas</span><span><i class="history-expense-dot"></i>Despesas</span></div>
+     <div class="monthly-history" id="monthlyHistory"></div>
+    </section>
+    
+    
+    
+   </div>
+   
+  </section>
+
+ <section class="overview-essentials" aria-label="Planejamento financeiro">
+    <section class="analytics-card forecast-card">
+     <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
+     <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="forecastAvailable">R$ 0,00</strong></div>
+     <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="forecastPending">R$ 0,00</strong></div>
+     <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="forecastFinal">R$ 0,00</strong></div>
+    </section>
+    <section class="analytics-card budget-card">
+     <div class="analytics-title-row"><h3>Meta de despesas</h3><span>MENSAL</span></div>
+     <label class="budget-input-label" for="budgetInput">Limite que deseja gastar</label>
+     <div class="budget-input-row"><span>R$</span><input id="budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="saveBudget" type="button">Salvar</button></div>
+     <div class="budget-progress-track"><span id="budgetProgress"></span></div>
+     <div class="budget-feedback" id="budgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
+     <small class="budget-local-note">Meta sincronizada pela planilha em todos os dispositivos.</small>
+    </section>
+    <section class="analytics-card previous-month-card">
+     <div class="analytics-title-row"><h3>Comparação mensal</h3><span id="previousMonthName">MÊS ANTERIOR</span></div>
+     <div class="previous-month-main"><strong id="expenseChange">—</strong><span id="expenseChangeLabel">Comparando despesas</span></div>
+     <div class="previous-month-values">
+      <div><small>Mês atual</small><strong id="currentMonthExpense">R$ 0,00</strong></div>
+      <div><small>Mês anterior</small><strong id="previousMonthExpense">Aguardando dados</strong></div>
+     </div>
+     <p class="previous-month-note" id="previousMonthNote">A comparação usa os dados do mês anterior.</p>
+    </section>
+   </section>
+ </section>
+
+ <section class="view" id="income">
+  <div class="view-heading">
+   <div>
+    <h2>Entradas</h2>
+    <p>Salários, recebimentos e outras receitas</p>
+   </div>
+   <button class="primary new-income" type="button">+ Nova entrada</button>
+  </div>
+
+  <div class="months">
+   <button class="prev" aria-label="Mês anterior">‹</button>
+   <b class="monthLabel"></b>
+   <button class="next" aria-label="Próximo mês">›</button>
+  </div>
+
+  <section class="income-month-summary">
+   <div class="income-summary-main">
+    <small>ENTRADAS DO MÊS</small>
+    <strong id="incomeMonthTotal">R$ 0,00</strong>
+    <span id="incomeMonthCount">0 lançamentos</span>
+   </div>
+   <div class="income-summary-side">
+    <div><span>Recebidas</span><strong id="incomeReceivedTotal">R$ 0,00</strong></div>
+    <div><span>A receber</span><strong id="incomePendingTotal">R$ 0,00</strong></div>
+   </div>
+   <div class="income-summary-symbol" aria-hidden="true">
+    <svg viewBox="0 0 48 48" fill="none"><circle cx="24" cy="24" r="21" stroke="currentColor" stroke-opacity=".28"/><path d="M24 34V14m0 0-8 8m8-8 8 8M12 36h24" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </div>
+   <div class="income-summary-forecast">
+    <span>Disponível após entradas recebidas e despesas pagas</span>
+    <strong id="incomeForecastAvailable">R$ 0,00</strong>
+   </div>
+  </section>
+
+  <div class="income-workspace">
+   <div class="income-search transaction-search" role="search">
+    <span aria-hidden="true">⌕</span>
+    <input id="incomeSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar entradas" placeholder="Buscar entrada por nome, pessoa ou valor..." autocomplete="off">
+    <button type="button" id="clearIncomeSearch" aria-label="Limpar busca" hidden>×</button>
+   </div>
+   <div class="transaction-overview">
+    <div class="transaction-count"><strong id="incomeVisibleCount">0</strong><span id="incomeVisibleLabel">entradas exibidas</span></div>
+    <div class="income-list-total"><span>Total exibido</span><strong id="incomeVisibleTotal">R$ 0,00</strong></div>
+   </div>
+   <div class="seg income-filters" id="incomeFilters">
+    <button class="on" data-income-filter="all">Todas</button>
+    <button data-income-filter="pending">A receber</button>
+    <button data-income-filter="received">Recebidas</button>
+   </div>
+   <div class="desktop-table-head income-table-head" aria-hidden="true"><span>Recebimento</span><span>Status</span><span>Valor</span></div>
+    <ul class="list income-list" id="incomeList"></ul>
+  </div>
+ </section>
+
+ <section class="view" id="transactions">
+  <div class="view-heading">
+   <div>
+    <h2>Lançamentos</h2>
+    <p>Consulte, edite e organize suas movimentações</p>
+   </div>
+   <button class="primary new-entry" type="button">+ Adicionar</button>
+  </div>
+
+  <div class="transactions-month-search">
+   <div class="months">
+    <button class="prev" aria-label="Mês anterior">‹</button>
+    <b class="monthLabel"></b>
+    <button class="next" aria-label="Próximo mês">›</button>
+   </div>
+   <div class="transaction-search search-collapsed" id="transactionSearch" role="search">
+    <button type="button" class="search-toggle" id="searchToggle" aria-label="Abrir busca" title="Buscar lançamentos">
+     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="2.2"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <input id="listSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar lançamentos" placeholder="Buscar conta por nome, pessoa ou valor..." autocomplete="off">
+    <button type="button" id="clearSearch" aria-label="Limpar busca" hidden>×</button>
+   </div>
+  </div>
+
+  <div class="transactions-layout">
+   <div class="transactions-main">
+    <div class="transaction-overview">
+     <div class="transaction-count"><strong id="visibleCount">0</strong><span id="visibleCountLabel">lançamentos exibidos</span></div>
+     <div class="priority-count"><span>★</span><strong id="priorityCount">0 importantes</strong></div>
+    </div>
+    <div class="seg filters" id="filters">
+     <button class="on" data-filter="all">Todas</button>
+     <button data-filter="pending">Pendentes</button>
+     <button data-filter="paid">Pagas</button>
+    </div>
+    <div class="filter-toolbar">
+     <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="advancedFilters">
+      <span class="filter-toggle-icon">☷</span><span>Filtros</span><span class="filter-active-count" id="filterActiveCount" hidden>0</span><span class="filter-chevron" id="filterChevron">⌄</span>
+     </button>
+     <div class="filter-summary" id="filterSummary">Nenhum filtro adicional</div>
+    </div>
+    <div class="advanced-filters" id="advancedFilters" hidden>
+     <div class="advanced-filter-group">
+      <strong>Natureza</strong>
+      <div class="advanced-filter-options" id="natureFilterOptions">
+       <button type="button" class="advanced-filter-chip active" data-detail-filter="all">Todas</button>
+       <button type="button" class="advanced-filter-chip" data-detail-filter="fixed">Fixas</button>
+       <button type="button" class="advanced-filter-chip" data-detail-filter="variable">Variáveis</button>
+      </div>
+     </div>
+     <div class="advanced-filter-group">
+      <strong>Categorias <span>Você pode selecionar várias</span></strong>
+      <div class="advanced-filter-options category-filters" id="categoryFilters">
+       <button class="advanced-filter-chip active" data-category-filter="all">Todas</button>
+      </div>
+     </div>
+     <div class="advanced-filter-footer">
+      <button type="button" class="important-filter-option" id="importantFilterOption" aria-pressed="false">★ Somente importantes</button>
+      <button type="button" class="clear-advanced-filters" id="clearAdvancedFilters">Limpar filtros</button>
+     </div>
+    </div>
+    <div class="desktop-table-head expense-table-head" aria-hidden="true"><span>Descrição</span><span>Categoria</span><span>Natureza</span><span>Status</span><span>Valor</span></div>
+     <ul class="list" id="list"></ul>
+   </div>
+
+
+  </div>
+ </section>
+
+ <section class="view" id="connection">
+  <div class="view-heading">
+   <div>
+    <h2>Configurações</h2>
+    <p>Gerencie a conexão da planilha e as atualizações do aplicativo.</p>
+   </div>
+  </div>
+
+  <section class="card settings-card">
+   <h3>Conexão com a planilha</h3>
+   <p>Informe o endereço do Web App do Google Apps Script para sincronizar seus lançamentos.</p>
+   <label for="apiUrl">URL do Google Apps Script</label>
+   <input id="apiUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="url">
+   <button class="primary" id="connectBtn" type="button">Salvar conexão</button>
+   <div class="msg" id="connectionMessage"></div>
+   <div class="last-sync-line"><span>Última sincronização</span><strong id="lastSyncText">Ainda não sincronizado</strong></div>
+  </section>
+
+  <section class="card settings-card app-update-settings-card">
+   <div class="app-update-settings-heading">
+    <div class="app-update-settings-icon" aria-hidden="true">
+     <svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+    </div>
+    <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
+   </div>
+   <div class="app-update-current-line">
+    <span>Versão instalada</span><strong id="settingsAppVersion">v1.5.0</strong>
+   </div>
+   <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+    Verificar atualizações
+   </button>
+   <div class="msg app-update-check-message" id="manualUpdateMessage" role="status" aria-live="polite">Toque para procurar uma versão nova.</div>
+  </section>
+  <section class="card settings-card preferences-card personalization-card">
+   <div class="preferences-heading">
+    <div class="preferences-heading-icon" aria-hidden="true">
+     <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+    </div>
+    <div><h3>Personalização</h3><p>Escolha como o Meu Dinheiro deve se comportar neste aparelho.</p></div>
+   </div>
+   <div class="preference-field">
+    <label for="appearanceSetting">Aparência</label>
+    <select id="appearanceSetting" class="settings-select">
+     <option value="system">Automática · seguir o aparelho</option>
+     <option value="light">Sempre clara</option>
+     <option value="dark">Sempre escura</option>
+    </select>
+   </div>
+   <div class="preference-field">
+    <label for="defaultViewSetting">Tela ao abrir o aplicativo</label>
+    <select id="defaultViewSetting" class="settings-select">
+     <option value="overview">Visão geral</option>
+     <option value="income">Entradas</option>
+     <option value="transactions">Lançamentos</option>
+    </select>
+   </div>
+   <div class="preferences-switches">
+    <label class="settings-switch-row" for="privacyStartupSetting"><span><strong>Ocultar valores ao abrir</strong><small>Protege seus saldos quando iniciar o aplicativo.</small></span><input id="privacyStartupSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="pendingReminderSetting"><span><strong>Resumo de pendências ao abrir</strong><small>Mostra um aviso com despesas e entradas ainda não concluídas no mês.</small></span><input id="pendingReminderSetting" type="checkbox"></label>
+   </div>
+  </section>
+
+  <section class="card settings-card preferences-card">
+   <h3>Dados e segurança</h3>
+   <p>Exporte uma cópia dos lançamentos que estão carregados no aplicativo neste aparelho.</p>
+   <div class="settings-action-row">
+    <button class="secondary settings-action" id="exportCsvBtn" type="button">Exportar planilha CSV</button>
+    <button class="secondary settings-action" id="backupJsonBtn" type="button">Salvar cópia JSON</button>
+   </div>
+   <div class="pdf-export-panel">
+    <div class="pdf-export-copy"><strong>Relatório mensal em PDF</strong><small>Versão organizada do mês selecionado, pronta para imprimir ou salvar em PDF.</small></div>
+    <button class="primary pdf-export-button" id="exportMonthPdfBtn" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M8 15h8M8 18h5"/></svg>Gerar PDF do mês</button>
+   </div>
+   <small class="settings-footnote">O PDF inclui somente os lançamentos do mês selecionado.</small>
+  </section>
+
+  <section class="card settings-card preferences-card about-settings-card">
+   <h3>Sobre o aplicativo</h3>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v1.9.3</strong></div>
+   <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
+  </section>
+ </section>
+</main>
+
+<div class="overlay" id="overlay" hidden>
+ <form class="sheet" id="entryForm" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-head">
+   <button type="button" class="link" id="cancelBtn">Cancelar</button>
+   <h2 id="sheetTitle">Novo lançamento</h2>
+   <button type="submit" class="link strong" id="saveBtn">Salvar</button>
+  </div>
+
+  <div class="seg" id="typeSeg" hidden>
+   <button type="button" data-type="Gasto" class="on">Despesas</button>
+   <button type="button" data-type="Entrada">Entradas</button>
+  </div>
+
+  <div class="amount-wrap">
+   <span>R$</span>
+   <input id="amount" type="number" min="0.01" step="0.01" inputmode="decimal" placeholder="0,00" required aria-label="Valor">
+  </div>
+
+  <div class="group">
+   <label class="cell"><span>Descrição</span><input id="description" placeholder="Ex.: Salário, aluguel" maxlength="90" required></label>
+   <label class="cell"><span>Mês</span><input id="fMonth" type="month" required></label>
+   <div class="cell" id="natureCell">
+    <span>Tipo</span>
+    <div class="seg" id="natureSeg">
+     <button type="button" data-nature="Fixa" class="on">Fixa</button>
+     <button type="button" data-nature="Variável">Variável</button>
+    </div>
+   </div>
+   <label class="cell" id="categoryCell"><span>Categoria</span>
+    <select id="expenseCategory" aria-label="Categoria da despesa">
+     <option value="">Sem categoria</option>
+     <option value="Streaming">Streaming</option>
+     <option value="Mercado">Mercado</option>
+     <option value="Alimentacao">Alimentação</option>
+     <option value="Combustivel">Combustível</option>
+     <option value="Moradia">Moradia</option>
+     <option value="Saude">Saúde</option>
+     <option value="Transporte">Transporte</option>
+     <option value="Educacao">Educação</option>
+     <option value="Lazer">Lazer</option>
+     <option value="Compras">Compras</option>
+     <option value="Servicos">Serviços</option>
+     <option value="Assinaturas">Assinaturas</option>
+     <option value="Impostos">Impostos</option>
+     <option value="Outros">Outros</option>
+    </select>
+   </label>
+  </div>
+
+  <label class="group important-toggle">
+   <input id="importantFlag" type="checkbox">
+   <span>★ Marcar como importante</span>
+  </label>
+
+  <section class="group recurrence-fields" id="recurrenceFields" hidden>
+   <label class="important-toggle recurrence-toggle">
+    <input id="repeatMonthly" type="checkbox">
+    <span>Repetir esta despesa mensalmente</span>
+   </label>
+   <label class="cell recurrence-until" id="recurrenceUntilWrap">
+    <span>Repetir até</span>
+    <input id="repeatUntil" type="month">
+   </label>
+   <p class="recurrence-note">Ative para criar ocorrências até o mês escolhido. Ao desativar uma série, você poderá excluir os meses seguintes ou mantê-los como despesas independentes.</p>
+  </section>
+
+ <section class="group payment-panel" id="paymentPanel">
+  <h3>Código para pagamento</h3>
+  <p class="documents-help">Escaneie o QR Code Pix ou o código de barras do boleto. O código ficará salvo nesta conta para copiar quando for pagar.</p>
+  <div class="payment-actions">
+   <button type="button" id="scanPaymentBtn" class="primary">Abrir câmera e escanear</button>
+   <button type="button" id="copyPaymentBtn">Copiar código</button>
+   <button type="button" id="clearPaymentBtn">Limpar</button>
+  </div>
+  <textarea class="payment-code" id="paymentCodeInput" placeholder="O código escaneado aparecerá aqui. Você também pode colar o código manualmente." autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+  <div class="payment-meta"><span id="paymentCodeStatus" role="status" aria-live="polite">Nenhum código salvo nesta conta.</span><span id="paymentCodeKind"></span></div>
+ </section>
+ <section class="group documents-panel" id="documentsPanel">
+  <h3>Documentos da conta</h3>
+  <p class="documents-help">Anexe boleto em PDF ou imagem (JPG, PNG, WEBP). Limite de 8 MB por arquivo. Para vincular corretamente, salve a conta primeiro. Os arquivos ficam no Google Drive.</p>
+  <div class="documents-fields">
+   <select id="documentKind" aria-label="Tipo de anexo">
+    <option value="boleto">Boleto</option><option value="pix">QR Code Pix</option>
+    <option value="comprovante">Comprovante</option><option value="documento">Outro documento</option>
+   </select>
+   <textarea id="documentPaymentCode" placeholder="Código Pix Copia e Cola ou linha digitável (salvo junto ao anexo)"></textarea>
+   <input id="documentFiles" type="file" accept="application/pdf,image/jpeg,image/png,image/webp" multiple>
+  </div>
+  <div class="documents-list" id="documentsList"></div>
+  <div class="documents-status" id="documentsStatus" role="status" aria-live="polite"></div>
+ </section>
+  <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
+  <p class="delete-pending-note" id="deletePendingNote" hidden></p>
+ </form>
+</div>
+
+<div class="payment-scanner" id="paymentScanner" hidden>
+ <section class="payment-scanner-card" role="dialog" aria-modal="true" aria-labelledby="paymentScannerTitle">
+  <div class="payment-scanner-head"><strong id="paymentScannerTitle">Escanear código de pagamento</strong><button type="button" id="closePaymentScanner">Fechar</button></div>
+  <video id="paymentScannerVideo" autoplay muted playsinline></video>
+  <p class="payment-scanner-status" id="paymentScannerStatus">A câmera será usada somente para ler o código, sem enviar imagens.</p>
+  <p class="payment-scanner-hint">Aponte para o QR Code Pix ou para o código de barras do boleto e mantenha o documento dentro da imagem.</p>
+ </section>
+</div>
+<div class="update-installing-overlay" id="updateInstallingOverlay" hidden>
+ <div class="update-installing-card">
+  <span class="update-installing-spinner" aria-hidden="true"></span>
+  <strong id="updateInstallingTitle">Baixando atualização</strong>
+  <p id="updateInstallingText">Preparando os arquivos da nova versão…</p>
+  <div class="update-progress" role="progressbar" aria-label="Progresso da atualização" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+   <span class="update-progress-fill" id="updateProgressFill"></span>
+  </div>
+  <div class="update-progress-meta"><span id="updateProgressLabel">Aguarde um instante</span><strong id="updateProgressPercent">0%</strong></div>
+ </div>
+</div>
+
+<div class="update-overlay" id="updateOverlay" hidden>
+ <section class="update-card" role="dialog" aria-modal="true" aria-labelledby="updateTitle" aria-describedby="updateDescription">
+  <div class="update-card-top">
+   <span class="update-status-pill"><i></i> Nova versão disponível</span>
+   <span class="update-version-mark" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+   </span>
+  </div>
+  <div class="update-card-copy">
+   <h2 id="updateTitle">Tem novidade no Meu dinheiro!</h2>
+   <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
+  </div>
+  <div class="update-version-comparison">
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v1.4.5</strong></div>
+   <span aria-hidden="true">→</span>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v1.5.0</strong></div>
+  </div>
+  <p class="update-release-notes" id="updateReleaseNotes">Atualizações e melhorias do aplicativo.</p>
+  <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
+  <button class="update-later-button" id="updateLaterBtn" type="button">Depois</button>
+  <small class="update-data-note">Seus lançamentos e configurações serão preservados.</small>
+ </section>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+const STORAGE_KEY='gastos2026_appweb_url_v1';
+const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
+let entries=[],editingId=null,editingSnapshot=null,pendingDelete=false,filter='all',detailFilter='all',type='Gasto',nature='Fixa',monthExists=true;
+let importantFilter=false;
+const selectedCategoryFilters=new Set();
+let privacyMode=false;
+const PRIVACY_STORAGE_KEY='gastos2026_privacy_mode_v1';
+let analyticsHistory=new Map();
+let analyticsHistoryBase='';
+let analyticsHistoryFetchedAt=0;
+let analyticsHistoryLoading=false;
+let monthlyBudgets=Object.create(null);
+
+const MONTH_CACHE_PREFIX='gastos2026_month_snapshot_v1_';
+function cacheAccountKey(){
+ const source=api();
+ let hash=2166136261;
+ for(let i=0;i<source.length;i++){
+  hash^=source.charCodeAt(i);
+  hash=Math.imul(hash,16777619);
+ }
+ return (hash>>>0).toString(36);
+}
+function monthCacheKey(monthKey){
+ return MONTH_CACHE_PREFIX+cacheAccountKey()+'_'+monthKey;
+}
+function readMonthCache(monthKey){
+ try{
+  const raw=localStorage.getItem(monthCacheKey(monthKey));
+  if(!raw)return null;
+  const data=JSON.parse(raw);
+  if(data?.version!==1||data.month!==monthKey||!Array.isArray(data.entries)||!Number.isFinite(Number(data.savedAt)))return null;
+  return {month:monthKey,savedAt:Number(data.savedAt),exists:data.exists!==false,entries:data.entries.map(normalizeEntry)};
+ }catch(error){return null;}
+}
+function saveMonthCache(monthKey,rows,exists=true){
+ try{
+  const key=monthCacheKey(monthKey);
+  const data={version:1,month:monthKey,savedAt:Date.now(),exists:exists!==false,entries:rows.map(normalizeEntry)};
+  localStorage.setItem(key,JSON.stringify(data));
+  const prefix=MONTH_CACHE_PREFIX+cacheAccountKey()+'_';
+  const saved=[];
+  for(let i=0;i<localStorage.length;i++){
+   const storageKey=localStorage.key(i);
+   if(!storageKey||!storageKey.startsWith(prefix))continue;
+   try{
+    const value=JSON.parse(localStorage.getItem(storageKey)||'null');
+    saved.push({key:storageKey,savedAt:Number(value?.savedAt)||0});
+   }catch(error){saved.push({key:storageKey,savedAt:0});}
+  }
+  saved.sort((a,b)=>b.savedAt-a.savedAt);
+  saved.slice(24).forEach(item=>localStorage.removeItem(item.key));
+  return true;
+ }catch(error){return false;}
+}
+function formatCacheDate(timestamp){
+ const date=new Date(timestamp);
+ return date.toLocaleDateString('pt-BR')+' às '+date.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function hydrateAnalyticsCache(baseMonth){
+ const isDesktop=window.matchMedia('(min-width: 980px)').matches;
+ const keys=isDesktop?Array.from({length:5},(_,i)=>monthOffset(baseMonth,i-5)):[monthOffset(baseMonth,-1)];
+ keys.forEach(key=>{
+  const cached=readMonthCache(key);
+  if(cached)analyticsHistory.set(key,cached.entries);
+ });
+}
+function loadCachedMonth(monthKey){
+ const cached=readMonthCache(monthKey);
+ if(!cached)return false;
+ entries=cached.entries;
+ monthExists=cached.exists;
+ hydrateAnalyticsCache(monthKey);
+ $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
+ setStatus('Dados salvos · atualizando',false);
+ render();
+ return true;
+}
+
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,'0');
+const now=new Date();
+const monthNow=`${now.getFullYear()}-${pad(now.getMonth()+1)}`;
+
+function getSavedMonth(){
+ try{
+  const saved=localStorage.getItem(MONTH_STORAGE_KEY)||'';
+  return /^\d{4}-(0[1-9]|1[0-2])$/.test(saved)?saved:monthNow;
+ }catch(e){
+  return monthNow;
+ }
+}
+
+function saveCurrentMonth(){
+ try{
+  localStorage.setItem(MONTH_STORAGE_KEY,month);
+ }catch(e){}
+}
+
+let month=getSavedMonth();
+let stored='';
+
+try{stored=localStorage.getItem(STORAGE_KEY)||''}catch(e){}
+$('apiUrl').value=stored;
+
+const money=n=>Number(n||0).toLocaleString('pt-BR',{style:'currency',currency:'BRL'});
+const safe=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const sum=a=>a.reduce((s,x)=>s+Number(x.valor||0),0);
+
+function monthLabel(m){
+ const [y,mo]=m.split('-').map(Number);
+ const s=new Date(y,mo-1,1).toLocaleDateString('pt-BR',{month:'long',year:'numeric'});
+ return s.charAt(0).toUpperCase()+s.slice(1);
+}
+
+function shiftMonth(d){
+ const [y,mo]=month.split('-').map(Number);
+ const dt=new Date(y,mo-1+d,1);
+ month=`${dt.getFullYear()}-${pad(dt.getMonth()+1)}`;
+ saveCurrentMonth();
+ if(!loadCachedMonth(month)){
+  entries=[];
+  render();
+ }
+ load();
+}
+
+function setStatus(t,ok){
+ $('statusText').textContent=t;
+ $('status').className='status'+(ok?'':' off');
+ $('sidebarStatusText').textContent=t;
+ $('sidebarStatusDot').className='sidebar-status-dot'+(ok?'':' off');
+}
+
+function message(id,t,err=false){
+ $(id).textContent=t;
+ $(id).className='msg'+(err?' error':'');
+}
+
+let tt;
+function toast(t,err=false){
+ const el=$('toast');
+ el.textContent=t;
+ el.className='toast show'+(err?' err':'');
+ clearTimeout(tt);
+ tt=setTimeout(()=>{el.className='toast'},err?6000:2200);
+}
+
+function api(){return ($('apiUrl').value||stored||'').trim()}
+
+const APP_VERSION=document.querySelector('meta[name="app-version"]')?.content||'0.0.0';
+const APP_UPDATE_INTERVAL=20000;
+let appUpdateCheckRunning=false;
+let appUpdateDismissedVersion='';
+let appUpdatePending=null;
+
+function compareAppVersions(a,b){
+ const left=String(a||'').split('.').map(x=>Number.parseInt(x,10));
+ const right=String(b||'').split('.').map(x=>Number.parseInt(x,10));
+ if(left.length!==3||right.length!==3||[...left,...right].some(x=>!Number.isInteger(x)||x<0))return 0;
+ for(let i=0;i<3;i++){
+  if(left[i]>right[i])return 1;
+  if(left[i]<right[i])return -1;
+ }
+ return 0;
+}
+
+function validAppVersion(value){
+ const parts=String(value||'').split('.');
+ return parts.length===3&&parts.every(part=>
+  part.length>0&&[...part].every(character=>character>='0'&&character<='9')
+ );
+}
+
+function showAppUpdate(release){
+ if(!release||!$('updateOverlay').hidden||!$('overlay').hidden)return;
+ appUpdatePending=release;
+ $('updateCurrentVersion').textContent='v'+APP_VERSION;
+ $('updateNewVersion').textContent='v'+release.version;
+ $('updateReleaseNotes').textContent=String(release.notes||'Atualizações e melhorias do aplicativo.');
+ $('updateOverlay').hidden=false;
+ $('updateNowBtn').disabled=false;
+ $('updateLaterBtn').disabled=false;
+ $('updateNowBtn').textContent='Atualizar agora';
+}
+
+function closeAppUpdate(){
+ $('updateOverlay').hidden=true;
+}
+
+
+let appServiceWorkerPromise=null;
+let appServiceWorkerRegistration=null;
+let appServiceWorkerLastCheck=0;
+let appServiceWorkerRefreshTimer=null;
+
+function initAppServiceWorker(){
+ if(!('serviceWorker' in navigator))return Promise.resolve(null);
+ if(location.protocol!=='https:'&&location.hostname!=='localhost')return Promise.resolve(null);
+ if(appServiceWorkerPromise)return appServiceWorkerPromise;
+
+ appServiceWorkerPromise=(async()=>{
+  try{
+   const appRoot=new URL('./',document.baseURI);
+   const workerUrl=new URL('sw.js',appRoot);
+   const registration=await navigator.serviceWorker.register(workerUrl.href,{
+    scope:appRoot.pathname,
+    updateViaCache:'none'
+   });
+   appServiceWorkerRegistration=registration;
+
+   const requestWorkerUpdate=()=>{
+    if(document.hidden||!appServiceWorkerRegistration)return;
+    const now=Date.now();
+    if(now-appServiceWorkerLastCheck<60000)return;
+    appServiceWorkerLastCheck=now;
+    appServiceWorkerRegistration.update().catch(()=>{});
+   };
+
+   requestWorkerUpdate();
+   if(!appServiceWorkerRefreshTimer){
+    appServiceWorkerRefreshTimer=setInterval(requestWorkerUpdate,2*60*1000);
+    document.addEventListener('visibilitychange',requestWorkerUpdate);
+    window.addEventListener('focus',requestWorkerUpdate);
+   }
+   return registration;
+  }catch(error){
+   // O app continua utilizável mesmo se o navegador bloquear Service Workers.
+   appServiceWorkerPromise=null;
+   return null;
+  }
+ })();
+ return appServiceWorkerPromise;
+}
+
+
+function askServiceWorkerVersion(worker){
+ return new Promise(resolve=>{
+  if(!worker||typeof MessageChannel==='undefined'){resolve('');return;}
+  let finished=false;
+  const channel=new MessageChannel();
+  const finish=value=>{
+   if(finished)return;
+   finished=true;
+   clearTimeout(timer);
+   try{channel.port1.close();channel.port2.close()}catch(error){}
+   resolve(value||'');
+  };
+  const timer=setTimeout(()=>finish(''),700);
+  channel.port1.onmessage=event=>finish(event.data?.version||'');
+  try{worker.postMessage('GET_APP_VERSION',[channel.port2])}
+  catch(error){finish('')}
+ });
+}
+
+async function waitForAppServiceWorker(registration,maxWait=15000){
+ if(!registration||!navigator.serviceWorker)return false;
+ const deadline=Date.now()+maxWait;
+ while(Date.now()<deadline){
+  const active=registration.active||navigator.serviceWorker.controller;
+  const activeVersion=await askServiceWorkerVersion(active);
+  if(activeVersion===APP_VERSION)return true;
+  await new Promise(resolve=>setTimeout(resolve,300));
+ }
+ return false;
+}
+
+function clearAppUpdateHandoff(){
+ try{
+  const currentUrl=new URL(window.location.href);
+  if(currentUrl.searchParams.has('_app_update')){
+   currentUrl.searchParams.delete('_app_update');
+   window.history.replaceState(null,'',currentUrl.toString());
+  }
+ }catch(error){}
+}
+
+async function checkForAppUpdate(manual=false){
+ if(appUpdateCheckRunning||document.hidden||!$('updateOverlay').hidden||!$('overlay').hidden){
+  if(manual)message('manualUpdateMessage','Já existe uma verificação em andamento.',true);
+  return;
+ }
+ appUpdateCheckRunning=true;
+ const manualButton=manual?$('manualUpdateCheck'):null;
+ if(manualButton){
+  manualButton.disabled=true;
+  manualButton.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';
+  message('manualUpdateMessage','Consultando a publicação mais recente…');
+ }
+ try{
+  const cacheKey=Date.now().toString();
+  const versionResponse=await fetch('./version.json?check='+cacheKey,{cache:'no-store'});
+  if(!versionResponse.ok){
+   if(manual)message('manualUpdateMessage','Não consegui consultar a versão. Verifique sua conexão e tente novamente.',true);
+   return;
+  }
+  const release=await versionResponse.json();
+  if(!release||release.ready!==true||!validAppVersion(release.version)){
+   if(manual)message('manualUpdateMessage','O arquivo de versão ainda não está pronto. Tente novamente em instantes.',true);
+   return;
+  }
+  const versionOrder=compareAppVersions(release.version,APP_VERSION);
+  if(versionOrder<=0){
+   if(manual){
+    if(versionOrder===0)message('manualUpdateMessage','Você já está usando a versão mais recente (v'+APP_VERSION+').');
+    else message('manualUpdateMessage','A publicação da versão atual ainda está sendo concluída. Tente novamente em instantes.',true);
+   }
+   return;
+  }
+  if(appUpdateDismissedVersion===release.version&&!manual)return;
+
+  const htmlResponse=await fetch('./index.html?check='+cacheKey,{cache:'no-store'});
+  if(!htmlResponse.ok){
+   if(manual)message('manualUpdateMessage','A nova versão foi anunciada, mas a publicação ainda está terminando. Tente novamente em instantes.',true);
+   return;
+  }
+  const publishedHtml=await htmlResponse.text();
+  const versionMetaTag=publishedHtml.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'';
+  const publishedMeta=versionMetaTag.match(/content=["']([^"']+)["']/i);
+  const deployedVersion=publishedMeta?.[1]||'';
+  if(deployedVersion!==release.version){
+   if(manual)message('manualUpdateMessage','A atualização ainda está sendo publicada. Aguarde um pouco e verifique novamente.',true);
+   return;
+  }
+
+  const workerResponse=await fetch('./sw.js?check='+cacheKey,{cache:'no-store'});
+  if(!workerResponse.ok){
+   if(manual)message('manualUpdateMessage','O arquivo de atualização ainda não está disponível. Tente novamente em instantes.',true);
+   return;
+  }
+  const workerSource=await workerResponse.text();
+  const workerVersionLine=workerSource.match(/const APP_VERSION[^;]*;/)?.[0]||'';
+  const workerVersionMatch=workerVersionLine.match(/["']([^"']+)["']/);
+  if(workerVersionMatch?.[1]!==release.version){
+   if(manual)message('manualUpdateMessage','A instalação da nova versão ainda está sendo preparada. Tente novamente em instantes.',true);
+   return;
+  }
+  if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
+  appUpdateDismissedVersion='';
+  showAppUpdate(release);
+  if(manual)message('manualUpdateMessage','Nova versão v'+release.version+' pronta para instalar.');
+ }catch(error){
+  if(manual)message('manualUpdateMessage','Não foi possível verificar agora. Confira a conexão e tente novamente.',true);
+ }finally{
+  appUpdateCheckRunning=false;
+  if(manualButton){
+   manualButton.disabled=false;
+   manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
+  }
+ }
+}
+function initAppUpdateChecker(){
+ appUpdateDismissedVersion='';
+ $('settingsAppVersion').textContent='v'+APP_VERSION;
+ $('headerAppVersion').textContent='v'+APP_VERSION;
+ $('sidebarAppVersion').textContent='Versão '+APP_VERSION;
+ $('manualUpdateCheck').addEventListener('click',()=>{
+  appUpdateDismissedVersion='';
+  checkForAppUpdate(true);
+ });
+ const updateHandoff=new URL(window.location.href).searchParams.has('_app_update');
+ const serviceWorkerReady=initAppServiceWorker();
+
+ if(updateHandoff){
+  $('updateInstallingOverlay').hidden=false;
+  const progressStartedAt=Date.now();
+  const minimumDisplayTime=10000;
+  let progress=0;
+  const paintUpdateProgress=value=>{
+   progress=Math.max(0,Math.min(100,Math.round(value)));
+   $('updateProgressFill').style.width=progress+'%';
+   $('updateProgressPercent').textContent=progress+'%';
+   $('updateProgressFill').parentElement.setAttribute('aria-valuenow',String(progress));
+   $('updateInstallingTitle').textContent=progress<58?'Baixando atualização':'Instalando atualização';
+   $('updateInstallingText').textContent=progress<58
+    ?'Baixando e preparando os arquivos da nova versão…'
+    :'Aplicando os arquivos e preparando o aplicativo…';
+   $('updateProgressLabel').textContent=progress<58?'Transferindo arquivos':'Finalizando instalação';
+  };
+  paintUpdateProgress(0);
+  const progressTimer=setInterval(()=>{
+   const elapsed=Date.now()-progressStartedAt;
+   // Progresso visual suave de aproximadamente 10 segundos; só chega a 100% após confirmação real.
+   paintUpdateProgress(Math.min(92,(elapsed/9000)*92));
+  },100);
+  Promise.resolve(serviceWorkerReady).then(registration=>
+   waitForAppServiceWorker(registration,15000)
+  ).then(async ready=>{
+   if(ready){
+    const remaining=Math.max(0,minimumDisplayTime-(Date.now()-progressStartedAt));
+    if(remaining)await new Promise(resolve=>setTimeout(resolve,remaining));
+    clearInterval(progressTimer);
+    paintUpdateProgress(100);
+    setTimeout(()=>{
+     $('updateInstallingOverlay').hidden=true;
+     clearAppUpdateHandoff();
+     toast('Atualização instalada e pronta.');
+    },450);
+   }else{
+    clearInterval(progressTimer);
+    $('updateInstallingOverlay').hidden=true;
+    clearAppUpdateHandoff();
+    toast('A versão nova abriu. A instalação do cache será tentada novamente quando a conexão estiver estável.',true);
+   }
+  }).catch(()=>{
+   clearInterval(progressTimer);
+   $('updateInstallingOverlay').hidden=true;
+   clearAppUpdateHandoff();
+   toast('A versão nova abriu, mas não foi possível confirmar o cache local.',true);
+  });
+ }else{
+  clearAppUpdateHandoff();
+ }
+
+ $('updateNowBtn').addEventListener('click',()=>{
+  if(!appUpdatePending)return;
+  $('updateNowBtn').disabled=true;
+  $('updateLaterBtn').disabled=true;
+  $('updateNowBtn').textContent='Atualizando…';
+  try{
+   const target=new URL(window.location.href);
+   target.searchParams.set('_app_update',Date.now().toString());
+   window.location.replace(target.toString());
+  }catch(error){
+   window.location.reload();
+  }
+ });
+ $('updateLaterBtn').addEventListener('click',()=>{
+  if(appUpdatePending)appUpdateDismissedVersion=appUpdatePending.version;
+  closeAppUpdate();
+ });
+ setTimeout(checkForAppUpdate,1200);
+ setInterval(()=>{
+  if(!document.hidden)checkForAppUpdate();
+ },APP_UPDATE_INTERVAL);
+ document.addEventListener('visibilitychange',()=>{
+  if(!document.hidden){
+   appUpdateDismissedVersion='';
+   checkForAppUpdate();
+  }
+ });
+ window.addEventListener('focus',()=>{
+  appUpdateDismissedVersion='';
+  checkForAppUpdate();
+ });
+}
+
+function syncPrivacyHistoryTitles(){
+ document.querySelectorAll('#monthlyHistory .history-month').forEach(el=>{
+  if(privacyMode){
+   if(el.hasAttribute('title')){
+    el.dataset.privacyTitle=el.getAttribute('title');
+    el.removeAttribute('title');
+   }
+  }else if(el.dataset.privacyTitle){
+   el.setAttribute('title',el.dataset.privacyTitle);
+   delete el.dataset.privacyTitle;
+  }
+ });
+}
+
+function setPrivacyMode(hidden,persist=true){
+ privacyMode=!!hidden;
+ document.body.classList.toggle('privacy-mode',privacyMode);
+ const button=$('privacyToggle');
+ if(button){
+  button.classList.toggle('active',privacyMode);
+  button.setAttribute('aria-pressed',String(privacyMode));
+  button.setAttribute('aria-label',privacyMode?'Mostrar saldos e gastos':'Ocultar saldos e gastos');
+  button.title=privacyMode?'Mostrar saldos e gastos':'Ocultar saldos e gastos';
+ }
+ syncPrivacyHistoryTitles();
+ if(persist){
+  try{localStorage.setItem(PRIVACY_STORAGE_KEY,privacyMode?'1':'0')}catch(error){}
+ }
+}
+
+const SETTINGS_STORAGE_KEY='gastos2026_preferences_v1';
+const DEFAULT_SETTINGS={appearance:'system',defaultView:'overview',privacyStartup:false,pendingReminder:true};
+let appSettings={...DEFAULT_SETTINGS};
+function readAppSettings(){
+ try{const saved=JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)||'{}');appSettings={...DEFAULT_SETTINGS,...saved}}catch(error){appSettings={...DEFAULT_SETTINGS}}
+}
+function applyAppearance(){
+ const root=document.documentElement;
+ root.dataset.theme=appSettings.appearance==='system'?'system':appSettings.appearance;
+ const manualLight=document.getElementById('manualLightTheme');
+ if(manualLight)manualLight.disabled=appSettings.appearance!=='light';
+ root.style.colorScheme=appSettings.appearance==='system'?'':appSettings.appearance;
+}
+function saveAppSettings(){
+ try{localStorage.setItem(SETTINGS_STORAGE_KEY,JSON.stringify(appSettings))}catch(error){toast('Não foi possível salvar as preferências neste aparelho.',true)}
+}
+function initAppSettings(){
+ readAppSettings();applyAppearance();
+ $('appearanceSetting').value=appSettings.appearance;
+ $('defaultViewSetting').value=appSettings.defaultView;
+ $('privacyStartupSetting').checked=!!appSettings.privacyStartup;
+ $('pendingReminderSetting').checked=appSettings.pendingReminder!==false;
+ $('aboutAppVersion').textContent='v'+APP_VERSION;
+ $('appearanceSetting').addEventListener('change',()=>{appSettings.appearance=$('appearanceSetting').value;applyAppearance();saveAppSettings()});
+ $('defaultViewSetting').addEventListener('change',()=>{appSettings.defaultView=$('defaultViewSetting').value;saveAppSettings();toast('Tela inicial atualizada')});
+ $('privacyStartupSetting').addEventListener('change',()=>{appSettings.privacyStartup=$('privacyStartupSetting').checked;setPrivacyMode(appSettings.privacyStartup);saveAppSettings()});
+ $('pendingReminderSetting').addEventListener('change',()=>{appSettings.pendingReminder=$('pendingReminderSetting').checked;saveAppSettings()});
+ $('exportCsvBtn').addEventListener('click',exportLoadedEntriesCsv);
+ $('exportMonthPdfBtn').addEventListener('click',exportMonthPdf);
+ $('backupJsonBtn').addEventListener('click',exportLoadedEntriesJson);
+}
+function downloadSettingsFile(content,type,filename){
+ const blob=new Blob(['\ufeff'+content],{type});
+ const url=URL.createObjectURL(blob);
+ const a=document.createElement('a');a.href=url;a.download=filename;a.click();
+ setTimeout(()=>URL.revokeObjectURL(url),1000);
+}
+function exportMonthPdf(){
+ const monthEntries=entries.filter(item=>item.mes===month);
+ const reportMonth=monthLabel(month);
+ const totalIncome=sum(monthEntries.filter(item=>item.tipo==='Entrada'));
+ const totalExpenses=sum(monthEntries.filter(item=>item.tipo!=='Entrada'));
+ const balance=totalIncome-totalExpenses;
+ const paidIncome=sum(monthEntries.filter(item=>item.tipo==='Entrada'&&item.pago));
+ const pendingIncome=sum(monthEntries.filter(item=>item.tipo==='Entrada'&&!item.pago));
+ const paidExpenses=sum(monthEntries.filter(item=>item.tipo!=='Entrada'&&item.pago));
+ const pendingExpenses=sum(monthEntries.filter(item=>item.tipo!=='Entrada'&&!item.pago));
+ const printWindow=window.open('','_blank');
+ if(!printWindow){toast('Permita a abertura de janelas para gerar o PDF.',true);return;}
+ const rows=monthEntries.slice().sort((a,b)=>{
+  if(a.tipo!==b.tipo)return a.tipo==='Entrada'?1:-1;
+  return decodeCategory(a.categoria).description.localeCompare(decodeCategory(b.categoria).description,'pt-BR');
+ });
+ const tableRows=rows.map(item=>{
+  const info=decodeCategory(item.categoria);
+  const isIncome=item.tipo==='Entrada';
+  const category=isIncome?'Entrada':(info.category||inferExpenseCategory(info.description)||'Sem categoria');
+  const nature=isIncome?'—':(info.nature||'—');
+  return '<tr><td><span class="type '+(isIncome?'income':'expense')+'">'+(isIncome?'Entrada':'Despesa')+'</span></td>'+
+   '<td><strong>'+safe(info.description||'Sem descrição')+(info.important?' ★':'')+'</strong></td>'+
+   '<td>'+safe(category)+(nature!=='—'?'<small>'+safe(nature)+'</small>':'')+'</td>'+
+   '<td>'+safe(item.pessoa||'—')+'</td>'+
+   '<td><span class="status '+(item.pago?'paid':'pending')+'">'+(item.pago?(isIncome?'Recebida':'Paga'):(isIncome?'A receber':'Pendente'))+'</span></td>'+
+   '<td class="amount '+(isIncome?'positive':'')+'">'+(isIncome?'+ ':'− ')+safe(money(item.valor))+'</td></tr>';
+ }).join('');
+ const generatedAt=new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
+ const html='<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Meu Dinheiro · '+safe(reportMonth)+'</title><style>'+
+ '*{box-sizing:border-box}body{margin:0;background:#eef2f6;color:#172334;font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.page{max-width:980px;margin:28px auto;padding:34px;background:#fff;border:1px solid #e2e8ef;border-radius:18px;box-shadow:0 12px 36px rgba(25,45,70,.08)}'+
+ '.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:22px;border-bottom:2px solid #176fc1}.brand{font-size:12px;font-weight:800;letter-spacing:1.7px;color:#176fc1;text-transform:uppercase}.title{margin:8px 0 3px;font-size:27px;line-height:1.15;letter-spacing:-.7px}.subtitle{margin:0;color:#68788b;font-size:12px}.period{padding:9px 13px;border:1px solid #dce5ef;border-radius:10px;background:#f6f9fc;color:#53677d;font-size:11px;font-weight:700;white-space:nowrap}'+
+ '.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:22px 0 15px}.metric{padding:15px;border:1px solid #e2e9f0;border-radius:12px;background:#f9fbfd}.metric span{display:block;color:#68788b;font-size:10px;font-weight:750;letter-spacing:.65px;text-transform:uppercase}.metric strong{display:block;margin-top:7px;font-size:19px;letter-spacing:-.4px}.metric.income strong{color:#16865f}.metric.expense strong{color:#c34c55}.metric.balance strong{color:'+ (balance>=0?'#16865f':'#c34c55') +'}'+
+ '.details{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 25px}.detail{padding:10px 12px;border-radius:9px;background:#f3f6f9}.detail span{display:block;color:#758497;font-size:10px}.detail strong{display:block;margin-top:3px;font-size:12px}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}.section-title h2{margin:0;font-size:15px}.section-title span{color:#758497;font-size:10px}'+
+ 'table{width:100%;border-collapse:collapse;font-size:11px}thead{display:table-header-group}th{padding:10px 8px;background:#f0f4f8;color:#53677d;text-align:left;font-size:9px;letter-spacing:.55px;text-transform:uppercase;border-bottom:1px solid #dce5ed}td{padding:10px 8px;border-bottom:1px solid #e8edf2;vertical-align:middle}td strong{font-size:11px}td small{display:block;margin-top:2px;color:#8290a0;font-size:9px}.type,.status{display:inline-block;padding:4px 7px;border-radius:6px;font-size:9px;font-weight:750;white-space:nowrap}.type.income{background:#e6f5ee;color:#16865f}.type.expense{background:#fff0ed;color:#b94c46}.status.paid{background:#eaf5ef;color:#16865f}.status.pending{background:#fff5df;color:#986b16}.amount{text-align:right;white-space:nowrap;font-weight:750;font-variant-numeric:tabular-nums}.amount.positive{color:#16865f}.empty{padding:28px;text-align:center;color:#758497;background:#f8fafc;border:1px dashed #d5dee8;border-radius:10px}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:24px;padding-top:12px;border-top:1px solid #e3e9ef;color:#8793a1;font-size:9px}'+
+ '.actions{display:flex;justify-content:flex-end;gap:8px;max-width:980px;margin:0 auto 18px}.actions button{padding:10px 16px;border:0;border-radius:9px;background:#176fc1;color:#fff;font-weight:700;font-size:12px;cursor:pointer}.actions .secondary{background:#e6edf4;color:#34485d}'+
+ '@page{size:A4 portrait;margin:12mm}@media print{body{background:#fff}.page{max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}.actions{display:none}.metric,.detail,th,.period{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{break-inside:avoid;page-break-inside:avoid}.section-title{break-after:avoid}thead{display:table-header-group}}@media(max-width:650px){.page{margin:0;padding:18px;border-radius:0}.title{font-size:22px}.summary{gap:7px}.metric{padding:10px}.metric strong{font-size:15px}.details{grid-template-columns:repeat(2,minmax(0,1fr))}table{font-size:9px}th,td{padding:8px 5px}.top{align-items:flex-start}.period{font-size:9px}}'+
+ '</style></head><body><div class="actions"><button class="secondary" onclick="window.close()">Fechar</button><button onclick="window.print()">Imprimir / Salvar PDF</button></div><main class="page">'+
+ '<header class="top"><div><div class="brand">Meu Dinheiro</div><h1 class="title">Relatório financeiro</h1><p class="subtitle">Resumo de movimentações e situação financeira do período</p></div><div class="period">'+safe(reportMonth)+'</div></header>'+
+ '<section class="summary"><div class="metric income"><span>Total de entradas</span><strong>'+safe(money(totalIncome))+'</strong></div><div class="metric expense"><span>Total de despesas</span><strong>'+safe(money(totalExpenses))+'</strong></div><div class="metric balance"><span>Saldo do mês</span><strong>'+safe(money(balance))+'</strong></div></section>'+
+ '<section class="details"><div class="detail"><span>Entradas recebidas</span><strong>'+safe(money(paidIncome))+'</strong></div><div class="detail"><span>Entradas a receber</span><strong>'+safe(money(pendingIncome))+'</strong></div><div class="detail"><span>Despesas pagas</span><strong>'+safe(money(paidExpenses))+'</strong></div><div class="detail"><span>Despesas pendentes</span><strong>'+safe(money(pendingExpenses))+'</strong></div></section>'+
+ '<section><div class="section-title"><h2>Lançamentos do mês</h2><span>'+rows.length+' '+(rows.length===1?'registro':'registros')+'</span></div>'+
+ (rows.length?'<table><thead><tr><th>Tipo</th><th>Descrição</th><th>Categoria</th><th>Pessoa</th><th>Status</th><th style="text-align:right">Valor</th></tr></thead><tbody>'+tableRows+'</tbody></table>':'<div class="empty">Nenhum lançamento cadastrado neste mês.</div>')+
+ '</section><footer class="footer"><span>Documento gerado pelo Meu Dinheiro</span><span>Gerado em '+safe(generatedAt)+'</span></footer></main><script>window.addEventListener("load",()=>setTimeout(()=>window.print(),350));<\/script></body></html>';
+ try{
+  printWindow.document.open();printWindow.document.write(html);printWindow.document.close();
+  toast('Relatório do mês preparado para impressão.');
+ }catch(error){printWindow.close();toast('Não foi possível preparar o relatório em PDF.',true);}
+}
+
+function exportLoadedEntriesCsv(){
+ if(!entries.length){toast('Não há lançamentos carregados para exportar.',true);return}
+ const fields=['id','mes','pessoa','tipo','categoria','categoriaDespesa','valor','pago'];
+ const quote=value=>'"'+String(value??'').replace(/"/g,'""')+'"';
+ const csv=[fields.join(';'),...entries.map(row=>fields.map(key=>quote(key==='valor'?Number(row[key]||0).toFixed(2).replace('.',','):key==='pago'?(row[key]?'Sim':'Não'):row[key])).join(';'))].join('\r\n');
+ downloadSettingsFile(csv,'text/csv;charset=utf-8','meu-dinheiro-lancamentos.csv');
+ toast('Arquivo CSV preparado');
+}
+function exportLoadedEntriesJson(){
+ if(!entries.length){toast('Não há lançamentos carregados para salvar.',true);return}
+ const data={app:'Meu Dinheiro',version:APP_VERSION,exportedAt:new Date().toISOString(),month,entries};
+ downloadSettingsFile(JSON.stringify(data,null,2),'application/json;charset=utf-8','meu-dinheiro-backup.json');
+ toast('Cópia JSON preparada');
+}
+function showPendingReminder(){
+ if(!appSettings.pendingReminder)return;
+ const expenses=entries.filter(x=>x.tipo!=='Entrada'&&!x.pago);
+ const income=entries.filter(x=>x.tipo==='Entrada'&&!x.pago);
+ if(expenses.length||income.length){
+  const parts=[];
+  if(expenses.length)parts.push(expenses.length+' despesa(s) pendente(s)');
+  if(income.length)parts.push(income.length+' entrada(s) a receber');
+  toast('Resumo do mês: '+parts.join(' · '),false);
+ }
+}
+
+function initPrivacyMode(){
+ let saved=false;
+ try{saved=localStorage.getItem(PRIVACY_STORAGE_KEY)==='1'}catch(error){}
+ if(appSettings.privacyStartup)saved=true;
+ setPrivacyMode(saved,false);
+}
+
+$('privacyToggle').addEventListener('click',()=>setPrivacyMode(!privacyMode));
+
+function showBanner(t,cfg){
+ const b=$('banner');
+ b.hidden=!t;
+ b.innerHTML=safe(t)+(cfg?'<button type="button" id="cfgBtn">Configurar conexão</button>':'');
+}
+
+$('banner').addEventListener('click',e=>{
+ if(e.target.id==='cfgBtn'){
+  switchView('connection');
+  $('apiUrl').focus();
+ }
+});
+
+function extractEntries(data){
+ if(Array.isArray(data))return data;
+ const candidates=[
+  data?.entries,data?.data,data?.lancamentos,data?.movimentacoes,
+  data?.state?.entries,data?.result?.entries
+ ];
+ return candidates.find(Array.isArray)||null;
+}
+
+const MESES=['janeiro','fevereiro','marco','abril','maio','junho','julho','agosto','setembro','outubro','novembro','dezembro'];
+
+function normMonth(v){
+ const s=String(v??'').trim();
+ if(/^\d{4}-\d{2}$/.test(s))return s;
+ if(/^\d{4}-\d{2}-\d{2}T/.test(s)){
+  const d=new Date(s);
+  return `${d.getFullYear()}-${pad(d.getMonth()+1)}`;
+ }
+ let m=s.match(/^(\d{4})-(\d{2})-\d{2}$/);
+ if(m)return m[1]+'-'+m[2];
+ m=s.match(/^(\d{1,2})\/(\d{4})$/);
+ if(m)return m[2]+'-'+m[1].padStart(2,'0');
+ m=s.match(/^\d{1,2}\/(\d{1,2})\/(\d{4})$/);
+ if(m)return m[2]+'-'+m[1].padStart(2,'0');
+ const t=s.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+ const i=MESES.findIndex(n=>t.startsWith(n)||t.startsWith(n.slice(0,3)));
+ if(i>=0){
+  const y=(t.match(/\d{4}/)||['2026'])[0];
+  return y+'-'+pad(i+1);
+ }
+ return s;
+}
+
+function normalizeEntry(x){
+ const paid=x.pago??x.Pago??x.paid??false;
+ let categoria=String(x.categoria??x.Categoria??x.category??'');
+ const markerCategory=(categoria.match(/\[!CAT:([A-Za-z]+)!\]/)||[])[1]||'';
+ const storedCategory=String(x.categoriaDespesa??x.CategoriaDespesa??'').trim();
+ const categoriaDespesa=storedCategory||markerCategory;
+ // Compatibilidade entre o formato antigo (marcador) e a coluna nova.
+ if(categoriaDespesa&&!/\[!CAT:[A-Za-z]+!\]/.test(categoria)){
+  categoria+=' [!CAT:'+categoriaDespesa+'!]';
+ }
+ return {
+  ...x,
+  id:String(x.id??x.ID??x.Id??''),
+  mes:normMonth(x.mes??x.Mes??x.month??''),
+  pessoa:String(x.pessoa??x.Pessoa??x.person??''),
+  tipo:String(x.tipo??x.Tipo??x.type??'Gasto'),
+  categoria,
+  categoriaDespesa,
+  valor:Number(x.valor??x.Valor??x.value??0),
+  pago:paid===true||paid===1||paid==='1'||
+   String(paid).toLowerCase()==='true'||String(paid).toLowerCase()==='sim'
+ };
+}
+
+async function load(){
+ const requestedMonth=month;
+ const url=api();
+
+ if(!url){
+  setStatus('Configure a conexão',false);
+  showBanner('O app ainda não está ligado à planilha. Configure a conexão para carregar seus lançamentos.',true);
+  render();
+  return false;
+ }
+
+ try{
+  setStatus('Atualizando…',true);
+  const r=await fetch(url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(requestedMonth)+'&_='+Date.now(),{cache:'no-store'});
+  if(!r.ok)throw Error('A planilha respondeu com erro HTTP '+r.status);
+
+  const d=await r.json();
+  if(d?.ok===false||d?.success===false)throw Error(d.error||d.message||'Não foi possível carregar os lançamentos');
+
+  const rows=extractEntries(d);
+  if(!rows)throw Error('A resposta do Apps Script não trouxe a lista de lançamentos.');
+
+  if(Object.prototype.hasOwnProperty.call(d,'budget'))monthlyBudgets[requestedMonth]=Math.max(0,Number(d.budget)||0);
+   const freshRows=rows.map(normalizeEntry);
+  applyPendingPaymentChanges(freshRows);
+  saveMonthCache(requestedMonth,freshRows,d.exists!==false);
+  // Uma resposta atrasada nunca deve substituir a tela de outro mês.
+  if(month!==requestedMonth)return true;
+  monthExists=d.exists!==false;
+  entries=freshRows;
+  const syncedAt=new Date();
+  $('lastSyncText').textContent=syncedAt.toLocaleDateString('pt-BR')+' às '+syncedAt.toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit',second:'2-digit'});
+  const shortMonth=monthShort(month);
+  setStatus('Conectada · '+entries.length+' · '+shortMonth.charAt(0).toUpperCase()+shortMonth.slice(1)+'/'+month.slice(0,4),true);
+  showBanner('');
+  render();
+  loadAnalyticsHistory();
+  return true;
+
+ }catch(e){
+  if(month!==requestedMonth)return false;
+  const cached=readMonthCache(requestedMonth);
+  if(cached){
+   entries=cached.entries;
+   monthExists=cached.exists;
+   applyPendingPaymentChanges(entries);
+   $('lastSyncText').textContent='Cópia local de '+formatCacheDate(cached.savedAt);
+   setStatus('Sem conexão · dados locais',false);
+   message('connectionMessage','Sem conexão com a planilha. Exibindo a última cópia salva neste aparelho.',true);
+   showBanner('Sem conexão com a planilha. Os dados exibidos são a última cópia salva neste aparelho, de '+formatCacheDate(cached.savedAt)+'.');
+   render();
+  }else{
+   setStatus('Falha na conexão',false);
+   message('connectionMessage',e.message,true);
+   showBanner('Não consegui ler a planilha: '+e.message);
+   toast(e.message,true);
+  }
+  return false;
+ }
+}
+
+let writeInFlight=false;
+const PAYMENT_SYNC_DELAY=3000;
+let pendingPaymentChanges=new Map();
+let paymentSyncTimer=null;
+let paymentSyncInFlight=false;
+
+function schedulePaymentSync(){
+ if(paymentSyncTimer)clearTimeout(paymentSyncTimer);
+ paymentSyncTimer=setTimeout(()=>{
+  paymentSyncTimer=null;
+  flushPaymentChanges();
+ },PAYMENT_SYNC_DELAY);
+}
+
+async function flushPaymentChanges(){
+ if(paymentSyncTimer){clearTimeout(paymentSyncTimer);paymentSyncTimer=null;}
+ // Aguarda qualquer outra gravação terminar antes de enviar os pagamentos.
+ while(paymentSyncInFlight||writeInFlight){
+  await new Promise(resolve=>setTimeout(resolve,50));
+ }
+ if(!pendingPaymentChanges.size)return true;
+ if(!api()){
+  toast('Pagamentos alterados aguardando conexão com a planilha.',true);
+  return false;
+ }
+
+ const batch=[...pendingPaymentChanges.entries()];
+ batch.forEach(([id])=>pendingPaymentChanges.delete(id));
+ paymentSyncInFlight=true;
+ writeInFlight=true;
+ let sent=0;
+ let failure=null;
+ try{
+  setStatus('Salvando pagamentos…',true);
+  const url=api();
+  for(let i=0;i<batch.length;i++){
+   const [id,pago]=batch[i];
+   try{
+    const response=await fetch(url,{
+     method:'POST',
+     headers:{'Content-Type':'text/plain;charset=utf-8'},
+     body:JSON.stringify({action:'togglePaid',id,pago})
+    });
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    const data=await response.json();
+    if(data?.ok===false||data?.success===false)throw new Error(data.error||data.message||'Falha ao salvar');
+    sent++;
+   }catch(error){
+    failure=error;
+    // Preserve any newer value queued while this batch was being sent.
+    for(let j=i;j<batch.length;j++){
+     const [pendingId,pendingValue]=batch[j];
+     if(!pendingPaymentChanges.has(pendingId))pendingPaymentChanges.set(pendingId,pendingValue);
+    }
+    break;
+   }
+  }
+
+  const refreshed=await load();
+  if(failure){
+   toast('Não consegui salvar todos os pagamentos ('+sent+' de '+batch.length+'). Vou tentar novamente.',true);
+  }else if(refreshed){
+   toast(batch.length===1?'Pagamento atualizado':batch.length+' pagamentos atualizados');
+  }
+  return !failure&&refreshed;
+ }finally{
+  paymentSyncInFlight=false;
+  writeInFlight=false;
+  // Mudanças novas feitas enquanto o lote era enviado recebem sua própria espera.
+  if(pendingPaymentChanges.size&&!failure)schedulePaymentSync();
+ }
+}
+
+function applyPendingPaymentChanges(rows){
+ pendingPaymentChanges.forEach((pago,id)=>{
+  const item=rows.find(x=>String(x.id)===String(id));
+  if(item)item.pago=pago;
+ });
+}
+
+async function post(payload,refreshAfterSave=true){
+ const url=api();
+ if(!url){
+  toast('Configure a conexão com a planilha primeiro.',true);
+  showBanner('O app ainda não está ligado à planilha. Configure a conexão.',true);
+  return null;
+ }
+
+ try{
+  writeInFlight=true;
+  setStatus('Salvando…',true);
+  const body=payload.item?{...payload,...payload.item}:payload;
+  const r=await fetch(url,{
+   method:'POST',
+   headers:{'Content-Type':'text/plain;charset=utf-8'},
+   body:JSON.stringify(body)
+  });
+
+  if(!r.ok)throw Error('A planilha respondeu com erro HTTP '+r.status);
+  const d=await r.json();
+  if(d?.ok===false||d?.success===false)throw Error(d.error||d.message||'Falha ao salvar');
+
+  if(refreshAfterSave){
+   const refreshed=await load();
+   if(!refreshed)throw Error('Salvou, mas não consegui atualizar a lista. Toque em atualizar para tentar de novo.');
+  }
+  return d;
+
+ }catch(e){
+  setStatus('Erro ao sincronizar',false);
+  showBanner('Não consegui salvar: '+e.message);
+  toast(e.message,true);
+  return null;
+ }finally{
+  writeInFlight=false;
+ }
+}
+
+
+function monthKeysBetween(start,end,maxMonths=60){
+ if(!/^\d{4}-(0[1-9]|1[0-2])$/.test(start)||!/^\d{4}-(0[1-9]|1[0-2])$/.test(end))throw new Error('Informe os meses inicial e final.');
+ if(start>end)throw new Error('O mês inicial não pode ser posterior ao mês final.');
+ const keys=[];
+ let cursor=start;
+ while(cursor<=end){
+  keys.push(cursor);
+  if(keys.length>maxMonths)throw new Error('O período máximo permitido é de '+maxMonths+' meses.');
+  cursor=monthOffset(cursor,1);
+ }
+ return keys;
+}
+async function sendRawSave(item){
+ const url=api();
+ const payload={action:'save',item};
+ const body={...payload,...item};
+ const response=await fetch(url,{
+  method:'POST',
+  headers:{'Content-Type':'text/plain;charset=utf-8'},
+  body:JSON.stringify(body)
+ });
+ if(!response.ok)throw new Error('Erro HTTP '+response.status+' ao salvar '+monthLabel(item.mes)+'.');
+ const data=await response.json();
+ if(data?.ok===false||data?.success===false)throw new Error(data.error||data.message||'A planilha recusou um lançamento de '+monthLabel(item.mes)+'.');
+ return data;
+}
+
+async function sendRawDelete(id){
+ const url=api();
+ const response=await fetch(url,{
+  method:'POST',
+  headers:{'Content-Type':'text/plain;charset=utf-8'},
+  body:JSON.stringify({action:'delete',id})
+ });
+ if(!response.ok)throw new Error('Erro HTTP '+response.status+' ao excluir uma ocorrência mensal.');
+ const data=await response.json();
+ if(data?.ok===false||data?.success===false)throw new Error(data.error||data.message||'A planilha recusou a exclusão.');
+ return data;
+}
+
+async function fetchMonthRange(startMonth,endMonth){
+ if(startMonth>endMonth)return [];
+ const keys=monthKeysBetween(startMonth,endMonth,36);
+ const all=[];
+ for(let offset=0;offset<keys.length;offset+=6){
+  const batch=keys.slice(offset,offset+6);
+  const groups=await Promise.all(batch.map(async monthKey=>{
+   const url=api();
+   const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(monthKey)+'&_='+Date.now();
+   const response=await fetch(endpoint,{cache:'no-store'});
+   if(!response.ok)throw new Error('Não consegui consultar '+monthLabel(monthKey)+'.');
+   const data=await response.json();
+   if(data?.ok===false||data?.success===false)throw new Error(data.error||'Falha ao consultar '+monthLabel(monthKey)+'.');
+   const rows=extractEntries(data);
+   if(!rows)throw new Error('A resposta de '+monthLabel(monthKey)+' não contém lançamentos.');
+   return rows.map(normalizeEntry);
+  }));
+  all.push(...groups.flat());
+ }
+ return all;
+}
+
+async function fetchSeriesRange(startMonth,endMonth,seriesId){
+ if(!seriesId)return [];
+ return (await fetchMonthRange(startMonth,endMonth))
+  .filter(row=>decodeCategory(row.categoria).seriesId===seriesId);
+}
+
+function sameExpenseIdentity(candidate,reference){
+ const a=decodeCategory(candidate.categoria);
+ const b=decodeCategory(reference.categoria);
+ return candidate.tipo===reference.tipo &&
+  String(candidate.pessoa||'').trim()===String(reference.pessoa||'').trim() &&
+  a.nature===b.nature &&
+  searchText(a.description)===searchText(b.description);
+}
+
+const IMPORTANT_MARKER='[!IMPORTANTE!]';
+// Aceita também o marcador antigo, criado antes de armazenar o mês final da série.
+const SERIES_MARKER_REGEX=/\[!SERIE:([A-Za-z0-9_-]{6,80})(?::([^!\]]*))?!\]/;
+
+function normalizeSeriesEnd(value){
+ const raw=String(value||'').trim();
+ if(/^\d{4}-(?:0[1-9]|1[0-2])$/.test(raw))return raw;
+ const parsed=new Date(raw);
+ if(!Number.isNaN(parsed.getTime()))return parsed.getUTCFullYear()+'-'+pad(parsed.getUTCMonth()+1);
+ const match=raw.match(/\b(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)\s+\d{1,2}\s+(\d{4})\b/i);
+ if(match){
+  const months={jan:1,feb:2,mar:3,apr:4,may:5,jun:6,jul:7,aug:8,sep:9,oct:10,nov:11,dec:12};
+  return match[2]+'-'+pad(months[match[1].toLowerCase()]);
+ }
+ return '';
+}
+
+function createSeriesId(){
+ const generated=window.crypto?.randomUUID?.();
+ return generated?generated.replace(/-/g,''):'s'+Date.now().toString(36)+Math.random().toString(36).slice(2,12);
+}
+
+function decodeCategory(raw){
+ const text=String(raw||'');
+ const important=text.includes(IMPORTANT_MARKER);
+ const seriesMatch=text.match(SERIES_MARKER_REGEX);
+ const categoryMatch=text.match(/\[!CAT:([A-Za-z]+)!\]/);
+ const paymentMatch=text.match(/\[!PGTO:(PIX|BOLETO):([A-Za-z0-9_-]+)!\]/);
+ const clean=text.replace(IMPORTANT_MARKER,'').replace(SERIES_MARKER_REGEX,'').replace(/\[!CAT:[A-Za-z]+!\]/,'').replace(/\[!PGTO:(?:PIX|BOLETO):[A-Za-z0-9_-]+!\]/,'').trim();
+ const m=clean.match(/^\[(Fixa|Variável)\]\s*/);
+ let paymentCode='';
+ if(paymentMatch){try{paymentCode=decodeURIComponent(escape(atob(paymentMatch[2].replace(/-/g,'+').replace(/_/g,'/'))));}catch(error){}}
+ return {
+  important,
+  seriesId:seriesMatch?seriesMatch[1]:'',
+  seriesEnd:seriesMatch?normalizeSeriesEnd(seriesMatch[2]):'',
+  nature:m?m[1]:'',
+  category:categoryMatch?categoryMatch[1]:'',
+  paymentKind:paymentMatch?paymentMatch[1]:'',
+  paymentCode,
+  description:m?clean.replace(m[0],''):clean
+ };
+}
+
+function encodeCategory(desc,nat,tp,important,seriesId='',seriesEnd='',category='',paymentCode='',paymentKind=''){
+ const base=tp==='Entrada'?desc:`[${nat}] ${desc}`;
+ const code=String(paymentCode||'').trim();
+ const encoded=code?btoa(unescape(encodeURIComponent(code))).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,''):'';
+ return base
+  +(category?' [!CAT:'+category+'!]':'')
+  +(important?' '+IMPORTANT_MARKER:'')
+  +(seriesId?' [!SERIE:'+seriesId+':'+seriesEnd+'!]':'')
+  +(encoded?' [!PGTO:'+(paymentKind==='BOLETO'?'BOLETO':'PIX')+':'+encoded+'!]':'');
+}
+
+function searchText(value){
+ return String(value==null?'':value)
+  .toLocaleLowerCase('pt-BR')
+  .normalize('NFD')
+  .replace(/[\u0300-\u036f]/g,'')
+  .trim();
+}
+
+function visible(list){
+ const rawQuery=($('listSearch')?.value||'').trim();
+ const query=searchText(rawQuery);
+ return list.filter(x=>{
+  if(filter==='pending'&&x.pago)return false;
+  if(filter==='paid'&&!x.pago)return false;
+  if(filter==='income'&&x.tipo!=='Entrada')return false;
+
+  const category=decodeCategory(x.categoria);
+  if(detailFilter==='fixed'&&(x.tipo==='Entrada'||category.nature!=='Fixa'))return false;
+  if(detailFilter==='variable'&&(x.tipo==='Entrada'||category.nature!=='Variável'))return false;
+  if(importantFilter&&!category.important)return false;
+  if(selectedCategoryFilters.size){
+   const effectiveCategory=category.category||inferExpenseCategory(category.description)||'Sem categoria';
+   if(!selectedCategoryFilters.has(effectiveCategory))return false;
+  }
+
+  if(query){
+   const state=x.pago?'pago paga quitado quitada recebido recebida':'pendente em aberto nao pago nao paga';
+   const typeText=x.tipo==='Entrada'?'entrada receita renda':(category.nature==='Fixa'?'despesa fixa gasto fixo':category.nature==='Variável'?'despesa variavel gasto variavel':'despesa gasto');
+   const amountText=money(x.valor);
+   const text=[category.description,x.pessoa,x.tipo,category.nature,typeText,state,amountText].map(searchText).join(' ');
+   const digitsQuery=query.replace(/\D/g,'');
+   const digitsText=text.replace(/\\D/g,'')+' '+String(Number(x.valor)||0).replace(/\\D/g,'');
+   if(!text.includes(query)&&!(digitsQuery.length>0&&digitsText.includes(digitsQuery)))return false;
+  }
+  return true;
+ });
+}
+
+let incomeFilter='all';
+
+function visibleIncome(list){
+ const query=searchText($('incomeSearch')?.value||'');
+ return list.filter(x=>{
+  if(x.tipo!=='Entrada')return false;
+  if(incomeFilter==='pending'&&x.pago)return false;
+  if(incomeFilter==='received'&&!x.pago)return false;
+  if(query){
+   const category=decodeCategory(x.categoria);
+   const state=x.pago?'recebida recebidas recebido recebidos pago paga':'a receber pendente pendentes em aberto';
+   const searchable=[category.description,x.pessoa,'entrada receita renda',state,money(x.valor)].map(searchText).join(' ');
+   const digitsQuery=query.replace(/\\D/g,'');
+   const digitsText=searchable.replace(/\\D/g,'');
+   if(!searchable.includes(query)&&!(digitsQuery&&digitsText.includes(digitsQuery)))return false;
+  }
+  return true;
+ });
+}
+
+function renderIncomeView(monthEntries){
+ const all=monthEntries.filter(x=>x.tipo==='Entrada');
+ const visibleRows=visibleIncome(all).slice().reverse().sort((a,b)=>{
+  const ai=decodeCategory(a.categoria).important?1:0;
+  const bi=decodeCategory(b.categoria).important?1:0;
+  return bi-ai;
+ });
+ $('incomeMonthTotal').textContent=money(sum(all));
+ $('incomeMonthCount').textContent=all.length+' '+(all.length===1?'lançamento':'lançamentos');
+ $('incomeReceivedTotal').textContent=money(sum(all.filter(x=>x.pago)));
+ $('incomePendingTotal').textContent=money(sum(all.filter(x=>!x.pago)));
+ const expenses=monthEntries.filter(x=>x.tipo!=='Entrada');
+ const availableAfterPaid=sum(all.filter(x=>x.pago))-sum(expenses.filter(x=>x.pago));
+ $('incomeForecastAvailable').textContent=money(availableAfterPaid);
+ $('incomeVisibleCount').textContent=visibleRows.length;
+ $('incomeVisibleLabel').textContent=$('incomeSearch').value.trim()?'resultados encontrados':'entradas exibidas';
+ $('incomeVisibleTotal').textContent=money(sum(visibleRows));
+
+ if(!visibleRows.length){
+  let message;
+  if(!api())message='Configure a conexão com a planilha para carregar as entradas.';
+  else if(!all.length)message=monthExists?'Nenhuma entrada cadastrada neste mês.':'Este mês ainda não existe na planilha.';
+  else message='Nenhuma entrada corresponde à busca ou ao filtro selecionado.';
+  $('incomeList').innerHTML='<li class="empty">'+safe(message)+'<small>Use “Nova entrada” para cadastrar um recebimento.</small></li>';
+  return;
+ }
+ $('incomeList').innerHTML=visibleRows.map(x=>{
+  const c=decodeCategory(x.categoria);
+  const important=c.important;
+  const sub='Entrada · '+(x.pago?'recebida':'a receber');
+  return `<li class="row${x.pago?' done':''}${important?' important':''}" data-id="${safe(x.id)}">
+   <button type="button" class="check${x.pago?' on':''}" aria-label="${x.pago?'Marcar como pendente':'Marcar como recebida'}"></button>
+   <div class="main">
+    <div class="t">${safe(c.description||'Sem descrição')}${important?'<span class="important-star" title="Importante">★</span>':''}</div>
+    <div class="s">${safe(sub)}</div>
+   </div>
+   <span class="desktop-status">${x.pago?'Recebida':'A receber'}</span>
+   <div class="amt pos">+ ${money(x.valor)}</div>
+  </li>`;
+ }).join('');
+}
+
+function monthOffset(base,offset){
+ const [y,m]=base.split('-').map(Number);
+ const d=new Date(y,m-1+offset,1);
+ return d.getFullYear()+'-'+pad(d.getMonth()+1);
+}
+function monthShort(value){
+ const [y,m]=value.split('-').map(Number);
+ return new Date(y,m-1,1).toLocaleDateString('pt-BR',{month:'short'}).replace('.','');
+}
+async function loadAnalyticsHistory(force=false){
+ const isDesktop=window.matchMedia('(min-width: 980px)').matches;
+ const requestedBase=month;
+ if(analyticsHistoryLoading)return;
+ if(!force&&analyticsHistoryBase===requestedBase&&Date.now()-analyticsHistoryFetchedAt<90000)return;
+ analyticsHistoryLoading=true;
+ analyticsHistoryBase=requestedBase;
+ analyticsHistoryFetchedAt=Date.now();
+ const url=api();
+ if(!url){analyticsHistoryLoading=false;return;}
+ const historyMonths=isDesktop
+  ?Array.from({length:5},(_,i)=>monthOffset(requestedBase,i-5))
+  :[monthOffset(requestedBase,-1)];
+ historyMonths.forEach(key=>{
+  const cached=readMonthCache(key);
+  if(cached)analyticsHistory.set(key,cached.entries);
+ });
+ renderAnalytics(entries.filter(x=>x.mes===month));
+ try{
+  const results=await Promise.all(historyMonths.map(async monthKey=>{
+   try{
+    const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(monthKey)+'&_='+Date.now();
+    const response=await fetch(endpoint,{cache:'no-store'});
+    if(!response.ok)throw new Error('HTTP '+response.status);
+    const data=await response.json();
+    if(data?.ok===false||data?.success===false)throw new Error(data.error||'Falha na leitura');
+    const rows=extractEntries(data);
+    if(!rows)throw new Error('Resposta sem lançamentos');
+    const normalized=rows.map(normalizeEntry);
+    saveMonthCache(monthKey,normalized,data.exists!==false);
+    return [monthKey,normalized];
+   }catch(error){return [monthKey,null];}
+  }));
+  results.forEach(([key,rows])=>{if(rows)analyticsHistory.set(key,rows);});
+ }finally{
+  analyticsHistoryLoading=false;
+  renderAnalytics(entries.filter(x=>x.mes===month));
+  if(month!==requestedBase)loadAnalyticsHistory(true);
+ }
+}
+function getMonthlyBudget(monthKey){
+ return Number(monthlyBudgets[monthKey]||0)||0;
+}
+
+function renderCategoryBreakdown(expenses){
+ const totals=new Map();
+ expenses.forEach(item=>{
+  const info=decodeCategory(item.categoria);
+  const category=info.category||inferExpenseCategory(info.description)||'Sem categoria';
+  totals.set(category,(totals.get(category)||0)+Math.max(0,Number(item.valor)||0));
+ });
+ const rows=[...totals.entries()].filter(([,value])=>value>0).sort((a,b)=>b[1]-a[1]);
+ const total=rows.reduce((sum,row)=>sum+row[1],0);
+ $('categoryDonutTotal').textContent=money(total);
+ $('categoryBreakdownCount').textContent=rows.length+' '+(rows.length===1?'categoria':'categorias');
+ if(!rows.length||!total){
+  $('categoryDonut').style.background='conic-gradient(#34465b 0deg 360deg)';
+  $('categoryLegend').innerHTML='<div class="category-breakdown-empty">Nenhuma despesa neste mês.</div>';
+  return;
+ }
+ const palette=['#55b7ff','#5ce0ad','#f6bd60','#b69cff','#ff8c9b','#55d6d0','#f08b4e','#8ca4bd','#e4d36b','#d58acb','#80c78a','#7c91f5','#d6a47a','#a7b0bd'];
+ let cursor=0;
+ const segments=rows.map(([category,value],index)=>{
+  const start=cursor;
+  cursor+=value/total*360;
+  return {category,value,start,end:cursor,color:palette[index%palette.length],percent:value/total*100};
+ });
+ $('categoryDonut').style.background='conic-gradient('+segments.map(x=>x.color+' '+x.start.toFixed(2)+'deg '+x.end.toFixed(2)+'deg').join(',')+')';
+ $('categoryDonut').setAttribute('aria-label','Despesas por categoria: '+segments.map(x=>x.category+' '+x.percent.toFixed(1).replace('.',',')+' por cento').join('; '));
+ $('categoryLegend').innerHTML=segments.map(item=>'<div class="category-legend-item"><i class="category-legend-dot" style="background:'+item.color+'"></i><span class="category-legend-name" title="'+safe(item.category)+'">'+safe(EXPENSE_CATEGORY_META[item.category]?.label||item.category)+'</span><strong class="category-legend-value">'+money(item.value)+'<span class="category-legend-percent">'+item.percent.toFixed(0)+'%</span></strong></div>').join('');
+}
+
+function renderAnalytics(monthEntries){
+ $('analyticsMonthLabel').textContent=monthLabel(month);
+ const expenses=monthEntries.filter(x=>x.tipo!=='Entrada');
+ const incomes=monthEntries.filter(x=>x.tipo==='Entrada');
+ const expenseTotal=sum(expenses);
+ renderCategoryBreakdown(expenses);
+ const incomeTotal=sum(incomes);
+ const paid=expenses.filter(x=>x.pago);
+ const pending=expenses.filter(x=>!x.pago);
+ const paidTotal=sum(paid);
+ const pendingTotal=sum(pending);
+ const pct=expenseTotal>0?Math.round(paidTotal/expenseTotal*100):0;
+ const importantCount=monthEntries.filter(x=>decodeCategory(x.categoria).important).length;
+ const receivedIncome=sum(incomes.filter(x=>x.pago));
+ const availableAfterPaid=receivedIncome-paidTotal;
+ const projectedBalance=incomeTotal-expenseTotal;
+ $('forecastAvailable').textContent=money(availableAfterPaid);
+ $('forecastPending').textContent=money(pendingTotal);
+ $('forecastFinal').textContent=money(projectedBalance);
+ $('forecastFinal').className=projectedBalance<0?'negative-value':'positive-value';
+
+ const budget=getMonthlyBudget(month);
+ if(document.activeElement!==$('budgetInput'))$('budgetInput').value=budget>0?budget:'';
+ const budgetPct=budget>0?expenseTotal/budget*100:0;
+ $('budgetProgress').style.width=Math.min(100,budgetPct)+'%';
+ $('budgetProgress').className=budgetPct>100?'over-budget':'';
+ if(budget>0){
+  const remaining=budget-expenseTotal;
+  $('budgetFeedback').textContent=remaining>=0
+   ?'Restam '+money(remaining)+' da sua meta ('+Math.min(100,Math.round(budgetPct))+'% utilizado).'
+   :'Você ultrapassou a meta em '+money(Math.abs(remaining))+'.';
+  $('budgetFeedback').className='budget-feedback '+(remaining>=0?'within-budget':'over-budget-text');
+ }else{
+  $('budgetFeedback').textContent='Defina uma meta para acompanhar seus gastos.';
+  $('budgetFeedback').className='budget-feedback';
+ }
+
+ const previousKey=monthOffset(month,-1);
+ const previousRows=analyticsHistory.get(previousKey);
+ $('previousMonthName').textContent=monthShort(previousKey).toUpperCase()+' '+previousKey.slice(0,4);
+ $('currentMonthExpense').textContent=money(expenseTotal);
+ if(Array.isArray(previousRows)){
+  const previousExpense=sum(previousRows.filter(x=>x.tipo!=='Entrada'));
+  $('previousMonthExpense').textContent=money(previousExpense);
+  if(previousExpense>0){
+   const change=(expenseTotal-previousExpense)/previousExpense*100;
+   const rounded=Math.abs(change).toFixed(1).replace('.',',');
+   $('expenseChange').textContent=(change>0?'+':'')+rounded+'%';
+   $('expenseChange').className=change>0?'change-up':(change<0?'change-down':'change-neutral');
+   $('expenseChangeLabel').textContent=change>0?'Despesas aumentaram':(change<0?'Despesas diminuíram':'Despesas sem alteração');
+   $('previousMonthNote').textContent=change>0?'Você gastou mais que no mês anterior.':(change<0?'Você gastou menos que no mês anterior.':'Você gastou o mesmo que no mês anterior.');
+  }else{
+   $('expenseChange').textContent='—';
+   $('expenseChange').className='change-neutral';
+   $('expenseChangeLabel').textContent='Sem base de comparação';
+   $('previousMonthNote').textContent=expenseTotal>0?'Não houve despesas no mês anterior.':'Nenhuma despesa nos dois meses.';
+  }
+ }else{
+  $('previousMonthExpense').textContent='Indisponível';
+  $('expenseChange').textContent='—';
+  $('expenseChange').className='change-neutral';
+  $('expenseChangeLabel').textContent='Histórico não carregado';
+  $('previousMonthNote').textContent='Não foi possível consultar o mês anterior.';
+ }
+
+ const top=expenses.slice().sort((a,b)=>Number(b.valor||0)-Number(a.valor||0)).slice(0,5);
+ const maxTop=top.length?Math.max(...top.map(x=>Number(x.valor||0))):0;
+ $('expenseRanking').innerHTML=top.length?top.map((item,index)=>{
+  const info=decodeCategory(item.categoria);
+  const width=maxTop?Number(item.valor||0)/maxTop*100:0;
+  return `<div class="ranking-item">
+   <div class="ranking-item-top"><span class="ranking-position">${index+1}</span><span class="ranking-name" title="${safe(info.description)}">${safe(info.description||'Sem descrição')}${info.important?' <b class="ranking-star">★</b>':''}</span><strong>${money(item.valor)}</strong></div>
+   <div class="ranking-track"><span style="width:${width.toFixed(1)}%"></span></div>
+  </div>`;
+ }).join(''):'<div class="analytics-empty">Nenhuma despesa neste mês.</div>';
+
+ $('paidPercent').textContent=pct+'%';
+ $('paidProgress').style.width=pct+'%';
+ $('paidAmount').textContent=money(paidTotal);
+ $('pendingAmount').textContent=money(pendingTotal);
+ $('compareIncome').textContent=money(incomeTotal);
+ $('compareExpense').textContent=money(expenseTotal);
+ const compareMax=Math.max(incomeTotal,expenseTotal,1);
+ $('compareIncomeBar').style.width=(incomeTotal/compareMax*100)+'%';
+ $('compareExpenseBar').style.width=(expenseTotal/compareMax*100)+'%';
+ $('indicatorExpenses').textContent=expenses.length;
+ $('indicatorPending').textContent=pending.length;
+ $('indicatorImportant').textContent=importantCount;
+ $('indicatorIncome').textContent=incomes.length;
+
+ const historyKeys=Array.from({length:6},(_,i)=>monthOffset(month,i-5));
+ const historyRows=historyKeys.map(key=>{
+  const rows=key===month?monthEntries:analyticsHistory.get(key);
+  const available=Array.isArray(rows);
+  return {key,available,income:available?sum(rows.filter(x=>x.tipo==='Entrada')):0,expense:available?sum(rows.filter(x=>x.tipo!=='Entrada')):0};
+ });
+ const maxHistory=Math.max(1,...historyRows.flatMap(x=>[x.income,x.expense]));
+ $('monthlyHistory').innerHTML=historyRows.map(item=>{
+  const ih=item.available?Math.max(item.income?4:0,item.income/maxHistory*100):0;
+  const eh=item.available?Math.max(item.expense?4:0,item.expense/maxHistory*100):0;
+  return `<div class="history-month${item.key===month?' current':''}" title="${monthLabel(item.key)} · Entradas: ${money(item.income)} · Despesas: ${money(item.expense)}">
+   <div class="history-bars"><span class="history-bar income" style="height:${ih.toFixed(1)}%"></span><span class="history-bar expense" style="height:${eh.toFixed(1)}%"></span></div>
+   <small>${safe(monthShort(item.key))}</small>
+  </div>`;
+ }).join('');
+ $('monthlyHistory').setAttribute('aria-label',historyRows.some(x=>!x.available)?'Histórico parcial; meses anteriores estão sendo carregados':'Evolução de entradas e despesas dos últimos seis meses');
+ syncPrivacyHistoryTitles();
+}
+
+function renderCategoryFilterOptions(expenses){
+ const available=new Set();
+ expenses.forEach(item=>{
+  const info=decodeCategory(item.categoria);
+  available.add(info.category||inferExpenseCategory(info.description)||'Sem categoria');
+ });
+ const order=Object.keys(EXPENSE_CATEGORY_META).filter(key=>available.has(key));
+ if(available.has('Sem categoria'))order.push('Sem categoria');
+ const button=(key,label)=>'<button type="button" class="advanced-filter-chip'+(selectedCategoryFilters.has(key)?' active':'')+'" data-category-filter="'+safe(key)+'" aria-pressed="'+selectedCategoryFilters.has(key)+'">'+safe(label)+'</button>';
+ $('categoryFilters').innerHTML=button('all','Todas as categorias')+order.map(key=>button(key,key==='Sem categoria'?key:(EXPENSE_CATEGORY_META[key]?.label||key))).join('');
+ $('categoryFilters').querySelector('[data-category-filter="all"]').classList.toggle('active',selectedCategoryFilters.size===0);
+}
+function render(){
+ document.querySelectorAll('.monthLabel').forEach(el=>el.textContent=monthLabel(month));
+
+ const me=entries.filter(x=>x.mes===month);
+ const inc=sum(me.filter(x=>x.tipo==='Entrada'));
+ const outs=me.filter(x=>x.tipo!=='Entrada');
+ renderCategoryFilterOptions(outs);
+ const exp=sum(outs);
+ const due=sum(outs.filter(x=>!x.pago));
+ const balance=inc-exp;
+
+ $('balance').textContent=money(balance);
+ $('balance').className=balance<0?'neg':'';
+ $('balanceCaption').textContent=balance>0?'Você tem um saldo positivo neste mês':(balance<0?'As despesas superam as entradas neste mês':'Entradas e despesas estão equilibradas');
+ $('incomeTotal').textContent=money(inc);
+ $('expenseTotal').textContent=money(exp);
+ $('dueTotal').textContent=money(due);
+
+ $('quickIncome').textContent=money(inc);
+ $('quickExpense').textContent=money(exp);
+ $('quickDue').textContent=money(due);
+ renderAnalytics(me);
+ renderIncomeView(me);
+
+ const list=visible(outs).slice().reverse().sort((a,b)=>{
+  const ai=decodeCategory(a.categoria).important?1:0;
+  const bi=decodeCategory(b.categoria).important?1:0;
+  return bi-ai;
+ });
+ $('visibleCount').textContent=list.length;
+ $('visibleCountLabel').textContent=$('listSearch').value.trim()?'resultados encontrados':'lançamentos exibidos';
+ $('priorityCount').textContent=outs.filter(x=>decodeCategory(x.categoria).important).length+' importantes';
+
+ if(!list.length){
+  const msg=!api()
+   ?'Configure a conexão com a planilha para carregar os lançamentos.'
+   :(monthExists?'Nenhum lançamento neste mês.':'Este mês ainda não existe na planilha.');
+  $('list').innerHTML=`<li class="empty">${safe(msg)}<small>Use o botão “Adicionar” para incluir um lançamento.</small></li>`;
+  return;
+ }
+
+ $('list').innerHTML=list.map(x=>{
+  const c=decodeCategory(x.categoria);
+  const inEntry=x.tipo==='Entrada';
+  const kind=inEntry?'Entrada':(x.tipo==='Dívida'?'Dívida':c.nature||'Despesa');
+  const monthly=c.seriesId?'Mensal':'';
+  const effectiveCategory=c.category||inferExpenseCategory(c.description);
+  const categoryLabel=effectiveCategory?(EXPENSE_CATEGORY_META[effectiveCategory]?.label||effectiveCategory):'';
+  const tags=[kind,...(monthly?[monthly]:[]),...(categoryLabel?[categoryLabel]:[])];
+  const sub=tags.join(' · ')+(x.pago?' · '+(inEntry?'recebida':'paga'):'');
+  const important=c.important;
+  return `<li class="row${x.pago?' done':''}${important?' important':''}" data-id="${safe(x.id)}">
+   <button type="button" class="check${x.pago?' on':''}" aria-label="${x.pago?'Marcar como pendente':(inEntry?'Marcar como recebida':'Marcar como paga')}"></button>
+   ${categoryIconMarkup(c.category||inferExpenseCategory(c.description),inEntry)}
+   <div class="main">
+    <div class="t">${safe(c.description||'Sem descrição')}${important?'<span class="important-star" title="Importante">★</span>':''}</div>
+    <div class="s">${safe(sub)}</div>
+   </div>
+   <span class="desktop-category">${safe(categoryLabel||'—')}</span>
+   <span class="desktop-nature">${safe(kind)}</span>
+   <span class="desktop-status ${x.pago?'is-paid':'is-pending'}">${x.pago?'Paga':'Pendente'}</span>
+   <div class="amt ${inEntry?'pos':''}">${inEntry?'+ ':''}${money(x.valor)}</div>
+  </li>`;
+ }).join('');
+}
+
+/* NAVEGAÇÃO ENTRE TELAS */
+function switchView(name){
+ document.querySelectorAll('.view').forEach(v=>{
+  v.classList.toggle('active',v.id===name);
+ });
+ document.querySelectorAll('.app-nav [data-view]').forEach(b=>{
+  const active=b.dataset.view===name;
+  b.classList.toggle('active',active);
+  b.setAttribute('aria-current',active?'page':'false');
+ });
+ window.scrollTo({top:0,behavior:'smooth'});
+}
+
+document.querySelector('.app-nav').addEventListener('click',e=>{
+ const btn=e.target.closest('[data-view]');
+ if(btn)switchView(btn.dataset.view);
+});
+
+$('goTransactions').addEventListener('click',()=>switchView('transactions'));
+
+document.querySelectorAll('.new-entry').forEach(btn=>{
+ btn.addEventListener('click',()=>openSheet(null));
+});
+document.querySelectorAll('.new-income').forEach(btn=>{
+ btn.addEventListener('click',()=>openSheet(null,'Entrada'));
+});
+
+document.querySelectorAll('.prev').forEach(btn=>{
+ btn.addEventListener('click',()=>shiftMonth(-1));
+});
+document.querySelectorAll('.next').forEach(btn=>{
+ btn.addEventListener('click',()=>shiftMonth(1));
+});
+
+/* FORMULÁRIO */
+function setType(t){
+ type=t;
+ [...$('typeSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.type===t));
+ $('natureCell').hidden=t==='Entrada';
+ $('recurrenceFields').hidden=t==='Entrada';
+ $('categoryCell').hidden=t==='Entrada';
+ $('paymentPanel').hidden=t==='Entrada';
+ $('documentsPanel').hidden=t==='Entrada';
+}
+
+function setNature(n){
+ nature=n;
+ [...$('natureSeg').children].forEach(b=>b.classList.toggle('on',b.dataset.nature===n));
+}
+
+/* Classificação automática: prioriza descrições já cadastradas e depois palavras-chave. */
+function inferNatureFromDescription(description){
+ const key=searchText(description);
+ if(!key)return '';
+
+ // Reaproveita a natureza de um lançamento já cadastrado com a mesma descrição.
+ const known=entries.find(item=>{
+  if(item.tipo==='Entrada')return false;
+  const category=decodeCategory(item.categoria);
+  return category.nature && searchText(category.description)===key;
+ });
+ if(known)return decodeCategory(known.categoria).nature;
+
+ const rules=[
+  {nature:'Fixa',test:/\b(internet|energia|eletricidade|eletrica|conta de luz|luz|agua|saneamento|esgoto|aluguel|condominio|iptu|ipva|seguro|financiamento|prestacao|mensalidade|assinatura|streaming|telefone|celular|plano de saude|escola|faculdade)\b/},
+  {nature:'Variável',test:/\b(cartao|cartao de credito|fatura|mercado|supermercado|feira|acougue|padaria|restaurante|lanchonete|delivery|ifood|combustivel|gasolina|etanol|diesel|farmacia|remedio|roupa|vestuario|lazer|cinema|viagem|presente|manutencao|estacionamento|pedagio)\b/}
+ ];
+ const match=rules.find(rule=>rule.test.test(key));
+ return match?match.nature:'';
+}
+
+const EXPENSE_CATEGORY_META={
+ Streaming:{label:'Streaming',icon:'play-circle',color:'streaming'},
+ Combustivel:{label:'Combustível',icon:'fuel',color:'fuel'},
+ Mercado:{label:'Mercado',icon:'shopping-cart',color:'market'},
+ Alimentacao:{label:'Alimentação',icon:'utensils',color:'food'},
+ Moradia:{label:'Moradia',icon:'house',color:'home'},
+ Saude:{label:'Saúde',icon:'heart-pulse',color:'health'},
+ Transporte:{label:'Transporte',icon:'car-front',color:'transport'},
+ Educacao:{label:'Educação',icon:'graduation-cap',color:'education'},
+ Lazer:{label:'Lazer',icon:'ticket',color:'leisure'},
+ Compras:{label:'Compras',icon:'shopping-bag',color:'shopping'},
+ Servicos:{label:'Serviços',icon:'receipt-text',color:'services'},
+ Assinaturas:{label:'Assinaturas',icon:'smartphone',color:'subscriptions'},
+ Impostos:{label:'Impostos',icon:'landmark',color:'taxes'},
+ Outros:{label:'Outros',icon:'package',color:'other'}
+};
+const CATEGORY_ICON_SVG={
+ 'play-circle':'<circle cx="12" cy="12" r="10"/><path d="m10 8 6 4-6 4V8Z"/>',
+ fuel:'<path d="M3 22V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v17"/><path d="M3 10h12M7 7h4M15 8h2l3 3v7a2 2 0 0 0 4 0v-6l-2-2"/><path d="M7 22v-5h4v5"/>',
+ 'shopping-cart':'<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.7 13.4a2 2 0 0 0 2 1.6h9.7a2 2 0 0 0 2-1.6L23 6H6"/>',
+ utensils:'<path d="M3 2v7a4 4 0 0 0 4 4h1V2M6 2v20M18 2v20M18 2a4 4 0 0 0-4 4v4h8V6a4 4 0 0 0-4-4Z"/>',
+ house:'<path d="m3 10 9-7 9 7v10a1 1 0 0 1-1 1h-6v-7h-4v7H4a1 1 0 0 1-1-1V10Z"/>',
+ 'heart-pulse':'<path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.7l-1.1-1.1a5.5 5.5 0 0 0-7.8 7.8l1.1 1.1L12 21l7.8-7.5 1.1-1.1a5.5 5.5 0 0 0-.1-7.8Z"/><path d="M3 12h4l2-3 3 6 2-3h7"/>',
+ 'car-front':'<path d="m5 17-1 3v2h16v-2l-1-3M5 17l2-8h10l2 8M5 17h14M7 13h.01M17 13h.01M8 21v1M16 21v1"/>',
+ 'graduation-cap':'<path d="m2 10 10-5 10 5-10 5-10-5Z"/><path d="M6 12v5c4 3 8 3 12 0v-5M22 10v6"/>',
+ ticket:'<path d="M2 9a3 3 0 0 0 0 6v4h20v-4a3 3 0 0 1 0-6V5H2v4Z"/><path d="M13 5v2m0 4v2m0 4v2"/>',
+ 'shopping-bag':'<path d="M5 8h14l1 13H4L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+ 'receipt-text':'<path d="M4 2v20l4-2 4 2 4-2 4 2V2l-4 2-4-2-4 2-4-2Z"/><path d="M8 9h8M8 13h8M8 17h4"/>',
+ smartphone:'<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M11 18h2"/>',
+ landmark:'<path d="m3 10 9-7 9 7M4 10h16M5 10v9m5-9v9m4-9v9m5-9v9M3 21h18"/>',
+ package:'<path d="m12 3 9 5-9 5-9-5 9-5Z"/><path d="M3 8v9l9 5 9-5V8M12 13v9"/>',
+ 'arrow-up-circle':'<circle cx="12" cy="12" r="10"/><path d="M12 16V8m-4 4 4-4 4 4"/>'
+};
+function categoryIconMarkup(category,isIncome=false){
+ const meta=isIncome?{icon:'arrow-up-circle',color:'income'}:(EXPENSE_CATEGORY_META[category]||EXPENSE_CATEGORY_META.Outros);
+ const path=CATEGORY_ICON_SVG[meta.icon]||CATEGORY_ICON_SVG.package;
+ return '<span class="category-icon cat-'+meta.color+'" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">'+path+'</svg></span>';
+}
+const CATEGORY_LEARNING_KEY='meuDinheiro.categoryLearning.v1';
+const CATEGORY_LEARNING_STOPWORDS=new Set(['conta','pagamento','despesa','gasto','compra','mensalidade','fatura','debito','credito','cartao','servico','servicos','de','da','do','das','dos']);
+function learnedCategoryRules(){
+ try{
+  const saved=JSON.parse(localStorage.getItem(CATEGORY_LEARNING_KEY)||'[]');
+  return Array.isArray(saved)?saved.filter(x=>x&&typeof x.term==='string'&&typeof x.category==='string'):[];
+ }catch(error){return [];}
+}
+function categoryLearningTerm(description){
+ const words=searchText(description).split(/\s+/).filter(Boolean);
+ return words.find(word=>word.length>=3&&!CATEGORY_LEARNING_STOPWORDS.has(word))||'';
+}
+function learnExpenseCategory(description,category){
+ const term=categoryLearningTerm(description);
+ if(!term||!EXPENSE_CATEGORY_META[category])return false;
+ const rules=learnedCategoryRules();
+ const existing=rules.findIndex(rule=>rule.term===term);
+ const updated={term,category,updatedAt:Date.now()};
+ if(existing>=0)rules[existing]=updated;
+ else rules.push(updated);
+ try{localStorage.setItem(CATEGORY_LEARNING_KEY,JSON.stringify(rules));return true;}
+ catch(error){return false;}
+}
+function inferLearnedCategory(description){
+ const words=searchText(description).split(/\s+/).filter(Boolean);
+ if(!words.length)return '';
+ const matches=learnedCategoryRules().filter(rule=>words.includes(rule.term)).sort((a,b)=>b.term.length-a.term.length);
+ return matches[0]?.category||'';
+}
+
+function inferExpenseCategory(description){
+ const key=searchText(description);
+ if(!key)return '';
+ const learned=inferLearnedCategory(description);
+ if(learned)return learned;
+ const rules=[
+  {category:'Streaming',test:/\b(spotify|netflix|disney\+?|prime video|amazon prime|hbo max|max|paramount\+?|globoplay|youtube premium|deezer|apple music)\b/},
+  {category:'Combustivel',test:/\b(shell|ipiranga|ale combustiveis|posto|abastecimento|gasolina|etanol|diesel|combustivel)\b/},
+  {category:'Mercado',test:/\b(atacadao|assai|carrefour|fort atacadista|comper|supermercado|mercado|hortifruti|feira|acougue)\b/},
+  {category:'Alimentacao',test:/\b(ifood|rappi|ubereats|restaurante|lanchonete|pizzaria|hamburgueria|padaria|cafeteria|delivery|almoco|jantar)\b/},
+  {category:'Saude',test:/\b(farmacia|drogasil|droga raia|pague menos|remedio|medicamento|medico|consulta|hospital|dentista|exame|laboratorio|plano de saude)\b/},
+  {category:'Moradia',test:/\b(aluguel|condominio|iptu|agua|luz|energia|eletricidade|esgoto|saneamento|reforma|moveis|gas de cozinha)\b/},
+  {category:'Transporte',test:/\b(uber|99 app|taxi|onibus|passagem|estacionamento|pedagio|oficina|mecanica|lavagem automotiva)\b/},
+  {category:'Educacao',test:/\b(escola|faculdade|curso|livro|material escolar|mensalidade escolar)\b/},
+  {category:'Lazer',test:/\b(cinema|viagem|passeio|jogo|show|parque|teatro|lazer)\b/},
+  {category:'Compras',test:/\b(cartao(?: de credito)?(?: madalena)?|roupa|vestuario|calcado|tenis|shopping|loja|presente|eletronico|mercado livre|amazon|shopee|magazine luiza|magalu|shein)\b/},
+  {category:'Assinaturas',test:/\b(internet|telefone|celular|plano de celular|assinatura|mensalidade)\b/},
+  {category:'Impostos',test:/\b(imposto|ipva|irpf|taxa|multa|licenciamento)\b/}
+ ];
+ const match=rules.find(rule=>rule.test.test(key));
+ return match?match.category:'';
+}
+
+function setPendingDeleteState(value){
+ pendingDelete=!!value;
+ const button=$('deleteBtn');
+ const save=$('saveBtn');
+ const note=$('deletePendingNote');
+ button.textContent=pendingDelete?'Desfazer exclusão':'Excluir lançamento';
+ button.classList.toggle('marked',pendingDelete);
+ save.textContent=pendingDelete?'Salvar exclusão':'Salvar';
+ note.hidden=!pendingDelete;
+
+ const currentItem=entries.find(x=>String(x.id)===String(editingId));
+ const currentCategory=currentItem?decodeCategory(currentItem.categoria):null;
+ note.textContent=currentCategory?.seriesId
+  ?'Exclusão marcada. Ao clicar em “Salvar exclusão”, toda a sequência mensal, incluindo este lançamento, será removida da planilha.'
+  :'Exclusão marcada. Ao clicar em “Salvar exclusão”, este lançamento será removido da planilha.';
+
+ ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil','expenseCategory'].forEach(id=>{
+  const field=$(id);
+  if(field)field.disabled=pendingDelete;
+ });
+ $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=pendingDelete);
+ $('expenseCategory').disabled=pendingDelete;
+}
+
+
+let pendingDocumentFiles=[];
+let documentsRequestBusy=false;
+function setDocumentsStatus(message,isError=false){
+ const el=$('documentsStatus');if(!el)return;
+ el.textContent=message;el.style.color=isError?'var(--red)':'var(--mut)';
+}
+async function documentsPost(payload){
+ const url=api();if(!url)throw new Error('Configure a conexão com a planilha primeiro.');
+ const response=await fetch(url,{method:'POST',headers:{'Content-Type':'text/plain;charset=utf-8'},body:JSON.stringify(payload)});
+ if(!response.ok)throw new Error('Erro HTTP '+response.status+' ao acessar documentos.');
+ const data=await response.json();if(data?.ok===false)throw new Error(data.error||'Falha ao acessar documentos.');
+ return data;
+}
+async function refreshDocuments(entryId){
+ if(!entryId){$('documentsList').innerHTML='';return;}
+ try{
+  const data=await documentsPost({action:'listDocuments',entryId});
+  $('documentsList').innerHTML=(data.documents||[]).map(doc=>
+   '<div class="document-item"><a href="'+safe(doc.url)+'" target="_blank" rel="noopener">'+safe(doc.name)+'</a>'+
+   '<button type="button" data-delete-document="'+safe(doc.id)+'" aria-label="Excluir '+safe(doc.name)+'">Excluir</button></div>'
+  ).join('')||'<p class="documents-help">Nenhum documento anexado.</p>';
+ }catch(error){setDocumentsStatus(error.message,true);}
+}
+function readFileAsBase64(file){
+ return new Promise((resolve,reject)=>{
+  const reader=new FileReader();
+  reader.onload=()=>resolve(String(reader.result||'').split(',').pop());
+  reader.onerror=()=>reject(new Error('Não foi possível ler '+file.name+'.'));
+  reader.readAsDataURL(file);
+ });
+}
+async function uploadPendingDocuments(entryId){
+ if(!pendingDocumentFiles.length)return;
+ const files=[...pendingDocumentFiles];
+ const paymentCode=$('documentPaymentCode').value.trim();
+ for(const file of files){
+  if(file.size>8*1024*1024){setDocumentsStatus(file.name+': arquivo maior que 8 MB.',true);continue;}
+  setDocumentsStatus('Enviando '+file.name+'…');
+  const base64=await readFileAsBase64(file);
+  await documentsPost({action:'uploadDocument',entryId,kind:$('documentKind').value,paymentCode,
+   file:{name:file.name,mimeType:file.type,base64}});
+ }
+ $('documentFiles').value='';pendingDocumentFiles=[];
+ setDocumentsStatus(files.length+' arquivo(s) enviado(s).');
+ await refreshDocuments(entryId);
+}
+async function resolveSavedDocumentEntry(item){
+ const url=api();
+ const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(item.mes)+'&_='+Date.now();
+ const response=await fetch(endpoint,{cache:'no-store'});
+ if(!response.ok)throw new Error('A conta foi salva, mas não consegui localizar seu registro para anexar o arquivo.');
+ const data=await response.json();
+ const rows=extractEntries(data);if(!rows)throw new Error('A conta foi salva, mas a resposta não trouxe os lançamentos.');
+ const target=decodeCategory(item.categoria);
+ const matches=rows.map(normalizeEntry).filter(row=>{
+  const c=decodeCategory(row.categoria);
+  return row.mes===item.mes&&row.tipo===item.tipo&&Number(row.valor)===Number(item.valor)&&
+   c.description===target.description&&c.nature===target.nature;
+ });
+ if(matches.length!==1)throw new Error('A conta foi salva, mas encontrei '+matches.length+' registros iguais. Não anexei o arquivo para evitar vinculá-lo à conta errada.');
+ return String(matches[0].id);
+}
+$('documentFiles').addEventListener('change',async()=>{
+ pendingDocumentFiles=[...$('documentFiles').files];
+ if(!pendingDocumentFiles.length)return;
+ if(editingId){
+  try{documentsRequestBusy=true;await uploadPendingDocuments(String(editingId));}
+  catch(error){setDocumentsStatus(error.message,true);pendingDocumentFiles=[...$('documentFiles').files];}
+  finally{documentsRequestBusy=false;}
+ }else{
+  setDocumentsStatus('Arquivos selecionados. Salve a conta para anexá-los.');
+ }
+});
+$('documentsList').addEventListener('click',async event=>{
+ const button=event.target.closest('[data-delete-document]');if(!button)return;
+ if(!confirm('Excluir este documento do lançamento?'))return;
+ try{
+  button.disabled=true;
+  await documentsPost({action:'deleteDocument',documentId:button.dataset.deleteDocument});
+  setDocumentsStatus('Documento excluído.');
+  if(editingId)await refreshDocuments(String(editingId));
+ }catch(error){button.disabled=false;setDocumentsStatus(error.message,true);}
+});
+
+
+// Scanner de QR Pix e código de barras de boleto.
+let paymentScannerControls=null,paymentScannerReader=null,paymentScannerOpening=false,zxingLoadPromise=null;
+function loadZXingLibrary(){
+ if(window.ZXing?.BrowserMultiFormatReader)return Promise.resolve(window.ZXing);
+ if(zxingLoadPromise)return zxingLoadPromise;
+ zxingLoadPromise=new Promise((resolve,reject)=>{
+  const sources=[
+   'https://cdn.jsdelivr.net/npm/@zxing/library@0.21.3/umd/index.min.js',
+   'https://unpkg.com/@zxing/library@0.21.3/umd/index.min.js'
+  ];
+  let index=0;
+  const loadNext=()=>{
+   if(window.ZXing?.BrowserMultiFormatReader){resolve(window.ZXing);return;}
+   if(index>=sources.length){reject(new Error('Não consegui carregar o leitor. Confira sua conexão com a internet.'));return;}
+   const script=document.createElement('script');
+   script.id='zxingPaymentLibrary';
+   script.src=sources[index++];
+   script.async=true;
+   script.onload=()=>window.ZXing?.BrowserMultiFormatReader?resolve(window.ZXing):loadNext();
+   script.onerror=loadNext;
+   document.head.appendChild(script);
+  };
+  loadNext();
+ });
+ return zxingLoadPromise;
+}
+function boletoBarcodeToLine(value){
+ const digits=String(value||'').replace(/\D/g,'');
+ if(digits.length!==44)return String(value||'').trim();
+ const mod10=field=>{
+  let sum=0,weight=2;
+  for(let i=field.length-1;i>=0;i--){
+   const product=Number(field[i])*weight;
+   sum+=Math.floor(product/10)+(product%10);
+   weight=weight===2?1:2;
+  }
+  return String((10-(sum%10))%10);
+ };
+ const field1=digits.slice(0,4)+digits.slice(19,24);
+ const field2=digits.slice(24,34);
+ const field3=digits.slice(34,44);
+ return field1+mod10(field1)+field2+mod10(field2)+field3+mod10(field3)+digits.slice(4,5)+digits.slice(5,19);
+}
+function closePaymentScanner(){
+ try{paymentScannerControls?.stop();}catch(error){}
+ paymentScannerControls=null;try{paymentScannerReader?.reset();}catch(error){}
+ paymentScannerReader=null;$('paymentScannerVideo').srcObject=null;$('paymentScanner').hidden=true;paymentScannerOpening=false;
+}
+async function startPaymentScanner(){
+ if(paymentScannerOpening)return;
+ paymentScannerOpening=true;
+ $('paymentScanner').hidden=false;
+ $('paymentScannerStatus').textContent='Preparando a câmera traseira…';
+ try{
+  if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia){
+   throw new Error('O iPhone só libera a câmera em uma conexão HTTPS. Abra o Meu Dinheiro pelo endereço seguro no Safari.');
+  }
+  const ZXing=await loadZXingLibrary();
+  const formats=[ZXing.BarcodeFormat.QR_CODE,ZXing.BarcodeFormat.ITF,ZXing.BarcodeFormat.CODE_128,ZXing.BarcodeFormat.CODE_39];
+  const hints=new Map();
+  hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS,formats);
+  hints.set(ZXing.DecodeHintType.TRY_HARDER,true);
+  if(ZXing.DecodeHintType.ALSO_INVERTED)hints.set(ZXing.DecodeHintType.ALSO_INVERTED,true);
+  paymentScannerReader=new ZXing.BrowserMultiFormatReader(hints,350);
+  $('paymentScannerStatus').textContent='Solicitando permissão para usar a câmera traseira…';
+
+  // Solicita explicitamente a câmera traseira, em vez de aceitar a primeira câmera listada pelo iOS.
+  let controls;
+  try{
+   controls=await paymentScannerReader.decodeFromConstraints(
+    {audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30},focusMode:{ideal:'continuous'}}},
+    $('paymentScannerVideo'),
+    (result,error,activeControls)=>{
+     if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
+     if(!result||$('paymentScanner').hidden)return;
+     const raw=String(result.getText()||'').trim();
+     if(!raw)return;
+     const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
+     const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
+     $('paymentCodeInput').value=savedCode;
+     $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
+     $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
+     closePaymentScanner();
+     toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+    }
+   );
+  }catch(cameraError){
+   // Compatibilidade com versões do Safari que não aceitam facingMode em decodeFromConstraints.
+   controls=await paymentScannerReader.decodeFromVideoDevice(
+    undefined,
+    $('paymentScannerVideo'),
+    (result,error,activeControls)=>{
+     if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
+     if(!result||$('paymentScanner').hidden)return;
+     const raw=String(result.getText()||'').trim();
+     if(!raw)return;
+     const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
+     const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
+     $('paymentCodeInput').value=savedCode;
+     $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
+     $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
+     closePaymentScanner();
+     toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+    }
+   );
+  }
+  if(!paymentScannerControls)paymentScannerControls=controls;
+  paymentScannerOpening=false;
+  $('paymentScannerStatus').textContent='Aponte a câmera traseira para o QR Code Pix ou código de barras do boleto.';
+ }catch(error){
+  paymentScannerOpening=false;
+  zxingLoadPromise=null;
+  closePaymentScanner();
+  const message=error?.name==='NotAllowedError'
+   ?'O iPhone bloqueou o acesso à câmera. Permita a câmera para o Safari nos Ajustes do iPhone e tente novamente.'
+   :error?.name==='NotFoundError'
+    ?'Não encontrei uma câmera disponível neste aparelho.'
+    :error?.name==='NotReadableError'
+     ?'A câmera está sendo usada por outro aplicativo. Feche-o e tente novamente.'
+     :(error.message||'Não foi possível abrir a câmera.');
+  toast(message,true);
+ }
+}
+$('scanPaymentBtn').addEventListener('click',startPaymentScanner);
+$('closePaymentScanner').addEventListener('click',closePaymentScanner);
+$('paymentScanner').addEventListener('click',event=>{if(event.target===$('paymentScanner'))closePaymentScanner();});
+$('copyPaymentBtn').addEventListener('click',async()=>{
+ const value=$('paymentCodeInput').value.trim();if(!value){toast('Esta conta ainda não tem código de pagamento.',true);return;}
+ try{
+  if(navigator.clipboard?.writeText)await navigator.clipboard.writeText(value);
+  else{const field=$('paymentCodeInput');field.focus();field.select();if(!document.execCommand('copy'))throw new Error('Selecione e copie o código manualmente.');}
+  toast('Código copiado. Cole no aplicativo do banco.');
+ }catch(error){toast(error.message||'Não consegui copiar o código.',true);}
+});
+$('clearPaymentBtn').addEventListener('click',()=>{$('paymentCodeInput').value='';$('paymentCodeKind').textContent='';$('paymentCodeStatus').textContent='Código removido. Salve a conta para confirmar.';});
+$('paymentCodeInput').addEventListener('input',()=>{$('paymentCodeStatus').textContent=$('paymentCodeInput').value.trim()?'Código alterado. Salve a conta para guardar.':'Nenhum código salvo nesta conta.';});
+document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('paymentScanner').hidden)closePaymentScanner();});
+
+function openSheet(item,defaultType='Gasto'){
+ editingId=item?item.id:null;
+ pendingDelete=false;
+ editingSnapshot=item?{
+  id:String(item.id),mes:item.mes,pessoa:item.pessoa,tipo:item.tipo,
+  categoria:item.categoria,categoriaDespesa:item.categoriaDespesa||decodeCategory(item.categoria).category||'',valor:Number(item.valor),pago:!!item.pago
+ }:null;
+ const c=item?decodeCategory(item.categoria):null;
+ categoryManuallySelected=!!(c&&c.category);
+
+ $('sheetTitle').textContent=item
+  ?(item.tipo==='Entrada'?'Editar entrada':'Editar despesa')
+  :(defaultType==='Entrada'?'Nova entrada':'Nova despesa');
+ $('description').value=c?c.description:'';
+ $('expenseCategory').value=(item&&item.categoriaDespesa)|| (c&&c.category) || inferExpenseCategory(c?c.description:'');
+ $('amount').value=item?item.valor:'';
+ $('fMonth').value=item?(item.mes||month):month;
+
+ setType(item?(item.tipo||'Gasto'):defaultType);
+ setNature(c&&c.nature?c.nature:'Fixa');
+
+ $('importantFlag').checked=!!(c&&c.important);
+ $('paymentCodeInput').value=c&&c.paymentCode?c.paymentCode:'';
+ $('paymentCodeStatus').textContent=c&&c.paymentCode?'Código salvo nesta conta.':'Nenhum código salvo nesta conta.';
+ $('paymentCodeKind').textContent=c&&c.paymentKind?(c.paymentKind==='BOLETO'?'Boleto':'Pix'):'';
+ $('repeatMonthly').checked=!!(item&&c&&c.seriesId);
+ $('repeatUntil').value=(c&&c.seriesEnd)||monthOffset($('fMonth').value,11);
+ $('recurrenceFields').hidden=type==='Entrada';
+ $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
+ $('deleteBtn').hidden=!item;
+ $('deleteBtn').textContent='Excluir lançamento';
+ $('deleteBtn').classList.remove('marked');
+ $('deletePendingNote').hidden=true;
+ pendingDocumentFiles=[];$('documentFiles').value='';$('documentPaymentCode').value='';$('documentsList').innerHTML='';
+ $('documentsPanel').hidden=type==='Entrada';
+ $('paymentPanel').hidden=type==='Entrada';
+ setDocumentsStatus(item?'Carregando documentos…':'Salve a conta antes de anexar arquivos.');
+ $('saveBtn').textContent='Salvar';
+ ['description','amount','fMonth','importantFlag','repeatMonthly','repeatUntil'].forEach(id=>{if($(id))$(id).disabled=false;});
+ $('natureSeg').querySelectorAll('button').forEach(button=>button.disabled=false);
+ $('expenseCategory').disabled=false;
+ document.body.classList.add('sheet-open');
+ $('overlay').hidden=false;
+ requestAnimationFrame(()=>$('overlay').classList.add('open'));
+ if(item&&item.tipo!=='Entrada')void refreshDocuments(String(item.id));
+
+ if(!item)setTimeout(()=>$('amount').focus(),320);
+}
+
+function closeSheet(){
+ $('overlay').classList.remove('open');
+ setTimeout(()=>{
+  $('overlay').hidden=true;
+  document.body.classList.remove('sheet-open');
+ },280);
+}
+
+$('typeSeg').addEventListener('click',e=>{
+ const b=e.target.closest('button');
+ if(b)setType(b.dataset.type);
+});
+
+$('natureSeg').addEventListener('click',e=>{
+ const b=e.target.closest('button');
+ if(b)setNature(b.dataset.nature);
+});
+
+let categoryManuallySelected=false;
+$('expenseCategory').addEventListener('change',()=>{categoryManuallySelected=true;});
+$('description').addEventListener('input',()=>{
+ if(editingId||type==='Entrada')return;
+ const description=$('description').value;
+ const detected=inferNatureFromDescription(description);
+ if(detected)setNature(detected);
+ if(!categoryManuallySelected)$('expenseCategory').value=inferExpenseCategory(description);
+});
+
+$('cancelBtn').addEventListener('click',closeSheet);
+
+$('overlay').addEventListener('click',e=>{
+ if(e.target===$('overlay'))closeSheet();
+});
+
+document.addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&!$('overlay').hidden)closeSheet();
+});
+
+function entryFingerprint(item){
+ return JSON.stringify([String(item.id),item.mes,item.pessoa,item.tipo,item.categoria,item.categoriaDespesa||'',Number(item.valor),!!item.pago]);
+}
+async function validateEditingSnapshot(){
+ if(!editingId||!editingSnapshot)return true;
+ const url=api();
+ if(!url)return false;
+ try{
+  const endpoint=url+(url.includes('?')?'&':'?')+'action=state&month='+encodeURIComponent(editingSnapshot.mes)+'&_='+Date.now();
+  const response=await fetch(endpoint,{cache:'no-store'});
+  if(!response.ok)throw new Error('Não foi possível conferir a versão atual.');
+  const data=await response.json();
+  const rows=extractEntries(data);
+  if(!rows)throw new Error('Não foi possível conferir o lançamento.');
+  const latest=rows.map(normalizeEntry).find(x=>String(x.id)===String(editingId));
+  if(!latest){
+   alert('Este lançamento não está mais na planilha. Vou atualizar a lista; suas alterações não foram gravadas.');
+   if(editingSnapshot.mes===month)await load();
+   return false;
+  }
+  if(entryFingerprint(latest)!==entryFingerprint(editingSnapshot)){
+   alert('Outra pessoa alterou este lançamento enquanto você o editava. Suas alterações não foram gravadas para evitar sobrescrever os dados. A lista será atualizada.');
+   if(editingSnapshot.mes===month)await load();
+   return false;
+  }
+  return true;
+ }catch(error){
+  alert('Não consegui verificar se este lançamento foi alterado por outra pessoa. Por segurança, nada foi gravado. Tente novamente.');
+  return false;
+ }
+}
+
+$('entryForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ if(pendingPaymentChanges.size&&!await flushPaymentChanges()){
+  toast('Finalize a sincronização dos pagamentos antes de salvar.',true);
+  return;
+ }
+
+ const old=editingId?entries.find(x=>String(x.id)===String(editingId)):null;
+ const oldCategory=old?decodeCategory(old.categoria):null;
+ const wasSeriesId=oldCategory?.seriesId||'';
+ const wantsMonthly=type!=='Entrada'&&$('repeatMonthly').checked;
+ const seriesId=wantsMonthly?(wasSeriesId||createSeriesId()):'';
+ const seriesEnd=wantsMonthly?$('repeatUntil').value:'';
+ const item={
+  id:editingId||undefined,
+  mes:$('fMonth').value,
+  pessoa:old?old.pessoa:'',
+  tipo:type,
+  categoria:encodeCategory($('description').value.trim(),nature,type,$('importantFlag').checked,seriesId,seriesEnd,$('expenseCategory').value,$('paymentCodeInput').value,$('paymentCodeInput').value.trim()?(String($('paymentCodeKind').textContent).toLowerCase().includes('boleto')?'BOLETO':'PIX'):''),
+  categoriaDespesa:type==='Entrada'?'':$('expenseCategory').value,
+  valor:Number($('amount').value),
+  pago:old?!!old.pago:false
+ };
+
+ let repeatMonths=[];
+ if(wantsMonthly){
+  try{repeatMonths=monthKeysBetween(item.mes,$('repeatUntil').value,36);}
+  catch(error){toast(error.message,true);$('repeatUntil').focus();return;}
+ }
+
+ $('saveBtn').disabled=true;
+ const unchanged=await validateEditingSnapshot();
+ if(!unchanged){
+  $('saveBtn').disabled=false;
+  return;
+ }
+
+ // Só uma escolha manual ensina o classificador. Mudanças corrigem a regra anterior.
+ if(!pendingDelete&&type!=='Entrada'&&categoryManuallySelected&&
+    $('expenseCategory').value&&
+    (!oldCategory||oldCategory.category!==$('expenseCategory').value)){
+  learnExpenseCategory($('description').value.trim(),$('expenseCategory').value);
+ }
+
+ if(pendingDelete){
+  const target=old;
+  if(!target){
+   toast('Não encontrei o lançamento para excluir. Atualize a lista e tente novamente.',true);
+   $('saveBtn').disabled=false;
+   return;
+  }
+
+  const category=decodeCategory(target.categoria);
+  const seriesId=category.seriesId;
+  const description=category.description||'despesa';
+  month=target.mes;
+  saveCurrentMonth();
+  closeSheet();
+  toast(seriesId?'Excluindo sequência mensal…':'Excluindo lançamento…');
+  writeInFlight=true;
+  let deleted=0;
+  let total=1;
+  try{
+   if(seriesId){
+    const seriesEnd=category.seriesEnd||monthOffset(target.mes,35);
+    const past=await fetchSeriesRange(monthOffset(target.mes,-35),monthOffset(target.mes,-1),seriesId);
+    const future=await fetchSeriesRange(monthOffset(target.mes,1),seriesEnd,seriesId);
+    const linked=[...new Map([...past,...future]
+     .filter(row=>String(row.id)!==String(target.id))
+     .map(row=>[String(row.id),row])).values()];
+    total=linked.length+1;
+
+    // Remove as outras ocorrências primeiro e a atual por último.
+    for(const linkedItem of linked){
+     await sendRawDelete(linkedItem.id);
+     deleted++;
+    }
+   }
+
+   await sendRawDelete(target.id);
+   deleted++;
+   toast(seriesId
+    ?'Sequência excluída: '+deleted+' de '+total+' lançamento(s) removido(s).'
+    :'Lançamento excluído.');
+  }catch(error){
+   toast('A exclusão parou após '+deleted+' de '+total+' lançamento(s). '+error.message,true);
+  }finally{
+   writeInFlight=false;
+   $('saveBtn').disabled=false;
+   void load();
+  }
+  return;
+ }
+
+ month=item.mes;
+ saveCurrentMonth();
+
+ // A retirada da recorrência exige uma confirmação antes de fechar e excluir os próximos meses.
+ const removingMonthlySeries=!!(wasSeriesId&&!wantsMonthly);
+ let cancelledSeriesRemoval=false;
+ if(!removingMonthlySeries){
+  closeSheet();
+  toast(wantsMonthly?'Salvando despesas mensais…':'Salvando…');
+ }
+
+ try{
+  writeInFlight=true;
+
+  if(removingMonthlySeries){
+   setStatus('Verificando despesas futuras…',true);
+   const futureEnd=oldCategory.seriesEnd||monthOffset(item.mes,36);
+   const future=await fetchSeriesRange(monthOffset(item.mes,1),futureEnd,wasSeriesId);
+
+   if(future.length){
+    const confirmed=confirm(
+     'Desativar a repetição e EXCLUIR '+future.length+' ocorrência(s) futura(s) desta despesa?\\n\\n'+
+     'A despesa de '+monthLabel(item.mes)+' será mantida. Todas as ocorrências dos meses seguintes serão removidas da planilha.\\n\\n'+
+     'Esta ação não pode ser desfeita.'
+    );
+    if(!confirmed){
+     cancelledSeriesRemoval=true;
+     $('repeatMonthly').checked=true;
+     $('recurrenceUntilWrap').hidden=false;
+     toast('Alteração cancelada. A despesa continua mensal.');
+     return;
+    }
+   }
+
+   closeSheet();
+   toast(future.length?'Excluindo despesas futuras…':'Desativando repetição…');
+   let deleted=0;
+   for(const futureItem of future){
+    await sendRawDelete(futureItem.id);
+    deleted++;
+   }
+   await sendRawSave(item);
+   toast(deleted
+    ?'Repetição desativada. '+deleted+' ocorrência(s) futura(s) excluída(s).'
+    :'Repetição desativada. Não havia ocorrências futuras.');
+   return;
+  }
+
+  if(wantsMonthly){
+   setStatus('Conferindo ocorrências mensais…',true);
+   const futureStart=monthOffset(item.mes,1);
+   const futureEnd=repeatMonths.length>1?repeatMonths[repeatMonths.length-1]:futureStart;
+   const futureRows=repeatMonths.length>1
+    ?await fetchMonthRange(futureStart,futureEnd)
+    :[];
+   const existingFuture=futureRows.filter(x=>decodeCategory(x.categoria).seriesId===seriesId);
+   const coveredMonths=new Set(existingFuture.map(x=>x.mes));
+   const legacyMatches=[];
+   const ambiguousMonths=[];
+
+   // Reaproveita ocorrências antigas ainda sem identificador de série, mas só quando há uma candidata única por mês.
+   if(editingId){
+    const reference=old||item;
+    const monthsToCheck=repeatMonths.filter(key=>key!==item.mes&&!coveredMonths.has(key));
+    for(const monthKey of monthsToCheck){
+     const candidates=futureRows.filter(x=>
+      x.mes===monthKey &&
+      !decodeCategory(x.categoria).seriesId &&
+      sameExpenseIdentity(x,reference)
+     );
+     if(candidates.length===1){
+      legacyMatches.push(candidates[0]);
+      coveredMonths.add(monthKey);
+     }else if(candidates.length>1){
+      ambiguousMonths.push(monthKey);
+     }
+    }
+   }
+
+   if(ambiguousMonths.length){
+    alert('Encontrei mais de uma despesa com a mesma descrição nos meses '+ambiguousMonths.map(monthLabel).join(', ')+'. Não vou vincular nem criar nada nesses meses para evitar alterar o lançamento errado. Diferencie as despesas e tente novamente.');
+    $('saveBtn').disabled=false;
+    return;
+   }
+
+   const linkedFuture=[...existingFuture,...legacyMatches];
+   const missingMonths=repeatMonths.filter(key=>key!==item.mes&&!coveredMonths.has(key));
+
+   // A opção mensal e o mês final já foram escolhidos no formulário; criar apenas as ocorrências ausentes sem popup.
+
+   if(editingId)await sendRawSave(item);
+   for(const existingItem of linkedFuture){
+    const c=decodeCategory(existingItem.categoria);
+    const category=encodeCategory(c.description,c.nature||'Fixa',existingItem.tipo,c.important,seriesId,seriesEnd,$('expenseCategory').value,c.paymentCode,c.paymentKind);
+    if(category!==existingItem.categoria||existingItem.categoriaDespesa!==$('expenseCategory').value)await sendRawSave({...existingItem,categoria:category,categoriaDespesa:$('expenseCategory').value});
+   }
+
+   let saved=0;
+   try{
+    const monthsToCreate=editingId?missingMonths:repeatMonths;
+    for(const monthKey of monthsToCreate){
+     await sendRawSave({...item,id:undefined,mes:monthKey,pago:false});
+     saved++;
+    }
+   }catch(error){
+    toast('Foram criadas '+saved+' ocorrência(s). '+error.message,true);
+    throw error;
+   }
+
+   toast(editingId?'Despesa mensal atualizada.':'Despesa mensal criada.');
+   return;
+  }
+
+  if(editingId){
+   await sendRawSave(item);
+
+   toast('Despesa salva');
+  }else{
+   const result=await post({action:'save',item},false);
+   if(result){
+    toast('Salvo');
+   }else{
+    render();
+    return;
+   }
+  }
+  if(pendingDocumentFiles.length){const docId=editingId?String(editingId):await resolveSavedDocumentEntry(item);await uploadPendingDocuments(docId);}
+ }catch(error){
+  toast('Não foi possível concluir a alteração: '+error.message,true);
+ }finally{
+  writeInFlight=false;
+  $('saveBtn').disabled=false;
+  // Cancelar a confirmação não alterou a planilha; nos demais casos, atualizar em segundo plano.
+  if(!cancelledSeriesRemoval)void load();
+ }
+});
+
+
+$('deleteBtn').addEventListener('click',()=>{
+ if(!editingId)return;
+ setPendingDeleteState(!pendingDelete);
+ toast(pendingDelete?'Exclusão marcada. Clique em Salvar exclusão para continuar.':'Exclusão desmarcada.');
+});
+
+async function handleRowClick(e){
+ const row=e.target.closest('.row');
+ if(!row)return;
+ const item=entries.find(x=>String(x.id)===row.dataset.id);
+ if(!item)return;
+ if(e.target.closest('.check')){
+  item.pago=!item.pago;
+  pendingPaymentChanges.set(String(item.id),item.pago);
+  render();
+  schedulePaymentSync();
+ }else{
+  if(pendingPaymentChanges.size){
+   const synced=await flushPaymentChanges();
+   if(!synced)return;
+  }
+  const freshItem=entries.find(x=>String(x.id)===row.dataset.id)||item;
+  openSheet(freshItem);
+ }
+}
+$('list').addEventListener('click',handleRowClick);
+$('incomeList').addEventListener('click',handleRowClick);
+
+function setTransactionSearchOpen(open){
+ const wrapper=$('transactionSearch');
+ const container=wrapper.closest('.transactions-month-search');
+ wrapper.classList.toggle('search-collapsed',!open);
+ container.classList.toggle('search-open',open);
+ container.querySelector('.months').hidden=open;
+ $('searchToggle').setAttribute('aria-label',open?'Fechar busca':'Abrir busca');
+}
+$('searchToggle').addEventListener('click',()=>{
+ const opening=$('transactionSearch').classList.contains('search-collapsed');
+ setTransactionSearchOpen(opening);
+ if(opening)$('listSearch').focus();
+ else $('listSearch').blur();
+});
+$('listSearch').addEventListener('keydown',e=>{
+ if(e.key==='Escape'&&!$('listSearch').value){
+  setTransactionSearchOpen(false);
+  $('searchToggle').focus();
+ }
+});
+$('listSearch').addEventListener('input',()=>{
+ $('clearSearch').hidden=!$('listSearch').value;
+ render();
+});
+$('clearSearch').addEventListener('click',()=>{
+ $('listSearch').value='';
+ $('clearSearch').hidden=true;
+ render();
+ $('listSearch').focus();
+});
+$('incomeSearch').addEventListener('input',()=>{
+ $('clearIncomeSearch').hidden=!$('incomeSearch').value;
+ render();
+});
+$('clearIncomeSearch').addEventListener('click',()=>{
+ $('incomeSearch').value='';
+ $('clearIncomeSearch').hidden=true;
+ render();
+ $('incomeSearch').focus();
+});
+$('incomeFilters').addEventListener('click',e=>{
+ const button=e.target.closest('[data-income-filter]');
+ if(!button)return;
+ incomeFilter=button.dataset.incomeFilter;
+ [...$('incomeFilters').children].forEach(item=>item.classList.toggle('on',item===button));
+ render();
+});
+function updateAdvancedFilterUI(){
+ const selected=[];
+ if(detailFilter==='fixed')selected.push('Fixas');
+ if(detailFilter==='variable')selected.push('Variáveis');
+ selectedCategoryFilters.forEach(key=>selected.push(EXPENSE_CATEGORY_META[key]?.label||key));
+ if(importantFilter)selected.push('Importantes');
+ const count=selected.length;
+ $('filterActiveCount').textContent=count;
+ $('filterActiveCount').hidden=!count;
+ $('filterSummary').textContent=count?selected.join(' · '):'Nenhum filtro adicional';
+ $('filterToggle').classList.toggle('has-active',count>0);
+ $('importantFilterOption').classList.toggle('active',importantFilter);
+ $('importantFilterOption').setAttribute('aria-pressed',String(importantFilter));
+ [...$('natureFilterOptions').querySelectorAll('[data-detail-filter]')].forEach(button=>button.classList.toggle('active',button.dataset.detailFilter===detailFilter));
+}
+$('filterToggle').addEventListener('click',()=>{
+ const panel=$('advancedFilters');
+ const opening=panel.hidden;
+ panel.hidden=!opening;
+ $('filterToggle').setAttribute('aria-expanded',String(opening));
+ $('filterChevron').textContent=opening?'⌃':'⌄';
+});
+$('natureFilterOptions').addEventListener('click',e=>{
+ const button=e.target.closest('[data-detail-filter]');
+ if(!button)return;
+ detailFilter=button.dataset.detailFilter;
+ updateAdvancedFilterUI();
+ render();
+});
+$('categoryFilters').addEventListener('click',e=>{
+ const button=e.target.closest('[data-category-filter]');
+ if(!button)return;
+ const key=button.dataset.categoryFilter;
+ if(key==='all')selectedCategoryFilters.clear();
+ else if(selectedCategoryFilters.has(key))selectedCategoryFilters.delete(key);
+ else selectedCategoryFilters.add(key);
+ render();
+ updateAdvancedFilterUI();
+});
+$('importantFilterOption').addEventListener('click',()=>{
+ importantFilter=!importantFilter;
+ updateAdvancedFilterUI();
+ render();
+});
+$('clearAdvancedFilters').addEventListener('click',()=>{
+ detailFilter='all';
+ importantFilter=false;
+ selectedCategoryFilters.clear();
+ updateAdvancedFilterUI();
+ render();
+});
+updateAdvancedFilterUI();
+
+$('filters').addEventListener('click',e=>{
+ const b=e.target.closest('[data-filter]');
+ if(!b)return;
+
+ filter=b.dataset.filter;
+ [...$('filters').children].forEach(x=>x.classList.toggle('on',x===b));
+ render();
+});
+
+$('refreshBtn').addEventListener('click',async()=>{
+ if(pendingPaymentChanges.size&&!await flushPaymentChanges())return;
+ await load();
+});
+
+
+$('fMonth').addEventListener('change',()=>{
+ if(!$('repeatUntil').value||$('repeatUntil').value<$('fMonth').value){
+  $('repeatUntil').value=monthOffset($('fMonth').value,11);
+ }
+});
+$('repeatMonthly').addEventListener('change',()=>{
+ $('recurrenceUntilWrap').hidden=!$('repeatMonthly').checked;
+});
+
+$('saveBudget').addEventListener('click',async()=>{
+ const target=Number($('budgetInput').value);
+ if(!(target>0)){
+  toast('Informe uma meta maior que zero.',true);
+  $('budgetInput').focus();
+  return;
+ }
+ if(!api()){
+  toast('Conecte o aplicativo à planilha para sincronizar a meta.',true);
+  return;
+ }
+ const saved=await post({action:'saveBudget',month,value:target},true);
+ if(!saved)return;
+ monthlyBudgets[month]=target;
+ renderAnalytics(entries.filter(x=>x.mes===month));
+ toast('Meta sincronizada com todos os dispositivos');
+});
+
+
+$('connectBtn').addEventListener('click',()=>{
+ const url=$('apiUrl').value.trim();
+
+ if(!url){
+  message('connectionMessage','Cole a URL do Web App.',true);
+  return;
+ }
+
+ stored=url;
+ try{localStorage.setItem(STORAGE_KEY,url)}catch(e){}
+
+ message('connectionMessage','Conexão salva neste navegador.');
+ load();
+ });
+
+// Atualização de conferência em segundo plano. Navegação e toques não disparam leitura.
+const AUTO_SYNC_INTERVAL=30000;
+let pollInFlight=false;
+setInterval(async()=>{
+ if(document.hidden || !$('overlay').hidden || pollInFlight || writeInFlight ||
+    paymentSyncInFlight || pendingPaymentChanges.size || paymentSyncTimer || !api()) return;
+ pollInFlight=true;
+ try{await load()}finally{pollInFlight=false}
+},AUTO_SYNC_INTERVAL);
+
+// Não há sincronização automática ao trocar de aba ou voltar ao aplicativo.
+
+// Mantém a cor da interface do navegador alinhada ao tema do sistema.
+(function syncSystemThemeColor(){
+ const media=window.matchMedia('(prefers-color-scheme: dark)');
+ const meta=document.querySelector('meta[name="theme-color"]');
+ const update=()=>{if(meta)meta.setAttribute('content',media.matches?'#090e14':'#f3f6fa')};
+ update();
+ if(media.addEventListener)media.addEventListener('change',update);
+ else if(media.addListener)media.addListener(update);
+})();
+
+initAppSettings();
+initPrivacyMode();
+initAppUpdateChecker();
+if(!loadCachedMonth(month))render();
+switchView(appSettings.defaultView||'overview');
+load().then(showPendingReminder);
+
+/* Mede a área real da janela e atualiza o perfil ao redimensionar/orientar. */
+(function syncViewportProfile(){
+ const root=document.documentElement;
+ const update=()=>{
+  const width=Math.round(window.innerWidth||root.clientWidth||0);
+  const height=Math.round(window.innerHeight||root.clientHeight||0);
+  const ratio=height?width/height:1;
+  root.style.setProperty('--app-viewport-width',width+'px');
+  root.style.setProperty('--app-viewport-height',height+'px');
+  root.style.setProperty('--app-viewport-ratio',ratio.toFixed(3));
+  root.dataset.screenShape=ratio>=1.6?'wide':ratio>=1.25?'balanced':'tall';
+  root.dataset.screenClass=width>=1650?'large':width>=1100?'desktop':width>=700?'tablet':'mobile';
+ };
+ update();
+ window.addEventListener('resize',update,{passive:true});
+ window.addEventListener('orientationchange',update,{passive:true});
+ if(window.visualViewport)window.visualViewport.addEventListener('resize',update,{passive:true});
+})();
+
+</script>
+</body>
+</html>
