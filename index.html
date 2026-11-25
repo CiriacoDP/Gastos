@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="1.9.27">
+<meta name="app-version" content="1.9.28">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -1894,6 +1894,14 @@ function render(){
  });
  $('visibleCount').textContent=list.length;
  $('visibleCountLabel').textContent=$('listSearch').value.trim()?'resultados encontrados':'lançamentos exibidos';
+ const searching=!!$('listSearch').value.trim();
+ $('filters').hidden=searching;
+ document.querySelector('.filter-toolbar').hidden=searching;
+ if(searching){
+  $('advancedFilters').hidden=true;
+  $('filterToggle').setAttribute('aria-expanded','false');
+  $('filterChevron').textContent='⌄';
+ }
  $('priorityCount').textContent=outs.filter(x=>decodeCategory(x.categoria).important).length+' importantes';
 
  if(!list.length){
