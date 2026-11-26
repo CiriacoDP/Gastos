@@ -1,8 +1,8 @@
 {
-  "version": "2.2.0",
+  "version": "2.2.1",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Atualiza os totais imediatamente após salvar um lançamento e sincroniza em segundo plano, mantendo os dados da planilha como fonte oficial."
+    "Ajusta o alinhamento interno dos indicadores de conexão e última sincronização no cabeçalho mobile."
   ]
 }
