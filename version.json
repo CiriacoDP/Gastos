@@ -1,8 +1,8 @@
 {
-  "version": "2.3.12",
+  "version": "2.3.13",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Alinha o ícone da logo aos botões do cabeçalho no celular."
+    "Compacta o espacamento do relatorio financeiro em PDF."
   ]
 }
