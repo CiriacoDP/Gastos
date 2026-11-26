@@ -1,8 +1,8 @@
 {
-  "version": "2.1.1",
+  "version": "2.1.2",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Restaura a abertura normal do aplicativo e reverte o painel independente de lançamento que causava a tela preta."
+    "Corrige a exibição do formulário como tela independente: o aplicativo permanece visível quando o formulário está fechado e o painel ocupa até 80% da tela quando aberto."
   ]
 }
