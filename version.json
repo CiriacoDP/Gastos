@@ -1,8 +1,8 @@
 {
-  "version": "2.1.0",
+  "version": "2.1.1",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "O formulário de despesas e entradas passa a funcionar como uma tela independente em painel de até 80% da área visível, com rolagem própria, cabeçalho fixo e adaptação ao teclado."
+    "Restaura a abertura normal do aplicativo e reverte o painel independente de lançamento que causava a tela preta."
   ]
 }
