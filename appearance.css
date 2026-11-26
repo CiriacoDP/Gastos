@@ -2841,3 +2841,16 @@ header .status.syncing .status-sync-pill svg{
 @media(max-width:979px){
  .toast{bottom:calc(var(--mobile-nav-total-height) + 12px)!important}
 }
+
+
+/* Ajusta a folha de lançamento à área realmente visível quando o teclado do iPhone abre */
+@media(max-width:979px){
+ #overlay{
+  top:var(--visual-viewport-offset-top,0px)!important;
+  bottom:auto!important;
+  height:var(--visual-viewport-height,100dvh)!important;
+ }
+ #overlay .sheet{
+  max-height:calc(var(--visual-viewport-height,100dvh) - 8px)!important;
+ }
+}
