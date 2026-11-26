@@ -1,8 +1,8 @@
 {
-  "version": "2.2.13",
+  "version": "2.2.14",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Aprimora o recorte dos cantos do contêiner interno da navegação mobile para acompanhar o arredondamento da barra externa."
+    "Reduz o arredondamento dos cantos do contêiner interno da navegação mobile."
   ]
 }
