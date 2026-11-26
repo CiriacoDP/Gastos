@@ -2870,6 +2870,7 @@ header .status.syncing .status-sync-pill svg{
   width:100%!important;
   max-width:520px!important;
   min-width:0!important;
+  box-sizing:border-box!important;
   height:80vh!important;
   height:80dvh!important;
   max-height:80vh!important;
