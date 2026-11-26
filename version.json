@@ -1,8 +1,8 @@
 {
-  "version": "2.1.22",
+  "version": "2.1.23",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Oculta a opção de leitura por câmera em computadores e orienta a digitação ou colagem do código de pagamento."
+    "Corrige a inicialização e o encerramento do leitor de QR Code e códigos de barras em celulares."
   ]
 }
