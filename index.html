@@ -2408,7 +2408,7 @@ function parsePixPayload(payload){
  }
  if(!pixAccount)return null;
  const amountText=fields['54']||'';
- const amount=/^\d+(?:\\.\d{1,2})?$/.test(amountText)?Number(amountText):0;
+ const amount=/^\d+(?:\.\d{1,2})?$/.test(amountText)?Number(amountText):0;
  const merchant=String(fields['59']||'').trim();
  return {amount:Number.isFinite(amount)&&amount>0?amount:null,merchant:merchant||''};
 }
