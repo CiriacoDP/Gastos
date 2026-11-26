@@ -3090,3 +3090,136 @@ header .status.syncing .status-sync-pill svg{
   max-width:58px!important;
  }
 }
+
+
+/* Navegação mensal compacta: seletor e busca tratados como um único conjunto.
+   Ajuste exclusivamente visual; mantém a estrutura e o comportamento existentes. */
+.months{
+ display:grid!important;
+ grid-template-columns:38px minmax(0,1fr) 38px!important;
+ align-items:center!important;
+ gap:6px!important;
+ min-height:50px!important;
+ height:50px!important;
+ padding:3px!important;
+ border-radius:16px!important;
+ clip-path:inset(0 round 16px)!important;
+}
+.months b{
+ font-size:15px!important;
+ font-weight:700!important;
+}
+.months button{
+ width:38px!important;
+ min-width:38px!important;
+ max-width:38px!important;
+ height:38px!important;
+ border-radius:12px!important;
+ font-size:22px!important;
+}
+.income-month-search,.transactions-month-search{
+ display:grid!important;
+ grid-template-columns:minmax(0,1fr) 46px!important;
+ align-items:center!important;
+ gap:8px!important;
+}
+.income-month-search .income-search.search-collapsed,
+.transactions-month-search .transaction-search.search-collapsed{
+ width:46px!important;
+ min-width:46px!important;
+ max-width:46px!important;
+ height:46px!important;
+ min-height:46px!important;
+ max-height:46px!important;
+}
+.income-month-search .search-toggle,.transactions-month-search .search-toggle{
+ flex:0 0 44px!important;
+ width:44px!important;
+ min-width:44px!important;
+ max-width:44px!important;
+ height:44px!important;
+ min-height:44px!important;
+}
+.income-month-search .search-toggle svg,.transactions-month-search .search-toggle svg{
+ width:22px!important;
+ height:22px!important;
+}
+#transactions .transactions-month-search{
+ grid-template-columns:minmax(0,1fr) 46px!important;
+ gap:8px!important;
+}
+#transactions .transactions-month-search .months{
+ grid-template-columns:38px minmax(0,1fr) 38px!important;
+ gap:6px!important;
+ min-height:50px!important;
+ height:50px!important;
+ padding:3px!important;
+ border-radius:16px!important;
+ clip-path:inset(0 round 16px)!important;
+}
+#transactions .transactions-month-search .months button{
+ width:38px!important;
+ min-width:38px!important;
+ max-width:38px!important;
+ height:38px!important;
+ border-radius:12px!important;
+ font-size:22px!important;
+}
+@media(max-width:390px){
+ .months{
+  grid-template-columns:34px minmax(0,1fr) 34px!important;
+  gap:5px!important;
+  min-height:48px!important;
+  height:48px!important;
+  border-radius:15px!important;
+  clip-path:inset(0 round 15px)!important;
+ }
+ .months b{font-size:14px!important}
+ .months button{
+  width:34px!important;
+  min-width:34px!important;
+  max-width:34px!important;
+  height:34px!important;
+  border-radius:11px!important;
+  font-size:20px!important;
+ }
+ .income-month-search,.transactions-month-search{
+  grid-template-columns:minmax(0,1fr) 44px!important;
+  gap:7px!important;
+ }
+ .income-month-search .income-search.search-collapsed,
+ .transactions-month-search .transaction-search.search-collapsed{
+  width:44px!important;
+  min-width:44px!important;
+  max-width:44px!important;
+  height:44px!important;
+  min-height:44px!important;
+  max-height:44px!important;
+ }
+ .income-month-search .search-toggle,.transactions-month-search .search-toggle{
+  flex-basis:42px!important;
+  width:42px!important;
+  min-width:42px!important;
+  max-width:42px!important;
+  height:42px!important;
+  min-height:42px!important;
+ }
+ #transactions .transactions-month-search{
+  grid-template-columns:minmax(0,1fr) 44px!important;
+  gap:7px!important;
+ }
+ #transactions .transactions-month-search .months{
+  grid-template-columns:34px minmax(0,1fr) 34px!important;
+  gap:5px!important;
+  min-height:48px!important;
+  height:48px!important;
+  border-radius:15px!important;
+  clip-path:inset(0 round 15px)!important;
+ }
+ #transactions .transactions-month-search .months button{
+  width:34px!important;
+  min-width:34px!important;
+  max-width:34px!important;
+  height:34px!important;
+ }
+}
