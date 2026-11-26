@@ -3127,3 +3127,32 @@ header .status.syncing .status-sync-pill svg{
 }
 .toast.summary-toast::-webkit-scrollbar{width:4px}
 .toast.summary-toast::-webkit-scrollbar-thumb{background:color-mix(in srgb,var(--muted) 38%,transparent);border-radius:8px}
+
+/* Lançamentos mobile: três estados e botão de filtros na mesma faixa. */
+.filter-controls-row{display:contents}
+@media(max-width:979px){
+ #transactions .filter-controls-row{
+  display:flex;align-items:center;gap:7px;width:100%;min-width:0;margin:0 0 11px;
+ }
+ #transactions .filter-controls-row>.filters{
+  display:flex;flex:1 1 auto;min-width:0;width:auto;max-width:none;
+  margin:0!important;padding:3px;gap:3px;overflow:hidden;
+ }
+ #transactions .filter-controls-row>.filters button{
+  flex:1 1 0;min-width:0;padding:9px 3px;font-size:clamp(9px,2.8vw,12px);
+  white-space:nowrap;
+ }
+ #transactions .filter-controls-row>.filter-toolbar{
+  display:flex;flex:0 0 auto;width:auto;min-width:0;margin:0!important;
+ }
+ #transactions .filter-controls-row .filter-toggle{
+  min-height:39px;padding:7px 10px;gap:6px;font-size:11px;white-space:nowrap;
+ }
+ #transactions .filter-controls-row .filter-summary{display:none}
+}
+@media(max-width:360px){
+ #transactions .filter-controls-row{gap:5px}
+ #transactions .filter-controls-row>.filters{gap:2px;padding:3px}
+ #transactions .filter-controls-row>.filters button{padding:8px 2px;font-size:9px}
+ #transactions .filter-controls-row .filter-toggle{padding:6px 8px;gap:4px;font-size:10px}
+}
