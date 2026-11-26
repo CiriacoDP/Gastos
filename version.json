@@ -1,9 +1,8 @@
 {
-  "version": "2.3.10",
+  "version": "2.3.11",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Fundo translúcido do formulário acompanha o tema do aplicativo.",
-    "Ícones do cabeçalho mobile reposicionados para alinhar com a barra de status."
+    "Alinha os ícones do cabeçalho mobile ao bloco de status."
   ]
 }
