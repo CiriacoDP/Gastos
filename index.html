@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.3.7">
+<meta name="app-version" content="2.3.8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.3.7">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.3.7" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.3.8">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.3.8" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.3.7</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.3.8</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.3.7</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.3.8</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -373,7 +373,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.3.7</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.3.8</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -419,7 +419,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.3.7</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.3.8</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -571,9 +571,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.3.7</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.3.8</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.3.7</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.3.8</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -1288,30 +1288,29 @@ function exportMonthPdf(){
   const nature=isIncome?'—':(info.nature||'—');
   return '<tr><td><span class="type '+(isIncome?'income':'expense')+'">'+(isIncome?'Entrada':'Despesa')+'</span></td>'+
    '<td><strong>'+safe(info.description||'Sem descrição')+(info.important?' ★':'')+'</strong></td>'+
-   '<td>'+safe(category)+(nature!=='—'?'<small>'+safe(nature)+'</small>':'')+'</td>'+
-   '<td>'+safe(item.pessoa||'—')+'</td>'+
+   '<td>'+safe(category)+(nature!=='—'?'<small>'+safe(nature)+'</small>':'')+'<small>'+safe(item.pessoa||'—')+'</small></td>'+
    '<td><span class="status '+(item.pago?'paid':'pending')+'">'+(item.pago?(isIncome?'Recebida':'Paga'):(isIncome?'A receber':'Pendente'))+'</span></td>'+
    '<td class="amount '+(isIncome?'positive':'')+'">'+(isIncome?'+ ':'− ')+safe(money(item.valor))+'</td></tr>';
  }).join('');
  const generatedAt=new Date().toLocaleString('pt-BR',{dateStyle:'short',timeStyle:'short'});
  const html='<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Meu Dinheiro · '+safe(reportMonth)+'</title><style>'+
- '*{box-sizing:border-box}html{background:#edf2f7}body{margin:0;background:#edf2f7;color:#172334;font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.page{width:min(1120px,calc(100% - 36px));margin:24px auto;padding:34px;background:#fff;border:1px solid #e1e8ef;border-radius:18px;box-shadow:0 12px 36px rgba(25,45,70,.08)}'+
+ '*{box-sizing:border-box}html{background:#edf2f7}body{margin:0;background:#edf2f7;color:#172334;font:13px/1.45 -apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif}.page{width:min(820px,calc(100% - 36px));margin:24px auto;padding:30px;background:#fff;border:1px solid #e1e8ef;border-radius:18px;box-shadow:0 12px 36px rgba(25,45,70,.08)}'+
  '.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:20px;border-bottom:3px solid #2478bd}.brand{font-size:11px;font-weight:850;letter-spacing:2px;color:#2478bd;text-transform:uppercase}.title{margin:7px 0 4px;font-size:28px;line-height:1.15;letter-spacing:-.8px}.subtitle{margin:0;color:#6c7b8b;font-size:12px}.period{padding:10px 14px;border:1px solid #dce5ed;border-radius:11px;background:#f5f8fb;color:#526579;font-size:11px;font-weight:750;white-space:nowrap}'+
  '.summary{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:20px 0 13px}.metric{min-width:0;padding:15px 16px;border:1px solid #e2e9f0;border-radius:13px;background:#f8fafc}.metric span{display:block;color:#6b7a8a;font-size:10px;font-weight:800;letter-spacing:.7px;text-transform:uppercase}.metric strong{display:block;margin-top:7px;font-size:20px;line-height:1.2;overflow-wrap:anywhere}.metric.income strong{color:#16865f}.metric.expense strong{color:#c34c55}.metric.balance strong{color:'+(balance>=0?'#16865f':'#c34c55')+'}'+
- '.details{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:9px;margin:0 0 23px}.detail{min-width:0;padding:11px 13px;border-radius:10px;background:#f1f5f8}.detail span{display:block;color:#758497;font-size:10px}.detail strong{display:block;margin-top:4px;font-size:13px;color:#263548}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}.section-title h2{margin:0;font-size:16px;letter-spacing:-.2px}.section-title span{color:#758497;font-size:11px}'+
- 'table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:10px}th{padding:9px 7px;background:#eef3f7;color:#53677d;text-align:left;font-size:9px;letter-spacing:.45px;text-transform:uppercase;border-bottom:1px solid #dce5ed}td{padding:9px 7px;border-bottom:1px solid #e8edf2;vertical-align:middle;overflow-wrap:anywhere}td strong{font-size:10px;font-weight:750}td small{display:block;margin-top:3px;color:#8290a0;font-size:9px}th:nth-child(1){width:11%}th:nth-child(2){width:27%}th:nth-child(3){width:17%}th:nth-child(4){width:13%}th:nth-child(5){width:15%}th:nth-child(6){width:17%}.type,.status{display:inline-block;padding:4px 7px;border-radius:6px;font-size:9px;font-weight:750;white-space:normal}.type.income{background:#e6f5ee;color:#16865f}.type.expense{background:#fff0ed;color:#b94c46}.status.paid{background:#eaf5ef;color:#16865f}.status.pending{background:#fff5df;color:#986b16}.amount{text-align:right;white-space:nowrap;font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:normal}.amount.positive{color:#16865f}.empty{padding:28px;text-align:center;color:#758497;background:#f8fafc;border:1px dashed #d5dee8;border-radius:10px}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:22px;padding-top:12px;border-top:1px solid #e3e9ef;color:#8793a1;font-size:9px}'+
+ '.details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px;margin:0 0 23px}.detail{min-width:0;padding:11px 13px;border-radius:10px;background:#f1f5f8}.detail span{display:block;color:#758497;font-size:10px}.detail strong{display:block;margin-top:4px;font-size:13px;color:#263548}.section-title{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:0 0 10px}.section-title h2{margin:0;font-size:16px;letter-spacing:-.2px}.section-title span{color:#758497;font-size:11px}'+
+ 'table{width:100%;table-layout:fixed;border-collapse:collapse;font-size:9px}th{padding:9px 7px;background:#eef3f7;color:#53677d;text-align:left;font-size:9px;letter-spacing:.45px;text-transform:uppercase;border-bottom:1px solid #dce5ed}td{padding:9px 7px;border-bottom:1px solid #e8edf2;vertical-align:middle;overflow-wrap:anywhere}td strong{font-size:10px;font-weight:750}td small{display:block;margin-top:3px;color:#8290a0;font-size:9px}th:nth-child(1){width:12%}th:nth-child(2){width:31%}th:nth-child(3){width:25%}th:nth-child(4){width:15%}th:nth-child(5){width:17%}.type,.status{display:inline-block;padding:4px 7px;border-radius:6px;font-size:9px;font-weight:750;white-space:normal}.type.income{background:#e6f5ee;color:#16865f}.type.expense{background:#fff0ed;color:#b94c46}.status.paid{background:#eaf5ef;color:#16865f}.status.pending{background:#fff5df;color:#986b16}.amount{text-align:right;white-space:nowrap;font-weight:800;font-variant-numeric:tabular-nums;overflow-wrap:normal}.amount.positive{color:#16865f}.empty{padding:28px;text-align:center;color:#758497;background:#f8fafc;border:1px dashed #d5dee8;border-radius:10px}.footer{display:flex;justify-content:space-between;gap:12px;margin-top:22px;padding-top:12px;border-top:1px solid #e3e9ef;color:#8793a1;font-size:9px}'+
  '.actions{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;gap:9px;padding:14px max(18px,calc((100% - 1120px)/2));background:rgba(237,242,247,.94);backdrop-filter:blur(12px)}.actions button{min-height:42px;padding:10px 17px;border:0;border-radius:10px;background:#176fc1;color:#fff;font-weight:750;font-size:12px;cursor:pointer}.actions .secondary{background:#e4ebf2;color:#34485d}'+
- '@page{size:A4 landscape;margin:10mm}@media print{html,body{background:#fff}.page{width:100%;max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}.actions{display:none}.metric,.detail,th,.period{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{break-inside:avoid;page-break-inside:avoid}.section-title{break-after:avoid}thead{display:table-header-group}}'+
+ '@page{size:A4 portrait;margin:10mm}@media print{html,body{background:#fff}.page{width:100%;max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}.actions{display:none}.metric,.detail,th,.period{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{break-inside:avoid;page-break-inside:avoid}.section-title{break-after:avoid}thead{display:table-header-group}}'+
  '@media(max-width:650px){.page{width:100%;margin:0;padding:20px 14px;border:0;border-radius:0;box-shadow:none}.title{font-size:23px}.summary{gap:7px}.metric{padding:11px 9px}.metric span{font-size:9px}.metric strong{font-size:14px}.details{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:20px}.detail{padding:9px}.top{gap:9px}.period{padding:8px;font-size:9px}.section-title h2{font-size:14px}table{font-size:9px}th,td{padding:7px 4px}th{font-size:8px;letter-spacing:0}td strong{font-size:9px}.type,.status{padding:3px 4px;font-size:8px}.amount{font-size:9px}.actions{padding:10px 14px}.actions button{flex:1;padding:9px 8px;font-size:11px}}'+
  '</style></head><body><div class="actions"><button class="secondary" id="closeReport" type="button">Fechar</button><button class="secondary" id="downloadReport" type="button">Baixar PDF</button><button id="printReport" type="button">Imprimir</button></div><main class="page">'+
  '<header class="top"><div><div class="brand">Meu Dinheiro</div><h1 class="title">Relatório financeiro</h1><p class="subtitle">Resumo de movimentações e situação financeira do período</p></div><div class="period">'+safe(reportMonth)+'</div></header>'+
  '<section class="summary"><div class="metric income"><span>Total de entradas</span><strong>'+safe(money(totalIncome))+'</strong></div><div class="metric expense"><span>Total de despesas</span><strong>'+safe(money(totalExpenses))+'</strong></div><div class="metric balance"><span>Saldo do mês</span><strong>'+safe(money(balance))+'</strong></div></section>'+
  '<section class="details"><div class="detail"><span>Entradas recebidas</span><strong>'+safe(money(paidIncome))+'</strong></div><div class="detail"><span>Entradas a receber</span><strong>'+safe(money(pendingIncome))+'</strong></div><div class="detail"><span>Despesas pagas</span><strong>'+safe(money(paidExpenses))+'</strong></div><div class="detail"><span>Despesas pendentes</span><strong>'+safe(money(pendingExpenses))+'</strong></div></section>'+
  '<section><div class="section-title"><h2>Lançamentos do mês</h2><span>'+rows.length+' '+(rows.length===1?'registro':'registros')+'</span></div>'+
- (rows.length?'<table><thead><tr><th>Tipo</th><th>Descrição</th><th>Categoria</th><th>Pessoa</th><th>Status</th><th style="text-align:right">Valor</th></tr></thead><tbody>'+tableRows+'</tbody></table>':'<div class="empty">Nenhum lançamento cadastrado neste mês.</div>')+
+ (rows.length?'<table><thead><tr><th>Tipo</th><th>Descrição</th><th>Categoria / pessoa</th><th>Status</th><th style="text-align:right">Valor</th></tr></thead><tbody>'+tableRows+'</tbody></table>':'<div class="empty">Nenhum lançamento cadastrado neste mês.</div>')+
  '</section><footer class="footer"><span>Documento gerado pelo Meu Dinheiro</span><span>Gerado em '+safe(generatedAt)+'</span></footer></main><script>'+
  'document.getElementById("printReport").addEventListener("click",function(){if(typeof window.print==="function"){window.focus();window.print()}else{alert("A impressão não está disponível neste navegador. Abra o relatório no Safari e tente novamente.")}});'+
-  'document.getElementById("downloadReport").addEventListener("click",async function(){var button=this;button.disabled=true;button.textContent="Preparando PDF…";try{if(typeof html2pdf!=="function")throw new Error("A ferramenta de PDF não foi carregada. Verifique a conexão e tente novamente.");await html2pdf().set({margin:[8,8,8,8],filename:"meu-dinheiro-relatorio-'+safe(reportMonth).replace(/[^a-zA-Z0-9]+/g,"-")+'.pdf",image:{type:"jpeg",quality:0.96},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",scrollY:0},jsPDF:{unit:"mm",format:"a4",orientation:"landscape"},pagebreak:{mode:["css","legacy"]}}).from(document.querySelector(".page")).save();}catch(error){alert(error.message||"Não foi possível baixar o PDF. Use a opção Imprimir.");}finally{button.disabled=false;button.textContent="Baixar PDF";}});'+
+  'document.getElementById("downloadReport").addEventListener("click",async function(){var button=this;button.disabled=true;button.textContent="Preparando PDF…";try{if(typeof html2pdf!=="function")throw new Error("A ferramenta de PDF não foi carregada. Verifique a conexão e tente novamente.");await html2pdf().set({margin:[8,8,8,8],filename:"meu-dinheiro-relatorio-'+safe(reportMonth).replace(/[^a-zA-Z0-9]+/g,"-")+'.pdf",image:{type:"jpeg",quality:0.96},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",scrollY:0},jsPDF:{unit:"mm",format:"a4",orientation:"portrait"},pagebreak:{mode:["css","legacy"]}}).from(document.querySelector(".page")).save();}catch(error){alert(error.message||"Não foi possível baixar o PDF. Use a opção Imprimir.");}finally{button.disabled=false;button.textContent="Baixar PDF";}});'+
  'document.getElementById("closeReport").addEventListener("click",function(){window.close()});'+
  '<\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script></body></html>';
  try{
