@@ -1,8 +1,8 @@
 {
-  "version": "2.0.7",
+  "version": "2.0.8",
   "ready": true,
-  "releasedAt": "2026-11-25",
+  "releasedAt": "2026-11-26",
   "notes": [
-    "Mantém os botões Cancelar e Salvar fixos no topo do formulário enquanto o restante do conteúdo rola, inclusive com o teclado aberto."
+    "Transforma o formulário de despesas e entradas em uma janela compacta de até 80% da altura visível, com cabeçalho fixo e rolagem interna."
   ]
 }
