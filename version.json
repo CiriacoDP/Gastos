@@ -1,9 +1,9 @@
 {
-  "version": "2.1.8",
+  "version": "2.1.9",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Reduz dimensões internas do formulário mobile para adequar cabeçalho, valor, espaçamentos dos campos e seletor de tipo à largura disponível.",
-    "Preserva funcionalidades, proporção externa, altura de 80%, fundo sólido, rolagem interna e cabeçalho fixo."
+    "Corrige a largura do painel do formulário mobile: remove flex-basis baseado na altura da tela e deixa a largura seguir calc(100% - 24px).",
+    "Preserva a altura de 80dvh, a tela independente, o fundo sólido, a rolagem interna e o cabeçalho fixo."
   ]
 }
