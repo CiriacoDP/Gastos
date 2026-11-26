@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.2.7">
+<meta name="app-version" content="2.2.8">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.2.7">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.7" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.2.8">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.8" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.7</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.8</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.7</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.8</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -367,7 +367,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.7</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.8</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -412,7 +412,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.7</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.8</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -518,7 +518,7 @@
  <section class="payment-scanner-card" role="dialog" aria-modal="true" aria-labelledby="paymentScannerTitle">
   <div class="payment-scanner-head"><strong id="paymentScannerTitle">Escanear código de pagamento</strong><button type="button" id="closePaymentScanner">Fechar</button></div>
   <video id="paymentScannerVideo" autoplay muted playsinline></video>
-  <div class="payment-scanner-controls"><button type="button" id="paymentScannerTorch" aria-pressed="false" hidden>✦ Ligar flash</button></div>
+  <div class="payment-scanner-controls"><button type="button" id="paymentScannerTorch" class="payment-scanner-flash" aria-label="Ligar flash" title="Ligar flash" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.8 5.5 13h5.7l-.5 8.2L18.5 10h-5.7l.4-7.2Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"/></svg><span>Flash</span></button></div>
   <p class="payment-scanner-status" id="paymentScannerStatus">A câmera será usada somente para ler o código, sem enviar imagens.</p>
   <p class="payment-scanner-hint">Aponte para o QR Code Pix ou para o código de barras do boleto e mantenha o documento dentro da imagem.</p>
  </section>
@@ -548,9 +548,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.7</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.8</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.7</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.8</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2418,9 +2418,7 @@ function closePaymentScanner(){
  const torchTrack=video.srcObject?.getVideoTracks?.()[0];
  if(paymentScannerTorchOn&&torchTrack?.applyConstraints)torchTrack.applyConstraints({advanced:[{torch:false}]}).catch(()=>{});
  paymentScannerTorchOn=false;
- $('paymentScannerTorch').hidden=true;
- $('paymentScannerTorch').textContent='✦ Ligar flash';
- $('paymentScannerTorch').setAttribute('aria-pressed','false');
+ updatePaymentScannerTorchAvailability();
  try{paymentScannerControls?.stop();}catch(error){}
  paymentScannerControls=null;
  try{paymentScannerReader?.reset();}catch(error){}
@@ -2446,28 +2444,66 @@ if(!paymentScannerAvailable){
 }
 let paymentScannerTorchOn=false;
 function updatePaymentScannerTorchAvailability(){
- const track=$('paymentScannerVideo').srcObject?.getVideoTracks?.()[0];
- let supported=false;
- try{supported=!!track&&typeof track.getCapabilities==='function'&&track.getCapabilities().torch===true;}catch(error){}
- $('paymentScannerTorch').hidden=!supported;
- $('paymentScannerTorch').disabled=!supported;
  paymentScannerTorchOn=false;
- $('paymentScannerTorch').textContent='✦ Ligar flash';
- $('paymentScannerTorch').setAttribute('aria-pressed','false');
+ const button=$('paymentScannerTorch');
+ button.disabled=false;
+ button.innerHTML='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.8 5.5 13h5.7l-.5 8.2L18.5 10h-5.7l.4-7.2Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"/></svg><span>Flash</span>';
+ button.setAttribute('aria-label','Ligar flash');
+ button.setAttribute('title','Ligar flash');
+ button.setAttribute('aria-pressed','false');
 }
 $('paymentScannerTorch').addEventListener('click',async()=>{
  const track=$('paymentScannerVideo').srcObject?.getVideoTracks?.()[0];
- if(!track||!track.applyConstraints)return;
+ if(!track||!track.applyConstraints){toast('O flash não está disponível nesta câmera.',true);return;}
  const nextState=!paymentScannerTorchOn;
  try{
   await track.applyConstraints({advanced:[{torch:nextState}]});
   paymentScannerTorchOn=nextState;
-  $('paymentScannerTorch').textContent=nextState?'✦ Desligar flash':'✦ Ligar flash';
+  $('paymentScannerTorch').innerHTML=(nextState?'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.8 5.5 13h5.7l-.5 8.2L18.5 10h-5.7l.4-7.2Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"/></svg><span>Desligar</span>':'<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.8 5.5 13h5.7l-.5 8.2L18.5 10h-5.7l.4-7.2Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"/></svg><span>Flash</span>');
+  $('paymentScannerTorch').setAttribute('aria-label',nextState?'Desligar flash':'Ligar flash');
+  $('paymentScannerTorch').setAttribute('title',nextState?'Desligar flash':'Ligar flash');
   $('paymentScannerTorch').setAttribute('aria-pressed',String(nextState));
- }catch(error){toast('Não foi possível alterar o flash nesta câmera.',true);}
+ }catch(error){toast('O flash não está disponível nesta câmera.',true);}
 });
 let paymentScannerResultHandled=false;
-function handlePaymentScannerResult(result,ZXing){
+function showPixInsertDialog(details){
+ const overlay=$('appDialogOverlay');
+ const title=$('appDialogTitle');
+ const content=$('appDialogMessage');
+ const actions=$('appDialogActions');
+ if(appDialogResolver)appDialogResolver(false);
+ title.textContent='Dados encontrados';
+ const lines=[];
+ if(details.amount!==null)lines.push('Valor: '+money(details.amount));
+ if(details.merchant)lines.push('Recebedor: '+details.merchant);
+ lines.push('Deseja inserir esses dados no lançamento?');
+ lines.push('Os campos que já estiverem preenchidos serão preservados.');
+ content.textContent=lines.join('\n');
+ actions.replaceChildren();
+ return new Promise(resolve=>{
+  appDialogResolver=resolve;
+  const finish=value=>{
+   if(!appDialogResolver)return;
+   const done=appDialogResolver;
+   appDialogResolver=null;
+   overlay.classList.remove('open');
+   setTimeout(()=>{overlay.hidden=true},180);
+   done(value);
+  };
+  const decline=document.createElement('button');
+  decline.type='button';decline.className='app-dialog-cancel';decline.textContent='Não inserir';
+  decline.addEventListener('click',()=>finish(false));
+  actions.appendChild(decline);
+  const accept=document.createElement('button');
+  accept.type='button';accept.className='app-dialog-accept';accept.textContent='Inserir dados';
+  accept.addEventListener('click',()=>finish(true));
+  actions.appendChild(accept);
+  overlay.hidden=false;
+  requestAnimationFrame(()=>overlay.classList.add('open'));
+  accept.focus();
+ });
+}
+async function handlePaymentScannerResult(result,ZXing){
  if(!result||paymentScannerResultHandled||$('paymentScanner').hidden)return;
  const raw=String(result.getText()||'').trim();
  if(!raw)return;
@@ -2477,9 +2513,12 @@ function handlePaymentScannerResult(result,ZXing){
  $('paymentCodeInput').value=savedCode;
  $('paymentCodeKind').textContent=isQr?'Pix':'Boleto';
  let pixDetails=null;
- if(isQr){
-  pixDetails=parsePixPayload(raw);
-  if(pixDetails){
+ if(isQr)pixDetails=parsePixPayload(raw);
+ $('paymentCodeStatus').textContent='Código lido. Salve a conta para guardar.';
+ closePaymentScanner();
+ if(pixDetails&&(pixDetails.amount!==null||pixDetails.merchant)){
+  const insert=await showPixInsertDialog(pixDetails);
+  if(insert){
    if(pixDetails.amount!==null&&!String($('amount').value||'').trim())$('amount').value=pixDetails.amount.toFixed(2);
    if(pixDetails.merchant&&!String($('description').value||'').trim()){
     $('description').value=pixDetails.merchant.slice(0,90);
@@ -2487,9 +2526,7 @@ function handlePaymentScannerResult(result,ZXing){
    }
   }
  }
- $('paymentCodeStatus').textContent='Código lido. Salve a conta para guardar.';
- closePaymentScanner();
- toast(pixDetails?'Pix identificado. Valor e recebedor preenchidos quando disponíveis.':'Código lido. Agora você pode copiar e colar no aplicativo do banco.');
+ toast('Código lido.');
 }
 async function startPaymentScanner(){
  if(!paymentScannerAvailable){
