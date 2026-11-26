@@ -1164,6 +1164,14 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
   min-height:100dvh;
   padding-bottom:var(--mobile-nav-total-height)!important;
  }
+ body::after{
+  content:"";
+  position:fixed;
+  left:0;right:0;bottom:0;
+  height:var(--mobile-nav-total-height);
+  z-index:119;
+  pointer-events:auto;
+ }
  .app-sidebar{
   position:fixed!important;
   left:0!important;right:0!important;top:auto!important;bottom:0!important;
