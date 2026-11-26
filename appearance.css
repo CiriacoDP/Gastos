@@ -2865,8 +2865,7 @@ header .status.syncing .status-sync-pill svg{
  #overlay.open{background:var(--bg)!important}
  #overlay .sheet{
   display:block;
-  flex:0 0 80vh!important;
-  flex-basis:80dvh!important;
+  flex:0 1 auto!important;
   width:calc(100% - 24px)!important;
   max-width:520px!important;
   min-width:0!important;
