@@ -1,8 +1,8 @@
 {
-  "version": "2.1.24",
+  "version": "2.1.25",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Padroniza a tipografia e o alinhamento dos campos de descrição, mês, tipo e categoria no formulário, preservando os controles e funcionalidades."
+    "Atualiza os totais imediatamente após salvar um lançamento e sincroniza em segundo plano, mantendo os dados da planilha como fonte oficial."
   ]
 }
