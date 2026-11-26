@@ -1,8 +1,8 @@
 {
-  "version": "2.2.6",
+  "version": "2.2.7",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Preenche valor e identificação do recebedor ao escanear QR Code Pix, quando informados no código."
+    "Adiciona opção para ligar e desligar o flash durante a leitura pela câmera."
   ]
 }
