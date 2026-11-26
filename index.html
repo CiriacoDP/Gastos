@@ -2390,7 +2390,7 @@ function parsePixPayload(payload){
    if(offset+4>value.length)return null;
    const tag=value.slice(offset,offset+2);
    const sizeText=value.slice(offset+2,offset+4);
-   if(!/^\\d{2}$/.test(tag)||!/^\\d{2}$/.test(sizeText))return null;
+   if(!/^\d{2}$/.test(tag)||!/^\d{2}$/.test(sizeText))return null;
    const size=Number(sizeText);
    offset+=4;
    if(offset+size>value.length)return null;
@@ -2408,7 +2408,7 @@ function parsePixPayload(payload){
  }
  if(!pixAccount)return null;
  const amountText=fields['54']||'';
- const amount=/^\\d+(?:\\.\\d{1,2})?$/.test(amountText)?Number(amountText):0;
+ const amount=/^\d+(?:\\.\d{1,2})?$/.test(amountText)?Number(amountText):0;
  const merchant=String(fields['59']||'').trim();
  return {amount:Number.isFinite(amount)&&amount>0?amount:null,merchant:merchant||''};
 }
