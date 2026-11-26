@@ -1,9 +1,8 @@
 {
-  "version": "2.2.10",
+  "version": "2.2.11",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Ajusta a duração visual da instalação conforme o nível da versão.",
-    "Adiciona animação de carteira com dinheiro à tela de atualização."
+    "Arredonda os quatro cantos da barra de navegação inferior no celular."
   ]
 }
