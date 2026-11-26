@@ -2803,3 +2803,9 @@ header .status.syncing .status-sync-pill svg{
  header .brand-mark,
  header .header-actions{transform:translateY(2px)!important}
 }
+
+
+/* Notificações temporárias acima da navegação fixa em telas mobile */
+@media(max-width:979px){
+ .toast{bottom:calc(var(--mobile-nav-total-height) + 12px)!important}
+}
