@@ -1,8 +1,8 @@
 {
-  "version": "2.3.2",
+  "version": "2.3.3",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Adiciona rolagem vertical independente ao cartão de resumo financeiro."
+    "Organiza os três estados e o botão Filtros em uma única linha no celular."
   ]
 }
