@@ -1,8 +1,8 @@
 {
-  "version": "2.2.24",
+  "version": "2.2.25",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Encurta a descrição da tela Lançamentos."
+    "Unifica as regras visuais dos seletores mensais de Entradas e Lançamentos e remove estilos redundantes."
   ]
 }
