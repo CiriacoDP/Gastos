@@ -599,7 +599,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
 }
 .app-sidebar .app-nav button{
  display:flex;align-items:center;justify-content:center;gap:13px;
- flex:0 0 46px;min-width:0;width:100%;padding:0 10px;
+ flex:0 0 36px;min-width:0;width:100%;padding:0 10px;
  border:1px solid transparent;border-radius:13px;background:transparent;
  color:#95a8bd;font-size:13px;font-weight:650;white-space:nowrap;
  box-shadow:none;transition:background .17s,color .17s,border-color .17s;
@@ -849,7 +849,7 @@ button:focus-visible,input:focus-visible{outline:2px solid rgba(99,170,255,.8);o
   align-items:stretch;gap:7px;margin-top:34px;
  }
  .app-sidebar .app-nav button{
-  flex:0 0 46px;justify-content:flex-start;gap:12px;padding:0 13px;
+  flex:0 0 36px;justify-content:flex-start;gap:12px;padding:0 13px;
   border-radius:12px;font-size:13px;
  }
  .app-sidebar .app-nav button.active{justify-content:flex-start}
@@ -2341,13 +2341,13 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 
 /* Busca compacta: lupa no lugar da barra; expande somente ao tocar. */
 #transactions .transaction-search.search-collapsed{
- width:46px;min-width:46px;max-width:46px;height:46px;min-height:46px;
+ width:36px;min-width:36px;max-width:36px;height:36px;min-height:36px;
  margin:0 0 12px auto;padding:0;justify-content:center;gap:0;
  border:1px solid rgba(105,169,235,.28);border-radius:50%;
  background:rgba(17,27,40,.97);box-shadow:0 5px 15px rgba(0,0,0,.16);
 }
 #transactions .transaction-search .search-toggle{
- display:grid;place-items:center;flex:0 0 44px;width:44px;height:44px;
+ display:grid;place-items:center;flex:0 0 34px;width:34px;height:34px;
  border-radius:50%;color:#82baff;background:transparent;padding:0;
 }
 #transactions .transaction-search .search-toggle svg{width:23px;height:23px;display:block}
@@ -2359,20 +2359,20 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 }
 @media(max-width:979px){
  #transactions .transaction-search.search-collapsed{
-  position:relative;top:auto;width:46px;min-width:46px;max-width:46px;
-  min-height:46px;height:46px;margin:0 0 12px auto;padding:0;
+  position:relative;top:auto;width:36px;min-width:36px;max-width:36px;
+  min-height:36px;height:36px;margin:0 0 12px auto;padding:0;
   border-radius:50%;
  }
- #transactions .transaction-search.search-collapsed .search-toggle{width:44px;height:44px}
+ #transactions .transaction-search.search-collapsed .search-toggle{width:34px;height:34px}
  #transactions .transaction-search:not(.search-collapsed){position:sticky;top:7px;z-index:24}
 }
 
 
 /* Ajustes finais do tema claro e da lupa compacta após as regras responsivas. */
 @media(prefers-color-scheme:light){:root[data-theme="system"] #transactions .transaction-search.search-collapsed{
-  width:46px!important;min-width:46px!important;max-width:46px!important;
-  height:46px!important;min-height:46px!important;
-  justify-self:end;align-self:center;flex:0 0 46px;
+  width:36px!important;min-width:36px!important;max-width:36px!important;
+  height:36px!important;min-height:36px!important;
+  justify-self:end;align-self:center;flex:0 0 36px;
   border-radius:50%!important;background:#fff!important;
   border:1px solid rgba(48,105,160,.2)!important;
   box-shadow:0 5px 15px rgba(31,55,82,.10)!important;
@@ -2560,16 +2560,16 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   display:flex!important;align-items:center!important;justify-content:center!important;
   justify-self:end!important;align-self:center!important;
   box-sizing:border-box!important;
-  width:46px!important;min-width:46px!important;max-width:46px!important;
-  height:46px!important;min-height:46px!important;max-height:46px!important;
+  width:36px!important;min-width:36px!important;max-width:36px!important;
+  height:36px!important;min-height:36px!important;max-height:46px!important;
   margin:0!important;padding:0!important;gap:0!important;
   border-radius:50%!important;aspect-ratio:1/1!important;
   overflow:hidden!important;
  }
  #transactions .transactions-month-search .transaction-search.search-collapsed .search-toggle{
   display:grid!important;place-items:center!important;
-  flex:0 0 44px!important;width:44px!important;min-width:44px!important;max-width:44px!important;
-  height:44px!important;min-height:44px!important;
+  flex:0 0 34px!important;width:34px!important;min-width:34px!important;max-width:34px!important;
+  height:34px!important;min-height:34px!important;
   margin:0!important;padding:0!important;border-radius:50%!important;
   background:transparent!important;
  }
