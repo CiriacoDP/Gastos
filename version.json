@@ -1,8 +1,8 @@
 {
-  "version": "2.2.21",
+  "version": "2.2.22",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Padroniza o tamanho do seletor mensal de Lançamentos com as demais telas."
+    "Adiciona preferência de notificações de atualização e aviso local oportunista quando a nova versão é detectada com o app em segundo plano."
   ]
 }
