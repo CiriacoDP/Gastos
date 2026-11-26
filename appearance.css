@@ -2747,8 +2747,8 @@ header .status.syncing .status-sync-pill svg{
 
 /* Ajuste fino do eixo vertical do cabeçalho mobile */
 @media(max-width:979px){
- header .brand-mark,
- header .header-actions{transform:translateY(2px)!important}
+ header .brand-mark{transform:translateY(2px)!important}
+ header .header-actions{transform:translateY(22px)!important}
 }
 
 
