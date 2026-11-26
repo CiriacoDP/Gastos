@@ -3108,3 +3108,8 @@ header .status.syncing .status-sync-pill svg{
 }
 .toast.summary-toast>.summary-toast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
 .toast.summary-toast>.summary-toast-close{position:absolute;}
+
+/* Interação do resumo: leitura por pressão e saída animada pelos dois lados. */
+.toast.summary-toast{touch-action:pan-y;user-select:none;-webkit-user-select:none}
+.toast.summary-toast.swipe-left{opacity:0!important;transform:translate(calc(-50% - 120vw),0) scale(.94)!important;pointer-events:none}
+.toast.summary-toast.swipe-right{opacity:0!important;transform:translate(calc(-50% + 120vw),0) scale(.94)!important;pointer-events:none}
