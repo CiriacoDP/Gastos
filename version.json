@@ -1,8 +1,8 @@
 {
-  "version": "2.0.5",
+  "version": "2.0.6",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Ao iniciar uma nova despesa ou entrada, o formulário volta ao início para manter o campo de valor visível com o teclado aberto."
+    "Ajusta a altura e a rolagem do formulário à área visível do iPhone quando o teclado é aberto, mantendo o campo de valor à vista."
   ]
 }
