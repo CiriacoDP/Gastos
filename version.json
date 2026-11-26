@@ -1,8 +1,8 @@
 {
-  "version": "2.2.11",
+  "version": "2.2.12",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Arredonda os quatro cantos da barra de navegação inferior no celular."
+    "Arredonda os cantos do contêiner interno dos botões da navegação mobile e restaura a barra externa ao formato anterior."
   ]
 }
