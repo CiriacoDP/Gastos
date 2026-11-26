@@ -1,8 +1,8 @@
 {
-  "version": "2.2.1",
+  "version": "2.2.2",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Ajusta o alinhamento interno dos indicadores de conexão e última sincronização no cabeçalho mobile."
+    "Atualiza imediatamente as listas de entradas e despesas após salvar, incluindo recorrências e parcelas progressivas, com posterior confirmação da planilha."
   ]
 }
