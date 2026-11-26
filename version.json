@@ -1,11 +1,13 @@
 {
-  "version": "2.0.2",
+  "version": "2.0.3",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
     "Migração para o novo padrão de versionamento do aplicativo.",
     "A partir desta versão, 25 PATCHES completam 1 MINOR e 15 MINORS completam 1 MAJOR.",
     "Ajuste do alinhamento vertical do cabeçalho em dispositivos móveis.",
-    "Posiciona avisos temporários acima da barra de navegação em dispositivos móveis."
+    "Posiciona avisos temporários acima da barra de navegação em dispositivos móveis.",
+    "Notificações redesenhadas com visual inspirado nos avisos do iPhone.",
+    "Verificação forçada do Service Worker durante a instalação para melhorar a aplicação de novas versões."
   ]
 }
