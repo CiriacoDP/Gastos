@@ -1,8 +1,8 @@
 {
-  "version": "2.2.19",
+  "version": "2.2.20",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Padroniza o seletor mensal no estilo cápsula e posiciona as lupas de Entradas e Lançamentos na mesma linha."
+    "Permite que um aviso de atualização mais recente substitua o aviso anterior, sem acumular avisos."
   ]
 }
