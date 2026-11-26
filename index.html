@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.1.22">
+<meta name="app-version" content="2.1.23">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.1.22">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.1.22" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.1.23">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.1.23" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.1.22</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.1.23</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.1.22</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.1.23</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -367,7 +367,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.1.22</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.1.23</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -412,7 +412,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.1.22</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.1.23</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -547,9 +547,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.1.22</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.1.23</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.1.22</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.1.23</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2333,9 +2333,18 @@ function boletoBarcodeToLine(value){
  return field1+mod10(field1)+field2+mod10(field2)+field3+mod10(field3)+digits.slice(4,5)+digits.slice(5,19);
 }
 function closePaymentScanner(){
+ const video=$('paymentScannerVideo');
  try{paymentScannerControls?.stop();}catch(error){}
- paymentScannerControls=null;try{paymentScannerReader?.reset();}catch(error){}
- paymentScannerReader=null;$('paymentScannerVideo').srcObject=null;$('paymentScanner').hidden=true;paymentScannerOpening=false;
+ paymentScannerControls=null;
+ try{paymentScannerReader?.reset();}catch(error){}
+ paymentScannerReader=null;
+ const stream=video.srcObject;
+ if(stream?.getTracks)stream.getTracks().forEach(track=>{try{track.stop();}catch(error){}});
+ try{video.pause();}catch(error){}
+ video.srcObject=null;
+ $('paymentScanner').hidden=true;
+ paymentScannerOpening=false;
+ paymentScannerResultHandled=false;
 }
 function isMobileScannerDevice(){
  if(typeof navigator.userAgentData?.mobile==='boolean')return navigator.userAgentData.mobile;
@@ -2348,7 +2357,20 @@ if(!paymentScannerAvailable){
  $('scanPaymentBtn').hidden=true;
  $('paymentCodeHelp').textContent='No computador, digite ou cole o código Pix ou do boleto no campo abaixo. A leitura pela câmera está disponível em celulares.';
 }
-
+let paymentScannerResultHandled=false;
+function handlePaymentScannerResult(result,ZXing){
+ if(!result||paymentScannerResultHandled||$('paymentScanner').hidden)return;
+ const raw=String(result.getText()||'').trim();
+ if(!raw)return;
+ paymentScannerResultHandled=true;
+ const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
+ const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
+ $('paymentCodeInput').value=savedCode;
+ $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
+ $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
+ closePaymentScanner();
+ toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+}
 async function startPaymentScanner(){
  if(!paymentScannerAvailable){
   toast('A leitura pela câmera está disponível em celulares. No computador, digite ou cole o código de pagamento.');
@@ -2356,8 +2378,14 @@ async function startPaymentScanner(){
  }
  if(paymentScannerOpening)return;
  paymentScannerOpening=true;
+ paymentScannerResultHandled=false;
+ const video=$('paymentScannerVideo');
  $('paymentScanner').hidden=false;
  $('paymentScannerStatus').textContent='Preparando a câmera traseira…';
+ video.muted=true;
+ video.autoplay=true;
+ video.playsInline=true;
+ video.setAttribute('playsinline','');
  try{
   if(!window.isSecureContext||!navigator.mediaDevices?.getUserMedia){
    throw new Error('O iPhone só libera a câmera em uma conexão HTTPS. Abra o Meu Dinheiro pelo endereço seguro no Safari.');
@@ -2371,45 +2399,26 @@ async function startPaymentScanner(){
   paymentScannerReader=new ZXing.BrowserMultiFormatReader(hints,350);
   $('paymentScannerStatus').textContent='Solicitando permissão para usar a câmera traseira…';
 
-  // Solicita explicitamente a câmera traseira, em vez de aceitar a primeira câmera listada pelo iOS.
-  let controls;
-  try{
-   controls=await paymentScannerReader.decodeFromConstraints(
-    {audio:false,video:{facingMode:{ideal:'environment'},width:{ideal:1920},height:{ideal:1080},frameRate:{ideal:30},focusMode:{ideal:'continuous'}}},
-    $('paymentScannerVideo'),
-    (result,error,activeControls)=>{
-     if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
-     if(!result||$('paymentScanner').hidden)return;
-     const raw=String(result.getText()||'').trim();
-     if(!raw)return;
-     const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
-     const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
-     $('paymentCodeInput').value=savedCode;
-     $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
-     $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
-     closePaymentScanner();
-     toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+  // Usa apenas uma inicialização. O Safari não deve abrir uma segunda captura se a primeira falhar.
+  // Restrições mínimas deixam o iOS escolher a melhor resolução e o foco disponíveis.
+  const controls=await paymentScannerReader.decodeFromConstraints(
+   {audio:false,video:{facingMode:{ideal:'environment'}}},
+   video,
+   (result,error,activeControls)=>{
+    if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
+    if(result){
+     handlePaymentScannerResult(result,ZXing);
+     return;
     }
-   );
-  }catch(cameraError){
-   // Compatibilidade com versões do Safari que não aceitam facingMode em decodeFromConstraints.
-   controls=await paymentScannerReader.decodeFromVideoDevice(
-    undefined,
-    $('paymentScannerVideo'),
-    (result,error,activeControls)=>{
-     if(activeControls&&!paymentScannerControls)paymentScannerControls=activeControls;
-     if(!result||$('paymentScanner').hidden)return;
-     const raw=String(result.getText()||'').trim();
-     if(!raw)return;
-     const kind=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE?'PIX':'BOLETO';
-     const savedCode=kind==='BOLETO'?boletoBarcodeToLine(raw):raw;
-     $('paymentCodeInput').value=savedCode;
-     $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
-     $('paymentCodeStatus').textContent=kind==='BOLETO'&&savedCode.length===47?'Linha digitável do boleto pronta. Salve a conta.':'Código lido. Salve a conta para guardar.';
-     closePaymentScanner();
-     toast(kind==='PIX'?'QR Code Pix lido. Salve a conta.':'Código do boleto lido. Salve a conta.');
+    // Ausência de código em um quadro é normal; erros reais ficam visíveis sem reiniciar a câmera.
+    if(error&&!['NotFoundException','ChecksumException','FormatException'].includes(error.name)&&!$('paymentScanner').hidden){
+     $('paymentScannerStatus').textContent='Câmera ativa. Mantenha o código bem enquadrado e ajuste a distância.';
     }
-   );
+   }
+  );
+  if(paymentScannerResultHandled){
+   try{controls.stop();}catch(error){}
+   return;
   }
   if(!paymentScannerControls)paymentScannerControls=controls;
   paymentScannerOpening=false;
@@ -2424,7 +2433,7 @@ async function startPaymentScanner(){
     ?'Não encontrei uma câmera disponível neste aparelho.'
     :error?.name==='NotReadableError'
      ?'A câmera está sendo usada por outro aplicativo. Feche-o e tente novamente.'
-     :(error.message||'Não foi possível abrir a câmera.');
+     :(error.message||'Não foi possível iniciar a leitura da câmera.');
   toast(message,true);
  }
 }
