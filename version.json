@@ -1,8 +1,10 @@
 {
-  "version": "2.2.7",
+  "version": "2.2.8",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Adiciona opção para ligar e desligar o flash durante a leitura pela câmera."
+    "Melhora os controles visuais do flash no leitor de câmera.",
+    "Adiciona confirmação antes de inserir valor e recebedor identificados no QR Code Pix.",
+    "Simplifica a notificação exibida após a leitura do código."
   ]
 }
