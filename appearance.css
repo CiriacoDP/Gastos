@@ -3156,3 +3156,14 @@ header .status.syncing .status-sync-pill svg{
  #transactions .filter-controls-row>.filters button{padding:8px 2px;font-size:9px}
  #transactions .filter-controls-row .filter-toggle{padding:6px 8px;gap:4px;font-size:10px}
 }
+
+
+/* iOS: evita zoom automático ao focar campos de digitação. Mantém campos maiores como o valor principal. */
+input:not([type="checkbox"]):not([type="radio"]):not([type="button"]):not([type="submit"]):not([type="reset"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="image"]):not([type="hidden"]),
+select,
+textarea{
+ font-size:max(16px,1em)!important;
+}
+.amount-wrap input{
+ font-size:40px!important;
+}
