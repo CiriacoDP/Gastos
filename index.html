@@ -1249,7 +1249,7 @@ function exportMonthPdf(){
  try{
   printWindow.document.open();printWindow.document.write(html);printWindow.document.close();
   try{printWindow.focus()}catch(focusError){}
-  toast('Relatório preparado. Toque em “Imprimir / Salvar PDF” para escolher a impressão ou salvar.');
+  toast('Relatório preparado. Você pode baixar o PDF ou imprimir.');
  }catch(error){printWindow.close();toast('Não foi possível preparar o relatório em PDF.',true);}
 }
 function exportLoadedEntriesCsv(){
