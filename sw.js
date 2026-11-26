@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.2.21';
+const APP_VERSION = '2.2.22';
 const CACHE_PREFIX = 'meu-dinheiro-pwa-';
 const CACHE_NAME = CACHE_PREFIX + APP_VERSION;
 
@@ -167,6 +167,23 @@ async function networkFirstResource(request, canonicalUrl) {
     return Response.error();
   }
 }
+
+self.addEventListener('notificationclick', event => {
+  event.notification.close();
+  event.waitUntil((async () => {
+    const targetUrl = event.notification.data && event.notification.data.url
+      ? event.notification.data.url
+      : ROOT_KEY;
+    const windows = await self.clients.matchAll({ type: 'window', includeUncontrolled: true });
+    for (const client of windows) {
+      if ('focus' in client) {
+        await client.focus();
+        return;
+      }
+    }
+    if (self.clients.openWindow) await self.clients.openWindow(targetUrl);
+  })());
+});
 
 self.addEventListener('fetch', event => {
   const request = event.request;
