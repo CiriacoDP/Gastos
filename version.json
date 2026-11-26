@@ -1,5 +1,5 @@
 {
-  "version": "2.0.3",
+  "version": "2.0.4",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
@@ -8,6 +8,7 @@
     "Ajuste do alinhamento vertical do cabeçalho em dispositivos móveis.",
     "Posiciona avisos temporários acima da barra de navegação em dispositivos móveis.",
     "Notificações redesenhadas com visual inspirado nos avisos do iPhone.",
-    "Verificação forçada do Service Worker durante a instalação para melhorar a aplicação de novas versões."
+    "Verificação forçada do Service Worker durante a instalação para melhorar a aplicação de novas versões.",
+    "Abre automaticamente o teclado no campo de valor ao criar uma nova despesa ou entrada."
   ]
 }
