@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.2.21">
+<meta name="app-version" content="2.2.22">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.2.21">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.21" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.2.22">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.22" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.21</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.22</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.21</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.22</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -371,7 +371,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.21</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.22</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -397,6 +397,7 @@
    <div class="preferences-switches">
     <label class="settings-switch-row" for="privacyStartupSetting"><span><strong>Ocultar valores ao abrir</strong><small>Protege seus saldos quando iniciar o aplicativo.</small></span><input id="privacyStartupSetting" type="checkbox"></label>
     <label class="settings-switch-row" for="pendingReminderSetting"><span><strong>Resumo de pendências ao abrir</strong><small>Mostra um aviso com despesas e entradas ainda não concluídas no mês.</small></span><input id="pendingReminderSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="updateNotificationsSetting"><span><strong>Notificações de atualização</strong><small>Avisa quando uma nova versão for detectada com o aplicativo em segundo plano.</small></span><input id="updateNotificationsSetting" type="checkbox"></label>
    </div>
   </section>
 
@@ -416,7 +417,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.21</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.22</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -568,9 +569,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.21</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.22</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.21</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.22</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -948,8 +949,28 @@ function clearAppUpdateHandoff(){
  }catch(error){}
 }
 
+async function showBackgroundUpdateNotification(release){
+ if(!appSettings.updateNotifications||!document.hidden||!('Notification' in window)||Notification.permission!=='granted')return false;
+ const storageKey='gastos_update_notification_version';
+ try{if(localStorage.getItem(storageKey)===release.version)return false}catch(error){}
+ try{
+  const registration=appServiceWorkerRegistration||await initAppServiceWorker();
+  if(!registration||typeof registration.showNotification!=='function')return false;
+  await registration.showNotification('Meu Dinheiro foi atualizado',{
+   body:'A versão '+release.version+' está disponível. Toque para abrir o aplicativo.',
+   tag:'meu-dinheiro-app-update',
+   renotify:false,
+   icon:'./assets/app-icon.png',
+   badge:'./assets/app-icon.png',
+   data:{url:new URL('./',document.baseURI).href}
+  });
+  try{localStorage.setItem(storageKey,release.version)}catch(error){}
+  return true;
+ }catch(error){return false}
+}
+
 async function checkForAppUpdate(manual=false){
- if(appUpdateCheckRunning||document.hidden||!$('overlay').hidden){
+ if(appUpdateCheckRunning||!$('overlay').hidden){
   if(manual)message('manualUpdateMessage','Já existe uma verificação em andamento.',true);
   return;
  }
@@ -1008,8 +1029,12 @@ async function checkForAppUpdate(manual=false){
    if(manual)message('manualUpdateMessage','A instalação da nova versão ainda está sendo preparada. Tente novamente em instantes.',true);
    return;
   }
-  if(document.hidden||!$('overlay').hidden||!$('updateOverlay').hidden)return;
+  if(!$('overlay').hidden||!$('updateOverlay').hidden)return;
   appUpdateDismissedVersion='';
+  if(document.hidden){
+   await showBackgroundUpdateNotification(release);
+   return;
+  }
   showAppUpdate(release);
   if(manual)message('manualUpdateMessage','Nova versão v'+release.version+' pronta para instalar.');
  }catch(error){
@@ -1154,7 +1179,7 @@ function setPrivacyMode(hidden,persist=true){
 }
 
 const SETTINGS_STORAGE_KEY='gastos2026_preferences_v1';
-const DEFAULT_SETTINGS={appearance:'system',privacyStartup:false,pendingReminder:true};
+const DEFAULT_SETTINGS={appearance:'system',privacyStartup:false,pendingReminder:true,updateNotifications:false};
 let appSettings={...DEFAULT_SETTINGS};
 function readAppSettings(){
  try{const saved=JSON.parse(localStorage.getItem(SETTINGS_STORAGE_KEY)||'{}');appSettings={...DEFAULT_SETTINGS,...saved}}catch(error){appSettings={...DEFAULT_SETTINGS}}
@@ -1177,6 +1202,7 @@ function initAppSettings(){
  $('appearanceSetting').value=appSettings.appearance;
  $('privacyStartupSetting').checked=!!appSettings.privacyStartup;
  $('pendingReminderSetting').checked=appSettings.pendingReminder!==false;
+ $('updateNotificationsSetting').checked=appSettings.updateNotifications===true;
  $('aboutAppVersion').textContent='v'+APP_VERSION;
  $('appearanceSetting').addEventListener('change',()=>{
   appSettings.appearance=$('appearanceSetting').value;
@@ -1191,6 +1217,40 @@ function initAppSettings(){
  $('pendingReminderSetting').addEventListener('change',()=>{
   appSettings.pendingReminder=$('pendingReminderSetting').checked;
   saveAppSettings();
+ });
+ $('updateNotificationsSetting').addEventListener('change',async()=>{
+  const enabled=$('updateNotificationsSetting').checked;
+  if(!enabled){
+   appSettings.updateNotifications=false;
+   saveAppSettings();
+   return;
+  }
+  if(!('serviceWorker' in navigator)||!('Notification' in window)){
+   $('updateNotificationsSetting').checked=false;
+   appSettings.updateNotifications=false;
+   saveAppSettings();
+   toast('Este navegador não oferece suporte a notificações.',true);
+   return;
+  }
+  try{
+   const permission=Notification.permission==='granted'?'granted':await Notification.requestPermission();
+   if(permission!=='granted'){
+    $('updateNotificationsSetting').checked=false;
+    appSettings.updateNotifications=false;
+    saveAppSettings();
+    toast(permission==='denied'?'Permissão bloqueada. Autorize as notificações nos ajustes do iPhone.':'Permissão de notificações não concedida.',true);
+    return;
+   }
+   appSettings.updateNotifications=true;
+   saveAppSettings();
+   await initAppServiceWorker();
+   toast('Notificações de atualização ativadas.');
+  }catch(error){
+   $('updateNotificationsSetting').checked=false;
+   appSettings.updateNotifications=false;
+   saveAppSettings();
+   toast('Não foi possível ativar as notificações neste aparelho.',true);
+  }
  });
 
  $('exportCsvBtn').addEventListener('click',exportLoadedEntriesCsv);
