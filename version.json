@@ -1,8 +1,8 @@
 {
-  "version": "2.3.0",
+  "version": "2.3.1",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige o alinhamento e a largura do cartão de resumo financeiro."
+    "Permite manter o resumo visível ao pressionar e dispensá-lo com gesto lateral animado."
   ]
 }
