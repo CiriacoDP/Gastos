@@ -1,10 +1,8 @@
 {
-  "version": "2.2.8",
+  "version": "2.2.9",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Melhora os controles visuais do flash no leitor de câmera.",
-    "Adiciona confirmação antes de inserir valor e recebedor identificados no QR Code Pix.",
-    "Simplifica a notificação exibida após a leitura do código."
+    "Refina o visual da confirmação de dados encontrados no QR Code Pix."
   ]
 }
