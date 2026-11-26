@@ -1,8 +1,8 @@
 {
-  "version": "2.1.23",
+  "version": "2.1.24",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige a inicialização e o encerramento do leitor de QR Code e códigos de barras em celulares."
+    "Padroniza a tipografia e o alinhamento dos campos de descrição, mês, tipo e categoria no formulário, preservando os controles e funcionalidades."
   ]
 }
