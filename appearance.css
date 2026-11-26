@@ -147,7 +147,7 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
  position:fixed;inset:0;z-index:200;display:flex;align-items:flex-end;
  justify-content:center;background:rgba(0,0,0,0);transition:background .25s
 }
-.overlay.open{background:rgba(0,0,0,.4);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.overlay.open{background:color-mix(in srgb,var(--bg) 45%,transparent);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
 .sheet{
  width:min(520px,100%);max-height:94dvh;overflow:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;background:var(--bg);
  border-radius:22px 22px 0 0;padding:16px 16px calc(24px + env(safe-area-inset-bottom));
