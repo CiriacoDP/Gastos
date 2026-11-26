@@ -1,9 +1,9 @@
 {
-  "version": "2.1.13",
+  "version": "2.1.14",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Uniformiza os cantos do Nav Bar mobile e do cabeçalho do formulário com arredondamento de 22 px.",
-    "Refina o arredondamento dos cartões individuais de despesas e entradas mobile para 16 px."
+    "Aumenta em 1 segundo a duração das notificações temporárias, tanto informativas quanto de erro.",
+    "Faz o fundo, a borda e o texto das notificações no tema automático acompanharem as cores efetivas do tema do aplicativo."
   ]
 }
