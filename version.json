@@ -1,8 +1,8 @@
 {
-  "version": "2.2.12",
+  "version": "2.2.13",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Arredonda os cantos do contêiner interno dos botões da navegação mobile e restaura a barra externa ao formato anterior."
+    "Aprimora o recorte dos cantos do contêiner interno da navegação mobile para acompanhar o arredondamento da barra externa."
   ]
 }
