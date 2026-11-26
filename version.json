@@ -1,8 +1,8 @@
 {
-  "version": "2.2.26",
+  "version": "2.2.27",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Exibe a soma das despesas encontradas durante a busca em Lançamentos."
+    "Melhora o resumo financeiro de pendências exibido ao abrir o aplicativo."
   ]
 }
