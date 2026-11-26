@@ -1,8 +1,8 @@
 {
-  "version": "2.2.15",
+  "version": "2.2.16",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Iguala o arredondamento do fundo interno da navegação mobile ao dos botões."
+    "Corrige o zoom automático do iPhone ao tocar no campo da URL do Apps Script."
   ]
 }
