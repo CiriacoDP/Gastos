@@ -1,8 +1,8 @@
 {
-  "version": "2.2.25",
+  "version": "2.2.26",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Unifica as regras visuais dos seletores mensais de Entradas e Lançamentos e remove estilos redundantes."
+    "Exibe a soma das despesas encontradas durante a busca em Lançamentos."
   ]
 }
