@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.2.16">
+<meta name="app-version" content="2.2.17">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.2.16">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.16" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.2.17">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.17" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.16</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.17</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.16</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.17</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -367,7 +367,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.16</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.17</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -412,7 +412,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.16</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.17</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -564,9 +564,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.16</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.17</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.16</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.17</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -1235,7 +1235,7 @@ function exportMonthPdf(){
  '.actions{position:sticky;top:0;z-index:2;display:flex;justify-content:flex-end;gap:9px;padding:14px max(18px,calc((100% - 1120px)/2));background:rgba(237,242,247,.94);backdrop-filter:blur(12px)}.actions button{min-height:42px;padding:10px 17px;border:0;border-radius:10px;background:#176fc1;color:#fff;font-weight:750;font-size:12px;cursor:pointer}.actions .secondary{background:#e4ebf2;color:#34485d}'+
  '@page{size:A4 landscape;margin:10mm}@media print{html,body{background:#fff}.page{width:100%;max-width:none;margin:0;padding:0;border:0;border-radius:0;box-shadow:none}.actions{display:none}.metric,.detail,th,.period{-webkit-print-color-adjust:exact;print-color-adjust:exact}tr{break-inside:avoid;page-break-inside:avoid}.section-title{break-after:avoid}thead{display:table-header-group}}'+
  '@media(max-width:650px){.page{width:100%;margin:0;padding:20px 14px;border:0;border-radius:0;box-shadow:none}.title{font-size:23px}.summary{gap:7px}.metric{padding:11px 9px}.metric span{font-size:9px}.metric strong{font-size:14px}.details{grid-template-columns:repeat(2,minmax(0,1fr));gap:7px;margin-bottom:20px}.detail{padding:9px}.top{gap:9px}.period{padding:8px;font-size:9px}.section-title h2{font-size:14px}table{font-size:9px}th,td{padding:7px 4px}th{font-size:8px;letter-spacing:0}td strong{font-size:9px}.type,.status{padding:3px 4px;font-size:8px}.amount{font-size:9px}.actions{padding:10px 14px}.actions button{flex:1;padding:9px 8px;font-size:11px}}'+
- '</style></head><body><div class="actions"><button class="secondary" id="closeReport" type="button">Fechar</button><button id="printReport" type="button">Imprimir / Salvar PDF</button></div><main class="page">'+
+ '</style></head><body><div class="actions"><button class="secondary" id="closeReport" type="button">Fechar</button><button class="secondary" id="downloadReport" type="button">Baixar PDF</button><button id="printReport" type="button">Imprimir</button></div><main class="page">'+
  '<header class="top"><div><div class="brand">Meu Dinheiro</div><h1 class="title">Relatório financeiro</h1><p class="subtitle">Resumo de movimentações e situação financeira do período</p></div><div class="period">'+safe(reportMonth)+'</div></header>'+
  '<section class="summary"><div class="metric income"><span>Total de entradas</span><strong>'+safe(money(totalIncome))+'</strong></div><div class="metric expense"><span>Total de despesas</span><strong>'+safe(money(totalExpenses))+'</strong></div><div class="metric balance"><span>Saldo do mês</span><strong>'+safe(money(balance))+'</strong></div></section>'+
  '<section class="details"><div class="detail"><span>Entradas recebidas</span><strong>'+safe(money(paidIncome))+'</strong></div><div class="detail"><span>Entradas a receber</span><strong>'+safe(money(pendingIncome))+'</strong></div><div class="detail"><span>Despesas pagas</span><strong>'+safe(money(paidExpenses))+'</strong></div><div class="detail"><span>Despesas pendentes</span><strong>'+safe(money(pendingExpenses))+'</strong></div></section>'+
@@ -1243,8 +1243,9 @@ function exportMonthPdf(){
  (rows.length?'<table><thead><tr><th>Tipo</th><th>Descrição</th><th>Categoria</th><th>Pessoa</th><th>Status</th><th style="text-align:right">Valor</th></tr></thead><tbody>'+tableRows+'</tbody></table>':'<div class="empty">Nenhum lançamento cadastrado neste mês.</div>')+
  '</section><footer class="footer"><span>Documento gerado pelo Meu Dinheiro</span><span>Gerado em '+safe(generatedAt)+'</span></footer></main><script>'+
  'document.getElementById("printReport").addEventListener("click",function(){if(typeof window.print==="function"){window.focus();window.print()}else{alert("A impressão não está disponível neste navegador. Abra o relatório no Safari e tente novamente.")}});'+
+  'document.getElementById("downloadReport").addEventListener("click",async function(){var button=this;button.disabled=true;button.textContent="Preparando PDF…";try{if(typeof html2pdf!=="function")throw new Error("A ferramenta de PDF não foi carregada. Verifique a conexão e tente novamente.");await html2pdf().set({margin:[8,8,8,8],filename:"meu-dinheiro-relatorio-'+safe(reportMonth).replace(/[^a-zA-Z0-9]+/g,"-")+'.pdf",image:{type:"jpeg",quality:0.96},html2canvas:{scale:2,useCORS:true,backgroundColor:"#ffffff",scrollY:0},jsPDF:{unit:"mm",format:"a4",orientation:"landscape"},pagebreak:{mode:["css","legacy"]}}).from(document.querySelector(".page")).save();}catch(error){alert(error.message||"Não foi possível baixar o PDF. Use a opção Imprimir.");}finally{button.disabled=false;button.textContent="Baixar PDF";}});'+
  'document.getElementById("closeReport").addEventListener("click",function(){window.close()});'+
- '<\/script></body></html>';
+ '<\/script><script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"><\/script></body></html>';
  try{
   printWindow.document.open();printWindow.document.write(html);printWindow.document.close();
   try{printWindow.focus()}catch(focusError){}
