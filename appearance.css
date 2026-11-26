@@ -3086,3 +3086,25 @@ header .status.syncing .status-sync-pill svg{
  
  
 }
+
+
+/* Correção do cartão de resumo: impede que o toast flex alinhe os blocos em linha. */
+.toast.summary-toast{
+ display:block!important;
+ position:fixed;
+ box-sizing:border-box;
+ width:min(440px,calc(100% - 28px));
+ max-width:calc(100% - 28px);
+ min-width:0;
+ text-align:left;
+}
+.toast.summary-toast>.summary-toast-heading,
+.toast.summary-toast>.summary-toast-total,
+.toast.summary-toast>.summary-toast-grid,
+.toast.summary-toast>.summary-toast-balance{
+ width:100%;
+ min-width:0;
+ box-sizing:border-box;
+}
+.toast.summary-toast>.summary-toast-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));}
+.toast.summary-toast>.summary-toast-close{position:absolute;}
