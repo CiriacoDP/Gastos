@@ -1,8 +1,8 @@
 {
-  "version": "2.0.8",
+  "version": "2.0.9",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Transforma o formulário de despesas e entradas em uma janela compacta de até 80% da altura visível, com cabeçalho fixo e rolagem interna."
+    "Escurece e desfoca mais o fundo atrás da janela de despesas e entradas, evitando distrações do conteúdo da tela anterior quando o teclado está aberto."
   ]
 }
