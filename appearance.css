@@ -2995,3 +2995,13 @@ header .status.syncing .status-sync-pill svg{
 .sheet > .group:not(.payment-panel) .cell .seg button{
  min-height:34px;padding:7px 9px;font-size:12px;
 }
+
+
+/* Navegação mensal no iPhone: cantos arredondados também no fundo do seletor. */
+@media(max-width:979px){
+ .months{
+  border-radius:22px!important;
+  overflow:hidden!important;
+  clip-path:inset(0 round 22px)!important;
+ }
+}
