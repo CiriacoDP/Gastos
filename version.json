@@ -1,9 +1,9 @@
 {
-  "version": "2.1.6",
+  "version": "2.1.7",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Remove o foco automático do campo de valor ao abrir o formulário, impedindo que o teclado apareça junto com a tela.",
-    "Mantém o foco nos campos quando necessário após validações e em outras funções."
+    "Alinha a largura horizontal do formulário mobile ao padrão do aplicativo, com 12 px de margem lateral e dimensionamento border-box.",
+    "Preserva a altura de 80%, a tela independente, o fundo sólido, a rolagem interna e o cabeçalho fixo."
   ]
 }
