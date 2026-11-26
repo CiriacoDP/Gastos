@@ -2705,7 +2705,7 @@ header .brand .status>.status-sync-pill svg{
 .expense-options-row>.important-toggle[hidden]{display:none!important}
 
 
-/* Alinhamento unificado do cabeçalho: logo, bloco de status e ações no mesmo eixo vertical */
+/* Alinhamento unificado do cabeçalho */
 header .bar{
  display:flex!important;align-items:center!important;justify-content:space-between!important;
 }
@@ -2726,13 +2726,16 @@ header .header-actions{
 }
 header .header-actions .icon{align-self:center!important;margin:0!important}
 @media(max-width:979px){
- header .bar{align-items:center!important;gap:10px!important}
+ header .bar{align-items:flex-start!important;gap:10px!important}
  header .brand{align-items:center!important;flex:1 1 0!important;min-width:0!important}
  header .brand-mark{flex:0 0 46px!important;width:46px!important;height:46px!important}
  header .brand>div:last-child{flex:1 1 0!important;min-width:0!important}
  header .brand-name{align-items:center!important;min-height:22px!important}
  header .brand .status{margin-top:3px!important}
- header .header-actions{flex:0 0 auto!important;align-items:center!important;gap:8px!important}
+ header .header-actions{
+  flex:0 0 auto!important;align-self:flex-start!important;align-items:center!important;
+  gap:8px!important;margin:27.5px 0 0!important;transform:none!important;
+ }
  header .header-actions .icon{display:grid!important;place-items:center!important;flex:0 0 40px!important;width:40px!important;height:40px!important}
 }
 
@@ -2745,10 +2748,9 @@ header .status.syncing .status-sync-pill svg{
 }
 
 
-/* Ajuste fino do eixo vertical do cabeçalho mobile */
+/* Ajuste fino da posição do logotipo no cabeçalho mobile */
 @media(max-width:979px){
  header .brand-mark{transform:translateY(2px)!important}
- header .header-actions{transform:translateY(22px)!important}
 }
 
 
