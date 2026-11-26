@@ -1,9 +1,9 @@
 {
-  "version": "2.1.4",
+  "version": "2.1.5",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Consolida o CSS do formulário mobile em uma única implementação, removendo regras concorrentes de altura e posicionamento.",
-    "Mantém o formulário independente, com fundo sólido, painel de 80% da tela, rolagem interna e cabeçalho fixo."
+    "Corrige o dimensionamento horizontal do formulário mobile, incluindo preenchimento e bordas dentro da largura disponível.",
+    "Mantém a tela independente, painel de 80%, rolagem interna e cabeçalho fixo."
   ]
 }
