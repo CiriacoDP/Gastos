@@ -2891,9 +2891,13 @@ header .status.syncing .status-sync-pill svg{
  }
  #overlay .sheet-head{
   position:sticky!important;
-  top:0!important;
+  top:-16px!important;
   z-index:10!important;
-  background:inherit!important;
+  min-height:64px!important;
+  box-sizing:border-box!important;
+  margin:-16px -16px 12px!important;
+  padding:16px!important;
+  background:var(--bg)!important;
  }
  body.sheet-open{
   overflow:hidden!important;
