@@ -1,8 +1,8 @@
 {
-  "version": "2.3.8",
+  "version": "2.3.9",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Relatório mensal em PDF ajustado para A4 retrato, com tabela reorganizada e melhor distribuição do conteúdo."
+    "Fundo translúcido do formulário agora acompanha o tema do aplicativo."
   ]
 }
