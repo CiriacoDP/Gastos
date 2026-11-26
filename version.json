@@ -1,8 +1,8 @@
 {
-  "version": "2.2.14",
+  "version": "2.2.15",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Reduz o arredondamento dos cantos do contêiner interno da navegação mobile."
+    "Iguala o arredondamento do fundo interno da navegação mobile ao dos botões."
   ]
 }
