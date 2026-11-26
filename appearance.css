@@ -2843,106 +2843,57 @@ header .status.syncing .status-sync-pill svg{
 }
 
 
-/* Ajusta a folha de lançamento à área realmente visível quando o teclado do iPhone abre */
-@media(max-width:979px){
- #overlay{
-  top:var(--visual-viewport-offset-top,0px)!important;
-  bottom:auto!important;
-  height:var(--visual-viewport-height,100dvh)!important;
- }
- #overlay .sheet{
-  max-height:calc(var(--visual-viewport-height,100dvh) - 8px)!important;
- }
-}
-
-
-/* Mantém Cancelar e Salvar visíveis enquanto o formulário rola com o teclado aberto */
-#overlay .sheet-head{
- position:sticky;
- top:0;
- z-index:10;
- padding:8px 0 12px;
- margin:0 0 12px;
- background:var(--bg);
-}
-
-
-/* Formulário compacto em formato de janela flutuante no celular.
-   A mesma folha é usada para despesas e entradas. */
-@media(max-width:979px){
- #overlay{
-  align-items:flex-end!important;
- }
- #overlay .sheet{
-  width:min(520px,100%)!important;
-  height:auto!important;
-  max-height:min(80dvh,calc(var(--visual-viewport-height,100dvh) - 8px))!important;
-  overflow-y:auto!important;
-  border-radius:22px 22px 0 0!important;
- }
- #overlay .sheet-head{
-  position:sticky!important;
-  top:0!important;
-  background:var(--bg)!important;
- }
-}
-
-
-/* O atributo hidden precisa prevalecer sobre o display flex do overlay. */
+/* Formulário mobile: uma única regra de layout para despesas e entradas.
+   Mantém a tela independente, o painel em 80% e a rolagem dentro do formulário. */
 #overlay[hidden]{display:none!important}
-
-/* Tela de lançamento independente: só cobre o app enquanto estiver aberta. */
-@media(max-width:979px){
- #overlay{background:transparent!important}
- #overlay.open{background:var(--bg)!important;-webkit-backdrop-filter:none!important;backdrop-filter:none!important}
- #overlay .sheet{
-  height:min(80dvh,calc(var(--visual-viewport-height,100dvh) - 8px))!important;
-  max-height:min(80dvh,calc(var(--visual-viewport-height,100dvh) - 8px))!important;
-  min-height:0!important;
-  overflow-y:auto!important;
-  overscroll-behavior:contain!important;
-  -webkit-overflow-scrolling:touch!important;
- }
- #overlay .sheet-head{position:sticky!important;top:0!important;z-index:10!important;background:var(--bg)!important}
- body.sheet-open{overflow:hidden!important;touch-action:none!important}
- body.sheet-open #overlay,body.sheet-open #overlay .sheet{touch-action:pan-y!important}
-}
-
-
-/* Formulário mobile independente: fundo opaco e dimensões estáveis ao abrir o teclado. */
 @media(max-width:979px){
  #overlay{
   position:fixed!important;
   inset:0!important;
-  top:0!important;
-  right:0!important;
-  bottom:0!important;
-  left:0!important;
   width:100%!important;
   height:100vh!important;
-  min-height:100vh!important;
+  height:100dvh!important;
+  box-sizing:border-box!important;
+  display:flex;
   align-items:flex-end!important;
+  justify-content:center!important;
+  overflow:hidden!important;
   background:var(--bg)!important;
   -webkit-backdrop-filter:none!important;
   backdrop-filter:none!important;
-  overflow:hidden!important;
  }
  #overlay.open{background:var(--bg)!important}
  #overlay .sheet{
-  height:80vh!important;
-  max-height:80vh!important;
-  min-height:0!important;
+  display:block;
   flex:0 0 80vh!important;
+  flex-basis:80dvh!important;
+  width:100%!important;
+  max-width:520px!important;
+  min-width:0!important;
+  height:80vh!important;
+  height:80dvh!important;
+  max-height:80vh!important;
+  max-height:80dvh!important;
+  min-height:0!important;
+  box-sizing:border-box!important;
   overflow-x:hidden!important;
   overflow-y:auto!important;
   overscroll-behavior:contain!important;
   -webkit-overflow-scrolling:touch!important;
   border-radius:22px 22px 0 0!important;
  }
+ #overlay .sheet-head{
+  position:sticky!important;
+  top:0!important;
+  z-index:10!important;
+  background:var(--bg)!important;
+ }
  body.sheet-open{
   overflow:hidden!important;
   overscroll-behavior:none!important;
  }
  body.sheet-open #overlay,
- body.sheet-open #overlay .sheet{touch-action:pan-y!important}
+ body.sheet-open #overlay .sheet{
+  touch-action:pan-y!important;
+ }
 }
