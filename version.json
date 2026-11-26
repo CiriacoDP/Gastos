@@ -1,9 +1,8 @@
 {
-  "version": "2.1.15",
+  "version": "2.1.16",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Padroniza a altura e o arredondamento do seletor mensal de Lançamentos com os seletores de Visão geral e Entradas.",
-    "Mantém a lupa em botão separado, com seu tamanho e funcionamento atuais."
+    "Padroniza o seletor mensal e o botão da lupa de Lançamentos na mesma altura e proporção dos controles das demais telas, mantendo a lupa à direita."
   ]
 }
