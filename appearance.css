@@ -2886,3 +2886,11 @@ header .status.syncing .status-sync-pill svg{
   background:var(--bg)!important;
  }
 }
+
+
+/* Isola visualmente a janela de lançamento do conteúdo que fica atrás */
+#overlay.open{
+ background:rgba(3,8,14,.82)!important;
+ -webkit-backdrop-filter:blur(20px) saturate(75%)!important;
+ backdrop-filter:blur(20px) saturate(75%)!important;
+}
