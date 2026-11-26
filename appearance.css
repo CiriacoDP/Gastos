@@ -3173,3 +3173,7 @@ textarea{
 header .brand .status>.status-pill i{
  transform:translateX(2.5px)!important;
 }
+
+
+/* Valor digitado proporcional ao símbolo R$ no formulário de lançamento. */
+#amount{font-size:28px!important;letter-spacing:0!important}
