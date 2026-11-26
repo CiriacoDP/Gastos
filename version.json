@@ -1,8 +1,8 @@
 {
-  "version": "2.3.4",
+  "version": "2.3.5",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Evita o zoom automático do iPhone ao tocar nos campos de digitação."
+    "Alinha verticalmente os indicadores de conexão e sincronização na barra de status."
   ]
 }
