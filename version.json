@@ -1,8 +1,8 @@
 {
-  "version": "2.2.20",
+  "version": "2.2.21",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Permite que um aviso de atualização mais recente substitua o aviso anterior, sem acumular avisos."
+    "Padroniza o tamanho do seletor mensal de Lançamentos com as demais telas."
   ]
 }
