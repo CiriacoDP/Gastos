@@ -1,8 +1,8 @@
 {
-  "version": "2.2.3",
+  "version": "2.2.4",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Valida QR Codes Pix e códigos de barras de boletos antes de salvar o código de pagamento."
+    "Simplifica a leitura de QR Codes e códigos de barras para copiar o conteúdo diretamente, sem validações que bloqueiem a captura."
   ]
 }
