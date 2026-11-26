@@ -1,8 +1,8 @@
 {
-  "version": "2.0.6",
+  "version": "2.0.7",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
-    "Ajusta a altura e a rolagem do formulário à área visível do iPhone quando o teclado é aberto, mantendo o campo de valor à vista."
+    "Mantém os botões Cancelar e Salvar fixos no topo do formulário enquanto o restante do conteúdo rola, inclusive com o teclado aberto."
   ]
 }
