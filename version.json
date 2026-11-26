@@ -1,8 +1,8 @@
 {
-  "version": "2.3.1",
+  "version": "2.3.2",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Permite manter o resumo visível ao pressionar e dispensá-lo com gesto lateral animado."
+    "Adiciona rolagem vertical independente ao cartão de resumo financeiro."
   ]
 }
