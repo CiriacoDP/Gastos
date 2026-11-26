@@ -2758,6 +2758,38 @@ header .status.syncing .status-sync-pill svg{
 }
 
 
+/* Resumo financeiro ampliado: mantém o cartão dentro do toast existente. */
+.toast.summary-toast{
+ display:block;width:min(440px,calc(100% - 28px));max-width:calc(100% - 28px);
+ box-sizing:border-box;padding:17px;border-radius:20px;gap:0;
+ text-align:left;touch-action:pan-y;
+}
+.summary-toast-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-right:28px}
+.summary-toast-heading strong{font-size:15px;font-weight:750;letter-spacing:-.2px}
+.summary-toast-heading span{font-size:11px;font-weight:650;text-transform:capitalize;color:var(--muted)}
+.summary-toast-total{display:flex;flex-direction:column;gap:2px;margin:13px 0;padding:12px 14px;border-radius:14px;background:color-mix(in srgb,var(--accent) 10%,var(--card));border-left:3px solid var(--accent)}
+.summary-toast-total span,.summary-toast-balance span{font-size:11px;color:var(--muted);font-weight:600}
+.summary-toast-total strong{font-size:23px;line-height:1.2;letter-spacing:-.6px;color:var(--ink)}
+.summary-toast-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.summary-toast-metric{display:flex;flex-direction:column;gap:3px;min-width:0;padding:10px 11px;border-radius:12px;background:color-mix(in srgb,var(--sep) 35%,transparent)}
+.summary-toast-metric span{font-size:11px;color:var(--muted);font-weight:650}
+.summary-toast-metric strong{font-size:14px;line-height:1.25;color:var(--ink);overflow-wrap:anywhere}
+.summary-toast-metric small{font-size:10px;color:var(--muted)}
+.summary-toast-metric.pending strong{color:var(--red)}
+.summary-toast-metric.incoming strong,.summary-toast-metric.received strong{color:var(--green)}
+.summary-toast-metric.paid strong{color:var(--accent)}
+.summary-toast-balance{display:flex;justify-content:space-between;align-items:center;gap:12px;margin-top:10px;padding:11px 2px 0;border-top:1px solid var(--sep)}
+.summary-toast-balance strong{font-size:15px;color:var(--green)}
+.summary-toast-balance strong.negative{color:var(--red)}
+.summary-toast-close{position:absolute;right:12px;top:10px;width:27px;height:27px;border:0;border-radius:50%;background:color-mix(in srgb,var(--sep) 55%,transparent);color:var(--muted);font-size:20px;line-height:1;cursor:pointer}
+.toast.summary-toast .summary-toast-close{pointer-events:auto}
+@media(max-width:390px){
+ .toast.summary-toast{padding:14px;border-radius:17px}
+ .summary-toast-total strong{font-size:21px}
+ .summary-toast-metric{padding:9px}
+ .summary-toast-metric strong{font-size:13px}
+}
+
 /* Notificações compactas inspiradas nos banners do iPhone */
 .toast{
  display:flex;align-items:center;gap:11px;
