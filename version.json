@@ -1,8 +1,8 @@
 {
-  "version": "2.2.23",
+  "version": "2.2.24",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Compacta o conjunto de navegação mensal e busca sem alterar seu funcionamento."
+    "Encurta a descrição da tela Lançamentos."
   ]
 }
