@@ -1,9 +1,9 @@
 {
-  "version": "2.1.5",
+  "version": "2.1.6",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige o dimensionamento horizontal do formulário mobile, incluindo preenchimento e bordas dentro da largura disponível.",
-    "Mantém a tela independente, painel de 80%, rolagem interna e cabeçalho fixo."
+    "Remove o foco automático do campo de valor ao abrir o formulário, impedindo que o teclado apareça junto com a tela.",
+    "Mantém o foco nos campos quando necessário após validações e em outras funções."
   ]
 }
