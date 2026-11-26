@@ -1,9 +1,8 @@
 {
-  "version": "2.1.9",
+  "version": "2.1.10",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige a largura do painel do formulário mobile: remove flex-basis baseado na altura da tela e deixa a largura seguir calc(100% - 24px).",
-    "Preserva a altura de 80dvh, a tela independente, o fundo sólido, a rolagem interna e o cabeçalho fixo."
+    "Bloqueia toques no conteúdo que fica por trás da área inferior reservada à navegação mobile, mantendo os botões do Nav Bar clicáveis."
   ]
 }
