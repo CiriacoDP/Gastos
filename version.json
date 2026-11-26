@@ -1,8 +1,9 @@
 {
-  "version": "2.2.9",
+  "version": "2.2.10",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Refina o visual da confirmação de dados encontrados no QR Code Pix."
+    "Ajusta a duração visual da instalação conforme o nível da versão.",
+    "Adiciona animação de carteira com dinheiro à tela de atualização."
   ]
 }
