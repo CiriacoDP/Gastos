@@ -2865,3 +2865,24 @@ header .status.syncing .status-sync-pill svg{
  margin:0 0 12px;
  background:var(--bg);
 }
+
+
+/* Formulário compacto em formato de janela flutuante no celular.
+   A mesma folha é usada para despesas e entradas. */
+@media(max-width:979px){
+ #overlay{
+  align-items:flex-end!important;
+ }
+ #overlay .sheet{
+  width:min(520px,100%)!important;
+  height:auto!important;
+  max-height:min(80dvh,calc(var(--visual-viewport-height,100dvh) - 8px))!important;
+  overflow-y:auto!important;
+  border-radius:22px 22px 0 0!important;
+ }
+ #overlay .sheet-head{
+  position:sticky!important;
+  top:0!important;
+  background:var(--bg)!important;
+ }
+}
