@@ -1,8 +1,8 @@
 {
-  "version": "2.2.4",
+  "version": "2.2.5",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Simplifica a leitura de QR Codes e códigos de barras para copiar o conteúdo diretamente, sem validações que bloqueiem a captura."
+    "Ajusta o campo de URL da planilha para evitar zoom automático ao focar no Safari do iPhone."
   ]
 }
