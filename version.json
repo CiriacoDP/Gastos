@@ -1,8 +1,8 @@
 {
-  "version": "2.1.2",
+  "version": "2.1.3",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige a exibição do formulário como tela independente: o aplicativo permanece visível quando o formulário está fechado e o painel ocupa até 80% da tela quando aberto."
+    "Estabiliza o formulário de lançamento como tela independente no celular: fundo opaco, painel com altura fixa de 80% e rolagem própria durante o uso do teclado."
   ]
 }
