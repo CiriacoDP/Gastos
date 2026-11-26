@@ -3,7 +3,7 @@
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Adiciona opção para baixar o relatório mensal em PDF."
+    "Adiciona opção para baixar o relatório mensal em PDF.",
     "Corrige o zoom automático do iPhone ao tocar no campo da URL do Apps Script."
   ]
 }
