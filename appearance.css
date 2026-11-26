@@ -2893,7 +2893,7 @@ header .status.syncing .status-sync-pill svg{
   position:sticky!important;
   top:0!important;
   z-index:10!important;
-  background:var(--bg)!important;
+  background:inherit!important;
  }
  body.sheet-open{
   overflow:hidden!important;
