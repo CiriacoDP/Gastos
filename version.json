@@ -1,8 +1,8 @@
 {
-  "version": "2.1.20",
+  "version": "2.1.21",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Substitui avisos e confirmações nativos por uma janela personalizada do aplicativo, com mensagens formatadas e suporte aos temas claro, escuro e automático."
+    "Prioriza o cache local dos arquivos CSS dentro da mesma versão, reduzindo novas consultas de rede sem atrasar a aplicação de atualizações."
   ]
 }
