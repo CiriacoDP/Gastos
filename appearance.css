@@ -2796,3 +2796,10 @@ header .status.syncing .status-sync-pill svg{
  animation:status-sync-spin .85s linear infinite!important;
  transform-origin:50% 50%;
 }
+
+
+/* Ajuste fino do eixo vertical do cabeçalho mobile */
+@media(max-width:979px){
+ header .brand-mark,
+ header .header-actions{transform:translateY(2px)!important}
+}
