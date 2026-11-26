@@ -1,8 +1,8 @@
 {
-  "version": "2.1.16",
+  "version": "2.1.17",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Padroniza o seletor mensal e o botão da lupa de Lançamentos na mesma altura e proporção dos controles das demais telas, mantendo a lupa à direita."
+    "Remove o card de personalização e mantém o aplicativo seguindo automaticamente o tema do aparelho, com a Visão geral como tela inicial."
   ]
 }
