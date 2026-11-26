@@ -1,8 +1,8 @@
 {
-  "version": "2.3.3",
+  "version": "2.3.4",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Organiza os três estados e o botão Filtros em uma única linha no celular."
+    "Evita o zoom automático do iPhone ao tocar nos campos de digitação."
   ]
 }
