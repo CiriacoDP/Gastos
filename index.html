@@ -2817,9 +2817,9 @@ $('paymentCodeInput').addEventListener('input',()=>{$('paymentCodeStatus').textC
 document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('paymentScanner').hidden)closePaymentScanner();});
 
 function parseAmountField(value){
- const raw=String(value??'').trim().replace(/\\s/g,'');
+ const raw=String(value??'').trim().replace(/\s/g,'');
  if(!raw)return NaN;
- const normalized=raw.includes(',')?raw.replace(/\\./g,'').replace(',','.'):raw;
+ const normalized=raw.includes(',')?raw.replace(/\./g,'').replace(',','.'):raw;
  const number=Number(normalized);
  return Number.isFinite(number)?number:NaN;
 }
