@@ -1,8 +1,8 @@
 {
-  "version": "2.3.5",
+  "version": "2.3.6",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Alinha verticalmente os indicadores de conexão e sincronização na barra de status."
+    "Ajusta o tamanho do valor no formulário para acompanhar o símbolo R$."
   ]
 }
