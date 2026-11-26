@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.0.3">
+<meta name="app-version" content="2.0.4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2413,7 +2413,7 @@ function openSheet(item,defaultType='Gasto'){
  $('overlay').hidden=false;
  requestAnimationFrame(()=>$('overlay').classList.add('open'));
 
- if(!item)setTimeout(()=>$('amount').focus(),320);
+ if(!item)$('amount').focus();
 }
 
 function closeSheet(){
