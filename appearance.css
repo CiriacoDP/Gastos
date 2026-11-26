@@ -2854,3 +2854,14 @@ header .status.syncing .status-sync-pill svg{
   max-height:calc(var(--visual-viewport-height,100dvh) - 8px)!important;
  }
 }
+
+
+/* Mantém Cancelar e Salvar visíveis enquanto o formulário rola com o teclado aberto */
+#overlay .sheet-head{
+ position:sticky;
+ top:0;
+ z-index:10;
+ padding:8px 0 12px;
+ margin:0 0 12px;
+ background:var(--bg);
+}
