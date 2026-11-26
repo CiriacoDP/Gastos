@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.2.3">
+<meta name="app-version" content="2.2.4">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.2.3">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.3" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.2.4">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.2.4" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.3</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.2.4</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.3</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.2.4</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -367,7 +367,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.3</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.2.4</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -412,7 +412,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.3</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.2.4</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -547,9 +547,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.3</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.2.4</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.3</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.2.4</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2364,18 +2364,6 @@ function loadZXingLibrary(){
  });
  return zxingLoadPromise;
 }
-function isValidBankBoletoBarcode(digits){
- if(!/^\d{44}$/.test(digits))return false;
- let sum=0,weight=2;
- for(let i=digits.length-1;i>=0;i--){
-  if(i===4)continue;
-  sum+=Number(digits[i])*weight;
-  weight=weight===9?2:weight+1;
- }
- let generalDigit=11-(sum%11);
- if(generalDigit===0||generalDigit===10||generalDigit===11)generalDigit=1;
- return Number(digits[4])===generalDigit;
-}
 function boletoMod10(field){
  let sum=0,weight=2;
  for(let i=field.length-1;i>=0;i--){
@@ -2387,39 +2375,11 @@ function boletoMod10(field){
 }
 function boletoBarcodeToLine(value){
  const digits=String(value||'').replace(/\D/g,'');
- if(!isValidBankBoletoBarcode(digits))return null;
+ if(digits.length!==44)return String(value||'').trim();
  const field1=digits.slice(0,4)+digits.slice(19,24);
  const field2=digits.slice(24,34);
  const field3=digits.slice(34,44);
  return field1+boletoMod10(field1)+field2+boletoMod10(field2)+field3+boletoMod10(field3)+digits.slice(4,5)+digits.slice(5,19);
-}
-function isValidPixPayload(value){
- const payload=String(value||'').trim();
- if(!payload||payload.length>2048)return false;
- let position=0,fields=[];
- while(position<payload.length){
-  if(position+4>payload.length)return false;
-  const tag=payload.slice(position,position+2);
-  const lengthText=payload.slice(position+2,position+4);
-  if(!/^\d{2}$/.test(tag)||!/^\d{2}$/.test(lengthText))return false;
-  const length=Number(lengthText),valueStart=position+4,valueEnd=valueStart+length;
-  if(valueEnd>payload.length)return false;
-  fields.push({tag,value:payload.slice(valueStart,valueEnd),start:position,end:valueEnd});
-  position=valueEnd;
- }
- const payloadFormat=fields.find(field=>field.tag==='00')?.value;
- const initiation=fields.find(field=>field.tag==='01')?.value;
- const pixAccount=fields.some(field=>Number(field.tag)>=26&&Number(field.tag)<=51&&field.value.includes('br.gov.bcb.pix'));
- const crcField=fields[fields.length-1];
- if(payloadFormat!=='01'||!['11','12'].includes(initiation)||!pixAccount||crcField?.tag!=='63'||crcField.value.length!==4)return false;
- let crc=0xFFFF;
- const crcText=payload.slice(0,crcField.start+4);
- for(let i=0;i<crcText.length;i++){
-  crc^=crcText.charCodeAt(i)<<8;
-  for(let bit=0;bit<8;bit++)crc=(crc&0x8000)?((crc<<1)^0x1021):(crc<<1);
-  crc&=0xFFFF;
- }
- return crc.toString(16).toUpperCase().padStart(4,'0')===crcField.value.toUpperCase();
 }
 function closePaymentScanner(){
  const video=$('paymentScannerVideo');
@@ -2451,23 +2411,14 @@ function handlePaymentScannerResult(result,ZXing){
  if(!result||paymentScannerResultHandled||$('paymentScanner').hidden)return;
  const raw=String(result.getText()||'').trim();
  if(!raw)return;
- const isQr=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE;
- const kind=isQr?'PIX':'BOLETO';
- const savedCode=isQr?raw:boletoBarcodeToLine(raw);
- if(isQr&&!isValidPixPayload(raw)){
-  $('paymentScannerStatus').textContent='QR Code detectado, mas não é um Pix válido. Aponte para o QR Code Pix.';
-  return;
- }
- if(!isQr&&!savedCode){
-  $('paymentScannerStatus').textContent='Código de barras detectado, mas não passou na validação do boleto. Tente enquadrar novamente.';
-  return;
- }
  paymentScannerResultHandled=true;
+ const isQr=result.getBarcodeFormat()===ZXing.BarcodeFormat.QR_CODE;
+ const savedCode=isQr?raw:boletoBarcodeToLine(raw);
  $('paymentCodeInput').value=savedCode;
- $('paymentCodeKind').textContent=kind==='PIX'?'Pix':'Boleto';
- $('paymentCodeStatus').textContent=kind==='BOLETO'?'Linha digitável do boleto validada. Salve a conta.':'QR Code Pix validado. Salve a conta.';
+ $('paymentCodeKind').textContent=isQr?'Pix':'Boleto';
+ $('paymentCodeStatus').textContent='Código lido. Salve a conta para guardar.';
  closePaymentScanner();
- toast(kind==='PIX'?'QR Code Pix validado. Salve a conta.':'Código do boleto validado. Salve a conta.');
+ toast('Código lido. Agora você pode copiar e colar no aplicativo do banco.');
 }
 async function startPaymentScanner(){
  if(!paymentScannerAvailable){
@@ -2489,12 +2440,8 @@ async function startPaymentScanner(){
    throw new Error('O iPhone só libera a câmera em uma conexão HTTPS. Abra o Meu Dinheiro pelo endereço seguro no Safari.');
   }
   const ZXing=await loadZXingLibrary();
-  const formats=[ZXing.BarcodeFormat.QR_CODE,ZXing.BarcodeFormat.ITF,ZXing.BarcodeFormat.CODE_128,ZXing.BarcodeFormat.CODE_39];
-  const hints=new Map();
-  hints.set(ZXing.DecodeHintType.POSSIBLE_FORMATS,formats);
-  hints.set(ZXing.DecodeHintType.TRY_HARDER,true);
-  if(ZXing.DecodeHintType.ALSO_INVERTED)hints.set(ZXing.DecodeHintType.ALSO_INVERTED,true);
-  paymentScannerReader=new ZXing.BrowserMultiFormatReader(hints,350);
+  // Sem limitar formatos: tenta QR Code e todos os padrões de código de barras suportados.
+  paymentScannerReader=new ZXing.BrowserMultiFormatReader();
   $('paymentScannerStatus').textContent='Solicitando permissão para usar a câmera traseira…';
 
   // Usa apenas uma inicialização. O Safari não deve abrir uma segunda captura se a primeira falhar.
