@@ -1543,10 +1543,11 @@ body.privacy-mode #budgetFeedback::after{justify-content:flex-start!important}
  }
  .app-sidebar .app-nav{
   width:100%!important;max-width:none!important;height:100%!important;
-  margin:0!important;padding:0!important;
+  margin:0!important;padding:0!important;box-sizing:border-box!important;
   display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;
   align-items:stretch!important;justify-content:stretch!important;
   gap:5px!important;border-radius:22px!important;overflow:hidden!important;
+  background-clip:padding-box!important;clip-path:inset(0 round 22px)!important;
  }
  .app-sidebar .app-nav button{
   min-width:0!important;width:100%!important;height:100%!important;
