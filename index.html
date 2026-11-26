@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.3.0">
+<meta name="app-version" content="2.3.1">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.3.0">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.3.0" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.3.1">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.3.1" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.3.0</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.3.1</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.3.0</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.3.1</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -371,7 +371,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.3.0</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.3.1</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -417,7 +417,7 @@
 
   <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.3.0</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.3.1</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
  </section>
@@ -569,9 +569,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.3.0</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.3.1</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.3.0</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.3.1</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -738,6 +738,7 @@ function message(id,t,err=false){
 }
 
 let tt;
+let summaryToastTimer;
 function toast(t,err=false){
  const el=$('toast');
  el.replaceChildren();
@@ -1393,17 +1394,46 @@ function showPendingReminder(){
  const dismiss=document.createElement('button');
  dismiss.type='button';dismiss.className='summary-toast-close';
  dismiss.setAttribute('aria-label','Dispensar resumo');dismiss.textContent='×';
- dismiss.addEventListener('click',()=>{clearTimeout(tt);el.className='toast';});
+ dismiss.addEventListener('click',()=>{clearTimeout(summaryToastTimer);el.classList.remove('show');setTimeout(()=>{el.className='toast';},280);});
  el.append(dismiss,heading,main,grid,footer);
- clearTimeout(tt);
- tt=setTimeout(()=>{el.className='toast'},8500);
+ clearTimeout(summaryToastTimer);
+ let summaryRemaining=8500;
+ let summaryStartedAt=Date.now();
+ let summaryTouchX=0,summaryTouchY=0,summaryHolding=false;
+ const scheduleSummaryDismiss=()=>{
+  clearTimeout(summaryToastTimer);
+  summaryStartedAt=Date.now();
+  summaryToastTimer=setTimeout(()=>dismissSummaryToast(),summaryRemaining);
+ };
+ const dismissSummaryToast=(direction='')=>{
+  clearTimeout(summaryToastTimer);
+  el.classList.remove('swipe-left','swipe-right');
+  if(direction)el.classList.add(direction==='left'?'swipe-left':'swipe-right');
+  else el.classList.remove('show');
+  setTimeout(()=>{el.className='toast';},280);
+ };
+ scheduleSummaryDismiss();
 
- let startX=0,startY=0;
- el.ontouchstart=event=>{const touch=event.changedTouches[0];startX=touch.clientX;startY=touch.clientY};
+ // Pressionar e segurar pausa o desaparecimento para permitir a leitura.
+ el.ontouchstart=event=>{
+  const touch=event.changedTouches[0];
+  summaryTouchX=touch.clientX;summaryTouchY=touch.clientY;
+  summaryHolding=true;
+  summaryRemaining=Math.max(0,summaryRemaining-(Date.now()-summaryStartedAt));
+  clearTimeout(summaryToastTimer);
+ };
  el.ontouchend=event=>{
   const touch=event.changedTouches[0];
-  const dx=touch.clientX-startX,dy=touch.clientY-startY;
-  if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)){clearTimeout(tt);el.className='toast';}
+  const dx=touch.clientX-summaryTouchX,dy=touch.clientY-summaryTouchY;
+  summaryHolding=false;
+  if(Math.abs(dx)>55&&Math.abs(dx)>Math.abs(dy)*1.15){
+   dismissSummaryToast(dx<0?'left':'right');
+   return;
+  }
+  scheduleSummaryDismiss();
+ };
+ el.ontouchcancel=()=>{
+  if(summaryHolding){summaryHolding=false;scheduleSummaryDismiss();}
  };
 }
 
