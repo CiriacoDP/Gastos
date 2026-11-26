@@ -1,8 +1,8 @@
 {
-  "version": "2.3.6",
+  "version": "2.3.7",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Ajusta o tamanho do valor no formulário para acompanhar o símbolo R$."
+    "Formata o valor da despesa com duas casas decimais ao sair do campo."
   ]
 }
