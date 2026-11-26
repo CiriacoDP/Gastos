@@ -1,8 +1,9 @@
 {
-  "version": "2.1.3",
+  "version": "2.1.4",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Estabiliza o formulário de lançamento como tela independente no celular: fundo opaco, painel com altura fixa de 80% e rolagem própria durante o uso do teclado."
+    "Consolida o CSS do formulário mobile em uma única implementação, removendo regras concorrentes de altura e posicionamento.",
+    "Mantém o formulário independente, com fundo sólido, painel de 80% da tela, rolagem interna e cabeçalho fixo."
   ]
 }
