@@ -1,8 +1,8 @@
 {
-  "version": "2.3.7",
+  "version": "2.3.8",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Formata o valor da despesa com duas casas decimais ao sair do campo."
+    "Relatório mensal em PDF ajustado para A4 retrato, com tabela reorganizada e melhor distribuição do conteúdo."
   ]
 }
