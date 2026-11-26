@@ -1,8 +1,8 @@
 {
-  "version": "2.1.18",
+  "version": "2.1.19",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige a aplicação do tema automático para acompanhar corretamente a aparência do aparelho após a remoção das opções manuais."
+    "Restaura o card Personalização com seleção de aparência e preferências de privacidade e lembretes; mantém a tela inicial fixa na Visão geral."
   ]
 }
