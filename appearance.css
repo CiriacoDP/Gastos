@@ -2750,7 +2750,7 @@ header .status.syncing .status-sync-pill svg{
 
 /* Ajuste fino da posição do logotipo no cabeçalho mobile */
 @media(max-width:979px){
- header .brand-mark{transform:translateY(2px)!important}
+ header .brand-mark{align-self:flex-start!important;margin:27.5px 0 0!important;transform:none!important}
 }
 
 
