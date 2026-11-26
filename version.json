@@ -1,8 +1,9 @@
 {
-  "version": "2.1.12",
+  "version": "2.1.13",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Amplia a área opaca do cabeçalho sticky até o topo interno do painel, cobrindo conteúdo que aparecia por trás e preservando a linha de ações."
+    "Uniformiza os cantos do Nav Bar mobile e do cabeçalho do formulário com arredondamento de 22 px.",
+    "Refina o arredondamento dos cartões individuais de despesas e entradas mobile para 16 px."
   ]
 }
