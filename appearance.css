@@ -3167,3 +3167,9 @@ textarea{
 .amount-wrap input{
  font-size:40px!important;
 }
+
+
+/* Alinha o centro do indicador conectado ao centro do ícone de sincronização. */
+header .brand .status>.status-pill i{
+ transform:translateX(2.5px)!important;
+}
