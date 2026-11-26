@@ -1,8 +1,9 @@
 {
-  "version": "2.1.10",
+  "version": "2.1.11",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Bloqueia toques no conteúdo que fica por trás da área inferior reservada à navegação mobile, mantendo os botões do Nav Bar clicáveis."
+    "Reseta a rolagem do formulário ao abrir tanto uma nova despesa quanto a edição de uma despesa existente, evitando campos parcialmente escondidos pelo cabeçalho.",
+    "Faz o cabeçalho fixo herdar o fundo do painel, eliminando a faixa de cor divergente e preservando os temas."
   ]
 }
