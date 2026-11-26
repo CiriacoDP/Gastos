@@ -2309,6 +2309,9 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 .payment-scanner-head strong{font-size:16px}
 .payment-scanner-head button{color:#8fc3ff;font-weight:700;padding:8px}
 .payment-scanner video{display:block;width:100%;max-height:58dvh;min-height:220px;object-fit:cover;border-radius:14px;background:#05080c}
+.payment-scanner-controls{display:flex;justify-content:flex-end;margin-top:10px}
+.payment-scanner-controls button{padding:9px 13px;border:1px solid rgba(143,195,255,.35);border-radius:10px;background:#1c2b3b;color:#dcecff;font-size:13px;font-weight:700}
+.payment-scanner-controls button:disabled{opacity:.5}
 .payment-scanner-status{min-height:36px;margin:10px 2px 0;color:#c4d1df;font-size:12px;line-height:1.45}
 .payment-scanner-hint{color:#91a0b1;font-size:11px;line-height:1.45;margin:8px 2px 0}
 /* Anexos de contas */
