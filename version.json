@@ -1,9 +1,10 @@
 {
-  "version": "2.0.0",
+  "version": "2.0.1",
   "ready": true,
   "releasedAt": "2026-11-25",
   "notes": [
     "Migração para o novo padrão de versionamento do aplicativo.",
-    "A partir desta versão, 25 PATCHES completam 1 MINOR e 15 MINORS completam 1 MAJOR."
+    "A partir desta versão, 25 PATCHES completam 1 MINOR e 15 MINORS completam 1 MAJOR.",
+    "Ajuste do alinhamento vertical do cabeçalho em dispositivos móveis."
   ]
 }
