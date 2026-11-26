@@ -1,8 +1,8 @@
 {
-  "version": "2.1.17",
+  "version": "2.1.18",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Remove o card de personalização e mantém o aplicativo seguindo automaticamente o tema do aparelho, com a Visão geral como tela inicial."
+    "Corrige a aplicação do tema automático para acompanhar corretamente a aparência do aparelho após a remoção das opções manuais."
   ]
 }
