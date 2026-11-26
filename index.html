@@ -1333,14 +1333,78 @@ function exportLoadedEntriesJson(){
 }
 function showPendingReminder(){
  if(!appSettings.pendingReminder)return;
- const expenses=entries.filter(x=>x.tipo!=='Entrada'&&!x.pago);
- const income=entries.filter(x=>x.tipo==='Entrada'&&!x.pago);
- if(expenses.length||income.length){
-  const parts=[];
-  if(expenses.length)parts.push(expenses.length+' despesa(s) pendente(s)');
-  if(income.length)parts.push(income.length+' entrada(s) a receber');
-  toast('Resumo do mês: '+parts.join(' · '),false);
- }
+ const currentEntries=entries.filter(x=>x.mes===month);
+ const expenses=currentEntries.filter(x=>x.tipo!=='Entrada');
+ const incomes=currentEntries.filter(x=>x.tipo==='Entrada');
+ const pendingExpenses=expenses.filter(x=>!x.pago);
+ const pendingIncomes=incomes.filter(x=>!x.pago);
+ if(!pendingExpenses.length&&!pendingIncomes.length)return;
+
+ const totalPending=sum(pendingExpenses);
+ const totalToReceive=sum(pendingIncomes);
+ const paidExpenses=sum(expenses.filter(x=>x.pago));
+ const receivedIncome=sum(incomes.filter(x=>x.pago));
+ const totalIncome=sum(incomes);
+ const totalExpenses=sum(expenses);
+ const balance=totalIncome-totalExpenses;
+ const el=$('toast');
+ el.replaceChildren();
+ el.className='toast summary-toast show';
+ el.setAttribute('aria-label','Resumo financeiro do mês');
+
+ const heading=document.createElement('div');
+ heading.className='summary-toast-heading';
+ const title=document.createElement('strong');
+ title.textContent='Resumo do mês';
+ const period=document.createElement('span');
+ period.textContent=monthLabel(month);
+ heading.append(title,period);
+
+ const main=document.createElement('div');
+ main.className='summary-toast-total';
+ const mainLabel=document.createElement('span');
+ mainLabel.textContent='Total pendente';
+ const mainValue=document.createElement('strong');
+ mainValue.textContent=money(totalPending);
+ main.append(mainLabel,mainValue);
+
+ const grid=document.createElement('div');
+ grid.className='summary-toast-grid';
+ const addMetric=(label,value,detail,tone)=>{
+  const item=document.createElement('div');
+  item.className='summary-toast-metric '+tone;
+  const name=document.createElement('span');name.textContent=label;
+  const amount=document.createElement('strong');amount.textContent=value;
+  const note=document.createElement('small');note.textContent=detail;
+  item.append(name,amount,note);grid.append(item);
+ };
+ addMetric('A pagar',money(totalPending),pendingExpenses.length+' despesas','pending');
+ addMetric('A receber',money(totalToReceive),pendingIncomes.length+' entradas','incoming');
+ addMetric('Já pago',money(paidExpenses),'Despesas quitadas','paid');
+ addMetric('Recebido',money(receivedIncome),'Entradas recebidas','received');
+
+ const footer=document.createElement('div');
+ footer.className='summary-toast-balance';
+ const balanceLabel=document.createElement('span');balanceLabel.textContent='Saldo do mês';
+ const balanceValue=document.createElement('strong');balanceValue.textContent=money(balance);
+ if(balance<0)balanceValue.classList.add('negative');
+ footer.append(balanceLabel,balanceValue);
+
+ const dismiss=document.createElement('button');
+ dismiss.type='button';dismiss.className='summary-toast-close';
+ dismiss.setAttribute('aria-label','Dispensar resumo');dismiss.textContent='×';
+ dismiss.addEventListener('click',()=>{clearTimeout(tt);el.className='toast';});
+ el.append(dismiss,heading,main,grid,footer);
+ clearTimeout(tt);
+ tt=setTimeout(()=>{el.className='toast'},8500);
+
+ let startX=0,startY=0;
+ el.ontouchstart=event=>{const touch=event.changedTouches[0];startX=touch.clientX;startY=touch.clientY};
+ el.ontouchend=event=>{
+  const touch=event.changedTouches[0];
+  const dx=touch.clientX-startX,dy=touch.clientY-startY;
+  if(Math.abs(dx)>65&&Math.abs(dx)>Math.abs(dy)){clearTimeout(tt);el.className='toast';}
+ };
 }
 
 function initPrivacyMode(){
