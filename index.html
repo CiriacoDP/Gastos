@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.0.5">
+<meta name="app-version" content="2.0.6">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -2960,10 +2960,18 @@ load().then(showPendingReminder);
  const update=()=>{
   const width=Math.round(window.innerWidth||root.clientWidth||0);
   const height=Math.round(window.innerHeight||root.clientHeight||0);
+  const visualHeight=Math.round(window.visualViewport?.height||height);
+  const visualTop=Math.round(window.visualViewport?.offsetTop||0);
   const ratio=height?width/height:1;
   root.style.setProperty('--app-viewport-width',width+'px');
   root.style.setProperty('--app-viewport-height',height+'px');
+  root.style.setProperty('--visual-viewport-height',visualHeight+'px');
+  root.style.setProperty('--visual-viewport-offset-top',visualTop+'px');
   root.style.setProperty('--app-viewport-ratio',ratio.toFixed(3));
+  if(document.body.classList.contains('sheet-open')&&document.activeElement?.id==='amount'){
+   const sheet=document.querySelector('#overlay .sheet');
+   if(sheet)requestAnimationFrame(()=>{sheet.scrollTop=0;});
+  }
   root.dataset.screenShape=ratio>=1.6?'wide':ratio>=1.25?'balanced':'tall';
   root.dataset.screenClass=width>=1650?'large':width>=1100?'desktop':width>=700?'tablet':'mobile';
  };
