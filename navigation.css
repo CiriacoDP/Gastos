@@ -26,7 +26,7 @@
  .sidebar-brand,.sidebar-footer{display:none!important}
  .app-sidebar{
   position:fixed;z-index:120;left:50%;right:auto;top:auto;
-  bottom:calc(14px + env(safe-area-inset-bottom,0px));
+  bottom:calc(2px + env(safe-area-inset-bottom,0px));
   width:min(calc(100% - 24px),440px);height:auto;min-height:0;max-height:none;
   margin:0;padding:0;transform:translateX(-50%);overflow:visible;display:block;
   border:0;border-radius:0;background:transparent;box-shadow:none;
