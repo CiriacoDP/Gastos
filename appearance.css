@@ -3191,3 +3191,37 @@ header .brand .status>.status-pill i{
 #refreshBtn.refreshing{animation:refresh-button-spin 1.2s linear infinite;transform-origin:center}
 #refreshBtn:disabled{opacity:.65}
 @media(prefers-reduced-motion:reduce){#refreshBtn.refreshing{animation-duration:2.4s}}
+
+
+/* Configurações organizadas em grupos e subpáginas */
+.settings-home{display:grid;gap:16px;max-width:850px}
+.settings-group{overflow:hidden;background:var(--card);border:1px solid var(--sep);border-radius:18px;box-shadow:var(--shadow)}
+.settings-group h3{margin:0;padding:15px 16px 8px;color:var(--mut);font-size:12px;font-weight:700;letter-spacing:.35px;text-transform:uppercase}
+.settings-nav-row{display:flex;align-items:center;gap:13px;width:100%;min-height:70px;padding:10px 16px;background:transparent;color:var(--ink);text-align:left}
+.settings-nav-row+.settings-nav-row{border-top:1px solid var(--sep)}
+.settings-nav-icon{display:grid;place-items:center;flex:0 0 38px;width:38px;height:38px;border-radius:11px;color:#fff}
+.settings-nav-icon svg{width:21px;height:21px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.connection-icon{background:#287ed5}.update-icon{background:#169b68}.appearance-icon{background:#8960c7}.data-icon{background:#c17b24}.about-icon{background:#64748b}
+.settings-nav-copy{display:grid;gap:3px;flex:1;min-width:0}
+.settings-nav-copy strong{font-size:14px;font-weight:650}
+.settings-nav-copy small{color:var(--mut);font-size:11px;line-height:1.35}
+.settings-nav-chevron{flex:0 0 18px;width:18px;height:18px;fill:none;stroke:var(--mut);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.settings-nav-row:active{background:var(--fill)}
+.settings-detail-header{max-width:850px;margin:0 0 14px}
+.settings-back-button{display:inline-flex;align-items:center;gap:5px;padding:7px 0;background:transparent;color:var(--blue);font-size:13px;font-weight:650}
+.settings-back-button svg{width:18px;height:18px;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.settings-detail-header h2{margin:8px 0 14px;font-size:23px;font-weight:750;letter-spacing:-.4px}
+#connection [hidden]{display:none!important}
+@media(min-width:980px){
+ #connection.active{display:block!important}
+ #connection>.settings-card{height:auto!important;max-width:850px!important;margin:0 0 14px!important;padding:24px}
+ #connection>.settings-card .last-sync-line{margin-top:12px}
+}
+@media(max-width:979px){
+ .settings-home{gap:13px}
+ .settings-group{border-radius:16px}
+ .settings-group h3{padding:13px 14px 7px}
+ .settings-nav-row{min-height:66px;padding:9px 13px;gap:11px}
+ .settings-nav-copy strong{font-size:13px}
+ .settings-detail-header h2{font-size:21px}
+}
