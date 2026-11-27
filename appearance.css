@@ -1525,9 +1525,6 @@
 
 /* Transição entre telas: View Transitions com fallback nativo já existente. */
 .view.active{view-transition-name:app-screen}
-/* Mantém a navegação fixa em uma camada própria durante a troca de telas. */
-.app-sidebar{view-transition-name:app-navigation}
-::view-transition-old(app-navigation),::view-transition-new(app-navigation){animation:none!important}
 ::view-transition-old(app-screen),
 ::view-transition-new(app-screen){animation-duration:360ms;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
 html[data-nav-direction="forward"]::view-transition-old(app-screen){animation-name:app-screen-out-forward}
