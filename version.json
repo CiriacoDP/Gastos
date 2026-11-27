@@ -1,8 +1,8 @@
 {
-  "version": "2.6.18",
+  "version": "2.6.19",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui o recorte simulado por contorno SVG dinâmico, alinhado ao centro real da seção ativa."
+    "Aumenta a largura e a profundidade do vinco côncavo da barra mobile, mantendo o centro vinculado à seção ativa."
   ]
 }
