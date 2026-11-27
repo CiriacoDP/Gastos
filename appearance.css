@@ -1456,7 +1456,7 @@
 }
 @media(min-width:1100px){
 }
-/* NAVEGAÇÃO — bloco único: desktop, mobile, menu rápido e áreas seguras. */
+/* NAVEGAÇÃO — bloco único: cinco posições, seleção elevada e menu de adição. */
 .app-sidebar{position:fixed;z-index:120;left:16px;top:16px;bottom:16px;width:76px;display:flex;flex-direction:column;align-items:stretch;padding:15px 9px;border:1px solid var(--sep);border-radius:22px;background:var(--card);box-shadow:var(--shadow)}
 .app-sidebar .app-nav{display:flex;flex-direction:column;align-items:stretch;gap:8px;width:100%;margin:18px 0 0;padding:0;overflow:visible;border:0;border-radius:0;background:transparent;box-shadow:none}
 .app-sidebar .app-nav button{display:flex;align-items:center;justify-content:center;gap:13px;flex:0 0 40px;min-width:0;width:100%;padding:0 10px;border:1px solid transparent;border-radius:13px;background:transparent;color:var(--mut);font-size:13px;font-weight:650;white-space:nowrap}
@@ -1464,7 +1464,13 @@
 .app-sidebar .nav-icon{display:grid;place-items:center;flex:0 0 23px;width:23px;height:23px}
 .app-sidebar .nav-icon svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
 .app-sidebar .nav-label{display:none}
-.app-sidebar .app-nav button.nav-quick-add{display:none}
+.app-sidebar .app-nav button.nav-quick-add{display:flex}
+.nav-quick-menu{position:absolute;z-index:5;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);display:flex;flex-direction:column;gap:5px;width:min(260px,calc(100vw - 48px));padding:9px;border:1px solid var(--sep);border-radius:18px;background:var(--card);box-shadow:0 12px 34px rgba(0,0,0,.22)}
+.nav-quick-menu[hidden]{display:none!important}
+.nav-quick-menu button{display:flex;align-items:center;gap:11px;width:100%;min-height:44px;padding:8px 10px;border:0;border-radius:11px;background:transparent;color:var(--ink);text-align:left;font-size:13px;font-weight:650}
+.nav-quick-menu button:active{background:var(--fill)}
+.nav-quick-menu-icon{display:grid;place-items:center;flex:0 0 29px;width:29px;height:29px;border-radius:9px;background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue);font-size:19px;font-weight:700}
+@media(min-width:980px){.nav-quick-menu{display:none!important}}
 @media(min-width:1100px){
  .app-sidebar{left:22px;top:22px;bottom:22px;width:220px;padding:18px 14px}
  .app-sidebar .app-nav{align-items:stretch;gap:7px;margin-top:34px}
@@ -1473,51 +1479,32 @@
  .app-sidebar .nav-label{display:block}
 }
 @media(max-width:979px){
- body{padding-bottom:calc(80px + env(safe-area-inset-bottom))}
- .app-sidebar{position:fixed;z-index:120;left:14px;right:14px;top:auto;bottom:calc(5px + env(safe-area-inset-bottom));width:auto;height:70px;min-height:70px;max-height:70px;padding:6px 8px;box-sizing:border-box;overflow:visible;display:flex;flex-direction:row;align-items:stretch;justify-content:center;border:1px solid var(--sep);border-radius:23px;background:var(--card);box-shadow:0 7px 22px rgba(20,38,58,.10);-webkit-backdrop-filter:blur(22px) saturate(145%);backdrop-filter:blur(22px) saturate(145%)}
- .sidebar-brand,.sidebar-footer{display:none!important}
- .app-sidebar .app-nav{width:100%;max-width:none;height:100%;min-height:0;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:1fr;align-items:stretch;justify-content:stretch;gap:2px;overflow:visible}
- .app-sidebar .app-nav button[data-view]{position:relative;grid-row:1;min-width:0;width:100%;height:100%;min-height:0;margin:0;padding:0 1px 8px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:0;overflow:visible;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--mut);font-size:12px;transition:color .2s ease}
- .app-sidebar .app-nav button[data-view].active{color:var(--blue);background:transparent;border:0;box-shadow:none}
- /* Ícones das abas comuns ficam no fluxo; só o ativo sobe para o círculo. */
- .app-sidebar .app-nav button[data-view]:not(.active) .nav-icon{position:relative;left:auto;top:auto;transform:none;z-index:1;display:grid;place-items:center;box-sizing:border-box;width:23px;height:23px;flex:0 0 23px;margin:0 0 5px;padding:0;border:0;border-radius:0;background:transparent;color:inherit;box-shadow:none;opacity:1;pointer-events:none}
- .app-sidebar .app-nav button[data-view]:not(.active) .nav-icon svg{display:block;width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
- .app-sidebar .app-nav button[data-view] .nav-icon{position:absolute;left:50%;top:-24px;transform:translateX(-50%);z-index:3;display:grid;place-items:center;box-sizing:border-box;width:54px;height:54px;flex:0 0 54px;margin:0;padding:0;border:4px solid var(--card);border-radius:50%;background:var(--card);color:var(--blue);box-shadow:0 5px 16px rgba(25,48,73,.15);opacity:0;pointer-events:none;transition:opacity .2s ease,top .22s cubic-bezier(.2,.75,.25,1)}
- .app-sidebar .app-nav button[data-view].active .nav-icon{top:-27px;opacity:1}
- .app-sidebar .app-nav button[data-view].active .nav-icon svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
- .app-sidebar .app-nav button[data-view] .nav-label{position:relative;z-index:4;display:block;max-width:100%;margin:0;padding:0;color:inherit;font-size:clamp(8px,2.15vw,10px);line-height:1.1;font-weight:650;text-align:center;white-space:nowrap;overflow:visible}
- .app-sidebar .app-nav button[data-view].active:before,.app-sidebar .app-nav button[data-view].active:after{content:"";position:absolute;top:-1px;width:17px;height:17px;background:transparent;pointer-events:none;z-index:2}
- .app-sidebar .app-nav button[data-view].active:before{left:calc(50% - 35px);border-top-right-radius:17px;box-shadow:5px -5px 0 0 var(--card)}
- .app-sidebar .app-nav button[data-view].active:after{right:calc(50% - 35px);border-top-left-radius:17px;box-shadow:-5px -5px 0 0 var(--card)}
- .app-sidebar .app-nav button.nav-quick-add{grid-column:3;grid-row:1;justify-self:center;align-self:start;position:relative;top:-9px;width:56px;min-width:56px;max-width:56px;height:56px;min-height:56px;max-height:56px;margin:0;padding:0;display:grid;place-items:center;z-index:5;border:4px solid var(--card);border-radius:50%;background:linear-gradient(145deg,#368fe9,#1769c5);color:#fff;box-shadow:0 5px 14px rgba(25,105,195,.25)}
- .nav-quick-add-icon{display:grid;place-items:center;width:100%;height:100%}
- .nav-quick-add-icon svg{width:26px;height:26px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
- .nav-quick-menu{bottom:calc(100% + 12px)}
-}
-@media(max-width:370px){
- .app-sidebar{left:9px;right:9px}
- .app-sidebar .app-nav button[data-view] .nav-label{font-size:7.5px}
- .app-sidebar .app-nav button[data-view]:not(.active) .nav-icon{width:21px;height:21px;flex-basis:21px}
- .app-sidebar .app-nav button[data-view] .nav-icon{width:50px;height:50px;top:-22px}
- .app-sidebar .app-nav button[data-view].active .nav-icon{top:-25px}
- .app-sidebar .app-nav button.nav-quick-add{width:52px;min-width:52px;max-width:52px;height:52px;min-height:52px;max-height:52px}
-}
-@media(prefers-reduced-motion:reduce){
- .app-sidebar .app-nav button[data-view],.app-sidebar .app-nav button[data-view] .nav-icon{transition:none}
-}
-
-/* Menu rápido e reserva de espaço para a barra mobile. */
-.nav-quick-menu{position:absolute;z-index:5;left:50%;bottom:calc(100% + 12px);transform:translateX(-50%);display:flex;flex-direction:column;gap:5px;width:min(260px,calc(100vw - 48px));padding:9px;border:1px solid var(--sep);border-radius:18px;background:var(--card);box-shadow:0 12px 34px rgba(0,0,0,.22)}
-.nav-quick-menu[hidden]{display:none!important}
-.nav-quick-menu button{display:flex;align-items:center;gap:11px;width:100%;min-height:44px;padding:8px 10px;border:0;border-radius:11px;background:transparent;color:var(--ink);text-align:left;font-size:13px;font-weight:650}
-.nav-quick-menu button:active{background:var(--fill)}
-.nav-quick-menu-icon{display:grid;place-items:center;flex:0 0 29px;width:29px;height:29px;border-radius:9px;background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue);font-size:19px;font-weight:700}
-@media(min-width:980px){.nav-quick-menu{display:none!important}}
-@media(max-width:979px){
  :root{--mobile-nav-content-height:92px;--mobile-safe-bottom:env(safe-area-inset-bottom,0px);--mobile-nav-total-height:calc(var(--mobile-nav-content-height) + var(--mobile-safe-bottom))}
  html{min-height:100%;background:var(--bg)}
  body{min-height:100vh;min-height:100dvh;padding-bottom:var(--mobile-nav-total-height)!important}
  body::after{display:none!important;pointer-events:none!important}
  .sidebar-brand,.sidebar-footer{display:none!important}
+ .app-sidebar{position:fixed;z-index:120;left:14px;right:14px;top:auto;bottom:calc(5px + env(safe-area-inset-bottom));width:auto;height:78px;min-height:78px;max-height:78px;padding:7px 8px 5px;box-sizing:border-box;overflow:visible;display:flex;flex-direction:row;align-items:stretch;justify-content:center;border:1px solid var(--sep);border-radius:23px;background:var(--card);box-shadow:0 7px 22px rgba(20,38,58,.10);-webkit-backdrop-filter:blur(22px) saturate(145%);backdrop-filter:blur(22px) saturate(145%)}
+ .app-sidebar .app-nav{width:100%;max-width:none;height:100%;min-height:0;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));grid-template-rows:1fr;align-items:stretch;justify-content:stretch;gap:0;overflow:visible}
+ .app-sidebar .app-nav button[data-view],.app-sidebar .app-nav button.nav-quick-add{position:relative;grid-row:1;min-width:0;width:100%;height:100%;min-height:0;margin:0;padding:0 1px 7px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;overflow:visible;border:0;border-radius:0;background:transparent;box-shadow:none;color:var(--mut);font-size:12px;transition:color .2s ease}
+ .app-sidebar .app-nav button[data-view].active{color:var(--blue);background:transparent;border:0;box-shadow:none}
+ .app-sidebar .app-nav button.nav-quick-add{grid-column:3;grid-row:1;color:var(--mut)}
+ .app-sidebar .app-nav button[data-view]:not(.active) .nav-icon,.app-sidebar .app-nav button.nav-quick-add .nav-icon{position:relative;left:auto;top:auto;transform:none;z-index:1;display:grid;place-items:center;box-sizing:border-box;width:23px;height:23px;flex:0 0 23px;margin:0;padding:0;border:0;border-radius:0;background:transparent;color:inherit;box-shadow:none;opacity:1;pointer-events:none}
+ .app-sidebar .app-nav button[data-view]:not(.active) .nav-icon svg,.app-sidebar .app-nav button.nav-quick-add .nav-icon svg{display:block;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+ .app-sidebar .app-nav button[data-view] .nav-icon{position:absolute;left:50%;top:-25px;transform:translateX(-50%);z-index:3;display:grid;place-items:center;box-sizing:border-box;width:60px;height:60px;flex:0 0 60px;margin:0;padding:0;border:4px solid var(--card);border-radius:50%;background:var(--card);color:var(--blue);box-shadow:0 5px 16px rgba(25,48,73,.15);opacity:0;pointer-events:none;transition:opacity .2s ease,top .22s cubic-bezier(.2,.75,.25,1)}
+ .app-sidebar .app-nav button[data-view].active .nav-icon{top:-29px;opacity:1}
+ .app-sidebar .app-nav button[data-view].active .nav-icon svg{display:block;width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+ .app-sidebar .app-nav button[data-view] .nav-label,.app-sidebar .app-nav button.nav-quick-add .nav-label{position:relative;z-index:4;display:block;max-width:100%;margin:0;padding:0;color:inherit;font-size:clamp(8px,2.15vw,10px);line-height:1.1;font-weight:650;text-align:center;white-space:nowrap;overflow:visible}
+ /* As duas curvas laterais integram o círculo à borda superior. */
+ .app-sidebar .app-nav button[data-view].active:before,.app-sidebar .app-nav button[data-view].active:after{content:"";position:absolute;top:-9px;width:18px;height:18px;border-radius:50%;background:transparent;pointer-events:none;z-index:2;box-shadow:0 9px 0 0 var(--card)}
+ .app-sidebar .app-nav button[data-view].active:before{left:calc(50% - 42px)}
+ .app-sidebar .app-nav button[data-view].active:after{right:calc(50% - 42px)}
  .nav-quick-menu{z-index:130!important;bottom:calc(100% + 12px)!important}
 }
+@media(max-width:370px){
+ .app-sidebar{left:9px;right:9px}
+ .app-sidebar .app-nav button[data-view] .nav-label,.app-sidebar .app-nav button.nav-quick-add .nav-label{font-size:7.5px}
+ .app-sidebar .app-nav button[data-view] .nav-icon{width:54px;height:54px;top:-23px}
+ .app-sidebar .app-nav button[data-view].active .nav-icon{top:-27px}
+}
+@media(prefers-reduced-motion:reduce){.app-sidebar .app-nav button[data-view],.app-sidebar .app-nav button[data-view] .nav-icon{transition:none}}
