@@ -1,10 +1,10 @@
 {
-  "version": "2.9.13",
+  "version": "2.9.14",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
     "Permite que os dois cards principais do resumo desktop tenham alturas independentes conforme o conteúdo.",
     "Organiza automaticamente os três indicadores de Entradas, Despesas e A pagar na Visão geral em telas desktop.",
-    "Simplifica o cabeçalho desktop, mantendo uma única pílula com conexão, data e última atualização."
+    "Reorganiza o cabeçalho desktop conforme o modelo enviado, com marca à esquerda, status e data em uma pílula e seletor de mês ao lado do título."
   ]
 }
