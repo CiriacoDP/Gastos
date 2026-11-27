@@ -3395,3 +3395,14 @@ header .brand .status>.status-pill i{
 #connection .settings-subpage>.settings-card{display:block!important;width:100%!important;max-width:850px!important;min-width:0!important;height:auto!important;margin:0!important;box-sizing:border-box!important}
 @media(min-width:980px){#connection.active{display:block!important}#connection .settings-subpage>.settings-card{padding:24px!important}}
 @media(max-width:979px){#connection .settings-subpage{max-width:none!important}#connection .settings-subpage>.settings-card{padding:18px!important}}
+
+
+/* Tela independente da conexão com a Planilha Google. */
+.settings-connection-screen{max-width:850px}
+.settings-connection-screen .settings-detail-header{margin-bottom:14px}
+.settings-connection-screen .settings-card{width:100%;max-width:850px;margin:0;padding:22px}
+.settings-connection-screen .settings-card .last-sync-line{margin-top:12px}
+@media(max-width:979px){
+ .settings-connection-screen{max-width:none}
+ .settings-connection-screen .settings-card{padding:18px}
+}
