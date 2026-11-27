@@ -1,8 +1,9 @@
 {
-  "version": "2.6.32",
+  "version": "2.7.9",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Adiciona o botão + na navegação mobile, visível apenas em Início, com menu flutuante visual sem ações vinculadas."
+    "Reposiciona o botão + e seu menu dentro da navegação mobile, seguindo a estrutura do HTML de referência.",
+    "Fecha o menu automaticamente ao sair da tela Início."
   ]
 }
