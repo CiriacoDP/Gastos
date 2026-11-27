@@ -1,8 +1,8 @@
 {
-  "version": "2.7.25",
+  "version": "2.8.0",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui a navegação mobile curva pela barra Prism original, mantendo as quatro rotas e as ações rápidas existentes."
+    "Aplica fielmente o código visual da barra Prism de referência, integrado às quatro telas e às ações rápidas existentes."
   ]
 }
