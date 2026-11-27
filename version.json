@@ -1,8 +1,8 @@
 {
-  "version": "2.6.2",
+  "version": "2.6.3",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Destaca o ícone da seção ativa na barra inferior com elevação circular, preservando o botão central."
+    "Encerra o reconhecimento de voz assim que o lançamento é interpretado e preenchido."
   ]
 }
