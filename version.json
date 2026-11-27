@@ -1,8 +1,8 @@
 {
-  "version": "2.4.0",
+  "version": "2.4.1",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Reorganiza Configurações em grupos e subpáginas, preservando os recursos existentes."
+    "Separa as telas de conexão e atualização dentro das Configurações."
   ]
 }
