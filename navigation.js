@@ -13,8 +13,47 @@ const ICONS = {
 };
 const prismBar = document.getElementById('prismBar');
 const prismTabs = [];
+const sidebar = document.getElementById('appSidebar');
+const desktopSvgNS = 'http://www.w3.org/2000/svg';
+const desktopShape = document.createElementNS(desktopSvgNS, 'svg');
+const desktopPath = document.createElementNS(desktopSvgNS, 'path');
+desktopShape.setAttribute('class', 'desktop-nav-shape');
+desktopShape.setAttribute('aria-hidden', 'true');
+desktopShape.appendChild(desktopPath);
+const desktopPill = document.createElement('div');
+desktopPill.className = 'desktop-nav-pill';
+desktopPill.setAttribute('aria-hidden', 'true');
+sidebar.insertBefore(desktopShape, sidebar.firstChild);
+sidebar.appendChild(desktopPill);
+const DESKTOP_WIDTH = 232, DESKTOP_DEPTH = 34, DESKTOP_HALF = 48, DESKTOP_RADIUS = 26;
+let desktopY = 0, desktopFrame = 0;
 function renderIcon(key) {
   return '<svg class="ico" viewBox="0 0 24 24" aria-hidden="true">' + ICONS[key] + '</svg>';
+}
+function drawDesktopNav(y) {
+  const height = sidebar.clientHeight;
+  const a = y - DESKTOP_HALF, b = y + DESKTOP_HALF;
+  desktopPath.setAttribute('d', 'M' + DESKTOP_RADIUS + ' 0H' + a + 'C' + (y - 27) + ' 0 ' + (y - 27) + ' ' + DESKTOP_DEPTH + ' ' + y + ' ' + DESKTOP_DEPTH +
+    'C' + (y + 27) + ' ' + DESKTOP_DEPTH + ' ' + (y + 27) + ' 0 ' + b + ' 0H' + (height - DESKTOP_RADIUS) + 'Q' + height + ' 0 ' + height + ' ' + DESKTOP_RADIUS +
+    'V' + (DESKTOP_WIDTH - DESKTOP_RADIUS) + 'Q' + height + ' ' + DESKTOP_WIDTH + ' ' + (height - DESKTOP_RADIUS) + ' ' + DESKTOP_WIDTH +
+    'H' + DESKTOP_RADIUS + 'Q0 ' + DESKTOP_WIDTH + ' 0 ' + (DESKTOP_WIDTH - DESKTOP_RADIUS) + 'V' + DESKTOP_RADIUS + 'Q0 0 ' + DESKTOP_RADIUS + ' 0Z');
+  desktopPath.setAttribute('transform', 'matrix(0 1 -1 0 ' + DESKTOP_WIDTH + ' 0)');
+  desktopShape.setAttribute('viewBox', '0 0 ' + DESKTOP_WIDTH + ' ' + height);
+  desktopPill.style.transform = 'translate(' + (DESKTOP_WIDTH - 29) + 'px,' + (y - 27) + 'px)';
+}
+function moveDesktopPill(index, instant) {
+  if (!prismTabs[index]) return;
+  const target = prismTabs[index].getBoundingClientRect().top - sidebar.getBoundingClientRect().top + prismTabs[index].offsetHeight / 2;
+  cancelAnimationFrame(desktopFrame);
+  const from = desktopY, start = performance.now(), duration = instant ? 0 : 420;
+  if (!duration) { desktopY = target; drawDesktopNav(desktopY); return; }
+  const step = now => {
+    const progress = Math.min(1, (now - start) / duration), eased = 1 - Math.pow(1 - progress, 3);
+    desktopY = from + (target - from) * eased;
+    drawDesktopNav(desktopY);
+    if (progress < 1) desktopFrame = requestAnimationFrame(step);
+  };
+  desktopFrame = requestAnimationFrame(step);
 }
 function setActiveTab(idx) {
   prismTabs.forEach((btn, i) => {
@@ -22,6 +61,7 @@ function setActiveTab(idx) {
     btn.setAttribute('aria-current', active ? 'true' : 'false');
     btn.classList.toggle('active', active);
   });
+  moveDesktopPill(idx, false);
 }
 window.selectMobileNav = function(index) {
   const idx = Number(index);
@@ -45,3 +85,9 @@ TABS.forEach((tab, idx) => {
   prismTabs.push(btn);
 });
 setActiveTab(0);
+const desktopResizeObserver = new ResizeObserver(() => {
+  if (!prismTabs.length) return;
+  const active = Math.max(0, prismTabs.findIndex(btn => btn.getAttribute('aria-current') === 'true'));
+  moveDesktopPill(active, true);
+});
+desktopResizeObserver.observe(sidebar);
