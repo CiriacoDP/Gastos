@@ -1,9 +1,10 @@
 {
-  "version": "2.7.8",
+  "version": "2.7.9",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
     "Reposiciona o botão + e seu menu dentro da navegação mobile, seguindo a estrutura do HTML de referência.",
-    "Fecha o menu automaticamente ao sair da tela Início."
+    "Fecha o menu automaticamente ao sair da tela Início.",
+    "Move a camada scrim para fora do contêiner transformado, permitindo cobrir toda a tela como no HTML de referência."
   ]
 }
