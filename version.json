@@ -1,8 +1,8 @@
 {
-  "version": "2.6.20",
+  "version": "2.6.21",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Refina o vinco côncavo com arco circular que acompanha a volta do círculo ativo e alinha sua profundidade à base do ícone."
+    "Inverte a direção do arco SVG para formar a concavidade correta ao redor do círculo ativo."
   ]
 }
