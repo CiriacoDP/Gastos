@@ -1,8 +1,8 @@
 {
-  "version": "2.6.27",
+  "version": "2.6.28",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Inverte o arco SVG para que o vinco côncavo desça para dentro da barra, mantendo o vínculo e a animação GSAP."
+    "Atualiza nomes e ícones da navegação para Início, Entradas, Despesas e Ajustes, preservando as rotas existentes."
   ]
 }
