@@ -1473,3 +1473,28 @@
 @media(min-width:980px){
  #overview .trio{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
 }
+
+
+/* Cabeçalho desktop: marca simplificada e status reunido em uma única pílula. */
+@media(min-width:980px){
+ header .bar{justify-content:space-between!important;min-height:48px!important}
+ header .brand{display:flex!important;align-items:center!important;gap:0!important;min-width:0!important}
+ header .brand-mark{display:none!important}
+ header .brand>div:last-child{display:flex!important;flex-direction:row!important;align-items:center!important;gap:18px!important}
+ header .brand-name{display:block!important;white-space:nowrap}
+ header .brand .status{
+  position:fixed!important;top:22px!important;right:28px!important;z-index:121!important;
+  display:flex!important;flex-direction:row!important;align-items:center!important;
+  gap:0!important;margin:0!important;padding:0!important;
+ }
+ header .status-combined-pill{
+  display:flex!important;align-items:center!important;gap:8px!important;
+  min-height:36px!important;padding:7px 13px!important;
+  border:1px solid var(--sep)!important;border-radius:999px!important;
+  background:var(--fill)!important;white-space:nowrap!important;
+  color:var(--mut)!important;font-size:11px!important;
+ }
+ header .status-combined-pill i{width:7px!important;height:7px!important;flex:0 0 7px!important}
+ header .status-combined-pill svg{width:13px!important;height:13px!important;flex:0 0 13px!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
+ header .header-actions{display:none!important}
+}
