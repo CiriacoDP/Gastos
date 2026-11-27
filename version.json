@@ -1,10 +1,11 @@
 {
-  "version": "2.9.14",
+  "version": "2.9.15",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
     "Permite que os dois cards principais do resumo desktop tenham alturas independentes conforme o conteúdo.",
     "Organiza automaticamente os três indicadores de Entradas, Despesas e A pagar na Visão geral em telas desktop.",
-    "Reorganiza o cabeçalho desktop conforme o modelo enviado, com marca à esquerda, status e data em uma pílula e seletor de mês ao lado do título."
+    "Reorganiza o cabeçalho desktop conforme o modelo enviado, com marca à esquerda, status e data em uma pílula e seletor de mês ao lado do título.",
+    "Corrige a navegação mobile em dispositivos touch e restaura o cabeçalho móvel original, mantendo o layout novo restrito ao desktop."
   ]
 }
