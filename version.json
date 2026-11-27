@@ -1,8 +1,8 @@
 {
-  "version": "2.3.15",
+  "version": "2.3.16",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Ajusta a rotação do ícone de atualização para velocidade intermediária."
+    "Coloca o campo da URL e o botão de conexão na mesma linha."
   ]
 }
