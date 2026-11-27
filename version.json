@@ -1,8 +1,8 @@
 {
-  "version": "2.6.7",
+  "version": "2.6.8",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Consolida a navegação em uma única implementação, removendo regras mobile conflitantes e preservando a navegação desktop."
+    "Remove regras de navegação duplicadas e conflitantes e mantém uma única implementação mobile e desktop."
   ]
 }
