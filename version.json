@@ -1,8 +1,8 @@
 {
-  "version": "2.6.25",
+  "version": "2.6.26",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Usa GSAP para animar o deslocamento do vinco SVG e a entrada do ícone ativo, preservando o cálculo geométrico existente."
+    "Sincroniza o deslocamento do círculo ativo e do vinco SVG em uma timeline GSAP única, mantendo a posição intermediária ao interromper a animação."
   ]
 }
