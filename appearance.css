@@ -3724,3 +3724,16 @@ body.settings-detail-open .app-sidebar{display:none!important}
  .app-sidebar .app-nav button.nav-quick-add{width:50px!important;min-width:50px!important;max-width:50px!important;height:50px!important;min-height:50px!important;max-height:50px!important}
  .app-sidebar .app-nav button[data-view] .nav-label{font-size:7px!important}
 }
+
+
+/* Ajustes responsivos da tela Exportação e cópias. */
+#settingsData .pdf-export-panel{display:flex;flex-direction:column;align-items:stretch;gap:12px}
+#settingsData .pdf-export-copy{width:100%;min-width:0}
+#settingsData .pdf-export-copy strong,#settingsData .pdf-export-copy small{display:block;white-space:normal;overflow-wrap:anywhere}
+#settingsData .pdf-export-button{width:100%!important;max-width:100%;flex:0 0 auto;min-height:46px;white-space:normal;text-align:center}
+#settingsData .settings-action-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(max-width:420px){#settingsData .settings-action-row{grid-template-columns:1fr}#settingsData .pdf-export-panel{padding:12px}}
+
+/* Setas de retorno nas telas independentes de Configurações. */
+.settings-detail-screen-header .settings-back-button{gap:8px;font-size:16px!important}
+.settings-detail-screen-header .settings-back-button svg{width:22px;height:22px;flex:none}
