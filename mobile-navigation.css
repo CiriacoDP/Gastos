@@ -77,8 +77,8 @@
  #mobileNavigation .app-nav .quick-add-button{
   position:absolute;right:4px;top:-68px;z-index:4;display:grid;place-items:center;
   width:54px;height:54px;min-height:54px;padding:0;border:0;border-radius:50%;
-  cursor:pointer;color:#fff;background:linear-gradient(135deg,#6f5bff,#c04dff);
-  box-shadow:0 8px 18px rgba(111,91,255,.45);
+  cursor:pointer;color:#fff;background:linear-gradient(135deg,#63aaff,#176fc1);
+  box-shadow:0 8px 18px rgba(23,111,193,.38);
   transition:transform .38s cubic-bezier(.2,.75,.25,1),opacity .28s ease;
  }
  #mobileNavigation .app-nav .quick-add-button:active{transform:scale(.92)}
