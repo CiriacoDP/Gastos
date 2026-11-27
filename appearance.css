@@ -1492,13 +1492,14 @@
  .app-sidebar .app-nav{position:relative;z-index:2}
  .app-sidebar .app-nav button[data-view]{position:relative;z-index:2}
  .app-sidebar .app-nav button[data-view].active{z-index:4}
- .app-sidebar .app-nav button[data-view].active:before{content:"";position:absolute;left:50%;top:-37px;transform:translateX(-50%);width:76px;height:76px;border-radius:50%;background:var(--bg);pointer-events:none;z-index:0}
- .app-sidebar .app-nav button[data-view].active .nav-icon{z-index:3;box-shadow:0 7px 20px rgba(25,48,73,.16)}
+ .app-sidebar .app-nav button[data-view].active:before{content:"";position:absolute;left:50%;top:-31px;transform:translateX(-50%);width:64px;height:64px;border-radius:50%;background:var(--bg);pointer-events:none;z-index:0}
+ .app-sidebar .app-nav button[data-view].active .nav-icon{top:-29px;z-index:3;box-shadow:0 5px 13px rgba(25,48,73,.12)}
 }
 @media(max-width:370px){
  .app-sidebar{left:9px;right:9px}
  .app-sidebar .app-nav button[data-view] .nav-label{font-size:7.5px}
  .app-sidebar .app-nav button[data-view] .nav-icon{width:54px;height:54px;top:-23px}
  .app-sidebar .app-nav button[data-view].active .nav-icon{top:-27px}
+ .app-sidebar .app-nav button[data-view].active:before{width:58px;height:58px;top:-29px}
 }
 @media(prefers-reduced-motion:reduce){.app-sidebar .app-nav button[data-view],.app-sidebar .app-nav button[data-view] .nav-icon{transition:none}}
