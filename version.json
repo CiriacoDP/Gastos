@@ -1,8 +1,8 @@
 {
-  "version": "2.6.31",
+  "version": "2.6.32",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Remove a implementação anterior e copia estrutura, medidas, ícones e animação do HTML de referência."
+    "Adiciona o botão + na navegação mobile, visível apenas em Início, com menu flutuante visual sem ações vinculadas."
   ]
 }
