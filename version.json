@@ -1,8 +1,8 @@
 {
-  "version": "2.9.10",
+  "version": "2.9.11",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Ajusta o recuo do conteúdo para evitar sobreposição com o indicador da navegação desktop."
+    "Permite que os dois cards principais do resumo desktop tenham alturas independentes conforme o conteúdo."
   ]
 }
