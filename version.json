@@ -1,8 +1,8 @@
 {
-  "version": "2.6.10",
+  "version": "2.6.11",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Ajusta a navegação mobile ao modelo de barra com ícone selecionado elevado e recorte curvo, preservando o botão central e a navegação desktop."
+    "Corrige a navegação mobile: exibe os ícones de todas as abas e mantém elevado somente o ícone selecionado."
   ]
 }
