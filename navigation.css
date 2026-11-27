@@ -159,3 +159,10 @@
  .app-sidebar{transition:none!important}
  .app-sidebar .app-nav button.prism-tab[data-view],.app-sidebar .app-nav .prism-label{transition:none!important}
 }
+
+/* Recolhe o espaço reservado ao menu lateral quando ele está minimizado. */
+@media(min-width:980px){
+ body:not(.settings-detail-open){padding-left:72px!important}
+ body:has(.app-sidebar:hover):not(.settings-detail-open),
+ body:has(.app-sidebar:focus-within):not(.settings-detail-open){padding-left:272px!important}
+}
