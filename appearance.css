@@ -1488,9 +1488,14 @@
  .app-sidebar .app-nav button[data-view].active .nav-icon svg{display:block;width:23px;height:23px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
  .app-sidebar .app-nav button[data-view] .nav-label{position:relative;z-index:4;display:block;max-width:100%;margin:0;padding:0;color:inherit;font-size:clamp(8px,2.15vw,10px);line-height:1.1;font-weight:650;text-align:center;white-space:nowrap;overflow:visible}
  /* As duas curvas laterais integram o círculo à borda superior. */
- .app-sidebar .app-nav button[data-view].active:before,.app-sidebar .app-nav button[data-view].active:after{content:"";position:absolute;top:-9px;width:18px;height:18px;border-radius:50%;background:transparent;pointer-events:none;z-index:2;box-shadow:0 9px 0 0 var(--card)}
- .app-sidebar .app-nav button[data-view].active:before{left:calc(50% - 42px)}
- .app-sidebar .app-nav button[data-view].active:after{right:calc(50% - 42px)}
+ /* Recorte circular verdadeiro: o fundo da página entra na borda superior conforme a aba ativa. */
+ .app-sidebar:before{content:"";position:absolute;z-index:1;top:-38px;left:calc(12.5% - 38px);width:76px;height:76px;border-radius:50%;background:var(--bg);pointer-events:none;transition:left .22s cubic-bezier(.2,.75,.25,1)}
+ .app-sidebar:has(.app-nav button[data-view="income"].active):before{left:calc(37.5% - 38px)}
+ .app-sidebar:has(.app-nav button[data-view="transactions"].active):before{left:calc(62.5% - 38px)}
+ .app-sidebar:has(.app-nav button[data-view="connection"].active):before{left:calc(87.5% - 38px)}
+ .app-sidebar .app-nav{position:relative;z-index:2}
+ .app-sidebar .app-nav button[data-view]{position:relative;z-index:2}
+ .app-sidebar .app-nav button[data-view].active .nav-icon{z-index:3;box-shadow:0 7px 20px rgba(25,48,73,.16)}
 }
 @media(max-width:370px){
  .app-sidebar{left:9px;right:9px}
