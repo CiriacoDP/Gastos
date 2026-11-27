@@ -1,8 +1,8 @@
 {
-  "version": "2.9.28",
+  "version": "2.9.29",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Aplica o azul da identidade visual ao botão de adicionar e um degradê azul-claro ao símbolo +."
+    "Adapta o brilho multicolorido da navegação à paleta do tema claro ou escuro."
   ]
 }
