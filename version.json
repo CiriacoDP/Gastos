@@ -1,8 +1,8 @@
 {
-  "version": "2.9.5",
+  "version": "2.9.6",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Restaura o espaçamento inferior ao abrir as telas de ajustes."
+    "Corrige a faixa de fundo inferior em telas curtas de Ajustes."
   ]
 }
