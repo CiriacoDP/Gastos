@@ -1,8 +1,8 @@
 {
-  "version": "2.3.14",
+  "version": "2.3.15",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Anima o botão de atualização enquanto os dados são recarregados."
+    "Ajusta a rotação do ícone de atualização para velocidade intermediária."
   ]
 }
