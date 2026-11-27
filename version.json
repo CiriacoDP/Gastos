@@ -1,8 +1,8 @@
 {
-  "version": "2.9.4",
+  "version": "2.9.5",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Preserva a posição da tela ao abrir a aba Ajustes."
+    "Restaura o espaçamento inferior ao abrir as telas de ajustes."
   ]
 }
