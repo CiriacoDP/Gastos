@@ -3585,3 +3585,43 @@ body.settings-detail-open .app-sidebar{display:none!important}
 @media(prefers-reduced-motion:reduce){
  .app-sidebar .app-nav button.nav-quick-add{transition:none!important}
 }
+
+
+/* Refinamento visual do dock: superfície uniforme, alinhamento e proximidade da barra do iPhone. */
+@media(max-width:979px){
+ .app-sidebar{
+  bottom:calc(var(--safe-area-bottom) - 2px)!important;
+  background:color-mix(in srgb,var(--card) 97%,transparent)!important;
+  border:1px solid color-mix(in srgb,var(--sep) 82%,transparent)!important;
+  box-shadow:0 7px 22px rgba(20,38,58,.10),inset 0 1px 0 rgba(255,255,255,.48)!important;
+  -webkit-backdrop-filter:blur(24px) saturate(150%)!important;
+  backdrop-filter:blur(24px) saturate(150%)!important;
+ }
+ .app-sidebar .app-nav{
+  background:transparent!important;
+  border:0!important;
+  box-shadow:none!important;
+  padding:0 2px!important;
+  gap:3px!important;
+ }
+ .app-sidebar .app-nav button[data-view]{
+  align-items:center!important;
+  justify-content:center!important;
+  gap:5px!important;
+  padding:4px 1px!important;
+ }
+ .app-sidebar .app-nav button[data-view] .nav-icon{
+  margin:0!important;
+  flex:0 0 24px!important;
+  width:24px!important;height:24px!important;
+ }
+ .app-sidebar .app-nav button[data-view] .nav-icon svg{
+  display:block!important;width:23px!important;height:23px!important;
+ }
+ .app-sidebar .app-nav button[data-view] .nav-label{
+  display:block!important;
+  margin:0!important;
+  line-height:1.12!important;
+  text-align:center!important;
+ }
+}
