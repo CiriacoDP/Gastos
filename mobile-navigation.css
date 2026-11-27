@@ -77,15 +77,15 @@
  #mobileNavigation .app-nav .quick-add-button{
   position:absolute;right:4px;top:-68px;z-index:4;display:grid;place-items:center;
   width:54px;height:54px;min-height:54px;padding:0;border:0;border-radius:50%;
-  cursor:pointer;color:#fff;background:linear-gradient(135deg,#287ed5,#55a9f5);
-  box-shadow:0 8px 18px rgba(40,126,213,.38);
+  cursor:pointer;color:#fff;background:linear-gradient(135deg,#6f5bff,#c04dff);
+  box-shadow:0 8px 18px rgba(111,91,255,.45);
   transition:transform .38s cubic-bezier(.2,.75,.25,1),opacity .28s ease;
  }
  #mobileNavigation .app-nav .quick-add-button:active{transform:scale(.92)}
  #mobileNavigation .app-nav .quick-add-button:disabled{transform:scale(.3);opacity:0;pointer-events:none}
  #mobileNavigation .app-nav .quick-add-button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
  #mobileNavigation .app-nav .quick-add-button svg{transition:transform .38s cubic-bezier(.2,.75,.25,1)}
- #mobileNavigation .app-nav .quick-add-button[aria-expanded="true"] svg{transform:scale(.94)}
+ #mobileNavigation .app-nav .quick-add-button[aria-expanded="true"] svg{transform:rotate(45deg)}
  #mobileNavigation .app-nav .quick-add-menu{
   position:absolute;right:9px;bottom:calc(100% + 80px);z-index:5;margin:0;padding:0;
   list-style:none;display:flex;flex-direction:column;align-items:flex-end;gap:12px;
