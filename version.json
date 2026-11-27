@@ -1,8 +1,8 @@
 {
-  "version": "2.5.10",
+  "version": "2.5.11",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Ajusta o tamanho real da navegação mobile para um dock flutuante compacto, incorporando a área segura inferior ao cartão."
+    "Padroniza o arredondamento externo da barra inferior em 20 px."
   ]
 }
