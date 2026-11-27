@@ -3386,3 +3386,12 @@ header .brand .status>.status-pill i{
  #connection>.view-heading{grid-column:auto!important}
  #connection>.settings-card{display:block!important}
 }
+
+
+/* Subpáginas reais de Configurações: cada opção ocupa uma tela própria. */
+#connection .settings-subpage{display:block!important;width:100%!important;max-width:850px!important;min-width:0!important;min-height:0!important;height:auto!important;margin:0!important;padding:0!important}
+#connection .settings-subpage[hidden]{display:none!important}
+#connection .settings-subpage .settings-detail-header{display:block!important;width:100%!important;margin:0 0 14px!important}
+#connection .settings-subpage>.settings-card{display:block!important;width:100%!important;max-width:850px!important;min-width:0!important;height:auto!important;margin:0!important;box-sizing:border-box!important}
+@media(min-width:980px){#connection.active{display:block!important}#connection .settings-subpage>.settings-card{padding:24px!important}}
+@media(max-width:979px){#connection .settings-subpage{max-width:none!important}#connection .settings-subpage>.settings-card{padding:18px!important}}
