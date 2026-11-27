@@ -1,8 +1,8 @@
 {
-  "version": "2.9.27",
+  "version": "2.9.28",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Mantém o símbolo + das ações rápidas e aplica a ele um degradê com as cores usadas no aplicativo."
+    "Aplica o azul da identidade visual ao botão de adicionar e um degradê azul-claro ao símbolo +."
   ]
 }
