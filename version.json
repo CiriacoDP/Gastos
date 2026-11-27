@@ -1,8 +1,8 @@
 {
-  "version": "2.6.29",
+  "version": "2.6.30",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui o arco circular pela geometria Bézier de referência; círculo e vinco compartilham a mesma coordenada animada pelo GSAP."
+    "Reproduz a barra do HTML de referência: recorte Bézier, botão circular independente e movimento sincronizado com a navegação."
   ]
 }
