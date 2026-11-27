@@ -4,22 +4,26 @@
   --prism-glass-track:rgba(255,255,255,.11);
   --prism-glass-border:rgba(255,255,255,.24);
   --prism-pill-dark:#0a0c10;
+  --prism-glow-1:#63aaff;--prism-glow-2:#43d6a0;--prism-glow-3:#f3bd5b;--prism-glow-4:#ff727b;
  }
  :root[data-theme="light"]{
   --prism-glass-track:rgba(255,255,255,.72);
   --prism-glass-border:rgba(255,255,255,.92);
   --prism-pill-dark:#11141c;
+  --prism-glow-1:#176fc1;--prism-glow-2:#16865f;--prism-glow-3:#a96b08;--prism-glow-4:#d83e4d;
  }
  :root[data-theme="dark"]{
   --prism-glass-track:rgba(255,255,255,.11);
   --prism-glass-border:rgba(255,255,255,.24);
   --prism-pill-dark:#0a0c10;
+  --prism-glow-1:#63aaff;--prism-glow-2:#43d6a0;--prism-glow-3:#f3bd5b;--prism-glow-4:#ff727b;
  }
  @media(prefers-color-scheme:light){
   :root:not([data-theme="dark"]):not([data-theme="light"]){
    --prism-glass-track:rgba(255,255,255,.72);
    --prism-glass-border:rgba(255,255,255,.92);
    --prism-pill-dark:#11141c;
+   --prism-glow-1:#176fc1;--prism-glow-2:#16865f;--prism-glow-3:#a96b08;--prism-glow-4:#d83e4d;
   }
  }
  #mobileNavigation{
@@ -67,7 +71,7 @@
  }
  #mobileNavigation .app-nav button[data-view].active::before{
   content:"";position:absolute;inset:-2px;z-index:-1;border-radius:inherit;
-  background:conic-gradient(from 140deg,#38bdf8,#818cf8,#f472b6,#fb923c,#34d399,#38bdf8);
+  background:conic-gradient(from 140deg,var(--prism-glow-1),var(--prism-glow-2),var(--prism-glow-3),var(--prism-glow-4),var(--prism-glow-1));
   filter:blur(5px);opacity:.88;animation:prismGlowIn .58s cubic-bezier(.2,.75,.25,1);
  }
  #mobileNavigation .app-nav button[data-view].active::after{
