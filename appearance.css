@@ -3625,3 +3625,15 @@ body.settings-detail-open .app-sidebar{display:none!important}
   text-align:center!important;
  }
 }
+
+/* Telas independentes das demais opções de Configurações, no padrão da Planilha Google. */
+.settings-detail-screen{width:100%;max-width:850px;margin:0 auto}
+.settings-detail-screen-header{margin:0 0 22px!important}
+.settings-detail-screen-header .settings-back-button{font-size:15px!important;font-weight:650!important}
+.settings-detail-intro{width:100%;margin:0 auto 22px;padding:24px 22px 22px;border:1px solid var(--sep);border-radius:22px;background:linear-gradient(145deg,var(--card),color-mix(in srgb,var(--card) 90%,var(--fill)));box-shadow:var(--shadow)}
+.settings-detail-icon{display:grid;place-items:center;width:54px;height:54px;margin-bottom:17px;border-radius:15px;background:color-mix(in srgb,var(--blue) 12%,var(--fill));color:var(--blue)}
+.settings-detail-icon svg{width:29px;height:29px;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.settings-detail-intro h1{margin:0 0 7px;color:var(--ink);font-size:25px;font-weight:780;letter-spacing:-.65px}
+.settings-detail-intro p{max-width:680px;margin:0;color:var(--mut);font-size:14px;line-height:1.5}
+.settings-detail-screen>.settings-card{width:100%;max-width:none;margin:0;padding:20px 22px;border-radius:22px;box-sizing:border-box}
+@media(max-width:979px){.settings-detail-screen-header{margin-bottom:18px!important}.settings-detail-intro{padding:21px 19px 19px;margin-bottom:17px;border-radius:20px}.settings-detail-icon{width:49px;height:49px;margin-bottom:14px}.settings-detail-intro h1{font-size:24px}.settings-detail-intro p{font-size:13px;line-height:1.45}.settings-detail-screen>.settings-card{padding:18px 17px;border-radius:20px}}
