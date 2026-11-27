@@ -1,8 +1,8 @@
 {
-  "version": "2.5.12",
+  "version": "2.5.13",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Corrige setas de retorno, layout do cartão PDF e contraste das informações nas telas de Configurações."
+    "Destaca o botão Filtros em azul enquanto o painel está aberto ou há filtros aplicados."
   ]
 }
