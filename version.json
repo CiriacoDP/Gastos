@@ -1,8 +1,8 @@
 {
-  "version": "2.6.0",
+  "version": "2.6.1",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Adiciona opção de preenchimento de lançamentos por voz, com revisão antes de salvar."
+    "Aprimora o reconhecimento e a interpretação de lançamentos por voz, sem abrir o teclado nem gravar arquivo de áudio."
   ]
 }
