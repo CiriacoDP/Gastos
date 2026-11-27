@@ -1,8 +1,8 @@
 {
-  "version": "2.9.0",
+  "version": "2.9.1",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui a navegação pelo componente Prism fornecido, integrado às quatro telas do aplicativo."
+    "Remove a marca flutuante da navegação mobile e aumenta a altura da barra Prism."
   ]
 }
