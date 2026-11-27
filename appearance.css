@@ -1537,3 +1537,11 @@
  header .header-actions .icon{position:static!important;width:38px!important;height:38px!important}
  main.shell{width:calc(100% - 24px)!important;margin:0 auto!important}
 }
+
+
+/* Correção definitiva do espaço lateral desktop em telas móveis/touch. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+ html,body{margin-left:0!important;padding-left:0!important}
+ body{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
+ header.shell,main.shell{margin-left:auto!important;margin-right:auto!important}
+}
