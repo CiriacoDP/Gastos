@@ -1,8 +1,8 @@
 {
-  "version": "2.7.15",
+  "version": "2.7.16",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Abaixa em 14 px o conjunto da navegação mobile, incluindo barra, pílula e botão de funções rápidas, preservando o espaçamento da área segura do dispositivo."
+    "Reverte os ajustes visuais da versão 2.7.14 na navegação: restaura a curva de mola original da pílula e o menu vertical das funções rápidas, mantendo o posicionamento inferior ajustado na versão 2.7.15."
   ]
 }
