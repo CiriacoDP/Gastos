@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.5.6">
+<meta name="app-version" content="2.5.7">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.5.6">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.5.6" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.5.7">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.5.7" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -58,7 +58,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.5.6</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.5.7</small>
  </div>
 </aside>
 
@@ -67,7 +67,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.5.6</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.5.7</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -378,12 +378,13 @@
     <button class="settings-nav-row" type="button" data-settings-open="about"><span class="settings-nav-icon about-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></span><span class="settings-nav-copy"><strong>Sobre</strong><small>Versão e informações do aplicativo</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
    </section>
   </div>
-    <section class="settings-subpage" data-settings-page="updates" hidden>
-   <div class="settings-detail-header">
-    <button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
-    <h2>Atualizações</h2>
-   </div>
-<section class="card settings-card app-update-settings-card" data-settings-group="updates" hidden>
+    
+ </section>
+
+ <section class="view settings-detail-screen" id="settingsUpdates">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6 6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg></div><h1>Atualizações</h1><p>Mantenha o aplicativo atualizado e confira quando uma nova versão estiver disponível.</p></section>
+ <section class="card settings-card app-update-settings-card">
    <div class="app-update-settings-heading">
     <div class="app-update-settings-icon" aria-hidden="true">
      <svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -391,7 +392,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.5.6</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.5.7</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -399,13 +400,12 @@
    </button>
    <div class="msg app-update-check-message" id="manualUpdateMessage" role="status" aria-live="polite">Toque para procurar uma versão nova.</div>
   </section>
-  </section>
-  <section class="settings-subpage" data-settings-page="personalization" hidden>
-   <div class="settings-detail-header">
-    <button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
-    <h2>Personalização</h2>
-   </div>
-<section class="card settings-card preferences-card personalization-card" data-settings-group="personalization" hidden>
+</section>
+
+<section class="view settings-detail-screen" id="settingsPersonalization">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6 6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg></div><h1>Aparência e notificações</h1><p>Personalize a aparência e escolha como o aplicativo deve se comportar neste aparelho.</p></section>
+ <section class="card settings-card preferences-card personalization-card">
    <div class="preferences-heading">
     <div class="preferences-heading-icon" aria-hidden="true">
      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
@@ -426,14 +426,12 @@
     <label class="settings-switch-row" for="updateNotificationsSetting"><span><strong>Notificações de atualização</strong><small>Avisa quando uma nova versão for detectada com o aplicativo em segundo plano.</small></span><input id="updateNotificationsSetting" type="checkbox"></label>
    </div>
   </section>
-  </section>
+</section>
 
-    <section class="settings-subpage" data-settings-page="data" hidden>
-   <div class="settings-detail-header">
-    <button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
-    <h2>Dados e segurança</h2>
-   </div>
-<section class="card settings-card preferences-card" data-settings-group="data" hidden>
+<section class="view settings-detail-screen" id="settingsData">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6 6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg></div><h1>Exportação e cópias</h1><p>Exporte seus lançamentos e gere relatórios para guardar uma cópia dos seus dados.</p></section>
+ <section class="card settings-card preferences-card">
    <h3>Dados e segurança</h3>
    <p>Exporte uma cópia dos lançamentos que estão carregados no aplicativo neste aparelho.</p>
    <div class="settings-action-row">
@@ -446,22 +444,19 @@
    </div>
    <small class="settings-footnote">O PDF inclui somente os lançamentos do mês selecionado.</small>
   </section>
-  </section>
+</section>
 
-    <section class="settings-subpage" data-settings-page="about" hidden>
-   <div class="settings-detail-header">
-    <button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
-    <h2>Sobre</h2>
-   </div>
-<section class="card settings-card preferences-card about-settings-card" data-settings-group="about" hidden>
+<section class="view settings-detail-screen" id="settingsAbout">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6 6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
+ <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.5.6</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.5.7</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
-  </section>
- </section>
+</section>
 
- <section class="view settings-connection-screen" id="settingsConnection">
+  <section class="view settings-connection-screen" id="settingsConnection">
   <div class="settings-detail-header settings-connection-header">
    <button type="button" class="settings-back-button" id="settingsConnectionBack"><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
   </div>
@@ -631,9 +626,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.5.6</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.5.7</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.5.6</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.5.7</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2395,23 +2390,16 @@ function showSettingsHome(){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function openSettingsPage(name){
- if(name==='connection'){
-  switchView('settingsConnection');
-  return;
- }
- const page=document.querySelector('#connection .settings-subpage[data-settings-page="'+name+'"]');
- if(!page)return;
- $('settingsHome').hidden=true;
- document.querySelectorAll('#connection .settings-subpage').forEach(item=>item.hidden=item!==page);
- window.scrollTo({top:0,behavior:'smooth'});
+ const screens={connection:'settingsConnection',updates:'settingsUpdates',personalization:'settingsPersonalization',data:'settingsData',about:'settingsAbout'};
+ if(screens[name])switchView(screens[name]);
 }
 document.querySelectorAll('[data-settings-open]').forEach(button=>button.addEventListener('click',()=>openSettingsPage(button.dataset.settingsOpen)));
-document.querySelectorAll('[data-settings-back]').forEach(button=>button.addEventListener('click',showSettingsHome));
+document.querySelectorAll('[data-settings-back]').forEach(button=>button.addEventListener('click',()=>switchView('connection')));
 document.getElementById('settingsConnectionBack').addEventListener('click',()=>switchView('connection'));
 
 /* NAVEGAÇÃO ENTRE TELAS */
 function switchView(name){
-  document.body.classList.toggle('settings-detail-open',name==='settingsConnection');
+  document.body.classList.toggle('settings-detail-open',name.startsWith('settings'));
   if(name==='connection')showSettingsHome();
  if(name!=='transactions'){
   const search=$('listSearch');
