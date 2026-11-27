@@ -1,8 +1,8 @@
 {
-  "version": "2.6.4",
+  "version": "2.6.5",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Refaz o destaque da navegação mobile com bolha circular elevada e integrada ao contorno da barra."
+    "Redesenha a navegação mobile com bolha ativa e curvas laterais integradas ao topo do dock."
   ]
 }
