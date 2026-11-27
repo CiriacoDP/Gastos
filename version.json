@@ -1,9 +1,9 @@
 {
-  "version": "2.7.23",
+  "version": "2.7.24",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui a barra Prism pela navegação curva com recorte e círculo deslizante do HTML de referência.",
-    "Preserva as quatro rotas, a navegação desktop e o menu de adição rápida existente."
+    "Isola a barra de navegação curva e sua animação em navigation.css e navigation.js.",
+    "Mantém as quatro rotas e o botão + conectado às funções existentes do aplicativo."
   ]
 }
