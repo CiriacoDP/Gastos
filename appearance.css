@@ -142,7 +142,7 @@ header{padding-top:calc(14px + env(safe-area-inset-top))}
 #apiUrl{font-size:16px}
 .connection-input-row{display:grid;grid-template-columns:minmax(0,4fr) minmax(0,1fr);align-items:stretch;gap:10px;min-width:0}
 .connection-input-row #apiUrl{width:100%;min-width:0}
-.connection-input-row #connectBtn{width:100%;min-width:0;margin:0;padding-left:6px;padding-right:6px;white-space:nowrap}
+.connection-input-row #connectBtn{align-self:center;width:100%;min-width:0;min-height:47px;margin:0;padding:10px 6px;white-space:nowrap}
 .settings-card .primary{width:100%;margin-top:14px}
 .connection-input-row #connectBtn{margin-top:0}
 #connection>.settings-card .connection-input-row #connectBtn{margin-top:0}
