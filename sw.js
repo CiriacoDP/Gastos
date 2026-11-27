@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.7.23';
+const APP_VERSION = '2.7.24';
 const CACHE_PREFIX = 'meu-dinheiro-pwa-';
 const CACHE_NAME = CACHE_PREFIX + APP_VERSION;
 
