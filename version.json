@@ -1,8 +1,8 @@
 {
-  "version": "2.6.16",
+  "version": "2.6.17",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Centraliza o recorte circular no próprio item selecionado e faz a barra branca acompanhar a concavidade."
+    "Refina a concavidade da barra e reduz o halo ao redor do círculo ativo, mantendo ambos centralizados."
   ]
 }
