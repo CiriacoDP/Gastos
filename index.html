@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.7.21">
+<meta name="app-version" content="2.7.22">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,15 +14,13 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.7.21">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.7.21" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.7.22">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.7.22" id="manualLightTheme" disabled>
 
 </head>
 <body>
 
 <aside class="app-sidebar" id="appSidebar" aria-label="Menu principal">
- <svg id="bar" class="mobile-nav-shape" aria-hidden="true" focusable="false"><path id="shape"></path></svg>
- <div class="pill" id="pill" aria-hidden="true"></div>
  <div class="sidebar-brand">
   <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
   <div class="sidebar-brand-copy"><strong>Meu dinheiro</strong><small>Controle financeiro</small></div>
@@ -58,7 +56,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.7.21</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.7.22</small>
  </div>
 
 </aside>
@@ -70,7 +68,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.7.21</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.7.22</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -395,7 +393,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.7.21</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.7.22</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -454,7 +452,7 @@
  <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
  <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.7.21</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.7.22</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
 </section>
@@ -629,9 +627,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.7.21</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.7.22</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.7.21</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.7.22</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2405,30 +2403,14 @@ document.getElementById('settingsConnectionBack').addEventListener('click',()=>s
 /* Navegação mobile: movimento copiado do HTML de referência */
 const ICONS={home:'<path class="m" d="M12 3.2 19.6 8.6c.9.6 1.4 1.6 1.4 2.7V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-6.7c0-1.1.5-2.1 1.4-2.7z"/><path class="d" d="M9 15.2c1.8 1.6 4.2 1.6 6 0"/>',income:'<circle class="m" cx="12" cy="12" r="9.2"/><path class="d" d="M12 7.5v8.5M8.5 12.8l3.5 3.5 3.5-3.5"/>',expense:'<circle class="m" cx="12" cy="12" r="9.2"/><path class="d" d="M12 16.5V8M8.5 11.2 12 7.7l3.5 3.5"/>',settings:'<rect class="m" x="3" y="3" width="18" height="18" rx="5.5"/><path class="d" d="M7.5 9h9M7.5 15h9"/><circle class="d" cx="14.5" cy="9" r="1.7"/><circle class="d" cx="9.5" cy="15" r="1.7"/>'};
 const TABS=[{key:'home',view:'overview'},{key:'income',view:'income'},{key:'expense',view:'transactions'},{key:'settings',view:'connection'}];
-const nav=document.getElementById('appSidebar'),bar=document.getElementById('bar'),shape=document.getElementById('shape'),pill=document.getElementById('pill'),tabsEl=document.querySelector('.app-nav');
-const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-let W=0,cur=0,cx=0,raf=0;
+const nav=document.getElementById('appSidebar'),tabsEl=document.querySelector('.app-nav');
 const buttons=[...tabsEl.querySelectorAll('[data-view]')];
-const iconSvg=k=>'<svg class="ico" viewBox="0 0 24 24">'+ICONS[k]+'</svg>';
-const H=72,DEPTH=34,HALF=48,R=26,PAD=20;
-const center=i=>PAD+(W-2*PAD)/TABS.length*(i+.5);
-function draw(x){
- const hl=Math.min(HALF,x-4),hr=Math.min(HALF,W-x-4);
- const rl=Math.min(R,x-hl),rr=Math.min(R,W-x-hr);
- const d='M'+rl+' 0H'+(x-hl)+'C'+(x-hl*.57)+' 0 '+(x-hl*.57)+' '+DEPTH+' '+x+' '+DEPTH+'C'+(x+hr*.57)+' '+DEPTH+' '+(x+hr*.57)+' 0 '+(x+hr)+' 0'+'H'+(W-rr)+'Q'+W+' 0 '+W+' '+rr+'V'+(H-R)+'Q'+W+' '+H+' '+(W-R)+' '+H+'H'+R+'Q0 '+H+' 0 '+(H-R)+'V'+rl+'Q0 0 '+rl+' 0Z';
- shape.setAttribute('d',d);pill.style.transform='translateX('+(x-27)+'px)';
+function selectMobileNav(i){
+ buttons.forEach((b,n)=>{
+  b.classList.toggle('active',n===i);
+  b.setAttribute('aria-current',n===i?'page':'false');
+ });
 }
-function selectMobileNav(i,instant){
- cur=i;buttons.forEach((b,n)=>{b.classList.toggle('active',n===i);b.setAttribute('aria-current',n===i?'page':'false')});
- pill.innerHTML=iconSvg(TABS[i].key);cancelAnimationFrame(raf);
- const from=cx,to=center(i),t0=performance.now(),dur=(reduce||instant)?0:520;
- if(!dur){cx=to;draw(cx);return}
- const springEnd=1-Math.exp(-7)*Math.cos(9);
- const step=t=>{const k=Math.min(1,(t-t0)/dur),e=(1-Math.exp(-7*k)*Math.cos(9*k))/springEnd;cx=from+(to-from)*e;draw(cx);if(k<1)raf=requestAnimationFrame(step)};
- raf=requestAnimationFrame(step);
-}
-new ResizeObserver(()=>{W=nav.clientWidth;bar.setAttribute('viewBox','0 0 '+W+' '+H);cx=center(cur);draw(cx)}).observe(nav);
-W=nav.clientWidth;cx=center(0);selectMobileNav(0,true);
 buttons.forEach((button,i)=>button.addEventListener('click',()=>switchView(TABS[i].view)));
 function switchView(name){
  const applyView=()=>{
