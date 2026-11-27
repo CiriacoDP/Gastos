@@ -1,8 +1,9 @@
 {
-  "version": "2.9.22",
+  "version": "2.9.23",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
+    "Adiciona configurações de tela para fonte, interface, negrito, contraste e redução de animações.",
     "Suaviza as transições de expansão, rótulos e brilho da navegação mobile.",
     "Restaura a exibição das quatro ações flutuantes do botão Adicionar exclusivamente no celular.",
     "Permite que os dois cards principais do resumo desktop tenham alturas independentes conforme o conteúdo.",
