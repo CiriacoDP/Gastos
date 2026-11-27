@@ -3490,3 +3490,5 @@ body.settings-detail-open .app-sidebar{display:none!important}
  .nav-quick-menu-icon{display:grid;place-items:center;flex:0 0 29px;width:29px;height:29px;border-radius:9px;background:color-mix(in srgb,var(--blue) 12%,transparent);color:var(--blue);font-size:19px;font-weight:700}
 }
 @media(max-width:370px){.app-sidebar{left:9px!important;right:9px!important}.app-sidebar .app-nav button[data-view] .nav-label{font-size:8px!important}.app-sidebar .app-nav button.nav-quick-add{flex-basis:54px!important;width:54px!important;min-width:54px!important;height:54px!important}}
+
+@media(min-width:980px){.app-sidebar .app-nav .nav-quick-add,.nav-quick-menu{display:none!important}}
