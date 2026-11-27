@@ -1,8 +1,8 @@
 {
-  "version": "2.6.11",
+  "version": "2.6.12",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Corrige a navegação mobile: exibe os ícones de todas as abas e mantém elevado somente o ícone selecionado."
+    "Consolida os estilos da navegação em um único bloco CSS, mantendo desktop, mobile, menu rápido e temas."
   ]
 }
