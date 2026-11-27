@@ -1,8 +1,8 @@
 {
-  "version": "2.5.4",
+  "version": "2.5.5",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Reorganiza a tela Planilha Google com apresentação e grupo de conexão inspirados nos Ajustes do iPhone."
+    "Corrige a navegação inferior mobile: cinco posições em uma linha e botão central elevado sem corte."
   ]
 }
