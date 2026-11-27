@@ -1410,7 +1410,7 @@
 }.settings-connection-screen .last-sync-line{
  margin-top:13px!important;padding-top:11px;font-size:11px;
 }.settings-connection-screen .last-sync-line strong{font-size:11px}
-@media(max-width:979px){body.settings-detail-open{padding-bottom:12px!important}body.settings-detail-open main.shell{margin-top:12px!important}.settings-connection-screen .settings-detail-header h2{font-size:21px!important}.settings-connection-screen .settings-card{padding:17px 16px!important}.settings-connection-screen .connection-input-row{grid-template-columns:minmax(0,1fr) 92px;gap:7px}.settings-connection-screen .connection-input-row #apiUrl{font-size:16px;min-width:0}.settings-connection-screen .connection-input-row #connectBtn{min-height:44px;font-size:13px}
+@media(max-width:979px){body.settings-detail-open main.shell{margin-top:12px!important}.settings-connection-screen .settings-detail-header h2{font-size:21px!important}.settings-connection-screen .settings-card{padding:17px 16px!important}.settings-connection-screen .connection-input-row{grid-template-columns:minmax(0,1fr) 92px;gap:7px}.settings-connection-screen .connection-input-row #apiUrl{font-size:16px;min-width:0}.settings-connection-screen .connection-input-row #connectBtn{min-height:44px;font-size:13px}
 }
 @media(min-width:1100px){body.settings-detail-open{padding-left:28px!important}body.settings-detail-open header.shell, body.settings-detail-open main.shell{width:min(calc(100% - 48px),1160px)!important;max-width:1160px!important;margin-left:auto!important;margin-right:auto!important}
 }.settings-connection-screen .settings-back-button{
