@@ -1503,7 +1503,7 @@
  .app-sidebar .app-nav .quick-add-button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
  .app-sidebar .app-nav .quick-add-button svg{transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
  .app-sidebar .app-nav .quick-add-button[aria-expanded="true"] svg{transform:rotate(45deg)}
- .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
+ .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(35,52,74,.44);opacity:0;pointer-events:none;transition:opacity .25s}
  .quick-add-scrim.open{opacity:1;pointer-events:auto}
  .app-sidebar .app-nav .quick-add-menu{position:absolute;right:9px;bottom:calc(100% + 80px);z-index:2;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
  .quick-add-option{display:flex;align-items:center;gap:10px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:var(--ink);opacity:0;transform:translateY(18px) scale(.85);transform-origin:right bottom;transition:opacity .2s,transform .3s cubic-bezier(.3,1.5,.5,1)}
