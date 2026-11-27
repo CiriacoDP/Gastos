@@ -1,8 +1,8 @@
 {
-  "version": "2.6.24",
+  "version": "2.6.25",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Corrige a direção do arco SVG para alinhar o centro geométrico do vinco ao centro vertical do círculo ativo."
+    "Usa GSAP para animar o deslocamento do vinco SVG e a entrada do ícone ativo, preservando o cálculo geométrico existente."
   ]
 }
