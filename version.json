@@ -1,8 +1,8 @@
 {
-  "version": "2.6.26",
+  "version": "2.6.27",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Sincroniza o deslocamento do círculo ativo e do vinco SVG em uma timeline GSAP única, mantendo a posição intermediária ao interromper a animação."
+    "Inverte o arco SVG para que o vinco côncavo desça para dentro da barra, mantendo o vínculo e a animação GSAP."
   ]
 }
