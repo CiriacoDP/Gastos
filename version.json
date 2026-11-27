@@ -1,8 +1,8 @@
 {
-  "version": "2.9.29",
+  "version": "2.9.30",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Adapta o brilho multicolorido da navegação à paleta do tema claro ou escuro."
+    "Faz o formulário de lançamento ocupar a tela inteira, em vez de abrir como painel inferior."
   ]
 }
