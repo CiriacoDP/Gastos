@@ -3444,3 +3444,26 @@ body.settings-detail-open .app-sidebar{display:none!important}
  body.settings-detail-open header.shell,
  body.settings-detail-open main.shell{width:min(calc(100% - 48px),1160px)!important;max-width:1160px!important;margin-left:auto!important;margin-right:auto!important}
 }
+
+
+/* Proporções dos controles da tela Planilha Google. */
+.settings-connection-screen .settings-back-button{
+ gap:7px!important;padding:8px 0!important;font-size:16px!important;font-weight:700!important;
+}
+.settings-connection-screen .settings-back-button svg{width:22px!important;height:22px!important}
+.settings-connection-screen .connection-input-row{
+ grid-template-columns:minmax(0,1fr) 80px!important;gap:8px!important;
+}
+.settings-connection-screen .connection-input-row #apiUrl{
+ font-size:14px!important;line-height:1.25!important;padding:12px 13px!important;
+}
+.settings-connection-screen .connection-input-row #connectBtn{
+ width:80px!important;min-height:42px!important;height:42px!important;
+ padding:0 8px!important;font-size:13px!important;border-radius:11px!important;
+}
+@media(max-width:979px){
+ .settings-connection-screen .settings-back-button{font-size:16px!important}
+ .settings-connection-screen .connection-input-row{grid-template-columns:minmax(0,1fr) 80px!important}
+ .settings-connection-screen .connection-input-row #apiUrl{font-size:16px!important;padding:11px 12px!important}
+ .settings-connection-screen .connection-input-row #connectBtn{width:80px!important;min-height:42px!important;height:42px!important}
+}
