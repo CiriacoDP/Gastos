@@ -1505,14 +1505,12 @@
  .app-sidebar .app-nav .quick-add-button[aria-expanded="true"] svg{transform:rotate(45deg)}
  .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
  .quick-add-scrim.open{opacity:1;pointer-events:auto}
- .app-sidebar .app-nav .quick-add-menu{position:absolute;right:31px;top:-42px;bottom:auto;z-index:2;width:0;height:0;margin:0;padding:0;list-style:none}
- .app-sidebar .app-nav .quick-add-menu li{position:absolute;right:0;bottom:0;margin:0;padding:0}
- .quick-add-option{position:absolute;right:0;bottom:0;display:flex;align-items:center;gap:10px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:var(--ink);white-space:nowrap;opacity:0;transform:translate(0,0) scale(.3);transform-origin:right center;transition:opacity .2s,transform .32s cubic-bezier(.3,1.5,.5,1)}
- .app-sidebar .app-nav .quick-add-menu.open .quick-add-option{opacity:1;transform:translate(var(--tx),var(--ty)) scale(1);transition-delay:calc(var(--i,0) * 55ms)}
- .app-sidebar .app-nav .quick-add-menu li:nth-child(1) .quick-add-option{--tx:0px;--ty:-72px;--i:0}
- .app-sidebar .app-nav .quick-add-menu li:nth-child(2) .quick-add-option{--tx:-42px;--ty:-116px;--i:1}
- .app-sidebar .app-nav .quick-add-menu li:nth-child(3) .quick-add-option{--tx:-94px;--ty:-142px;--i:2}
- .app-sidebar .app-nav .quick-add-menu li:nth-child(4) .quick-add-option{--tx:-150px;--ty:-146px;--i:3}
+ .app-sidebar .app-nav .quick-add-menu{position:absolute;right:9px;bottom:calc(100% + 80px);z-index:2;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
+ .quick-add-option{display:flex;align-items:center;gap:10px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:var(--ink);opacity:0;transform:translateY(18px) scale(.85);transform-origin:right bottom;transition:opacity .2s,transform .3s cubic-bezier(.3,1.5,.5,1)}
+ .app-sidebar .app-nav .quick-add-menu.open .quick-add-option{opacity:1;transform:none;transition-delay:calc(var(--i,0) * 55ms)}
+ .app-sidebar .app-nav .quick-add-menu li:nth-child(1) .quick-add-option{--i:2}
+ .quick-add-menu li:nth-child(2) .quick-add-option{--i:1}
+ .quick-add-menu li:nth-child(3) .quick-add-option{--i:0}
  .quick-add-option b{font-weight:600;font-size:.875rem;background:var(--card);padding:8px 14px;border-radius:999px;box-shadow:0 4px 12px rgba(0,0,0,.22)}
  .quick-add-option i{width:46px;height:46px;border-radius:50%;background:var(--card);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.22);font-style:normal}
  .quick-add-option svg{width:22px;height:22px;fill:none;stroke:var(--blue);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
@@ -1541,7 +1539,3 @@ html[data-nav-direction="backward"]::view-transition-new(app-screen){animation-n
  ::view-transition-old(app-screen),::view-transition-new(app-screen){animation-duration:1ms!important}
 }
 
-/* Entrada discreta dos lançamentos, sem alterar sua estrutura ou conteúdo. */
-@keyframes quickListItemEnter{from{opacity:0;transform:translateY(-8px)}to{opacity:1;transform:translateY(0)}}
-.list>li{animation:quickListItemEnter .22s ease-out both}
-@media(prefers-reduced-motion:reduce){.list>li{animation:none!important}}
