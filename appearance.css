@@ -1467,3 +1467,9 @@
  .overview-grid>.quick-card{display:flex;flex-direction:column}
  .overview-grid>#goTransactions{margin-top:16px!important}
 }
+
+
+/* Indicadores da Visão geral: ajuste automático somente no desktop. */
+@media(min-width:980px){
+ #overview .trio{grid-template-columns:repeat(auto-fit,minmax(200px,1fr))}
+}
