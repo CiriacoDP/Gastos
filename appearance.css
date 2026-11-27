@@ -1457,3 +1457,13 @@
 }
 @media(min-width:1100px){
 }
+
+
+/* Cards principais do resumo: altura independente conforme o conteúdo (desktop). */
+@media(min-width:980px){
+ .overview-grid{align-items:start!important}
+ .overview-grid>.summary,
+ .overview-grid>.quick-card{height:auto!important;min-height:0!important;align-self:start}
+ .overview-grid>.quick-card{display:flex;flex-direction:column}
+ .overview-grid>#goTransactions{margin-top:16px!important}
+}
