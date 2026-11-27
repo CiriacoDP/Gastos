@@ -1,9 +1,8 @@
 {
-  "version": "2.7.24",
+  "version": "2.7.25",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Isola a barra de navegação curva e sua animação em navigation.css e navigation.js.",
-    "Mantém as quatro rotas e o botão + conectado às funções existentes do aplicativo."
+    "Substitui a navegação mobile curva pela barra Prism original, mantendo as quatro rotas e as ações rápidas existentes."
   ]
 }
