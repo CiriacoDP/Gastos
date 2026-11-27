@@ -1,8 +1,8 @@
 {
-  "version": "2.7.16",
+  "version": "2.7.17",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Reverte os ajustes visuais da versão 2.7.14 na navegação: restaura a curva de mola original da pílula e o menu vertical das funções rápidas, mantendo o posicionamento inferior ajustado na versão 2.7.15."
+    "Corrige o desaparecimento da barra fixa durante as transições entre telas, isolando a navegação em uma camada própria e sem animação."
   ]
 }
