@@ -72,6 +72,11 @@
 }
 @keyframes prismGlowIn{from{opacity:0;transform:scale(.9)}to{opacity:.88;transform:scale(1)}}
 
+/* Mantém a apresentação da navegação lateral em telas desktop. */
+.app-sidebar .app-nav .prism-tab .ico{width:22px;height:22px;flex:none;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.app-sidebar .app-nav .prism-label{display:none}
+@media(min-width:1100px){.app-sidebar .app-nav .prism-label{display:block}}
+
 /* Ações rápidas mantidas com os mesmos comandos do aplicativo. */
 @media(max-width:979px){
  .app-sidebar .app-nav .quick-add-button{
