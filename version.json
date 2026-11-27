@@ -1,8 +1,8 @@
 {
-  "version": "2.7.17",
+  "version": "2.7.18",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Corrige o desaparecimento da barra fixa durante as transições entre telas, isolando a navegação em uma camada própria e sem animação."
+    "Reverte exclusivamente a última alteração da camada de navegação; restaura o CSS da versão 2.7.16."
   ]
 }
