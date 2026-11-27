@@ -1,8 +1,8 @@
 {
-  "version": "2.5.9",
+  "version": "2.5.10",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Aproxima a barra inferior da área do indicador Home do iPhone, preservando uma margem segura."
+    "Ajusta o tamanho real da navegação mobile para um dock flutuante compacto, incorporando a área segura inferior ao cartão."
   ]
 }
