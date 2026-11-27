@@ -1,8 +1,8 @@
 {
-  "version": "2.9.1",
+  "version": "2.9.2",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Remove a marca flutuante da navegação mobile e aumenta a altura da barra Prism."
+    "Preserva a posição de rolagem ao abrir Ajustes e mantém o espaço inferior da navegação."
   ]
 }
