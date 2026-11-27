@@ -1,9 +1,10 @@
 {
-  "version": "2.7.13",
+  "version": "2.7.14",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui o menu do botão + por quatro funções rápidas: nova despesa, nova entrada, busca de lançamentos e geração do PDF mensal.",
-    "Conecta os atalhos aos formulários, à pesquisa e ao relatório mensal já existentes."
+    "Suaviza o deslocamento da pílula e do recorte SVG com interpolação cubicOut em 420 ms.",
+    "Distribui as quatro funções rápidas em um arco com animação elástica e abertura em cascata.",
+    "Adiciona uma entrada sutil aos lançamentos e respeita a preferência por movimento reduzido."
   ]
 }
