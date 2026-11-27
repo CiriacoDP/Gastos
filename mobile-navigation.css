@@ -92,6 +92,14 @@
  }
  .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
  .quick-add-scrim.open{opacity:1;pointer-events:auto}
+ #mobileNavigation .app-nav .quick-add-menu.open .quick-add-option{
+  opacity:1;transform:none;transition-delay:calc(var(--i,0) * 55ms);
+ }
+ #mobileNavigation .app-nav .quick-add-menu li:nth-child(1) .quick-add-option{--i:3}
+ #mobileNavigation .app-nav .quick-add-menu li:nth-child(2) .quick-add-option{--i:2}
+ #mobileNavigation .app-nav .quick-add-menu li:nth-child(3) .quick-add-option{--i:1}
+ #mobileNavigation .app-nav .quick-add-menu li:nth-child(4) .quick-add-option{--i:0}
+
 }
 @keyframes prismGlowIn{from{opacity:0;transform:scale(.9)}to{opacity:.88;transform:scale(1)}}
 @media(max-width:979px), (hover:none) and (pointer:coarse){#mobileNavigation{display:block!important}.app-sidebar{display:none!important}}
