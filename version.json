@@ -1,8 +1,9 @@
 {
-  "version": "2.7.20",
+  "version": "2.7.21",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Restaura integralmente o código-base da versão 2.7.13, preservando todas as funcionalidades e arquivos daquele estado."
+    "Remove a captura em camadas da API View Transitions entre telas, que podia encobrir a barra fixa de navegação.",
+    "Preserva a navegação, as funções rápidas e os demais componentes existentes."
   ]
 }

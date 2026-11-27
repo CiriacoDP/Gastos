@@ -1521,20 +1521,3 @@
 @media(prefers-reduced-motion:reduce){
  .quick-add-button,.quick-add-button svg,.quick-add-option,.quick-add-scrim{transition:none!important}
 }
-
-
-/* Transição entre telas: View Transitions com fallback nativo já existente. */
-.view.active{view-transition-name:app-screen}
-::view-transition-old(app-screen),
-::view-transition-new(app-screen){animation-duration:360ms;animation-timing-function:cubic-bezier(.2,.8,.2,1)}
-html[data-nav-direction="forward"]::view-transition-old(app-screen){animation-name:app-screen-out-forward}
-html[data-nav-direction="forward"]::view-transition-new(app-screen){animation-name:app-screen-in-forward}
-html[data-nav-direction="backward"]::view-transition-old(app-screen){animation-name:app-screen-out-backward}
-html[data-nav-direction="backward"]::view-transition-new(app-screen){animation-name:app-screen-in-backward}
-@keyframes app-screen-out-forward{to{opacity:0;transform:translateX(-12px)}}
-@keyframes app-screen-in-forward{from{opacity:0;transform:translateX(18px)}to{opacity:1;transform:none}}
-@keyframes app-screen-out-backward{to{opacity:0;transform:translateX(12px)}}
-@keyframes app-screen-in-backward{from{opacity:0;transform:translateX(-18px)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){
- ::view-transition-old(app-screen),::view-transition-new(app-screen){animation-duration:1ms!important}
-}
