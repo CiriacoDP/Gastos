@@ -1,8 +1,8 @@
 {
-  "version": "2.5.14",
+  "version": "2.6.0",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Remove o fundo de cartão dos cabeçalhos das telas de Configurações, mantendo ícones, títulos e descrições."
+    "Adiciona opção de preenchimento de lançamentos por voz, com revisão antes de salvar."
   ]
 }
