@@ -1,8 +1,8 @@
 {
-  "version": "2.4.3",
+  "version": "2.5.0",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Transforma cada opção de Configurações em uma subpágina independente com navegação de voltar."
+    "Abre a configuração da Planilha Google em uma tela independente."
   ]
 }
