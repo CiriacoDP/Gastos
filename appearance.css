@@ -3661,7 +3661,7 @@ body.settings-detail-open .app-sidebar{display:none!important}
   margin:0!important;
   padding:7px 9px calc(7px + var(--mobile-safe-bottom))!important;
   box-sizing:border-box!important;
-  border-radius:26px!important;
+  border-radius:20px!important;
   overflow:visible!important;
   transform:none!important;
   display:flex!important;
