@@ -1,8 +1,8 @@
 {
-  "version": "2.8.0",
+  "version": "2.8.1",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Aplica fielmente o código visual da barra Prism de referência, integrado às quatro telas e às ações rápidas existentes."
+    "Corrige a exibição dos nomes somente na aba Prism ativa."
   ]
 }
