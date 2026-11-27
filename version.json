@@ -1,11 +1,12 @@
 {
-  "version": "2.7.10",
+  "version": "2.7.11",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
     "Reposiciona o botão + e seu menu dentro da navegação mobile, seguindo a estrutura do HTML de referência.",
     "Fecha o menu automaticamente ao sair da tela Início.",
     "Move a camada scrim para fora do contêiner transformado, permitindo cobrir toda a tela como no HTML de referência.",
-    "Ajusta a tonalidade do fundo escurecido do menu + para um azul-acinzentado distinto do fundo do aplicativo."
+    "Ajusta a tonalidade do fundo escurecido do menu + para um azul-acinzentado distinto do fundo do aplicativo.",
+    "Restaura o scrim preto translúcido original e diferencia a superfície da barra de navegação com tonalidade própria nos temas claro e escuro."
   ]
 }
