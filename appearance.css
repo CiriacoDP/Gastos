@@ -3183,6 +3183,6 @@ header .brand .status>.status-pill i{
 
 /* Anima o ícone de atualização somente enquanto a atualização manual está em andamento. */
 @keyframes refresh-button-spin{to{transform:rotate(360deg)}}
-#refreshBtn.refreshing{animation:refresh-button-spin .8s linear infinite;transform-origin:center}
+#refreshBtn.refreshing{animation:refresh-button-spin 1.2s linear infinite;transform-origin:center}
 #refreshBtn:disabled{opacity:.65}
 @media(prefers-reduced-motion:reduce){#refreshBtn.refreshing{animation-duration:2.4s}}
