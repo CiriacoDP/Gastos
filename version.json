@@ -1,8 +1,8 @@
 {
-  "version": "2.5.0",
+  "version": "2.5.1",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Abre a configuração da Planilha Google em uma tela independente."
+    "Refina o layout da tela Planilha Google e oculta a navegação principal enquanto ela está aberta."
   ]
 }
