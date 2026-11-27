@@ -1,8 +1,9 @@
 {
-  "version": "2.7.18",
+  "version": "2.7.19",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Reverte exclusivamente a última alteração da camada de navegação; restaura o CSS da versão 2.7.16."
+    "Restaura o código da versão 2.7.13, incluindo as quatro funções rápidas no botão +.",
+    "Mantém a versão de publicação única e sincronizada em todos os arquivos."
   ]
 }
