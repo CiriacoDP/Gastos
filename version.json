@@ -1,8 +1,8 @@
 {
-  "version": "2.5.11",
+  "version": "2.5.12",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Padroniza o arredondamento externo da barra inferior em 20 px."
+    "Corrige setas de retorno, layout do cartão PDF e contraste das informações nas telas de Configurações."
   ]
 }
