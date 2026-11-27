@@ -1,8 +1,8 @@
 {
-  "version": "2.6.28",
+  "version": "2.6.29",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Atualiza nomes e ícones da navegação para Início, Entradas, Despesas e Ajustes, preservando as rotas existentes."
+    "Substitui o arco circular pela geometria Bézier de referência; círculo e vinco compartilham a mesma coordenada animada pelo GSAP."
   ]
 }
