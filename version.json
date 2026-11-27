@@ -1,8 +1,8 @@
 {
-  "version": "2.8.1",
+  "version": "2.9.0",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Corrige a exibição dos nomes somente na aba Prism ativa."
+    "Substitui a navegação pelo componente Prism fornecido, integrado às quatro telas do aplicativo."
   ]
 }
