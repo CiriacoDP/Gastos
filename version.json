@@ -1,8 +1,8 @@
 {
-  "version": "2.6.9",
+  "version": "2.6.10",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Remove regras de navegação duplicadas e conflitantes e mantém uma única implementação mobile e desktop."
+    "Ajusta a navegação mobile ao modelo de barra com ícone selecionado elevado e recorte curvo, preservando o botão central e a navegação desktop."
   ]
 }
