@@ -1,8 +1,8 @@
 {
-  "version": "2.6.21",
+  "version": "2.6.22",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Inverte a direção do arco SVG para formar a concavidade correta ao redor do círculo ativo."
+    "Vincula o vinco SVG à geometria renderizada do círculo ativo, com raio 6 px maior para criar folga visual."
   ]
 }
