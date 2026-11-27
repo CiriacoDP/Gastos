@@ -1,8 +1,8 @@
 {
-  "version": "2.5.1",
+  "version": "2.5.2",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Refina o layout da tela Planilha Google e oculta a navegação principal enquanto ela está aberta."
+    "Ajusta as proporções do campo de URL, botão Salvar e botão de voltar da tela Planilha Google."
   ]
 }
