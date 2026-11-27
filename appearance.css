@@ -1837,8 +1837,8 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
  }
  #connection .app-update-settings-heading{
   align-items:flex-start;
-  gap:14px;
-  margin-bottom:24px;
+  gap:12px;
+  margin-bottom:16px;
  }
  #connection .app-update-settings-icon{
   flex-basis:46px;
@@ -1855,8 +1855,8 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   line-height:1.6;
  }
  #connection .app-update-current-line{
-  margin-top:auto;
-  padding:17px 0;
+  margin-top:0;
+  padding:11px 0;
   font-size:12px;
  }
  #connection .app-update-current-line strong{
@@ -1867,10 +1867,10 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
   margin-top:0;
  }
  #connection .app-update-check-message{
-  min-height:34px;
-  margin-top:12px;
+  min-height:17px;
+  margin-top:8px;
   font-size:11px;
-  line-height:1.5;
+  line-height:1.45;
  }
 }
 @media(min-width:980px) and (max-width:1199px){
