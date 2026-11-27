@@ -2404,6 +2404,32 @@ document.querySelectorAll('[data-settings-open]').forEach(button=>button.addEven
 document.querySelectorAll('[data-settings-back]').forEach(button=>button.addEventListener('click',()=>switchView('connection')));
 document.getElementById('settingsConnectionBack').addEventListener('click',()=>switchView('connection'));
 
+function switchView(name){
+ const applyView=()=>{
+  document.body.classList.toggle('settings-detail-open',name.startsWith('settings'));
+  if(name==='connection')showSettingsHome();
+  if(name!=='transactions'){
+   const search=$('listSearch');
+   if(search){
+    search.value='';
+    $('clearSearch').hidden=true;
+    if(!$('transactionSearch').classList.contains('search-collapsed'))setTransactionSearchOpen(false);
+   }
+  }
+  document.querySelectorAll('.view').forEach(v=>{
+   v.classList.toggle('active',v.id===name);
+  });
+  const selected=name.startsWith('settings')?'connection':name;
+  const selectedIndex=window.APP_NAV_TABS.findIndex(tab=>tab.view===selected);
+  if(selectedIndex>=0)window.selectMobileNav(selectedIndex,false);
+  syncQuickAdd();
+  window.scrollTo({top:0,behavior:'smooth'});
+ };
+ const current=document.querySelector('.view.active')?.id;
+ if(current===name)return;
+ applyView();
+}
+
 const quickAddButton=$('quickAddButton');
 const quickAddMenu=$('quickAddMenu');
 const quickAddScrim=$('quickAddScrim');
