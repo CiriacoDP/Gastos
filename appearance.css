@@ -1739,7 +1739,7 @@ body.privacy-mode .category-breakdown{filter:blur(7px);user-select:none}
 /* Barra única e painel expansível para filtros avançados */
 #transactions .filter-toolbar{display:flex;align-items:center;gap:10px;margin:0 0 12px;min-width:0}
 #transactions .filter-toggle{display:inline-flex;align-items:center;gap:8px;flex:0 0 auto;min-height:38px;padding:8px 13px;border:1px solid rgba(145,177,210,.2);border-radius:12px;background:rgba(21,34,49,.82);color:#dce9f7;font-size:12px;font-weight:750}
-#transactions .filter-toggle.has-active{border-color:rgba(87,169,244,.48);background:rgba(48,112,176,.2)}
+#transactions .filter-toggle.has-active,#transactions .filter-toggle[aria-expanded="true"]{border-color:rgba(87,169,244,.58);background:rgba(51,124,194,.3);color:#eaf4ff}
 #transactions .filter-toggle-icon{font-size:16px;color:#82baff}
 #transactions .filter-active-count{display:grid;place-items:center;min-width:18px;height:18px;padding:0 5px;border-radius:9px;background:#3989d8;color:white;font-size:10px}
 #transactions .filter-chevron{color:#8ea5bc;font-size:15px}
