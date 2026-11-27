@@ -1,8 +1,8 @@
 {
-  "version": "2.5.13",
+  "version": "2.5.14",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Destaca o botão Filtros em azul enquanto o painel está aberto ou há filtros aplicados."
+    "Remove o fundo de cartão dos cabeçalhos das telas de Configurações, mantendo ícones, títulos e descrições."
   ]
 }
