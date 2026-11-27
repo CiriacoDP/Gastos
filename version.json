@@ -1,8 +1,8 @@
 {
-  "version": "2.9.9",
+  "version": "2.9.10",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Reduz o espaço lateral quando a navegação desktop está minimizada."
+    "Ajusta o recuo do conteúdo para evitar sobreposição com o indicador da navegação desktop."
   ]
 }
