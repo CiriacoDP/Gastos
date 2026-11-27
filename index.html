@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.5.14">
+<meta name="app-version" content="2.6.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.5.14">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.5.14" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.6.0">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.6.0" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -52,13 +52,14 @@
   <button type="button" data-quick-action="expense"><span class="nav-quick-menu-icon">−</span><span>Nova despesa</span></button>
   <button type="button" data-quick-action="income"><span class="nav-quick-menu-icon">＋</span><span>Nova entrada</span></button>
   <button type="button" data-quick-action="scan"><span class="nav-quick-menu-icon">⌗</span><span>Escanear boleto ou QR Code</span></button>
+  <button type="button" data-quick-action="voice"><span class="nav-quick-menu-icon">🎙</span><span>Adicionar por voz</span></button>
  </div>
  <div class="sidebar-footer">
   <div class="sidebar-footer-line">
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.5.14</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.6.0</small>
  </div>
 </aside>
 
@@ -67,7 +68,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.5.14</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.6.0</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -392,7 +393,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.5.14</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.6.0</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -451,7 +452,7 @@
  <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
  <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.5.14</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.6.0</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
 </section>
@@ -626,9 +627,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.5.14</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.6.0</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.5.14</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.6.0</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2443,7 +2444,75 @@ quickAddMenu.addEventListener('click',event=>{
  if(action==='expense')openSheet(null,'Gasto');
  if(action==='income')openSheet(null,'Entrada');
  if(action==='scan'){openSheet(null,'Gasto');startPaymentScanner();}
+ if(action==='voice'){openSheet(null,'Gasto');startVoiceEntry();}
 });
+
+/* CAPTAÇÃO DE VOZ: preenche o formulário, mas nunca salva automaticamente. */
+function startVoiceEntry(){
+ const SpeechRecognition=window.SpeechRecognition||window.webkitSpeechRecognition;
+ if(!SpeechRecognition){
+  toast('O reconhecimento de voz não está disponível neste navegador. Use a digitação normalmente.',true);
+  return;
+ }
+ const recognition=new SpeechRecognition();
+ recognition.lang='pt-BR';
+ recognition.continuous=false;
+ recognition.interimResults=false;
+ let finished=false;
+ toast('Ouvindo… fale o lançamento em uma frase.');
+ recognition.onresult=event=>{
+  const transcript=String(event.results?.[0]?.[0]?.transcript||'').trim();
+  if(!transcript){toast('Não consegui entender. Tente novamente.',true);return;}
+  fillEntryFromSpeech(transcript);
+ };
+ recognition.onerror=event=>{
+  const messages={
+   'not-allowed':'Permita o acesso ao microfone nas configurações do navegador.',
+   'service-not-allowed':'O serviço de reconhecimento de voz não está disponível.',
+   'no-speech':'Não detectei fala. Tente novamente.',
+   'network':'Falha de conexão no reconhecimento de voz.'
+  };
+  toast(messages[event.error]||'Não foi possível reconhecer a fala. Tente novamente.',true);
+ };
+ recognition.onend=()=>{finished=true;};
+ try{recognition.start();}
+ catch(error){if(!finished)toast('Não foi possível iniciar o microfone. Tente novamente.',true);}
+}
+function fillEntryFromSpeech(transcript){
+ const original=transcript.trim();
+ const normalized=original.normalize('NFD').replace(/[\u0300-\u036f]/g,'').toLowerCase();
+ const income=/\b(recebi|recebimento|entrada|salario|ganhei|caiu na conta)\b/.test(normalized);
+ setType(income?'Entrada':'Gasto');
+ let amountMatch=normalized.match(/(?:r\$\s*)?(\d{1,3}(?:\.\d{3})+(?:,\d{1,2})?|\d+(?:,\d{1,2})?)\s*(?:reais?)?/);
+ if(!amountMatch)amountMatch=normalized.match(/\b(\d+(?:,\d{1,2})?)\b/);
+ if(amountMatch)$('amount').value=formatAmountField(amountMatch[1]);
+ const categoryMap=[
+  ['mercado','Mercado'],['supermercado','Mercado'],['alimentacao','Alimentacao'],['comida','Alimentacao'],
+  ['combustivel','Combustivel'],['gasolina','Combustivel'],['moradia','Moradia'],['aluguel','Moradia'],
+  ['saude','Saude'],['medico','Saude'],['transporte','Transporte'],['uber','Transporte'],
+  ['educacao','Educacao'],['escola','Educacao'],['lazer','Lazer'],['compras','Compras'],
+  ['streaming','Streaming'],['assinatura','Assinaturas'],['imposto','Impostos'],['servico','Servicos']
+ ];
+ let category='';
+ if(!income){
+  const match=categoryMap.find(([word])=>normalized.includes(word));
+  if(match){category=match[1];$('expenseCategory').value=category;categoryManuallySelected=true;}
+ }
+ let description=original
+  .replace(/^\s*(?:despesa|gasto|conta|entrada|recebi|recebimento|ganhei)\s*(?:de|do|da)?\s*/i,'')
+  .replace(/(?:r\$\s*)?\d{1,3}(?:\.\d{3})*(?:,\d{1,2})?\s*(?:reais?)?/i,'')
+  .replace(/\b(?:categoria|na categoria)\s+[\wÀ-ÿ ]+/i,'')
+  .replace(/\b(?:pago|paga|pagas|pagar|recebido|recebida|no pix|via pix|no credito|no debito|em dinheiro)\b/ig,'')
+  .replace(/[,.]+/g,' ').replace(/\s+/g,' ').trim();
+ if(category){
+  const escaped=categoryMap.find(([,value])=>value===category)?.[0];
+  if(escaped)description=description.replace(new RegExp('\\b'+escaped+'\\b','ig'),'').trim();
+ }
+ if(description)$('description').value=description.slice(0,90);
+ if(!amountMatch)toast('Identifiquei a descrição, mas não o valor. Confira o formulário.',true);
+ else toast('Fala reconhecida. Confira os campos antes de salvar.');
+}
+
 document.addEventListener('click',event=>{
  if(!quickAddMenu.hidden&&!event.target.closest('.app-sidebar'))closeQuickAddMenu();
 });
