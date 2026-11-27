@@ -1,8 +1,8 @@
 {
-  "version": "2.5.8",
+  "version": "2.5.9",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Aplica telas independentes no padrão visual da Planilha Google às demais opções de Configurações."
+    "Aproxima a barra inferior da área do indicador Home do iPhone, preservando uma margem segura."
   ]
 }
