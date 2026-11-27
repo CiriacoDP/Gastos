@@ -1,8 +1,8 @@
 {
-  "version": "2.6.1",
+  "version": "2.6.2",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Aprimora o reconhecimento e a interpretação de lançamentos por voz, sem abrir o teclado nem gravar arquivo de áudio."
+    "Destaca o ícone da seção ativa na barra inferior com elevação circular, preservando o botão central."
   ]
 }
