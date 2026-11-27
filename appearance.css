@@ -3737,3 +3737,20 @@ body.settings-detail-open .app-sidebar{display:none!important}
 /* Setas de retorno nas telas independentes de Configurações. */
 .settings-detail-screen-header .settings-back-button{gap:8px;font-size:16px!important}
 .settings-detail-screen-header .settings-back-button svg{width:22px;height:22px;flex:none}
+
+
+/* Cabeçalho das telas de Configurações sem cartão de fundo: preserva ícone, título e descrição. */
+.settings-connection-intro,
+.settings-detail-intro{
+ padding:0!important;
+ border:0!important;
+ border-radius:0!important;
+ background:transparent!important;
+ box-shadow:none!important;
+}
+.settings-connection-intro,
+.settings-detail-intro{margin-top:0!important}
+@media(max-width:979px){
+ .settings-connection-intro,
+ .settings-detail-intro{padding:0!important}
+}
