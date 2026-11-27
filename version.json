@@ -1,8 +1,8 @@
 {
-  "version": "2.6.23",
+  "version": "2.6.24",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Adiciona a biblioteca GSAP 3.13.0 para preparar animações e transições de interface."
+    "Corrige a direção do arco SVG para alinhar o centro geométrico do vinco ao centro vertical do círculo ativo."
   ]
 }
