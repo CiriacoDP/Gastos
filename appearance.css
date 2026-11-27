@@ -3754,3 +3754,63 @@ body.settings-detail-open .app-sidebar{display:none!important}
  .settings-connection-intro,
  .settings-detail-intro{padding:0!important}
 }
+
+
+/* Navegação mobile: ícone ativo elevado em círculo, mantendo o botão central (+). */
+@media(max-width:979px){
+ .app-sidebar .app-nav{overflow:visible!important}
+ .app-sidebar .app-nav button[data-view]{
+  position:relative!important;
+  overflow:visible!important;
+  background:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+  transition:color .2s ease!important;
+ }
+ .app-sidebar .app-nav button[data-view].active{
+  color:var(--blue)!important;
+  background:transparent!important;
+  border-color:transparent!important;
+  box-shadow:none!important;
+ }
+ .app-sidebar .app-nav button[data-view] .nav-icon{
+  position:relative!important;
+  z-index:1!important;
+  display:grid!important;
+  place-items:center!important;
+  width:42px!important;height:42px!important;
+  flex:0 0 42px!important;
+  margin:0 0 1px!important;
+  border-radius:50%!important;
+  background:transparent!important;
+  color:inherit!important;
+  transition:transform .22s cubic-bezier(.2,.8,.2,1),background .22s ease,box-shadow .22s ease!important;
+ }
+ .app-sidebar .app-nav button[data-view].active .nav-icon{
+  transform:translateY(-10px)!important;
+  background:var(--card)!important;
+  box-shadow:0 4px 13px rgba(15,35,58,.18),0 0 0 4px var(--card)!important;
+  color:var(--blue)!important;
+ }
+ .app-sidebar .app-nav button[data-view] .nav-icon svg{
+  position:relative!important;z-index:1!important;
+  width:22px!important;height:22px!important;
+ }
+ .app-sidebar .app-nav button[data-view] .nav-label{
+  position:relative!important;
+  z-index:2!important;
+  transition:color .2s ease,transform .2s ease!important;
+ }
+ .app-sidebar .app-nav button[data-view].active .nav-label{
+  color:var(--blue)!important;
+  transform:translateY(-2px)!important;
+  opacity:1!important;
+ }
+ .app-sidebar .app-nav button.nav-quick-add{
+  z-index:3!important;
+ }
+}
+@media(prefers-reduced-motion:reduce){
+ .app-sidebar .app-nav button[data-view] .nav-icon,
+ .app-sidebar .app-nav button[data-view] .nav-label{transition:none!important}
+}
