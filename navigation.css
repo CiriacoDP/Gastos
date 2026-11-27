@@ -1,5 +1,5 @@
 /* Barra Prism — estilos visuais fiéis ao código de referência. */
-@media(max-width:979px){
+@media(max-width:979px), (hover:none) and (pointer:coarse){
  :root{
   --glass-track:rgba(255,255,255,.11);
   --glass-border:rgba(255,255,255,.24);
@@ -83,7 +83,7 @@
 @media(min-width:980px) and (max-width:1099px){.app-sidebar .app-nav .prism-label{display:none}}
 
 /* Estilos originais das ações rápidas do Gastos, sem alterar seus comandos. */
-@media(max-width:979px){
+@media(max-width:979px), (hover:none) and (pointer:coarse){
  .app-sidebar .app-nav .quick-add-button{
   position:absolute;right:4px;top:-68px;z-index:4;display:grid;place-items:center;
   width:54px;height:54px;min-height:54px;padding:0;border:0;border-radius:50%;
@@ -108,14 +108,14 @@
  .quick-add-option i{width:46px;height:46px;border-radius:50%;background:var(--card);display:grid;place-items:center;box-shadow:0 4px 12px rgba(0,0,0,.22);font-style:normal}
  .quick-add-option svg{width:22px;height:22px;fill:none;stroke:var(--blue);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round}
 }
-@media(min-width:980px){.quick-add-button,.quick-add-menu,.quick-add-scrim{display:none!important}}
+@media(min-width:980px) and (hover:hover) and (pointer:fine){.quick-add-button,.quick-add-menu,.quick-add-scrim{display:none!important}}
 @media(prefers-reduced-motion:reduce){
  .app-sidebar .app-nav button.prism-tab[data-view],.app-sidebar .app-nav .prism-label,
  .app-sidebar .app-nav button.prism-tab[data-view][aria-current="true"]::before,
  .quick-add-button,.quick-add-button svg,.quick-add-option,.quick-add-scrim{transition:none!important;animation:none!important}
 }
 /* Navegação lateral desktop: expansão ao hover e recorte móvel do item ativo. */
-@media(min-width:980px){
+@media(min-width:980px) and (hover:hover) and (pointer:fine){
  .app-sidebar{
   position:fixed;z-index:120;left:-178px;top:16px;bottom:16px;
   width:232px;height:auto;margin:0;padding:0;overflow:visible;
@@ -161,7 +161,7 @@
 }
 
 /* Recolhe o espaço reservado ao menu lateral quando ele está minimizado. */
-@media(min-width:980px){
+@media(min-width:980px) and (hover:hover) and (pointer:fine){
  body:not(.settings-detail-open){padding-left:88px!important}
  body:has(.app-sidebar:hover):not(.settings-detail-open),
  body:has(.app-sidebar:focus-within):not(.settings-detail-open){padding-left:272px!important}
