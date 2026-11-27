@@ -1,8 +1,8 @@
 {
-  "version": "2.3.17",
+  "version": "2.3.18",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Ajusta a proporção do campo URL e do botão de conexão para 80/20."
+    "Reduz os espaçamentos do card de atualizações, mantendo a hierarquia visual."
   ]
 }
