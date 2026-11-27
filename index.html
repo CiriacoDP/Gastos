@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.4.3">
+<meta name="app-version" content="2.5.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,8 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.4.3">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.4.3" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./appearance.css?v=2.5.0">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.5.0" id="manualLightTheme" disabled>
 
 </head>
 <body>
@@ -50,7 +50,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.4.3</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.5.0</small>
  </div>
 </aside>
 
@@ -59,7 +59,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.4.3</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.5.0</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -370,24 +370,6 @@
     <button class="settings-nav-row" type="button" data-settings-open="about"><span class="settings-nav-icon about-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></span><span class="settings-nav-copy"><strong>Sobre</strong><small>Versão e informações do aplicativo</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
    </section>
   </div>
-    <section class="settings-subpage" data-settings-page="connection" hidden>
-   <div class="settings-detail-header">
-    <button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
-    <h2>Conexão</h2>
-   </div>
-<section class="card settings-card" data-settings-group="connection" hidden>
-   <h3>Conexão com a planilha</h3>
-   <p>Informe o endereço do Web App do Google Apps Script para sincronizar seus lançamentos.</p>
-   <label for="apiUrl">URL do Google Apps Script</label>
-   <div class="connection-input-row">
-    <input id="apiUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="url">
-    <button class="primary" id="connectBtn" type="button">Salvar</button>
-   </div>
-   <div class="msg" id="connectionMessage"></div>
-   <div class="last-sync-line"><span>Última sincronização</span><strong id="lastSyncText">Ainda não sincronizado</strong></div>
-  </section>
-  </section>
-
     <section class="settings-subpage" data-settings-page="updates" hidden>
    <div class="settings-detail-header">
     <button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
@@ -401,7 +383,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.4.3</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.5.0</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -465,9 +447,27 @@
    </div>
 <section class="card settings-card preferences-card about-settings-card" data-settings-group="about" hidden>
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.4.3</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.5.0</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
+  </section>
+ </section>
+
+ <section class="view settings-connection-screen" id="settingsConnection">
+  <div class="settings-detail-header">
+   <button type="button" class="settings-back-button" id="settingsConnectionBack"><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
+   <h2>Planilha Google</h2>
+  </div>
+  <section class="card settings-card">
+   <h3>Conexão com a planilha</h3>
+   <p>Informe o endereço do Web App do Google Apps Script para sincronizar seus lançamentos.</p>
+   <label for="apiUrl">URL do Google Apps Script</label>
+   <div class="connection-input-row">
+    <input id="apiUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="url">
+    <button class="primary" id="connectBtn" type="button">Salvar</button>
+   </div>
+   <div class="msg" id="connectionMessage"></div>
+   <div class="last-sync-line"><span>Última sincronização</span><strong id="lastSyncText">Ainda não sincronizado</strong></div>
   </section>
  </section>
 </main>
@@ -618,9 +618,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.4.3</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.5.0</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.4.3</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.5.0</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -2382,6 +2382,10 @@ function showSettingsHome(){
  window.scrollTo({top:0,behavior:'smooth'});
 }
 function openSettingsPage(name){
+ if(name==='connection'){
+  switchView('settingsConnection');
+  return;
+ }
  const page=document.querySelector('#connection .settings-subpage[data-settings-page="'+name+'"]');
  if(!page)return;
  $('settingsHome').hidden=true;
@@ -2390,6 +2394,7 @@ function openSettingsPage(name){
 }
 document.querySelectorAll('[data-settings-open]').forEach(button=>button.addEventListener('click',()=>openSettingsPage(button.dataset.settingsOpen)));
 document.querySelectorAll('[data-settings-back]').forEach(button=>button.addEventListener('click',showSettingsHome));
+document.getElementById('settingsConnectionBack').addEventListener('click',()=>switchView('connection'));
 
 /* NAVEGAÇÃO ENTRE TELAS */
 function switchView(name){
@@ -2406,7 +2411,7 @@ function switchView(name){
   v.classList.toggle('active',v.id===name);
  });
  document.querySelectorAll('.app-nav [data-view]').forEach(b=>{
-  const active=b.dataset.view===name;
+  const active=b.dataset.view===(name==='settingsConnection'?'connection':name);
   b.classList.toggle('active',active);
   b.setAttribute('aria-current',active?'page':'false');
  });
