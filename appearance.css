@@ -3590,7 +3590,7 @@ body.settings-detail-open .app-sidebar{display:none!important}
 /* Refinamento visual do dock: superfície uniforme, alinhamento e proximidade da barra do iPhone. */
 @media(max-width:979px){
  .app-sidebar{
-  bottom:calc(var(--safe-area-bottom) - 2px)!important;
+  bottom:max(8px,calc(var(--safe-area-bottom) - 24px))!important;
   background:color-mix(in srgb,var(--card) 97%,transparent)!important;
   border:1px solid color-mix(in srgb,var(--sep) 82%,transparent)!important;
   box-shadow:0 7px 22px rgba(20,38,58,.10),inset 0 1px 0 rgba(255,255,255,.48)!important;
