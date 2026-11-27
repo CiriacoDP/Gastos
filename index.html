@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.7.24">
+<meta name="app-version" content="2.7.25">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,9 +14,9 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.7.24">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.7.24" id="manualLightTheme" disabled>
-<link rel="stylesheet" href="./navigation.css?v=2.7.24">
+<link rel="stylesheet" href="./appearance.css?v=2.7.25">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.7.25" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./navigation.css?v=2.7.25">
 
 </head>
 <body>
@@ -28,21 +28,11 @@
  </div>
 
 
-  <nav class="app-nav" aria-label="Navegação principal">
-  <svg class="mobile-nav-shape" id="mobileNavShape" aria-hidden="true"><path id="mobileNavPath"/></svg>
-  <button class="active" data-view="overview" aria-label="Início" title="Início" aria-current="page"><span class="nav-icon"><svg class="ico" viewBox="0 0 24 24"><path class="m" d="M12 3.2 19.6 8.6c.9.6 1.4 1.6 1.4 2.7V18a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3v-6.7c0-1.1.5-2.1 1.4-2.7z"/><path class="d" d="M9 15.2c1.8 1.6 4.2 1.6 6 0"/></svg></span>
-   <span class="nav-label">Início</span>
-  </button>
-  <button data-view="income" aria-label="Entradas" title="Entradas"><span class="nav-icon"><svg class="ico" viewBox="0 0 24 24"><circle class="m" cx="12" cy="12" r="9.2"/><path class="d" d="M12 7.5v8.5M8.5 12.8l3.5 3.5 3.5-3.5"/></svg></span>
-   <span class="nav-label">Entradas</span>
-  </button>
-  <button data-view="transactions" aria-label="Despesas" title="Despesas"><span class="nav-icon"><svg class="ico" viewBox="0 0 24 24"><circle class="m" cx="12" cy="12" r="9.2"/><path class="d" d="M12 16.5V8M8.5 11.2 12 7.7l3.5 3.5"/></svg></span>
-   <span class="nav-label">Despesas</span>
-  </button>
-  <button data-view="connection" aria-label="Ajustes" title="Ajustes"><span class="nav-icon"><svg class="ico" viewBox="0 0 24 24"><rect class="m" x="3" y="3" width="18" height="18" rx="5.5"/><path class="d" d="M7.5 9h9M7.5 15h9"/><circle class="d" cx="14.5" cy="9" r="1.7"/><circle class="d" cx="9.5" cy="15" r="1.7"/></svg></span>
-   <span class="nav-label">Ajustes</span>
-  </button>
-  <div class="mobile-nav-pill" id="mobileNavPill" aria-hidden="true"></div>
+  <nav class="app-nav prism-bar" aria-label="Navegação principal">
+  <button class="prism-tab active" data-view="overview" type="button" aria-label="Início" title="Início" aria-current="true"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 10.5 12 3l9 7.5V20a1.5 1.5 0 0 1-1.5 1.5H15v-6a1.5 1.5 0 0 0-1.5-1.5h-3A1.5 1.5 0 0 0 9 15.5v6H4.5A1.5 1.5 0 0 1 3 20z"/></svg><span class="prism-label">Início</span></button>
+  <button class="prism-tab" data-view="income" type="button" aria-label="Entradas" title="Entradas" aria-current="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8m-3.5-3.5L12 16l3.5-3.5"/></svg><span class="prism-label">Entradas</span></button>
+  <button class="prism-tab" data-view="transactions" type="button" aria-label="Despesas" title="Despesas" aria-current="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 16V8m-3.5 3.5L12 8l3.5 3.5"/></svg><span class="prism-label">Despesas</span></button>
+  <button class="prism-tab" data-view="connection" type="button" aria-label="Ajustes" title="Ajustes" aria-current="false"><svg class="ico" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="prism-label">Ajustes</span></button>
   <button class="quick-add-button" id="quickAddButton" type="button" aria-label="Adicionar" aria-haspopup="true" aria-expanded="false" aria-controls="quickAddMenu">
    <svg viewBox="0 0 24 24" width="26" height="26" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>
   </button>
@@ -59,7 +49,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.7.24</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.7.25</small>
  </div>
 
 </aside>
@@ -71,7 +61,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.7.24</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.7.25</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -396,7 +386,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.7.24</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.7.25</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -455,7 +445,7 @@
  <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
  <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.7.24</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.7.25</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
 </section>
@@ -630,9 +620,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.7.24</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.7.25</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.7.24</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.7.25</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -653,7 +643,7 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="./navigation.js?v=2.7.24"></script>
+<script src="./navigation.js?v=2.7.25"></script>
 <script>
 const STORAGE_KEY='gastos2026_appweb_url_v1';
 const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
