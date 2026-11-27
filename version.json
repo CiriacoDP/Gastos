@@ -1,8 +1,9 @@
 {
-  "version": "2.9.11",
+  "version": "2.9.12",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Permite que os dois cards principais do resumo desktop tenham alturas independentes conforme o conteúdo."
+    "Permite que os dois cards principais do resumo desktop tenham alturas independentes conforme o conteúdo.",
+    "Organiza automaticamente os três indicadores de Entradas, Despesas e A pagar na Visão geral em telas desktop."
   ]
 }
