@@ -1,10 +1,8 @@
 {
-  "version": "2.7.14",
+  "version": "2.7.15",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Suaviza o deslocamento da pílula e do recorte SVG com interpolação cubicOut em 420 ms.",
-    "Distribui as quatro funções rápidas em um arco com animação elástica e abertura em cascata.",
-    "Adiciona uma entrada sutil aos lançamentos e respeita a preferência por movimento reduzido."
+    "Abaixa em 14 px o conjunto da navegação mobile, incluindo barra, pílula e botão de funções rápidas, preservando o espaçamento da área segura do dispositivo."
   ]
 }
