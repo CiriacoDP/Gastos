@@ -1,8 +1,8 @@
 {
-  "version": "2.3.18",
+  "version": "2.3.19",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Reduz os espaçamentos do card de atualizações, mantendo a hierarquia visual."
+    "Ajusta o botão Salvar na conexão com a planilha."
   ]
 }
