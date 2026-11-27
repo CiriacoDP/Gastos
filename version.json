@@ -1,8 +1,8 @@
 {
-  "version": "2.3.20",
+  "version": "2.4.0",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Alinha a altura do botão Salvar com o campo da URL."
+    "Reorganiza Configurações em grupos e subpáginas, preservando os recursos existentes."
   ]
 }
