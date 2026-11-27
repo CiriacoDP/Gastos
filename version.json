@@ -1,10 +1,9 @@
 {
-  "version": "2.7.12",
+  "version": "2.7.13",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Adiciona transições direcionais entre telas usando a API nativa View Transitions, com fallback para navegadores sem suporte.",
-    "Refina o movimento do indicador da navegação com uma curva de mola suave.",
-    "Respeita a preferência por movimento reduzido e preserva a navegação existente."
+    "Substitui o menu do botão + por quatro funções rápidas: nova despesa, nova entrada, busca de lançamentos e geração do PDF mensal.",
+    "Conecta os atalhos aos formulários, à pesquisa e ao relatório mensal já existentes."
   ]
 }
