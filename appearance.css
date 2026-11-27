@@ -1560,3 +1560,9 @@
  html,body{margin-left:0!important;padding-left:0!important}
  body{width:100%!important;max-width:100%!important}
 }
+
+html[data-screen-font="small"]{font-size:14px}html[data-screen-font="normal"]{font-size:16px}html[data-screen-font="large"]{font-size:18px}html[data-screen-font="xlarge"]{font-size:20px}
+html[data-screen-density="compact"] button,html[data-screen-density="compact"] input,html[data-screen-density="compact"] select{padding-block:8px}html[data-screen-density="large"] button,html[data-screen-density="large"] input,html[data-screen-density="large"] select{min-height:46px}
+html.screen-bold body,html.screen-bold button,html.screen-bold input,html.screen-bold select,html.screen-bold textarea{font-weight:650}
+html.screen-high-contrast{--mut:#555!important;--sep:#777!important}html[data-theme="dark"].screen-high-contrast{--mut:#ddd!important;--sep:#aaa!important}
+html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-reduce-motion *::after{scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
