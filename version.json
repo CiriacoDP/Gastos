@@ -1,8 +1,8 @@
 {
-  "version": "2.6.5",
+  "version": "2.6.6",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Redesenha a navegação mobile com bolha ativa e curvas laterais integradas ao topo do dock."
+    "Ajusta o dock mobile: reduz a bolha ativa e remove o fundo retangular da seção selecionada."
   ]
 }
