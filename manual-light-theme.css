@@ -191,3 +191,8 @@
 .update-installing-card{background:linear-gradient(155deg,#fff,#f5f8fc)!important;border-color:#dce6f0!important;box-shadow:0 22px 60px rgba(31,55,82,.2)!important;color:#1d2b3a!important}
 .update-installing-card p,.update-progress-meta{color:#718196!important}
 .update-progress{background:#e8eef5!important;border-color:#dce5ef!important}
+
+
+/* Contraste dos dados secundários nas telas de Configurações no tema claro. */
+.settings-detail-screen .app-update-current-line{color:#718196!important}
+.settings-detail-screen .app-update-current-line strong{color:#26384b!important}
