@@ -1,8 +1,8 @@
 {
-  "version": "2.9.8",
+  "version": "2.9.9",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Integra navegação lateral expansível no desktop, preservando a barra Prism no celular."
+    "Reduz o espaço lateral quando a navegação desktop está minimizada."
   ]
 }
