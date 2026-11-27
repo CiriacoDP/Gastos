@@ -1,8 +1,8 @@
 {
-  "version": "2.6.17",
+  "version": "2.6.18",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Refina a concavidade da barra e reduz o halo ao redor do círculo ativo, mantendo ambos centralizados."
+    "Substitui o recorte simulado por contorno SVG dinâmico, alinhado ao centro real da seção ativa."
   ]
 }
