@@ -247,3 +247,7 @@
  }
  .app-sidebar .app-nav .quick-add-button{display:grid!important}
 }
+
+
+/* Sidebar lateral exclusiva do desktop. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){.app-sidebar{display:none!important}}
