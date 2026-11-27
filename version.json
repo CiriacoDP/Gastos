@@ -1,8 +1,8 @@
 {
-  "version": "2.6.30",
+  "version": "2.6.31",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Reproduz a barra do HTML de referência: recorte Bézier, botão circular independente e movimento sincronizado com a navegação."
+    "Remove a implementação anterior e copia estrutura, medidas, ícones e animação do HTML de referência."
   ]
 }
