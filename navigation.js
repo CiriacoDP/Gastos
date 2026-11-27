@@ -43,6 +43,7 @@ function drawDesktopNav(y) {
 }
 function moveDesktopPill(index, instant) {
   if (!prismTabs[index]) return;
+  desktopPill.innerHTML = renderIcon(TABS[index].key);
   const target = prismTabs[index].getBoundingClientRect().top - sidebar.getBoundingClientRect().top + prismTabs[index].offsetHeight / 2;
   cancelAnimationFrame(desktopFrame);
   const from = desktopY, start = performance.now(), duration = instant ? 0 : 420;
