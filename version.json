@@ -1,8 +1,8 @@
 {
-  "version": "2.6.6",
+  "version": "2.6.7",
   "ready": true,
-  "releasedAt": "2026-11-26",
+  "releasedAt": "2026-11-27",
   "notes": [
-    "Ajusta o dock mobile: reduz a bolha ativa e remove o fundo retangular da seção selecionada."
+    "Consolida a navegação em uma única implementação, removendo regras mobile conflitantes e preservando a navegação desktop."
   ]
 }
