@@ -1,8 +1,8 @@
 {
-  "version": "2.6.15",
+  "version": "2.6.16",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Refaz o encaixe da aba selecionada na barra mobile com recorte circular integrado e transição entre as quatro posições."
+    "Centraliza o recorte circular no próprio item selecionado e faz a barra branca acompanhar a concavidade."
   ]
 }
