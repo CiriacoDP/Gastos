@@ -1,58 +1,79 @@
-/* Navegação curva com círculo deslizante — referência enviada. */
+/* Navegação Prism original — exclusiva para celulares. */
 @media(max-width:979px), (hover:none) and (pointer:coarse){
- :root{--mobile-nav-surface:var(--card);--mobile-nav-muted:var(--mut)}
+ :root{
+  --prism-glass-track:rgba(255,255,255,.11);
+  --prism-glass-border:rgba(255,255,255,.24);
+  --prism-pill-dark:#0a0c10;
+ }
+ :root[data-theme="light"]{
+  --prism-glass-track:rgba(255,255,255,.72);
+  --prism-glass-border:rgba(255,255,255,.92);
+  --prism-pill-dark:#11141c;
+ }
+ :root[data-theme="dark"]{
+  --prism-glass-track:rgba(255,255,255,.11);
+  --prism-glass-border:rgba(255,255,255,.24);
+  --prism-pill-dark:#0a0c10;
+ }
+ @media(prefers-color-scheme:light){
+  :root:not([data-theme="dark"]):not([data-theme="light"]){
+   --prism-glass-track:rgba(255,255,255,.72);
+   --prism-glass-border:rgba(255,255,255,.92);
+   --prism-pill-dark:#11141c;
+  }
+ }
  #mobileNavigation{
   position:fixed;z-index:120;left:50%;right:auto;top:auto;
   bottom:calc(14px + env(safe-area-inset-bottom,0px));
-  width:min(calc(100% - 24px),440px);height:102px;min-height:102px;max-height:102px;
-  margin:0;padding:0;transform:translateX(-50%);overflow:visible;display:block;
-  border:0;border-radius:0;background:transparent;box-shadow:none;
-  -webkit-backdrop-filter:none;backdrop-filter:none;
+  width:min(calc(100% - 24px),440px);height:auto;min-height:0;max-height:none;
+  margin:0;padding:0;transform:translateX(-50%);overflow:visible;
+  display:block;border:0;border-radius:0;background:transparent;box-shadow:none;
  }
+ #mobileNavigation .mobile-nav-shape,#mobileNavigation .mobile-nav-pill{display:none!important}
  #mobileNavigation .app-nav{
-  position:absolute;left:0;right:0;top:30px;width:100%;height:72px;min-height:72px;
-  margin:0;padding:0 20px;display:flex;flex-direction:row;align-items:stretch;
-  justify-content:stretch;gap:0;overflow:visible;border:0;border-radius:0;
-  background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none;
+  position:relative;left:auto;right:auto;top:auto;display:flex;
+  flex-direction:row;align-items:center;justify-content:space-between;gap:6px;
+  width:min(100%,400px);height:auto;min-height:0;margin:0 auto;padding:6px;
+  overflow:visible;border:1px solid var(--prism-glass-border);border-radius:999px;
+  background:var(--prism-glass-track);
+  -webkit-backdrop-filter:blur(18px) saturate(160%);backdrop-filter:blur(18px) saturate(160%);
+  box-shadow:0 16px 34px rgba(0,0,0,.36),inset 0 1px 0 rgba(255,255,255,.35);
  }
- .mobile-nav-shape{
-  position:absolute;left:0;right:0;top:30px;display:block;width:100%;height:72px;
-  overflow:visible;filter:drop-shadow(0 -2px 10px var(--shadow));pointer-events:none;
- }
- .mobile-nav-shape path{fill:var(--mobile-nav-surface);stroke:none}
  #mobileNavigation .app-nav button[data-view]{
-  position:relative;z-index:1;flex:1;border:0;border-radius:0;background:none;
-  box-shadow:none;color:var(--ink);cursor:pointer;font:inherit;
-  display:flex;flex-direction:column;align-items:center;justify-content:flex-end;
-  gap:4px;padding:0 0 10px;min-width:0;width:auto;height:72px;min-height:72px;
+  position:relative;z-index:1;flex:1 1 auto;min-width:0;width:auto;height:46px;min-height:46px;
+  padding:0 12px;border:0;border-radius:999px;background:transparent;color:var(--ink);
+  font:inherit;font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;
+  justify-content:center;gap:8px;cursor:pointer;white-space:nowrap;
   -webkit-tap-highlight-color:transparent;
+  transition:flex-grow .42s cubic-bezier(.22,1.25,.36,1),padding .38s cubic-bezier(.22,1.25,.36,1),color .25s ease,transform .25s cubic-bezier(.3,1.5,.5,1);
  }
- #mobileNavigation .app-nav button[data-view].active{justify-content:flex-end;background:none;border:0;box-shadow:none;color:var(--ink)}
+ #mobileNavigation .app-nav button[data-view]:active{transform:scale(.95)}
  #mobileNavigation .app-nav button[data-view] .nav-icon{
-  position:static;left:auto;top:auto;transform:none;display:grid;place-items:center;
-  width:24px;height:24px;flex:0 0 24px;margin:0;padding:0;border:0;border-radius:0;
-  background:none;color:inherit;box-shadow:none;opacity:1;pointer-events:none;
+  position:static;display:grid;place-items:center;flex:none;width:22px;height:22px;
+  margin:0;padding:0;border:0;border-radius:0;background:none;color:inherit;
+  box-shadow:none;opacity:1;transform:none;
  }
- #mobileNavigation .app-nav button[data-view] .nav-icon svg{
-  width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:1.7;
-  stroke-linecap:round;stroke-linejoin:round;
+ #mobileNavigation .app-nav button[data-view] .nav-icon .ico{
+  display:block;width:22px;height:22px;flex:none;fill:none;stroke:currentColor;
+  stroke-width:1.95;stroke-linecap:round;stroke-linejoin:round;
  }
- #mobileNavigation .app-nav button[data-view].active .nav-icon{opacity:0}
- #mobileNavigation .app-nav button[data-view] .nav-label{
-  position:relative;display:block;margin:0;padding:0;color:var(--mobile-nav-muted);
-  font-size:.75rem;line-height:normal;font-weight:400;text-align:center;white-space:nowrap;z-index:2;
+ #mobileNavigation .app-nav .nav-label{
+  display:block;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;
+  transition:max-width .42s cubic-bezier(.22,1.25,.36,1),opacity .28s ease .06s;
  }
- #mobileNavigation .app-nav button[data-view].active .nav-label{font-weight:700;color:var(--ink)}
- .mobile-nav-pill{
-  position:absolute;left:0;top:5px;z-index:4;width:54px;height:54px;border-radius:50%;
-  background:var(--mobile-nav-surface);display:grid;place-items:center;pointer-events:none;
-  box-shadow:0 6px 16px var(--shadow);will-change:transform;
+ #mobileNavigation .app-nav button[data-view].active{
+  flex-grow:1.45;padding:0 18px;color:#fff;background:var(--prism-pill-dark);
+  box-shadow:0 8px 20px rgba(0,0,0,.42);
  }
- .mobile-nav-pill .ico{
-  width:28px;height:28px;stroke:var(--blue);fill:none;stroke-width:1.9;
-  stroke-linecap:round;stroke-linejoin:round;animation:mobileNavPop .38s cubic-bezier(.3,1.6,.5,1);
+ #mobileNavigation .app-nav button[data-view].active::before{
+  content:"";position:absolute;inset:-2px;z-index:-1;border-radius:inherit;
+  background:conic-gradient(from 140deg,#38bdf8,#818cf8,#f472b6,#fb923c,#34d399,#38bdf8);
+  filter:blur(5px);opacity:.88;animation:prismGlowIn .36s cubic-bezier(.22,1.25,.36,1);
  }
- .mobile-nav-pill .m{fill:var(--blue)}.mobile-nav-pill .d{fill:none;stroke:var(--mobile-nav-surface)}
+ #mobileNavigation .app-nav button[data-view].active::after{
+  content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--prism-pill-dark);
+ }
+ #mobileNavigation .app-nav button[data-view].active .nav-label{max-width:110px;opacity:1}
  #mobileNavigation .app-nav .quick-add-button{
   position:absolute;right:4px;top:-68px;z-index:4;display:grid;place-items:center;
   width:54px;height:54px;min-height:54px;padding:0;border:0;border-radius:50%;
@@ -72,8 +93,12 @@
  .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
  .quick-add-scrim.open{opacity:1;pointer-events:auto}
 }
-@keyframes mobileNavPop{from{transform:scale(.4) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
-
+@keyframes prismGlowIn{from{opacity:0;transform:scale(.9)}to{opacity:.88;transform:scale(1)}}
 @media(max-width:979px), (hover:none) and (pointer:coarse){#mobileNavigation{display:block!important}.app-sidebar{display:none!important}}
 @media(min-width:980px) and (hover:hover) and (pointer:fine){#mobileNavigation{display:none!important}}
-@media(prefers-reduced-motion:reduce){#mobileNavigation .mobile-nav-pill .ico{animation:none}#mobileNavigation .app-nav .quick-add-button,#mobileNavigation .app-nav .quick-add-button svg,#mobileNavigation .quick-add-scrim{transition:none!important}}
+@media(prefers-reduced-motion:reduce){
+ #mobileNavigation .app-nav button[data-view],#mobileNavigation .app-nav .nav-label,
+ #mobileNavigation .app-nav button[data-view].active::before,
+ #mobileNavigation .app-nav .quick-add-button,#mobileNavigation .app-nav .quick-add-button svg,
+ #mobileNavigation .quick-add-scrim{transition:none!important;animation:none!important}
+}
