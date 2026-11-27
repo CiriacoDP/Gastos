@@ -1,8 +1,8 @@
 {
-  "version": "2.6.13",
+  "version": "2.6.14",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Remove o botão flutuante central e distribui cinco ações em posições iguais; mantém o menu de adição como item comum."
+    "Remove o item Adicionar da barra de navegação e distribui as quatro seções igualmente."
   ]
 }
