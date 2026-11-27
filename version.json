@@ -1,8 +1,8 @@
 {
-  "version": "2.6.12",
+  "version": "2.6.13",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Consolida os estilos da navegação em um único bloco CSS, mantendo desktop, mobile, menu rápido e temas."
+    "Remove o botão flutuante central e distribui cinco ações em posições iguais; mantém o menu de adição como item comum."
   ]
 }
