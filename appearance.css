@@ -1498,3 +1498,24 @@
  header .status-combined-pill svg{width:13px!important;height:13px!important;flex:0 0 13px!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
  header .header-actions{display:none!important}
 }
+
+
+/* Cabeçalho desktop seguindo o modelo enviado: marca à esquerda, status à direita e mês junto ao título. */
+@media(min-width:980px){
+ header.shell{width:min(calc(100% - 48px),1220px)!important;margin:0 auto!important;padding-top:20px!important}
+ header .bar{display:flex!important;align-items:center!important;justify-content:space-between!important;gap:16px!important;min-height:48px!important}
+ header .brand{display:flex!important;align-items:center!important;gap:10px!important;min-width:0!important}
+ header .brand-mark{display:grid!important;flex:0 0 42px!important;width:42px!important;height:42px!important}
+ header .brand>div:last-child{display:flex!important;align-items:center!important;gap:0!important}
+ header .brand-name{display:block!important;white-space:nowrap!important}
+ header .brand-name .mobile-app-version{display:none!important}
+ header .brand .status{position:static!important;display:flex!important;flex-direction:row!important;align-items:center!important;margin:0!important;padding:0!important;gap:0!important}
+ header .status-combined-pill{display:flex!important;align-items:center!important;gap:8px!important;min-height:36px!important;padding:7px 13px!important;border:1px solid var(--sep)!important;border-radius:999px!important;background:var(--fill)!important;color:var(--mut)!important;font-size:11px!important;white-space:nowrap!important}
+ header .status-combined-pill i{width:7px!important;height:7px!important;flex:0 0 7px!important}
+ header .status-combined-pill #headerLastSyncText{font-size:11px!important}
+ header .header-actions{position:static!important;display:flex!important;align-items:center!important;gap:9px!important;margin:0!important}
+ header .header-actions .icon{position:static!important;width:38px!important;height:38px!important}
+ #overview{position:relative!important}
+ #overview>.view-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;min-height:54px!important;margin:26px 0 22px!important;padding-right:340px!important}
+ #overview>.months{position:absolute!important;top:0!important;right:0!important;width:auto!important;min-width:280px!important;margin:26px 0 22px!important}
+}
