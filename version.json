@@ -1,8 +1,8 @@
 {
-  "version": "2.4.1",
+  "version": "2.4.2",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Separa as telas de conexão e atualização dentro das Configurações."
+    "Corrige o espaçamento e o dimensionamento dos grupos na tela de Configurações."
   ]
 }
