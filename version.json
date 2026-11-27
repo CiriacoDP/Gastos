@@ -1,9 +1,8 @@
 {
-  "version": "2.7.19",
+  "version": "2.7.20",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Restaura o código da versão 2.7.13, incluindo as quatro funções rápidas no botão +.",
-    "Mantém a versão de publicação única e sincronizada em todos os arquivos."
+    "Restaura integralmente o código-base da versão 2.7.13, preservando todas as funcionalidades e arquivos daquele estado."
   ]
 }
