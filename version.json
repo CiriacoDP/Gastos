@@ -1,8 +1,8 @@
 {
-  "version": "2.9.25",
+  "version": "2.9.26",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Adiciona à tela de Despesas um painel translúcido que sobe sobre a tela Início no celular."
+    "Substitui o ícone de mais do botão de ações rápidas por uma paleta colorida alinhada às cores do aplicativo."
   ]
 }
