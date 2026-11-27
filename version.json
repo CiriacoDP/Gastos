@@ -1,8 +1,8 @@
 {
-  "version": "2.6.22",
+  "version": "2.6.23",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Vincula o vinco SVG à geometria renderizada do círculo ativo, com raio 6 px maior para criar folga visual."
+    "Adiciona a biblioteca GSAP 3.13.0 para preparar animações e transições de interface."
   ]
 }
