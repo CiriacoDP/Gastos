@@ -1,8 +1,8 @@
 {
-  "version": "2.9.26",
+  "version": "2.9.27",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Substitui o ícone de mais do botão de ações rápidas por uma paleta colorida alinhada às cores do aplicativo."
+    "Mantém o símbolo + das ações rápidas e aplica a ele um degradê com as cores usadas no aplicativo."
   ]
 }
