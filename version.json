@@ -1,5 +1,5 @@
 {
-  "version": "2.9.17",
+  "version": "2.9.18",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
@@ -8,6 +8,6 @@
     "Reorganiza o cabeçalho desktop conforme o modelo enviado, com marca à esquerda, status e data em uma pílula e seletor de mês ao lado do título.",
     "Corrige a navegação mobile em dispositivos touch e restaura o cabeçalho móvel original, mantendo o layout novo restrito ao desktop.",
     "Remove o recuo lateral reservado à sidebar desktop em telas móveis e força a barra inferior em dispositivos touch.",
-    "Impede que regras desktop baseadas na largura da janela reservem espaço lateral em aparelhos com tela física móvel."
+    "Mantém a navegação compartilhada na lateral em desktops e na parte inferior em celulares, removendo o recuo lateral residual."
   ]
 }
