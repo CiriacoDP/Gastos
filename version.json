@@ -1,8 +1,8 @@
 {
-  "version": "2.9.7",
+  "version": "2.9.8",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Aproxima a barra Prism para 2 px acima da área segura inferior."
+    "Integra navegação lateral expansível no desktop, preservando a barra Prism no celular."
   ]
 }
