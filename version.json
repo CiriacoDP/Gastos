@@ -1,8 +1,8 @@
 {
-  "version": "2.9.6",
+  "version": "2.9.7",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Corrige a faixa de fundo inferior em telas curtas de Ajustes."
+    "Aproxima a barra Prism para 2 px acima da área segura inferior."
   ]
 }
