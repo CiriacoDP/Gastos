@@ -1,8 +1,8 @@
 {
-  "version": "2.6.3",
+  "version": "2.6.4",
   "ready": true,
   "releasedAt": "2026-11-26",
   "notes": [
-    "Encerra o reconhecimento de voz assim que o lançamento é interpretado e preenchido."
+    "Refaz o destaque da navegação mobile com bolha circular elevada e integrada ao contorno da barra."
   ]
 }
