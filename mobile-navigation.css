@@ -45,7 +45,7 @@
   font:inherit;font-size:.85rem;font-weight:600;display:inline-flex;align-items:center;
   justify-content:center;gap:8px;cursor:pointer;white-space:nowrap;
   -webkit-tap-highlight-color:transparent;
-  transition:flex-grow .42s cubic-bezier(.22,1.25,.36,1),padding .38s cubic-bezier(.22,1.25,.36,1),color .25s ease,transform .25s cubic-bezier(.3,1.5,.5,1);
+  transition:flex-grow .56s cubic-bezier(.2,.75,.25,1),padding .56s cubic-bezier(.2,.75,.25,1),color .38s ease,transform .32s cubic-bezier(.2,.75,.25,1);
  }
  #mobileNavigation .app-nav button[data-view]:active{transform:scale(.95)}
  #mobileNavigation .app-nav button[data-view] .nav-icon{
@@ -59,7 +59,7 @@
  }
  #mobileNavigation .app-nav .nav-label{
   display:block;max-width:0;opacity:0;overflow:hidden;white-space:nowrap;
-  transition:max-width .42s cubic-bezier(.22,1.25,.36,1),opacity .28s ease .06s;
+  transition:max-width .52s cubic-bezier(.2,.75,.25,1),opacity .38s ease .08s;
  }
  #mobileNavigation .app-nav button[data-view].active{
   flex-grow:1.45;padding:0 18px;color:#fff;background:var(--prism-pill-dark);
@@ -68,7 +68,7 @@
  #mobileNavigation .app-nav button[data-view].active::before{
   content:"";position:absolute;inset:-2px;z-index:-1;border-radius:inherit;
   background:conic-gradient(from 140deg,#38bdf8,#818cf8,#f472b6,#fb923c,#34d399,#38bdf8);
-  filter:blur(5px);opacity:.88;animation:prismGlowIn .36s cubic-bezier(.22,1.25,.36,1);
+  filter:blur(5px);opacity:.88;animation:prismGlowIn .58s cubic-bezier(.2,.75,.25,1);
  }
  #mobileNavigation .app-nav button[data-view].active::after{
   content:"";position:absolute;inset:0;z-index:-1;border-radius:inherit;background:var(--prism-pill-dark);
@@ -79,12 +79,12 @@
   width:54px;height:54px;min-height:54px;padding:0;border:0;border-radius:50%;
   cursor:pointer;color:#fff;background:linear-gradient(135deg,#6f5bff,#c04dff);
   box-shadow:0 8px 18px rgba(111,91,255,.45);
-  transition:transform .3s cubic-bezier(.3,1.5,.5,1),opacity .2s;
+  transition:transform .38s cubic-bezier(.2,.75,.25,1),opacity .28s ease;
  }
  #mobileNavigation .app-nav .quick-add-button:active{transform:scale(.92)}
  #mobileNavigation .app-nav .quick-add-button:disabled{transform:scale(.3);opacity:0;pointer-events:none}
  #mobileNavigation .app-nav .quick-add-button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
- #mobileNavigation .app-nav .quick-add-button svg{transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
+ #mobileNavigation .app-nav .quick-add-button svg{transition:transform .38s cubic-bezier(.2,.75,.25,1)}
  #mobileNavigation .app-nav .quick-add-button[aria-expanded="true"] svg{transform:rotate(45deg)}
  #mobileNavigation .app-nav .quick-add-menu{
   position:absolute;right:9px;bottom:calc(100% + 80px);z-index:5;margin:0;padding:0;
