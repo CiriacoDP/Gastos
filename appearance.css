@@ -3,18 +3,18 @@
  --bg:#f2f2f7;--card:#fff;--ink:#000;--mut:#8a8a8e;
  --sep:#e5e5ea;--fill:#e9e9ee;--segon:#fff;
  --blue:#007aff;--green:#34c759;--red:#ff3b30;
- --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 28px rgba(0,0,0,.05)
+ --shadow:0 1px 2px rgba(0,0,0,.04),0 8px 28px rgba(0,0,0,.05);--mobile-nav-surface:#e9eff6
 }
 @media(prefers-color-scheme:dark){:root{
   --bg:#000;--card:#1c1c1e;--ink:#fff;--mut:#98989f;
   --sep:#38383a;--fill:#2c2c2e;--segon:#636366;
-  --blue:#0a84ff;--green:#30d158;--red:#ff453a;--shadow:none
+  --blue:#0a84ff;--green:#30d158;--red:#ff453a;--shadow:none;--mobile-nav-surface:#252f3d
  }
 }:root[data-theme="dark"]{
  color-scheme:dark;
  --bg:#000;--card:#1c1c1e;--ink:#fff;--mut:#98989f;
  --sep:#38383a;--fill:#2c2c2e;--segon:#636366;
- --blue:#0a84ff;--green:#30d158;--red:#ff453a;--shadow:none
+ --blue:#0a84ff;--green:#30d158;--red:#ff453a;--shadow:none;--mobile-nav-surface:#252f3d
 }*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}[hidden]{display:none!important}body{
  margin:0;background:var(--bg);color:var(--ink);
  font:16px/1.4 -apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,sans-serif;
@@ -1471,7 +1471,7 @@
  .sidebar-brand,.sidebar-footer{display:none!important}
  .app-sidebar{position:fixed;z-index:120;left:50%;right:auto;top:auto;bottom:calc(14px + env(safe-area-inset-bottom));width:min(calc(100% - 24px),440px);height:102px;min-height:102px;max-height:102px;margin:0;padding:0;transform:translateX(-50%);overflow:visible;display:block;border:0;border-radius:0;background:transparent;box-shadow:none;-webkit-backdrop-filter:none;backdrop-filter:none}
  .mobile-nav-shape{position:absolute;left:0;right:0;top:30px;display:block;width:100%;height:72px;overflow:visible;filter:drop-shadow(0 -2px 10px var(--shadow));pointer-events:none}
- .mobile-nav-shape path{fill:var(--card);stroke:none}
+ .mobile-nav-shape path{fill:var(--mobile-nav-surface);stroke:none}
  .app-sidebar .app-nav{position:absolute;left:0;right:0;top:30px;width:100%;height:72px;min-height:72px;margin:0;padding:0 20px;display:flex;flex-direction:row;align-items:stretch;justify-content:stretch;gap:0;overflow:visible}
  .app-sidebar .app-nav button[data-view]{position:relative;flex:1;border:0;border-radius:0;background:none;box-shadow:none;color:var(--ink);cursor:pointer;font:inherit;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:4px;padding:0 0 10px;min-width:0;width:auto;height:72px;min-height:72px;-webkit-tap-highlight-color:transparent}
  .app-sidebar .app-nav button[data-view].active{background:none;border:0;box-shadow:none;color:var(--ink)}
@@ -1480,9 +1480,9 @@
  .app-sidebar .app-nav button[data-view].active .nav-icon{opacity:0}
  .app-sidebar .app-nav button[data-view] .nav-label{position:relative;display:block;margin:0;padding:0;color:var(--mut);font-size:.75rem;line-height:normal;font-weight:400;text-align:center;white-space:nowrap;z-index:2}
  .app-sidebar .app-nav button[data-view].active .nav-label{font-weight:700;color:var(--ink)}
- .pill{position:absolute;left:0;top:5px;width:54px;height:54px;border-radius:50%;background:var(--card);display:grid;place-items:center;pointer-events:none;box-shadow:0 6px 16px var(--shadow);z-index:4;will-change:transform}
+ .pill{position:absolute;left:0;top:5px;width:54px;height:54px;border-radius:50%;background:var(--mobile-nav-surface);display:grid;place-items:center;pointer-events:none;box-shadow:0 6px 16px var(--shadow);z-index:4;will-change:transform}
  .pill .ico{width:28px;height:28px;stroke:var(--blue);fill:none;stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;animation:navPop .38s cubic-bezier(.3,1.6,.5,1)}
- .pill .m{fill:var(--blue)}.pill .d{fill:none;stroke:var(--card)}
+ .pill .m{fill:var(--blue)}.pill .d{fill:none;stroke:var(--mobile-nav-surface)}
  @keyframes navPop{from{transform:scale(.4) rotate(-12deg);opacity:0}to{transform:none;opacity:1}}
 }
 @media(prefers-reduced-motion:reduce){.pill .ico{animation:none}}
@@ -1503,7 +1503,7 @@
  .app-sidebar .app-nav .quick-add-button:focus-visible{outline:2px solid var(--ink);outline-offset:3px}
  .app-sidebar .app-nav .quick-add-button svg{transition:transform .3s cubic-bezier(.3,1.5,.5,1)}
  .app-sidebar .app-nav .quick-add-button[aria-expanded="true"] svg{transform:rotate(45deg)}
- .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(35,52,74,.44);opacity:0;pointer-events:none;transition:opacity .25s}
+ .quick-add-scrim{position:fixed;inset:0;z-index:119;background:rgba(0,0,0,.4);opacity:0;pointer-events:none;transition:opacity .25s}
  .quick-add-scrim.open{opacity:1;pointer-events:auto}
  .app-sidebar .app-nav .quick-add-menu{position:absolute;right:9px;bottom:calc(100% + 80px);z-index:2;margin:0;padding:0;list-style:none;display:flex;flex-direction:column;align-items:flex-end;gap:12px}
  .quick-add-option{display:flex;align-items:center;gap:10px;padding:0;border:0;background:none;cursor:pointer;font:inherit;color:var(--ink);opacity:0;transform:translateY(18px) scale(.85);transform-origin:right bottom;transition:opacity .2s,transform .3s cubic-bezier(.3,1.5,.5,1)}
