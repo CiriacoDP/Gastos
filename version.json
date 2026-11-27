@@ -1,9 +1,9 @@
 {
-  "version": "2.7.21",
+  "version": "2.7.22",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Remove a captura em camadas da API View Transitions entre telas, que podia encobrir a barra fixa de navegação.",
-    "Preserva a navegação, as funções rápidas e os demais componentes existentes."
+    "Substitui a barra mobile pelo modelo Prism, com expansão animada da aba ativa.",
+    "Preserva as quatro rotas, a navegação desktop e as funções rápidas do botão +."
   ]
 }
