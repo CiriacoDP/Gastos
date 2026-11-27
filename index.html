@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.9.22">
+<meta name="app-version" content="2.9.23">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,10 +14,10 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.9.22">
-<link rel="stylesheet" href="./manual-light-theme.css?v=2.9.22" id="manualLightTheme" disabled>
-<link rel="stylesheet" href="./navigation.css?v=2.9.22">
-<link rel="stylesheet" href="./mobile-navigation.css?v=2.9.22">
+<link rel="stylesheet" href="./appearance.css?v=2.9.23">
+<link rel="stylesheet" href="./manual-light-theme.css?v=2.9.23" id="manualLightTheme" disabled>
+<link rel="stylesheet" href="./navigation.css?v=2.9.23">
+<link rel="stylesheet" href="./mobile-navigation.css?v=2.9.23">
 
 </head>
 <body>
@@ -37,7 +37,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.9.22</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.9.23</small>
  </div>
 
 </aside>
@@ -78,7 +78,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.9.22</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.9.23</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -403,7 +403,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.9.22</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.9.23</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -415,13 +415,20 @@
 
 <section class="view settings-detail-screen" id="settingsPersonalization">
  <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button></div>
- <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg></div><h1>Aparência e notificações</h1><p>Personalize a aparência e escolha como o aplicativo deve se comportar neste aparelho.</p></section>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg></div><h1>Tela</h1><p>Ajuste o tamanho e a legibilidade do aplicativo neste aparelho.</p></section>
  <section class="card settings-card preferences-card personalization-card">
    <div class="preferences-heading">
     <div class="preferences-heading-icon" aria-hidden="true">
      <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
     </div>
     <div><h3>Personalização</h3><p>Escolha como o Meu Dinheiro deve se comportar neste aparelho.</p></div>
+   </div>
+   <div class="preference-field"><label for="screenFontSetting">Tamanho da fonte</label><select id="screenFontSetting" class="settings-select"><option value="small">Pequeno</option><option value="normal">Padrão</option><option value="large">Grande</option><option value="xlarge">Muito grande</option></select></div>
+   <div class="preference-field"><label for="screenDensitySetting">Tamanho da interface</label><select id="screenDensitySetting" class="settings-select"><option value="compact">Compacto</option><option value="normal">Padrão</option><option value="large">Ampliado</option></select></div>
+   <div class="preferences-switches">
+    <label class="settings-switch-row" for="screenBoldSetting"><span><strong>Texto em negrito</strong><small>Destaca os textos.</small></span><input id="screenBoldSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="screenContrastSetting"><span><strong>Alto contraste</strong><small>Reforça a leitura de textos e fundos.</small></span><input id="screenContrastSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="screenMotionSetting"><span><strong>Reduzir animações</strong><small>Reduz movimentos e transições.</small></span><input id="screenMotionSetting" type="checkbox"></label>
    </div>
    <div class="preference-field">
     <label for="appearanceSetting">Aparência</label>
@@ -462,7 +469,7 @@
  <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
  <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.9.22</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.9.23</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
 </section>
@@ -637,9 +644,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.9.22</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.9.23</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.9.22</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.9.23</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -660,8 +667,8 @@
 
 
 <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-<script src="./navigation.js?v=2.9.22"></script>
-<script src="./mobile-navigation.js?v=2.9.22"></script>
+<script src="./navigation.js?v=2.9.23"></script>
+<script src="./mobile-navigation.js?v=2.9.23"></script>
 <script>
 const STORAGE_KEY='gastos2026_appweb_url_v1';
 const MONTH_STORAGE_KEY='gastos2026_appweb_last_month_v1';
@@ -1260,6 +1267,7 @@ function saveAppSettings(){
  try{localStorage.setItem(SETTINGS_STORAGE_KEY,JSON.stringify(appSettings))}catch(error){toast('Não foi possível salvar as preferências neste aparelho.',true)}
 }
 
+function applyScreenSettings(){const r=document.documentElement;r.dataset.screenFont=appSettings.screenFont||'normal';r.dataset.screenDensity=appSettings.screenDensity||'normal';r.classList.toggle('screen-bold',!!appSettings.screenBold);r.classList.toggle('screen-high-contrast',!!appSettings.screenContrast);r.classList.toggle('screen-reduce-motion',!!appSettings.screenReduceMotion)}
 function applyAppearance(){
  const root=document.documentElement;
  root.dataset.theme=appSettings.appearance==='system'?'system':appSettings.appearance;
@@ -1270,7 +1278,14 @@ function applyAppearance(){
 
 function initAppSettings(){
  readAppSettings();
- applyAppearance();
+ applyAppearance();applyScreenSettings();
+ $('screenFontSetting').value=appSettings.screenFont||'normal';$('screenDensitySetting').value=appSettings.screenDensity||'normal';
+ $('screenBoldSetting').checked=!!appSettings.screenBold;$('screenContrastSetting').checked=!!appSettings.screenContrast;$('screenMotionSetting').checked=!!appSettings.screenReduceMotion;
+ $('screenFontSetting').addEventListener('change',()=>{appSettings.screenFont=$('screenFontSetting').value;applyScreenSettings();saveAppSettings()});
+ $('screenDensitySetting').addEventListener('change',()=>{appSettings.screenDensity=$('screenDensitySetting').value;applyScreenSettings();saveAppSettings()});
+ $('screenBoldSetting').addEventListener('change',()=>{appSettings.screenBold=$('screenBoldSetting').checked;applyScreenSettings();saveAppSettings()});
+ $('screenContrastSetting').addEventListener('change',()=>{appSettings.screenContrast=$('screenContrastSetting').checked;applyScreenSettings();saveAppSettings()});
+ $('screenMotionSetting').addEventListener('change',()=>{appSettings.screenReduceMotion=$('screenMotionSetting').checked;applyScreenSettings();saveAppSettings()});
  $('appearanceSetting').value=appSettings.appearance;
  $('privacyStartupSetting').checked=!!appSettings.privacyStartup;
  $('pendingReminderSetting').checked=appSettings.pendingReminder!==false;
