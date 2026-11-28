@@ -1,4 +1,4 @@
-/* overview-version: 2.15.4 */
+/* overview-version: 2.15.5 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -4905,14 +4905,16 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 #manualUpdateCheck.is-done #manualUpdateSyncIcon{opacity:0;transform:scale(.5)}
 #manualUpdateCheck.is-done #manualUpdateCheckIcon{opacity:1;transform:scale(1)}
 #manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:none}
-.mobile-update-label-stack{display:grid;align-items:center;justify-items:center}
-.mobile-update-label{grid-area:1/1;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
+.mobile-update-label-stack{position:relative;display:block;width:max-content;min-width:0;transition:width .45s cubic-bezier(.22,1,.36,1)}
+.mobile-update-label{position:absolute;top:0;left:0;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
+#manualUpdateLabelIdle{position:relative}
+#manualUpdateLabelLoading,#manualUpdateLabelDone{position:absolute}
 .mobile-update-label-visible{opacity:1;transform:translateY(0);filter:blur(0)}
 .mobile-update-label-hidden-down{opacity:0;transform:translateY(9px);filter:blur(2px);pointer-events:none}
 #manualUpdateCheck.is-loading #manualUpdateLabelIdle,
-#manualUpdateCheck.is-done #manualUpdateLabelIdle{opacity:0;transform:translateY(-9px);filter:blur(2px)}
+#manualUpdateCheck.is-done #manualUpdateLabelIdle{position:absolute;opacity:0;transform:translateY(-9px);filter:blur(2px)}
 #manualUpdateCheck.is-loading #manualUpdateLabelLoading,
-#manualUpdateCheck.is-done #manualUpdateLabelDone{opacity:1;transform:translateY(0);filter:blur(0)}
+#manualUpdateCheck.is-done #manualUpdateLabelDone{position:relative;opacity:1;transform:translateY(0);filter:blur(0)}
 #manualUpdateCheck:not(:disabled):hover{filter:brightness(1.07);transform:translateY(-1px);box-shadow:0 10px 26px -2px rgba(75,163,250,.38)}
 #manualUpdateCheck.is-done{box-shadow:0 4px 14px rgba(22,163,74,.22)}
 @keyframes mobileUpdateIconSpin{to{transform:rotate(360deg)}}
