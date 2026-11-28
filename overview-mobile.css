@@ -5323,7 +5323,6 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 @media(max-width:979px),(hover:none) and (pointer:coarse){
  html{background:#000!important}
  body{
-  padding-top:18px!important;
   background:var(--bg)!important;
  }
  body::before{
