@@ -1,21 +1,21 @@
 {
-  "version": "2.12.0",
-  "desktop": "2.12.0",
-  "mobile": "2.12.0",
+  "version": "2.13.0",
+  "desktop": "2.13.0",
+  "mobile": "2.13.0",
   "ready": true,
-  "releasedAt": "2026-11-28",
+  "releasedAt": "2026-11-27",
   "notes": [
-    "Move a estrutura completa de Despesas para os arquivos HTML de cada perfil, preservando IDs e lógica existente."
+    "Separa o cabeçalho por perfil, preservando os controles e IDs compartilhados pelo app.js."
   ],
   "profileNotes": {
     "shared": [
-      "Carrega Visão geral, Entradas, Despesas e Configurações a partir do HTML específico do perfil."
+      "Carrega o cabeçalho e as telas a partir do HTML específico de cada perfil."
     ],
     "desktop": [
-      "Mantém a estrutura de Despesas no perfil desktop."
+      "Usa cabeçalho desktop horizontal com marca, status e ações alinhados ao conteúdo."
     ],
     "mobile": [
-      "Mantém a estrutura de Despesas no perfil mobile."
+      "Preserva o cabeçalho mobile existente."
     ]
   }
 }
