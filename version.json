@@ -4,7 +4,10 @@
   "mobile": "2.11.0",
   "ready": true,
   "releasedAt": "2026-11-27",
-  "notes": {
+  "notes": [
+    "Prepara o atualizador para versões independentes da Visão geral desktop e mobile."
+  ],
+  "profileNotes": {
     "shared": [
       "Prepara o atualizador para versões independentes da Visão geral desktop e mobile."
     ],
