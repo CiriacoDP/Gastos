@@ -550,6 +550,8 @@ async function checkForAppUpdate(manual=false){
    if(loadingRemaining)await new Promise(resolve=>setTimeout(resolve,loadingRemaining));
    if(alreadyLatest){
     setMobileUpdateButtonState('done');
+    await new Promise(resolve=>setTimeout(resolve,2400));
+    setMobileUpdateButtonState('idle');
    }else if(updateAvailable){
     setMobileUpdateButtonState('outdated');
    }else{
