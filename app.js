@@ -429,7 +429,7 @@ function initAppUpdateChecker(){
   }
  });
  $('updateLaterBtn').addEventListener('click',()=>{
-  if(appUpdatePending)appUpdateDismissedVersion=appUpdatePending.version;
+  if(appUpdatePending)appUpdateDismissedVersion=appUpdatePending.key;
   closeAppUpdate();
  });
  setTimeout(checkForAppUpdate,1200);
