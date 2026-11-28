@@ -1,8 +1,8 @@
 {
-  "version": "2.9.38",
+  "version": "2.10.0",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Corrige a exibição simultânea das estruturas desktop e mobile na Visão geral."
+    "Separa a Visão geral em um único fragmento HTML e CSS conforme o dispositivo."
   ]
 }
