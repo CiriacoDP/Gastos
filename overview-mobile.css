@@ -1,4 +1,4 @@
-/* overview-version: 2.15.20 */
+/* overview-version: 2.15.21 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5327,8 +5327,8 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  }
  body::before{
   content:"";position:fixed;top:0;left:0;right:0;
-  height:18px;background:#000!important;
+  height:calc(env(safe-area-inset-top,0px) + 18px);background:#000!important;
   z-index:9999;pointer-events:none;
  }
- header.shell{padding-top:12px!important}
+ header.shell{padding-top:calc(env(safe-area-inset-top,0px) + 18px)!important}
 }
