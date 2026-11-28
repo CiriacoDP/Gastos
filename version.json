@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.5",
+  "mobile": "2.15.6",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Faz o ícone acompanhar a largura do texto no botão de verificação mobile."
+    "Remove a mensagem externa de sucesso; a confirmação permanece no botão."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "O ícone acompanha a redução e expansão do texto durante os estados do botão de verificação."
+      "A confirmação de versão atualizada aparece somente no próprio botão."
     ]
   }
 }
