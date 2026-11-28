@@ -1,0 +1,50 @@
+/* Estilos exclusivos da estrutura mobile da Visão geral.
+   Os componentes reutilizam as variáveis globais de tema do aplicativo. */
+.overview-mobile{
+  width:100%;
+  min-width:0;
+}
+.overview-mobile .overview-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:14px;
+}
+.overview-mobile .summary,
+.overview-mobile .quick-card,
+.overview-mobile .analytics-card{
+  width:100%;
+  min-width:0;
+}
+.overview-mobile .overview-analytics{
+  display:block;
+  margin-top:18px;
+}
+.overview-mobile .overview-analytics-grid{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:12px;
+}
+.overview-mobile .overview-essentials{
+  display:grid;
+  grid-template-columns:minmax(0,1fr);
+  gap:12px;
+  margin-top:14px;
+}
+.overview-mobile .months{
+  width:100%;
+  min-width:0;
+}
+.overview-mobile .category-breakdown-content{
+  display:grid;
+  grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);
+  align-items:center;
+  gap:12px;
+}
+@media(max-width:390px){
+  .overview-mobile .trio{
+    gap:5px;
+  }
+  .overview-mobile .trio strong{
+    font-size:14px;
+  }
+}
