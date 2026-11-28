@@ -1,4 +1,4 @@
-/* overview-version: 2.15.21 */
+/* overview-version: 2.15.22 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5319,16 +5319,13 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 }
 
 
-/* Faixa preta fixa no topo do mobile; não acompanha a rolagem da página. */
+/* Máscara preta somente sobre a Dynamic Island; preserva a área segura do conteúdo. */
 @media(max-width:979px),(hover:none) and (pointer:coarse){
- html{background:#000!important}
- body{
-  background:var(--bg)!important;
- }
  body::before{
-  content:"";position:fixed;top:0;left:0;right:0;
-  height:calc(env(safe-area-inset-top,0px) + 18px);background:#000!important;
+  content:"";position:fixed;top:11px;left:50%;
+  width:126px;height:36px;border-radius:999px;
+  background:#000!important;transform:translateX(-50%);
   z-index:9999;pointer-events:none;
  }
- header.shell{padding-top:calc(env(safe-area-inset-top,0px) + 18px)!important}
+ header.shell{padding-top:calc(12px + env(safe-area-inset-top,0px))!important}
 }
