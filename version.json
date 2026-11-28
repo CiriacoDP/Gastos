@@ -1,7 +1,7 @@
 {
   "version": "2.11.0",
   "desktop": "2.11.0",
-  "mobile": "2.11.1",
+  "mobile": "2.11.2",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
@@ -13,7 +13,7 @@
     ],
     "desktop": [],
     "mobile": [
-      "Aprimora o visual e a animação do botão de verificar atualizações no celular."
+      "Ajusta o botão de verificação de atualizações no celular conforme o modelo visual enviado, preservando a verificação real."
     ]
   }
 }
