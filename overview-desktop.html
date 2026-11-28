@@ -1,4 +1,4 @@
-<!-- overview-version: 2.11.3 -->
+<!-- overview-version: 2.12.0 -->
 <div data-settings-profile>
 <section class="view" id="connection">
   <div class="view-heading">
@@ -324,4 +324,78 @@
     <div class="desktop-table-head income-table-head" aria-hidden="true"><span>Recebimento</span><span>Status</span><span>Valor</span></div>
      <ul class="list income-list" id="incomeList"></ul>
    </div>
+</div>
+
+<!-- Tela de Despesas: estrutura completa carregada no shell #transactions. -->
+<div data-transactions-profile>
+ <section class="view" id="transactions">
+  <div class="view-heading">
+   <div>
+    <h2>Lançamentos</h2>
+    <p>Consulte, edite e organize</p>
+   </div>
+   <button class="primary new-entry" type="button">+ Adicionar</button>
+  </div>
+
+  <div class="transactions-month-search">
+   <div class="months">
+    <button class="prev" aria-label="Mês anterior">‹</button>
+    <b class="monthLabel"></b>
+    <button class="next" aria-label="Próximo mês">›</button>
+   </div>
+   <div class="transaction-search search-collapsed" id="transactionSearch" role="search">
+    <button type="button" class="search-toggle" id="searchToggle" aria-label="Abrir busca" title="Buscar lançamentos">
+     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.6" stroke="currentColor" stroke-width="2.2"/><path d="m16 16 4.2 4.2" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"/></svg>
+    </button>
+    <input id="listSearch" type="search" inputmode="search" enterkeyhint="search" aria-label="Buscar lançamentos" placeholder="Buscar conta por nome, pessoa ou valor..." autocomplete="off">
+    <button type="button" id="clearSearch" aria-label="Limpar busca" hidden>×</button>
+   </div>
+  </div>
+
+  <div class="transactions-layout">
+   <div class="transactions-main">
+    <div class="transaction-overview">
+     <div class="transaction-count"><strong id="visibleCount">0</strong><span id="visibleCountLabel">lançamentos exibidos</span></div>
+     <div class="priority-count"><span>★</span><strong id="priorityCount">0 importantes</strong></div>
+    </div>
+    <div class="filter-controls-row">
+     <div class="seg filters" id="filters">
+      <button class="on" data-filter="all">Todas</button>
+      <button data-filter="pending">Pendentes</button>
+      <button data-filter="paid">Pagas</button>
+     </div>
+     <div class="filter-toolbar">
+      <button type="button" class="filter-toggle" id="filterToggle" aria-expanded="false" aria-controls="advancedFilters">
+       <span class="filter-toggle-icon">☷</span><span>Filtros</span><span class="filter-active-count" id="filterActiveCount" hidden>0</span><span class="filter-chevron" id="filterChevron">⌄</span>
+      </button>
+      <div class="filter-summary" id="filterSummary">Nenhum filtro adicional</div>
+     </div>
+    </div>
+    <div class="advanced-filters" id="advancedFilters" hidden>
+     <div class="advanced-filter-group">
+      <strong>Natureza</strong>
+      <div class="advanced-filter-options" id="natureFilterOptions">
+       <button type="button" class="advanced-filter-chip active" data-detail-filter="all">Todas</button>
+       <button type="button" class="advanced-filter-chip" data-detail-filter="fixed">Fixas</button>
+       <button type="button" class="advanced-filter-chip" data-detail-filter="variable">Variáveis</button>
+      </div>
+     </div>
+     <div class="advanced-filter-group">
+      <strong>Categorias <span>Você pode selecionar várias</span></strong>
+      <div class="advanced-filter-options category-filters" id="categoryFilters">
+       <button class="advanced-filter-chip active" data-category-filter="all">Todas</button>
+      </div>
+     </div>
+     <div class="advanced-filter-footer">
+      <button type="button" class="important-filter-option" id="importantFilterOption" aria-pressed="false">★ Somente importantes</button>
+      <button type="button" class="clear-advanced-filters" id="clearAdvancedFilters">Limpar filtros</button>
+     </div>
+    </div>
+    <div class="desktop-table-head expense-table-head" aria-hidden="true"><span>Descrição</span><span>Categoria</span><span>Natureza</span><span>Status</span><span>Valor</span></div>
+     <ul class="list" id="list"></ul>
+   </div>
+
+
+  </div>
+ </section>
 </div>
