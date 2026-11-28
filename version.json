@@ -1,15 +1,15 @@
 {
-  "version": "2.11.1",
-  "desktop": "2.11.1",
-  "mobile": "2.11.4",
+  "version": "2.11.2",
+  "desktop": "2.11.2",
+  "mobile": "2.11.2",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Restaura a navegação normal da tela Despesas no mobile."
+    "Unifica o controle de versão do HTML por perfil e corrige a inicialização das telas."
   ],
   "profileNotes": {
     "shared": [
-      "Atualiza o carregador para montar Visão geral e Entradas a partir do HTML do perfil."
+      "Simplifica a validação: um único marcador identifica o HTML de cada perfil."
     ],
     "desktop": [
       "Move a estrutura HTML de Entradas para overview-desktop.html."

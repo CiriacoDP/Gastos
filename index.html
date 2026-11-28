@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.11.1">
+<meta name="app-version" content="2.11.2">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -497,8 +497,7 @@
   if(!response.ok)throw new Error('Não foi possível carregar as telas do perfil.');
   const profileHtml=await response.text();
   const overviewVersion=profileHtml.match(/<!--\s*overview-version:\s*([0-9.]+)\s*-->/i)?.[1]||'';
-  const incomeVersion=profileHtml.match(/<!--\s*income-version:\s*([0-9.]+)\s*-->/i)?.[1]||'';
-  if(overviewVersion!==profileVersion||incomeVersion!==profileVersion)throw new Error('A versão do HTML do perfil ainda está sendo publicada.');
+  if(overviewVersion!==profileVersion)throw new Error('A versão do HTML do perfil ainda está sendo publicada.');
   const profileTemplate=document.createElement('template');
   profileTemplate.innerHTML=profileHtml;
   const overviewFragment=profileTemplate.content.querySelector('[data-overview]');
