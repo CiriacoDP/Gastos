@@ -1,11 +1,11 @@
 {
   "version": "2.11.1",
   "desktop": "2.11.1",
-  "mobile": "2.11.3",
+  "mobile": "2.11.4",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Separa a estrutura HTML da tela Entradas nos arquivos de perfil desktop e mobile."
+    "Restaura a navegação normal da tela Despesas no mobile."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Move a estrutura HTML de Entradas para overview-desktop.html."
     ],
     "mobile": [
-      "Move a estrutura HTML de Entradas para overview-mobile.html."
+      "Remove o painel fixo e animado da tela Despesas no perfil mobile."
     ]
   }
 }
