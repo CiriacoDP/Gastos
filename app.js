@@ -678,7 +678,7 @@ function initAppUpdateChecker(){
   $('updateNowBtn').textContent='Atualizando…';
   $('updateOverlay').querySelector('.update-card')?.classList.add('is-updating');
   const feedback=$('updateActionFeedback');
-  if(feedback){feedback.textContent='Preparando a atualização…';feedback.hidden=false;}
+  if(APP_PROFILE==='mobile'&&feedback){feedback.textContent='Preparando a atualização…';feedback.hidden=false;}
   try{
    const target=new URL(window.location.href);
    target.searchParams.set('_app_update',Date.now().toString());
