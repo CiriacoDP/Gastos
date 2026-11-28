@@ -1,15 +1,15 @@
 {
-  "version": "2.15.1",
+  "version": "2.15.2",
   "desktop": "2.15.0",
   "mobile": "2.15.2",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Aprimora o botão de verificação de atualizações no perfil mobile, com animações de carregamento e confirmação."
+    "Restaura a sequência completa de carregamento e confirmação do botão de verificação no mobile."
   ],
   "profileNotes": {
     "shared": [
-      "Atualiza a verificação manual para controlar os estados visuais no mobile sem alterar o comportamento desktop."
+      "Ajusta o tempo dos estados visuais da verificação manual no mobile, mantendo a consulta real de versões e o comportamento desktop."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
