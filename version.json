@@ -1,11 +1,12 @@
 {
   "version": "2.15.6",
   "desktop": "2.15.0",
-  "mobile": "2.15.17",
+  "mobile": "2.15.18",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Remove viewport-fit=cover para impedir que a página ocupe a área física do notch e da barra de status no iOS."
+    "Remove viewport-fit=cover para respeitar a área segura do iOS.",
+    "Adiciona faixa preta opaca no topo do mobile para ocultar o fundo atrás da barra de status."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +16,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "O conteúdo do aplicativo começa abaixo da área segura superior (notch/Dynamic Island), sem duplicar o espaçamento do cabeçalho."
+      "Adiciona uma faixa preta opaca de 36px no topo do mobile; mantém o cabeçalho abaixo dela."
     ]
   }
 }
