@@ -1,4 +1,4 @@
-/* overview-version: 2.15.22 */
+/* overview-version: 2.15.23 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5319,13 +5319,12 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 }
 
 
-/* Máscara preta somente sobre a Dynamic Island; preserva a área segura do conteúdo. */
+/* Faixa preta opaca na área superior do iPhone, sem transparência sobre o notch. */
 @media(max-width:979px),(hover:none) and (pointer:coarse){
- body::before{
-  content:"";position:fixed;top:11px;left:50%;
-  width:126px;height:36px;border-radius:999px;
-  background:#000!important;transform:translateX(-50%);
-  z-index:9999;pointer-events:none;
+ html{background:#000!important}
+ body{
+  padding-top:36px!important;
+  background:linear-gradient(to bottom,#000 0 36px,var(--bg) 36px 100%)!important;
  }
- header.shell{padding-top:calc(12px + env(safe-area-inset-top,0px))!important}
+ header.shell{padding-top:12px!important}
 }
