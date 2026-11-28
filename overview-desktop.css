@@ -1,4 +1,4 @@
-/* overview-version: 2.11.0 */
+/* overview-version: 2.11.1 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -1312,9 +1312,6 @@ main.shell
 }
 @media(min-width:1500px){#transactions .list
 {grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
-}
-@media(min-width:980px){.header-actions #refreshBtn
-{display:none!important}
 }
 .balance-period
 {
