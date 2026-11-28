@@ -1,4 +1,4 @@
-/* overview-version: 2.13.0 */
+/* overview-version: 2.14.1 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -4873,4 +4873,42 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  .app-update-check-button,.app-update-check-button::after{
   animation:none!important;transition:none!important
  }
+}
+
+/* Estados e transições do botão de atualização — somente mobile. */
+.app-update-check-button::before{
+ content:"";position:absolute;inset:0;z-index:-2;
+ background:linear-gradient(90deg,#22c55e 0%,#16a34a 100%);
+ opacity:0;transition:opacity .6s cubic-bezier(.22,1,.36,1);
+}
+.app-update-check-button.is-done::before{opacity:1}
+.mobile-update-btn-content{
+ position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.mobile-update-icon-wrapper{
+ position:relative;display:inline-flex;align-items:center;justify-content:center;
+ width:16px;height:16px;flex:0 0 16px;
+}
+.app-update-check-button .mobile-update-icon-wrapper svg{
+ position:absolute;inset:0;width:16px;height:16px;
+ stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;
+ transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1);
+}
+#manualUpdateCheck #manualUpdateCheckIcon{opacity:0;transform:scale(.5)}
+#manualUpdateCheck.is-done #manualUpdateSyncIcon{opacity:0;transform:scale(.5)}
+#manualUpdateCheck.is-done #manualUpdateCheckIcon{opacity:1;transform:scale(1)}
+#manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:mobileUpdateIconSpin 1s linear infinite}
+.mobile-update-label-stack{display:grid;align-items:center;justify-items:center}
+.mobile-update-label{grid-area:1/1;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
+#manualUpdateCheck.is-loading #manualUpdateLabelIdle,
+#manualUpdateCheck.is-done #manualUpdateLabelIdle{opacity:0;transform:translateY(-9px);filter:blur(2px)}
+#manualUpdateCheck.is-loading #manualUpdateLabelLoading,
+#manualUpdateCheck.is-done #manualUpdateLabelDone{opacity:1;transform:translateY(0);filter:blur(0)}
+#manualUpdateCheck:not(:disabled):hover{filter:brightness(1.07);transform:translateY(-1px);box-shadow:0 10px 26px -2px rgba(75,163,250,.38)}
+#manualUpdateCheck.is-done{box-shadow:0 4px 14px rgba(22,163,74,.22)}
+@keyframes mobileUpdateIconSpin{to{transform:rotate(360deg)}}
+@media(prefers-reduced-motion:reduce){
+ #manualUpdateCheck::before,#manualUpdateCheck .mobile-update-icon-wrapper svg,
+ #manualUpdateCheck .mobile-update-label{transition:none!important}
+ #manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:none!important}
 }
