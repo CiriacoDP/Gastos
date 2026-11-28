@@ -438,7 +438,7 @@ async function checkForAppUpdate(manual=false){
     if(manual)message('manualUpdateMessage','A instalação da nova versão ainda está sendo preparada. Tente novamente em instantes.',true);
     return;
    }
-   update={type:'shared',version:release.version,notes:release.notes?.shared||release.notes,key:'shared:'+release.version};
+   update={type:'shared',version:release.version,notes:release.profileNotes?.shared||release.notes,key:'shared:'+release.version};
   }else if(profileOrder>0){
    const [htmlResponse,cssResponse]=await Promise.all([
     fetch('./overview-'+APP_PROFILE+'.html?check='+cacheKey,{cache:'no-store'}),
@@ -455,7 +455,7 @@ async function checkForAppUpdate(manual=false){
     if(manual)message('manualUpdateMessage','Os arquivos do perfil ainda estão sendo publicados. Tente novamente em instantes.',true);
     return;
    }
-   update={type:'profile',version:profileVersion,notes:release.notes?.[APP_PROFILE]||[],key:APP_PROFILE+':'+profileVersion};
+   update={type:'profile',version:profileVersion,notes:release.profileNotes?.[APP_PROFILE]||[],key:APP_PROFILE+':'+profileVersion};
   }
 
   if(!update){
