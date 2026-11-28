@@ -48,3 +48,50 @@
     font-size:14px;
   }
 }
+
+/* Integração mobile: respeita o perfil responsivo já utilizado pelo aplicativo. */
+#overview .overview-desktop{display:block}
+#overview .overview-mobile{display:none}
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+  #overview>.view-heading,
+  #overview>.months{display:none!important}
+  #overview .overview-desktop{display:none!important}
+  #overview .overview-mobile{display:block}
+  .overview-mobile #mobile-balance{
+    display:block;font-size:clamp(40px,11vw,52px);font-weight:750;
+    letter-spacing:-1.4px;margin:10px 0 4px;line-height:1.08;
+    overflow-wrap:anywhere;
+  }
+  .overview-mobile .balance-caption{font-size:10px;margin:6px 0 20px}
+  .overview-mobile .trio{gap:6px;padding-top:15px}
+  .overview-mobile .trio small{font-size:10px}
+  .overview-mobile .trio strong{font-size:12px;letter-spacing:-.2px}
+  .overview-mobile .quick-card{padding:18px}
+  .overview-mobile .section-title{font-size:15px;margin-bottom:16px}
+  .overview-mobile .quick-row span{font-size:13px}
+  .overview-mobile .quick-row strong{font-size:14px}
+  .overview-mobile .month-note{font-size:12px;margin:15px 1px 0}
+  .overview-mobile .analytics-card{padding:18px;border-radius:17px}
+  .overview-mobile .analytics-title-row h3{font-size:14px}
+  .overview-mobile .overview-essentials{grid-template-columns:minmax(0,1fr)}
+  body.privacy-mode .overview-mobile [id^="mobile-"]{
+    color:transparent!important;-webkit-text-fill-color:transparent!important;
+    text-shadow:none!important;user-select:none!important;
+  }
+  body.privacy-mode .overview-mobile [id^="mobile-"]::after{
+    content:"••••••";position:absolute;inset:0;display:flex;
+    align-items:center;justify-content:center;color:var(--ink);
+    -webkit-text-fill-color:var(--ink);text-shadow:none;
+  }
+  body.privacy-mode .overview-mobile #mobile-budgetFeedback::after{
+    justify-content:flex-start;
+  }
+  body.privacy-mode .overview-mobile #mobile-monthlyHistory .history-bars{
+    visibility:hidden!important;
+  }
+}
+@media(max-width:390px){
+  .overview-mobile #mobile-balance{font-size:clamp(38px,11vw,48px)}
+  .overview-mobile .trio{gap:5px}
+  .overview-mobile .trio strong{font-size:11px}
+}
