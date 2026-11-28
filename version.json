@@ -1,11 +1,11 @@
 {
   "version": "2.15.5",
   "desktop": "2.15.0",
-  "mobile": "2.15.15",
+  "mobile": "2.15.16",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Aumenta levemente a logo e alinha verticalmente logo, pílulas de status e botões do cabeçalho mobile; reduz discretamente a altura das pílulas."
+    "Reorganiza o cabeçalho mobile em três colunas: logo, pílulas empilhadas e botões, todos alinhados na mesma composição horizontal."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Aumenta a marca de 46px para 50px, reduz as pílulas de 21px para 19px e centraliza marca, status e ações no mesmo eixo vertical."
+      "Cabeçalho mobile organizado em uma única linha horizontal, com logo à esquerda, pílulas centrais empilhadas e botões à direita."
     ]
   }
 }
