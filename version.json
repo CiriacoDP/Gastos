@@ -1,12 +1,12 @@
 {
   "version": "2.15.6",
   "desktop": "2.15.0",
-  "mobile": "2.15.18",
+  "mobile": "2.15.19",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
     "Remove viewport-fit=cover para respeitar a área segura do iOS.",
-    "Adiciona faixa preta opaca no topo do mobile para ocultar o fundo atrás da barra de status."
+    "Adiciona faixa preta fixa no topo do mobile com altura de 18px."
   ],
   "profileNotes": {
     "shared": [
@@ -16,7 +16,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Adiciona uma faixa preta opaca de 36px no topo do mobile; mantém o cabeçalho abaixo dela."
+      "Mantém uma faixa preta fixa de 18px no topo do mobile, independente da rolagem; cabeçalho permanece abaixo dela."
     ]
   }
 }
