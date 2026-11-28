@@ -1798,6 +1798,16 @@ function render(){
  $('incomeTotal').textContent=money(inc);
  $('expenseTotal').textContent=money(exp);
  $('dueTotal').textContent=money(due);
+ const paidExpenses=sum(outs.filter(x=>x.pago));
+ const pendingExpenses=sum(outs.filter(x=>!x.pago));
+ const availableAfterPaid=sum(me.filter(x=>x.tipo==='Entrada'&&x.pago))-paidExpenses;
+ if($('expenseMonthTotal')){
+  $('expenseMonthTotal').textContent=money(exp);
+  $('expenseMonthCount').textContent=outs.length+' '+(outs.length===1?'lançamento':'lançamentos');
+  $('expensePaidTotal').textContent=money(paidExpenses);
+  $('expensePendingTotal').textContent=money(pendingExpenses);
+  $('expenseForecastAvailable').textContent=money(availableAfterPaid);
+ }
 
  $('quickIncome').textContent=money(inc);
  $('quickExpense').textContent=money(exp);
