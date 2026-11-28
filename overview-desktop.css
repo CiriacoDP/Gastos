@@ -4670,3 +4670,7 @@ html[data-theme="dark"].screen-high-contrast
 {--mut:#ddd!important;--sep:#aaa!important}
 html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-reduce-motion *::after
 {scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
+
+/* Desktop: evita renderizar junto a estrutura mobile da Visão geral. */
+#overview .overview-desktop{display:block}
+#overview .overview-mobile{display:none!important}
