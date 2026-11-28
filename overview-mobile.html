@@ -1,4 +1,4 @@
-<!-- overview-version: 2.15.0 -->
+<!-- overview-version: 2.15.1 -->
 
 <div data-navigation-profile>
 <div id="mobileNavigation" aria-label="Navegação mobile"><nav class="app-nav" aria-label="Navegação principal">
@@ -94,9 +94,18 @@
    <div class="app-update-current-line">
     <span>Versão instalada</span><strong id="settingsAppVersion">v2.9.31</strong>
    </div>
-   <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
-    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
-    Verificar atualizações
+   <button class="primary app-update-check-button" id="manualUpdateCheck" type="button" aria-label="Verificar atualizações">
+    <span class="mobile-update-btn-content">
+     <span class="mobile-update-icon-wrapper">
+      <svg id="manualUpdateSyncIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+      <svg id="manualUpdateCheckIcon" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="m20 6-11 11-5-5"/></svg>
+     </span>
+     <span class="mobile-update-label-stack">
+      <span id="manualUpdateLabelIdle" class="mobile-update-label mobile-update-label-visible">Verificar atualizações</span>
+      <span id="manualUpdateLabelLoading" class="mobile-update-label mobile-update-label-hidden-down">Verificando...</span>
+      <span id="manualUpdateLabelDone" class="mobile-update-label mobile-update-label-hidden-down">Atualizado</span>
+     </span>
+    </span>
    </button>
    <div class="msg app-update-check-message" id="manualUpdateMessage" role="status" aria-live="polite">Toque para procurar uma versão nova.</div>
   </section>
