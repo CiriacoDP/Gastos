@@ -1,5 +1,5 @@
 {
-  "version": "2.15.6",
+  "version": "2.15.7",
   "desktop": "2.15.0",
   "mobile": "2.15.20",
   "ready": true,
@@ -7,11 +7,13 @@
   "notes": [
     "Remove viewport-fit=cover para respeitar a área segura do iOS.",
     "Adiciona faixa preta fixa no topo do mobile com altura de 18px.",
-    "Remove o deslocamento superior do conteúdo; a faixa preta fixa de 18px funciona apenas como máscara."
+    "Remove o deslocamento superior do conteúdo; a faixa preta fixa de 18px funciona apenas como máscara.",
+    "Exibe separadamente a versão do app (perfil Mobile/Desktop) e a versão do serviço compartilhado."
   ],
   "profileNotes": {
     "shared": [
-      "Remove viewport-fit=cover para respeitar a área segura nativa do iOS."
+      "Remove viewport-fit=cover para respeitar a área segura nativa do iOS.",
+      "Exibe separadamente a versão do app e a versão do serviço compartilhado nas informações de atualização."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
