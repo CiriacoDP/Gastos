@@ -5399,3 +5399,9 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  from{opacity:.55;transform:translateY(2px)}
  to{opacity:1;transform:translateY(0)}
 }
+
+.update-overlay{flex-direction:column;gap:10px}
+.update-action-feedback{
+ width:min(92vw,560px);max-width:calc(100vw - 40px);
+ margin:0;padding:0 10px;text-align:center;
+}
