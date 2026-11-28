@@ -1,21 +1,21 @@
 {
-  "version": "2.15.3",
+  "version": "2.15.4",
   "desktop": "2.15.0",
-  "mobile": "2.15.13",
+  "mobile": "2.15.14",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Corrige o seletor do card de despesas no Mobile e aplica corretamente o layout horizontal e a paleta avermelhada."
+    "Remove os efeitos de iluminação no topo da tela mobile e desativa a transparência da barra de status."
   ],
   "profileNotes": {
     "shared": [
-      "Mantém a consulta real de versões e o comportamento independente do desktop."
+      "Atualiza a versão compartilhada e mantém o desktop preservado."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Card de despesas corrigido com seletor correspondente à estrutura real da tela; valor principal e indicadores lado a lado, saldo abaixo e paleta avermelhada."
+      "Remove os gradientes de fundo que iluminavam a parte superior e usa barra de status sem transparência."
     ]
   }
 }
