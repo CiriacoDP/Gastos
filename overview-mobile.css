@@ -5075,3 +5075,91 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  :root[data-theme="system"] #transactions .expense-month-summary .income-summary-forecast span,
  :root[data-theme="light"] #transactions .expense-month-summary .income-summary-forecast span{color:#648879}
 }
+
+
+/* Card de despesas: composição alinhada ao resumo de Entradas e paleta de dívidas. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+ .overview-mobile #transactions .expense-month-summary{
+  display:grid;grid-template-columns:minmax(0,1fr) auto;
+  grid-template-areas:"main side" "forecast forecast";
+  align-items:center;justify-content:initial;gap:12px 14px;
+  flex-direction:initial;flex-wrap:initial;
+  padding:16px 15px;border-radius:16px;
+  border-color:rgba(224,91,105,.27);
+  background:radial-gradient(circle at 100% 0,rgba(205,65,82,.16),transparent 18rem),linear-gradient(115deg,#321d28,#261b27 58%,#201a26);
+  box-shadow:0 12px 28px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.035);
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-main{
+  grid-area:main;display:flex;flex-direction:column;align-items:flex-start;
+  min-width:0;gap:5px;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-main small{
+  color:#f08b98;font-size:9px;letter-spacing:1.3px;line-height:1.35;white-space:nowrap;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-main>strong{
+  color:#fff0f1;font-size:clamp(22px,6.2vw,27px);line-height:1.2;letter-spacing:-.6px;white-space:nowrap;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-main>span{
+  color:#c5aab0;font-size:10px;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-side{
+  grid-area:side;display:grid;grid-template-columns:repeat(2,max-content);
+  align-items:center;gap:13px;margin:0;padding:0 24px 0 0;min-width:0;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-side>div{
+  display:flex;flex-direction:column;align-items:flex-start;gap:6px;min-width:0;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-side span{
+  color:#c5aab0;font-size:9px;white-space:nowrap;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-side strong{
+  color:#fff0f1;font-size:11px;font-weight:760;white-space:nowrap;font-variant-numeric:tabular-nums;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-side>div:first-child strong{color:#65d7ad}
+ .overview-mobile #transactions .expense-month-summary .income-summary-symbol{
+  right:8px;top:25%;width:34px;height:34px;color:#f07888;opacity:.2;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast{
+  grid-area:forecast;display:flex;align-items:center;justify-content:space-between;
+  gap:8px;min-width:0;margin:0;padding-top:11px;
+  border-top:1px solid rgba(232,112,126,.2);
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast span{
+  max-width:68%;color:#c5aab0;font-size:10px;line-height:1.4;
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast strong{
+  flex:0 0 auto;color:#fff0f1;font-size:15px;font-weight:820;white-space:nowrap;font-variant-numeric:tabular-nums;
+ }
+}
+@media(max-width:390px){
+ .overview-mobile #transactions .expense-month-summary{grid-template-columns:minmax(0,1fr) auto;gap:10px 8px;padding:14px 12px}
+ .overview-mobile #transactions .expense-month-summary .income-summary-main>strong{font-size:22px}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side{gap:9px;padding-right:20px}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side span{font-size:8px}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side strong{font-size:10px}
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast span{max-width:64%}
+}
+@media(prefers-color-scheme:light){
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary{
+  background:radial-gradient(circle at 100% 0,rgba(205,65,82,.08),transparent 18rem),linear-gradient(115deg,#fff0f1,#f9edef 58%,#f5edf0);
+  border-color:rgba(190,66,83,.2);
+  box-shadow:0 10px 24px rgba(83,35,46,.07),inset 0 1px rgba(255,255,255,.85);
+ }
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-main>strong,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-main>strong,
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-forecast strong,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-forecast strong,
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-side strong,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-side strong{color:#542832}
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-main small,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-main small{color:#bd5263}
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-main>span,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-main>span,
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-side span,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-side span,
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-forecast span,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-forecast span{color:#89656d}
+ :root[data-theme="system"] .overview-mobile #transactions .expense-month-summary .income-summary-side>div:first-child strong,
+ :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-side>div:first-child strong{color:#18845e}
+}
