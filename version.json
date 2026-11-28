@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.12",
+  "mobile": "2.15.13",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Padroniza o card de despesas e aplica paleta avermelhada no resumo de Lançamentos."
+    "Corrige o seletor do card de despesas no Mobile e aplica corretamente o layout horizontal e a paleta avermelhada."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Card de despesas alinhado ao resumo de Entradas, com paleta avermelhada adequada à tela de dívidas e ajustes para temas claro e escuro."
+      "Card de despesas corrigido com seletor correspondente à estrutura real da tela; valor principal e indicadores lado a lado, saldo abaixo e paleta avermelhada."
     ]
   }
 }
