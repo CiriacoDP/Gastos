@@ -499,7 +499,7 @@ async function checkForAppUpdate(manual=false){
     if(latest)setTimeout(()=>setMobileUpdateButtonState('idle'),2600);
    }else{
     manualButton.disabled=false;
-    manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0-11.7-2"/></svg> Verificar atualizações';
+    manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
    }
   }
  }
