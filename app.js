@@ -567,10 +567,38 @@ async function checkForAppUpdate(manual=false){
   appUpdateCheckRunning=false;
  }
 }
+function setDisplayedVersionRows(){
+ const profileLabel=APP_PROFILE==='mobile'?'Mobile':'Desktop';
+ const rows=[
+  {appId:'settingsAppVersion',serviceId:'settingsServiceVersion',appLabel:'Versão do app ('+profileLabel+')'},
+  {appId:'aboutAppVersion',serviceId:'aboutServiceVersion',appLabel:'Versão do app ('+profileLabel+')'}
+ ];
+ rows.forEach(item=>{
+  const appValue=$(item.appId);
+  if(!appValue)return;
+  const appRow=appValue.closest('.app-update-current-line');
+  if(!appRow)return;
+  const appLabel=appRow.querySelector('span');
+  if(appLabel)appLabel.textContent=item.appLabel;
+  appValue.textContent='v'+APP_PROFILE_VERSION;
+  let serviceValue=$(item.serviceId);
+  if(!serviceValue){
+   const serviceRow=document.createElement('div');
+   serviceRow.className='app-update-current-line';
+   const label=document.createElement('span');
+   label.textContent='Versão do serviço (Shared)';
+   serviceValue=document.createElement('strong');
+   serviceValue.id=item.serviceId;
+   serviceRow.append(label,serviceValue);
+   appRow.insertAdjacentElement('afterend',serviceRow);
+  }
+  serviceValue.textContent='v'+APP_VERSION;
+ });
+}
 function initAppUpdateChecker(){
  appUpdateDismissedVersion='';
- $('settingsAppVersion').textContent='v'+APP_VERSION;
- $('headerAppVersion').textContent='v'+APP_VERSION;
+ setDisplayedVersionRows();
+ $('headerAppVersion').textContent='v'+APP_PROFILE_VERSION;
  if($('sidebarAppVersion'))$('sidebarAppVersion').textContent='Versão '+APP_VERSION;
  $('manualUpdateCheck').addEventListener('click',()=>{
   appUpdateDismissedVersion='';
@@ -734,7 +762,7 @@ function initAppSettings(){
  $('privacyStartupSetting').checked=!!appSettings.privacyStartup;
  $('pendingReminderSetting').checked=appSettings.pendingReminder!==false;
  $('updateNotificationsSetting').checked=appSettings.updateNotifications===true;
- $('aboutAppVersion').textContent='v'+APP_VERSION;
+ $('aboutAppVersion').textContent='v'+APP_PROFILE_VERSION;
  $('appearanceSetting').addEventListener('change',()=>{
   appSettings.appearance=$('appearanceSetting').value;
   applyAppearance();
