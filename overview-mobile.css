@@ -1,4 +1,4 @@
-/* overview-version: 2.11.1 */
+/* overview-version: 2.11.2 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -4848,51 +4848,56 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 }
 
 
-/* Botão de verificação de atualizações — exclusivo do perfil mobile. */
+/* Botão de atualizações mobile — adaptação fiel dos efeitos visuais do modelo enviado. */
 .app-update-check-button{
- position:relative;overflow:hidden;isolation:isolate;
- min-height:46px!important;border:0;border-radius:12px;
+ position:relative;isolation:isolate;overflow:hidden;
+ display:flex!important;align-items:center;justify-content:center;gap:8px;
+ width:100%;height:46px;min-height:46px!important;max-width:900px;
+ padding:0 12px!important;box-sizing:border-box;
+ border:0!important;border-radius:12px!important;
  background:linear-gradient(90deg,#4ba3fa 0%,#2b83e6 100%)!important;
- color:#fff!important;
+ color:#fff!important;font-size:14px;font-weight:700;letter-spacing:-.01em;
  box-shadow:0 4px 14px rgba(43,131,230,.25);
- transition:filter .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),box-shadow .45s cubic-bezier(.22,1,.36,1);
- -webkit-tap-highlight-color:transparent;
+ transition:filter .55s cubic-bezier(.22,1,.36,1),transform .55s cubic-bezier(.22,1,.36,1),box-shadow .55s cubic-bezier(.22,1,.36,1);
+ -webkit-tap-highlight-color:transparent;user-select:none;
 }
 .app-update-check-button::after{
- content:"";position:absolute;z-index:-1;top:0;left:-85%;width:65%;height:100%;
- background:linear-gradient(90deg,transparent,rgba(255,255,255,.28),transparent);
+ content:"";position:absolute;top:0;left:-100%;width:65%;height:100%;
+ background:linear-gradient(90deg,rgba(255,255,255,0),rgba(255,255,255,.28),rgba(255,255,255,0));
  transform:skewX(-20deg);opacity:0;pointer-events:none;
+}
+.app-update-check-button:not(:disabled):active{
+ transform:translateY(0) scale(.99);filter:brightness(1.02);
+ box-shadow:0 4px 12px rgba(43,131,230,.28);transition-duration:.2s;
 }
 .app-update-check-button:disabled{
  opacity:1!important;cursor:wait;
- animation:mobileUpdateButtonPulse 1.6s ease-in-out infinite;
+ animation:mobileUpdateCheckingPulse 1.6s ease-in-out infinite;
 }
 .app-update-check-button:disabled::after{
- opacity:1;animation:mobileUpdateButtonShimmer 1.35s cubic-bezier(.4,0,.2,1) infinite;
+ opacity:1;animation:mobileUpdateShimmerSweep 1.35s cubic-bezier(.4,0,.2,1) infinite;
 }
-.app-update-check-button:not(:disabled):active{
- transform:scale(.99);filter:brightness(1.03);
- box-shadow:0 3px 10px rgba(43,131,230,.24);
- transition-duration:.18s;
+.app-update-check-button>svg,.app-update-check-button .update-check-spinner{
+ position:relative;z-index:1;flex:0 0 16px;width:16px;height:16px;
 }
-.app-update-check-button:focus-visible{
- outline:3px solid color-mix(in srgb,#4ba3fa 45%,transparent);
- outline-offset:3px;
+.app-update-check-button>svg{
+ stroke:currentColor;stroke-width:2.3;stroke-linecap:round;stroke-linejoin:round;
 }
 .app-update-check-button .update-check-spinner{
- position:relative;z-index:1;width:16px;height:16px;
- border:2px solid rgba(255,255,255,.3);border-top-color:#fff;
+ border:2px solid rgba(255,255,255,.3);border-top-color:#fff;border-radius:50%;
+ animation:mobileUpdateSpinner .8s linear infinite;
 }
-@keyframes mobileUpdateButtonShimmer{
- 0%{left:-85%}
- 100%{left:140%}
+.app-update-check-button:focus-visible{
+ outline:3px solid color-mix(in srgb,#4ba3fa 45%,transparent);outline-offset:3px;
 }
-@keyframes mobileUpdateButtonPulse{
- 0%,100%{box-shadow:0 6px 20px rgba(75,163,250,.28);filter:brightness(1.02)}
- 50%{box-shadow:0 10px 28px rgba(75,163,250,.48);filter:brightness(1.08)}
+@keyframes mobileUpdateShimmerSweep{0%{left:-75%}100%{left:140%}}
+@keyframes mobileUpdateCheckingPulse{
+ 0%,100%{box-shadow:0 6px 20px rgba(75,163,250,.32);filter:brightness(1.02)}
+ 50%{box-shadow:0 10px 30px rgba(75,163,250,.55);filter:brightness(1.09)}
 }
+@keyframes mobileUpdateSpinner{to{transform:rotate(360deg)}}
 @media(prefers-reduced-motion:reduce){
- .app-update-check-button,.app-update-check-button::after{
+ .app-update-check-button,.app-update-check-button::after,.app-update-check-button .update-check-spinner{
   animation:none!important;transition:none!important
  }
 }
