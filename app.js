@@ -444,6 +444,7 @@ async function checkForAppUpdate(manual=false){
   return;
  }
  appUpdateCheckRunning=true;
+ let alreadyLatest=false;
  const manualStartedAt=manual&&APP_PROFILE==='mobile'?Date.now():0;
  const manualButton=manual?$('manualUpdateCheck'):null;
  if(manualButton){
@@ -523,7 +524,7 @@ async function checkForAppUpdate(manual=false){
   if(!update){
    if(manual){
     if(sharedOrder<0||profileOrder<0)message('manualUpdateMessage','A publicação das versões ainda está sendo sincronizada. Tente novamente em instantes.',true);
-    else message('manualUpdateMessage','Você já está usando a versão mais recente neste dispositivo.');
+    else alreadyLatest=true;
    }
    return;
   }
@@ -544,10 +545,9 @@ async function checkForAppUpdate(manual=false){
    // Mantém o estado de carregamento por pelo menos 2,2 s, como no botão de referência.
    const loadingRemaining=Math.max(0,2200-(Date.now()-manualStartedAt));
    if(loadingRemaining)await new Promise(resolve=>setTimeout(resolve,loadingRemaining));
-   const latest=($('manualUpdateMessage')?.textContent||'').startsWith('Você já está usando a versão mais recente');
-   if(latest){
+   if(alreadyLatest){
     setMobileUpdateButtonState('done');
-    setMobileUpdateFeedback(true);
+    setMobileUpdateFeedback(false);
     await new Promise(resolve=>setTimeout(resolve,2400));
     setMobileUpdateFeedback(false);
    }else if(($('manualUpdateMessage')?.textContent||'').trim()){
