@@ -249,6 +249,10 @@ function showAppUpdate(release){
  if(!release||!$('overlay').hidden)return;
  if(appUpdatePending&&appUpdatePending.key===release.key)return;
  appUpdatePending=release;
+ const updateCard=$('updateOverlay').querySelector('.update-card');
+ updateCard?.classList.remove('is-updating');
+ const updateFeedback=$('updateActionFeedback');
+ if(updateFeedback)updateFeedback.hidden=true;
  $('updateCurrentVersion').textContent='v'+(release.type==='profile'?APP_PROFILE_VERSION:APP_VERSION);
  $('updateNewVersion').textContent='v'+release.version;
  const notes=$('updateReleaseNotes');
@@ -271,6 +275,9 @@ function showAppUpdate(release){
 
 function closeAppUpdate(){
  $('updateOverlay').hidden=true;
+ $('updateOverlay').querySelector('.update-card')?.classList.remove('is-updating');
+ const feedback=$('updateActionFeedback');
+ if(feedback)feedback.hidden=true;
 }
 
 
@@ -669,6 +676,9 @@ function initAppUpdateChecker(){
   $('updateNowBtn').disabled=true;
   $('updateLaterBtn').disabled=true;
   $('updateNowBtn').textContent='Atualizando…';
+  $('updateOverlay').querySelector('.update-card')?.classList.add('is-updating');
+  const feedback=$('updateActionFeedback');
+  if(feedback){feedback.textContent='Preparando a atualização…';feedback.hidden=false;}
   try{
    const target=new URL(window.location.href);
    target.searchParams.set('_app_update',Date.now().toString());
