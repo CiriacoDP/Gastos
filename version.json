@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.4",
+  "mobile": "2.15.5",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Centraliza o texto do estado Atualizado no botão de verificação mobile."
+    "Faz o ícone acompanhar a largura do texto no botão de verificação mobile."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Centraliza corretamente o texto Atualizado no botão de verificação."
+      "O ícone acompanha a redução e expansão do texto durante os estados do botão de verificação."
     ]
   }
 }
