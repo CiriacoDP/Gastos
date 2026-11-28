@@ -1,21 +1,21 @@
 {
-  "version": "2.15.0",
+  "version": "2.15.1",
   "desktop": "2.15.0",
-  "mobile": "2.15.0",
+  "mobile": "2.15.1",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Move o formulário de lançamento para os acervos Mobile e Desktop e mantém o scanner de pagamentos exclusivamente no Mobile."
+    "Aprimora o botão de verificação de atualizações no perfil mobile, com animações de carregamento e confirmação."
   ],
   "profileNotes": {
     "shared": [
-      "Carrega cabeçalho, telas e formulário a partir do HTML específico de cada perfil."
+      "Atualiza a verificação manual para controlar os estados visuais no mobile sem alterar o comportamento desktop."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Mantém o formulário de lançamento e inclui o scanner de QR Pix e código de barras."
+      "Aplica o novo visual animado ao botão Verificar atualizações, exclusivo do mobile."
     ]
   }
 }
