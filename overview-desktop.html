@@ -35,72 +35,72 @@
      </span>
     </div>
     </div>
-    <strong id="desktop-balance">R$ 0,00</strong>
-    <div class="balance-caption" id="desktop-balanceCaption">Considerando todas as entradas e despesas</div>
+    <strong id="balance">R$ 0,00</strong>
+    <div class="balance-caption" id="balanceCaption">Considerando todas as entradas e despesas</div>
     <div class="trio">
-     <div><small>Entradas</small><strong class="pos" id="desktop-incomeTotal">R$ 0,00</strong></div>
-     <div><small>Despesas</small><strong id="desktop-expenseTotal">R$ 0,00</strong></div>
-     <div><small>A pagar</small><strong id="desktop-dueTotal">R$ 0,00</strong></div>
+     <div><small>Entradas</small><strong class="pos" id="incomeTotal">R$ 0,00</strong></div>
+     <div><small>Despesas</small><strong id="expenseTotal">R$ 0,00</strong></div>
+     <div><small>A pagar</small><strong id="dueTotal">R$ 0,00</strong></div>
     </div>
    </section>
 
    <section class="card quick-card">
     <h3 class="section-title">Resumo do mês</h3>
-    <div class="quick-row"><span>Total de entradas</span><strong class="pos" id="desktop-quickIncome">R$ 0,00</strong></div>
-    <div class="quick-row"><span>Total de despesas</span><strong id="desktop-quickExpense">R$ 0,00</strong></div>
-    <div class="quick-row"><span>Valores pendentes</span><strong id="desktop-quickDue">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Total de entradas</span><strong class="pos" id="quickIncome">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Total de despesas</span><strong id="quickExpense">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Valores pendentes</span><strong id="quickDue">R$ 0,00</strong></div>
     <p class="month-note">Os valores são referentes ao mês selecionado.</p>
     <div class="category-breakdown" aria-label="Despesas por categoria">
-     <div class="category-breakdown-heading"><strong>Despesas por categoria</strong><span id="desktop-categoryBreakdownCount">0 categorias</span></div>
+     <div class="category-breakdown-heading"><strong>Despesas por categoria</strong><span id="categoryBreakdownCount">0 categorias</span></div>
      <div class="category-breakdown-content">
       <div class="category-donut-wrap">
-       <div class="category-donut" id="desktop-categoryDonut" role="img" aria-label="Gráfico de despesas por categoria">
-        <div class="category-donut-center"><strong id="desktop-categoryDonutTotal">R$ 0,00</strong><span>Total gasto</span></div>
+       <div class="category-donut" id="categoryDonut" role="img" aria-label="Gráfico de despesas por categoria">
+        <div class="category-donut-center"><strong id="categoryDonutTotal">R$ 0,00</strong><span>Total gasto</span></div>
        </div>
       </div>
-      <div class="category-legend" id="desktop-categoryLegend"><div class="category-breakdown-empty">Nenhuma despesa neste mês.</div></div>
+      <div class="category-legend" id="categoryLegend"><div class="category-breakdown-empty">Nenhuma despesa neste mês.</div></div>
      </div>
     </div>
-    <button class="primary" id="desktop-goTransactions" type="button" style="width:100%;margin-top:14px">Ver lançamentos</button>
+    <button class="primary" id="goTransactions" type="button" style="width:100%;margin-top:14px">Ver lançamentos</button>
    </section>
   </div>
 
   <section class="overview-analytics" aria-label="Análises financeiras">
    <div class="analytics-heading">
     <div><span class="eyebrow">ANÁLISE FINANCEIRA</span><h3>Desempenho do mês</h3></div>
-    <span class="analytics-heading-month" id="desktop-analyticsMonthLabel"></span>
+    <span class="analytics-heading-month" id="analyticsMonthLabel"></span>
    </div>
    <div class="overview-analytics-grid">
     <section class="analytics-card ranking-card">
      <div class="analytics-title-row"><h3>Maiores gastos</h3><span>TOP 5</span></div>
-     <div class="ranking-list" id="desktop-expenseRanking"></div>
+     <div class="ranking-list" id="expenseRanking"></div>
     </section>
     <section class="analytics-card progress-card">
-     <div class="analytics-title-row"><h3>Despesas pagas</h3><strong id="desktop-paidPercent">0%</strong></div>
-     <div class="progress-track"><span id="desktop-paidProgress"></span></div>
+     <div class="analytics-title-row"><h3>Despesas pagas</h3><strong id="paidPercent">0%</strong></div>
+     <div class="progress-track"><span id="paidProgress"></span></div>
      <div class="progress-values">
-      <div><small>Pago</small><strong id="desktop-paidAmount">R$ 0,00</strong></div>
-      <div><small>Pendente</small><strong id="desktop-pendingAmount">R$ 0,00</strong></div>
+      <div><small>Pago</small><strong id="paidAmount">R$ 0,00</strong></div>
+      <div><small>Pendente</small><strong id="pendingAmount">R$ 0,00</strong></div>
      </div>
     </section>
     <section class="analytics-card comparison-card">
      <div class="analytics-title-row"><h3>Entradas x despesas</h3></div>
-     <div class="compare-item"><div class="compare-label"><span>Entradas</span><strong id="desktop-compareIncome">R$ 0,00</strong></div><div class="compare-track"><span class="compare-income" id="desktop-compareIncomeBar"></span></div></div>
-     <div class="compare-item"><div class="compare-label"><span>Despesas</span><strong id="desktop-compareExpense">R$ 0,00</strong></div><div class="compare-track"><span class="compare-expense" id="desktop-compareExpenseBar"></span></div></div>
+     <div class="compare-item"><div class="compare-label"><span>Entradas</span><strong id="compareIncome">R$ 0,00</strong></div><div class="compare-track"><span class="compare-income" id="compareIncomeBar"></span></div></div>
+     <div class="compare-item"><div class="compare-label"><span>Despesas</span><strong id="compareExpense">R$ 0,00</strong></div><div class="compare-track"><span class="compare-expense" id="compareExpenseBar"></span></div></div>
     </section>
     <section class="analytics-card indicators-card">
      <div class="analytics-title-row"><h3>Indicadores rápidos</h3></div>
      <div class="quick-indicators">
-      <div><span>Despesas</span><strong id="desktop-indicatorExpenses">0</strong></div>
-      <div><span>Pendentes</span><strong id="desktop-indicatorPending">0</strong></div>
-      <div><span>Importantes</span><strong id="desktop-indicatorImportant">0</strong></div>
-      <div><span>Entradas</span><strong id="desktop-indicatorIncome">0</strong></div>
+      <div><span>Despesas</span><strong id="indicatorExpenses">0</strong></div>
+      <div><span>Pendentes</span><strong id="indicatorPending">0</strong></div>
+      <div><span>Importantes</span><strong id="indicatorImportant">0</strong></div>
+      <div><span>Entradas</span><strong id="indicatorIncome">0</strong></div>
      </div>
     </section>
     <section class="analytics-card history-card">
      <div class="analytics-title-row"><h3>Evolução mensal</h3><span>6 MESES</span></div>
      <div class="history-legend"><span><i class="history-income-dot"></i>Entradas</span><span><i class="history-expense-dot"></i>Despesas</span></div>
-     <div class="monthly-history" id="desktop-monthlyHistory"></div>
+     <div class="monthly-history" id="monthlyHistory"></div>
     </section>
     
     
@@ -112,26 +112,26 @@
  <section class="overview-essentials" aria-label="Planejamento financeiro">
     <section class="analytics-card forecast-card">
      <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
-     <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="desktop-forecastAvailable">R$ 0,00</strong></div>
-     <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="desktop-forecastPending">R$ 0,00</strong></div>
-     <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="desktop-forecastFinal">R$ 0,00</strong></div>
+     <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="forecastAvailable">R$ 0,00</strong></div>
+     <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="forecastPending">R$ 0,00</strong></div>
+     <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="forecastFinal">R$ 0,00</strong></div>
     </section>
     <section class="analytics-card budget-card">
      <div class="analytics-title-row"><h3>Meta de despesas</h3><span>MENSAL</span></div>
-     <label class="budget-input-label" for="desktop-budgetInput">Limite que deseja gastar</label>
-     <div class="budget-input-row"><span>R$</span><input id="desktop-budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="desktop-saveBudget" type="button">Salvar</button></div>
-     <div class="budget-progress-track"><span id="desktop-budgetProgress"></span></div>
-     <div class="budget-feedback" id="desktop-budgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
+     <label class="budget-input-label" for="budgetInput">Limite que deseja gastar</label>
+     <div class="budget-input-row"><span>R$</span><input id="budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="saveBudget" type="button">Salvar</button></div>
+     <div class="budget-progress-track"><span id="budgetProgress"></span></div>
+     <div class="budget-feedback" id="budgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
      <small class="budget-local-note">Meta sincronizada pela planilha em todos os dispositivos.</small>
     </section>
     <section class="analytics-card previous-month-card">
-     <div class="analytics-title-row"><h3>Comparação mensal</h3><span id="desktop-previousMonthName">MÊS ANTERIOR</span></div>
-     <div class="previous-month-main"><strong id="desktop-expenseChange">—</strong><span id="desktop-expenseChangeLabel">Comparando despesas</span></div>
+     <div class="analytics-title-row"><h3>Comparação mensal</h3><span id="previousMonthName">MÊS ANTERIOR</span></div>
+     <div class="previous-month-main"><strong id="expenseChange">—</strong><span id="expenseChangeLabel">Comparando despesas</span></div>
      <div class="previous-month-values">
-      <div><small>Mês atual</small><strong id="desktop-currentMonthExpense">R$ 0,00</strong></div>
-      <div><small>Mês anterior</small><strong id="desktop-previousMonthExpense">Aguardando dados</strong></div>
+      <div><small>Mês atual</small><strong id="currentMonthExpense">R$ 0,00</strong></div>
+      <div><small>Mês anterior</small><strong id="previousMonthExpense">Aguardando dados</strong></div>
      </div>
-     <p class="previous-month-note" id="desktop-previousMonthNote">A comparação usa os dados do mês anterior.</p>
+     <p class="previous-month-note" id="previousMonthNote">A comparação usa os dados do mês anterior.</p>
     </section>
    </section>
 </div>
