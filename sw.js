@@ -136,22 +136,6 @@ async function networkFirstDocument(request) {
   }
 }
 
-async function cacheFirstStyle(request, canonicalUrl) {
-  const cache = await caches.open(CACHE_NAME);
-  const cached = await cache.match(canonicalUrl);
-  if (cached) return cached;
-
-  try {
-    const response = await fetch(request, { cache: 'no-store' });
-    if (response && response.ok) {
-      await cache.put(canonicalUrl, response.clone());
-    }
-    return response;
-  } catch (error) {
-    return Response.error();
-  }
-}
-
 async function networkFirstResource(request, canonicalUrl) {
   try {
     const response = await fetch(request, { cache: 'no-store' });
@@ -221,9 +205,9 @@ self.addEventListener('fetch', event => {
 
   const canonicalUrl = url.origin + url.pathname;
 
-  // O CSS é imutável dentro de cada versão; prioriza a cópia local após o primeiro download.
+  // CSS dos perfis usa rede primeiro para receber atualizações independentes; cache fica como fallback offline.
   if (request.destination === 'style') {
-    event.respondWith(cacheFirstStyle(request, canonicalUrl));
+    event.respondWith(networkFirstResource(request, canonicalUrl));
     return;
   }
 
