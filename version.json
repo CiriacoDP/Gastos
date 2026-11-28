@@ -1,25 +1,28 @@
 {
-  "version": "2.15.7",
+  "version": "2.15.8",
   "desktop": "2.15.0",
-  "mobile": "2.15.20",
+  "mobile": "2.15.21",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
     "Remove viewport-fit=cover para respeitar a área segura do iOS.",
     "Adiciona faixa preta fixa no topo do mobile com altura de 18px.",
     "Remove o deslocamento superior do conteúdo; a faixa preta fixa de 18px funciona apenas como máscara.",
-    "Exibe separadamente a versão do app (perfil Mobile/Desktop) e a versão do serviço compartilhado."
+    "Exibe separadamente a versão do app (perfil Mobile/Desktop) e a versão do serviço compartilhado.",
+    "Usa viewport-fit=cover e amplia a máscara preta fixa para cobrir a área segura superior do iPhone mais 18px."
   ],
   "profileNotes": {
     "shared": [
       "Remove viewport-fit=cover para respeitar a área segura nativa do iOS.",
-      "Exibe separadamente a versão do app e a versão do serviço compartilhado nas informações de atualização."
+      "Exibe separadamente a versão do app e a versão do serviço compartilhado nas informações de atualização.",
+      "Ativa viewport-fit=cover para permitir a máscara superior alcançar a área física da tela."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Mantém uma máscara preta fixa de 18px no topo do mobile, independente da rolagem, sem deslocar o conteúdo da página."
+      "Mantém uma máscara preta fixa de 18px no topo do mobile, independente da rolagem, sem deslocar o conteúdo da página.",
+      "A máscara preta fixa cobre a área segura superior do iPhone mais 18px, sem acompanhar a rolagem."
     ]
   }
 }
