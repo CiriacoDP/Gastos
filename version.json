@@ -1,7 +1,7 @@
 {
-  "version": "2.15.9",
+  "version": "2.15.10",
   "desktop": "2.15.0",
-  "mobile": "2.15.22",
+  "mobile": "2.15.23",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
@@ -10,7 +10,8 @@
     "Remove o deslocamento superior do conteúdo; a faixa preta fixa de 18px funciona apenas como máscara.",
     "Exibe separadamente a versão do app (perfil Mobile/Desktop) e a versão do serviço compartilhado.",
     "Usa viewport-fit=cover e amplia a máscara preta fixa para cobrir a área segura superior do iPhone mais 18px.",
-    "Substitui a faixa preta superior por uma máscara localizada sobre a Dynamic Island no mobile."
+    "Substitui a faixa preta superior por uma máscara localizada sobre a Dynamic Island no mobile.",
+    "Restaura a faixa preta superior mobile histórica de 36px, conforme commit 44d7861."
   ],
   "profileNotes": {
     "shared": [
@@ -24,7 +25,8 @@
     "mobile": [
       "Mantém uma máscara preta fixa de 18px no topo do mobile, independente da rolagem, sem deslocar o conteúdo da página.",
       "A máscara preta fixa cobre a área segura superior do iPhone mais 18px, sem acompanhar a rolagem.",
-      "Aplica máscara preta somente sobre a Dynamic Island, sem faixa horizontal nem deslocamento extra do cabeçalho."
+      "Aplica máscara preta somente sobre a Dynamic Island, sem faixa horizontal nem deslocamento extra do cabeçalho.",
+      "Restaura o bloco histórico de faixa preta superior de 36px e o espaçamento original do cabeçalho."
     ]
   }
 }
