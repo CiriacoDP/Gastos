@@ -1,4 +1,4 @@
-/* overview-version: 2.15.12 */
+/* overview-version: 2.15.13 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5179,3 +5179,50 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-side span,
 :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-forecast span{color:#89656d}
 :root[data-theme="light"] .overview-mobile #transactions .expense-month-summary .income-summary-side>div:first-child strong{color:#18845e}
+
+
+/* Correção definitiva: #transactions é irmão de .overview-mobile, não descendente. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+ #transactions .expense-month-summary{
+  display:grid!important;
+  grid-template-columns:minmax(0,1fr) auto!important;
+  grid-template-areas:"main side" "forecast forecast"!important;
+  align-items:center!important;justify-content:initial!important;
+  flex-direction:initial!important;flex-wrap:initial!important;
+  gap:12px 14px!important;padding:16px 15px!important;
+  border:1px solid rgba(224,91,105,.3)!important;border-radius:16px!important;
+  background:radial-gradient(circle at 100% 0,rgba(205,65,82,.16),transparent 18rem),linear-gradient(115deg,#321d28,#261b27 58%,#201a26)!important;
+  box-shadow:0 12px 28px rgba(0,0,0,.16),inset 0 1px rgba(255,255,255,.035)!important;
+ }
+ #transactions .expense-month-summary .income-summary-main{
+  grid-area:main!important;display:flex!important;flex-direction:column!important;
+  align-items:flex-start!important;min-width:0!important;gap:5px!important;
+ }
+ #transactions .expense-month-summary .income-summary-main small{color:#f08b98!important;font-size:9px!important;letter-spacing:1.3px!important;white-space:nowrap!important}
+ #transactions .expense-month-summary .income-summary-main>strong{color:#fff0f1!important;font-size:clamp(22px,6.2vw,27px)!important;line-height:1.2!important;white-space:nowrap!important}
+ #transactions .expense-month-summary .income-summary-main>span{color:#c5aab0!important;font-size:10px!important}
+ #transactions .expense-month-summary .income-summary-side{
+  grid-area:side!important;display:grid!important;grid-template-columns:repeat(2,max-content)!important;
+  gap:13px!important;margin:0!important;padding:0 24px 0 0!important;min-width:0!important;
+ }
+ #transactions .expense-month-summary .income-summary-side>div{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:6px!important;min-width:0!important}
+ #transactions .expense-month-summary .income-summary-side span{color:#c5aab0!important;font-size:9px!important;white-space:nowrap!important}
+ #transactions .expense-month-summary .income-summary-side strong{color:#fff0f1!important;font-size:11px!important;white-space:nowrap!important;font-variant-numeric:tabular-nums!important}
+ #transactions .expense-month-summary .income-summary-side>div:first-child strong{color:#65d7ad!important}
+ #transactions .expense-month-summary .income-summary-symbol{right:8px!important;top:25%!important;width:34px!important;height:34px!important;color:#f07888!important;opacity:.2!important}
+ #transactions .expense-month-summary .income-summary-forecast{
+  grid-area:forecast!important;display:flex!important;align-items:center!important;justify-content:space-between!important;
+  gap:8px!important;min-width:0!important;margin:0!important;padding-top:11px!important;
+  border-top:1px solid rgba(232,112,126,.2)!important;
+ }
+ #transactions .expense-month-summary .income-summary-forecast span{max-width:68%!important;color:#c5aab0!important;font-size:10px!important;line-height:1.4!important}
+ #transactions .expense-month-summary .income-summary-forecast strong{flex:0 0 auto!important;color:#fff0f1!important;font-size:15px!important;white-space:nowrap!important}
+}
+@media(max-width:390px){
+ #transactions .expense-month-summary{gap:10px 8px!important;padding:14px 12px!important}
+ #transactions .expense-month-summary .income-summary-main>strong{font-size:22px!important}
+ #transactions .expense-month-summary .income-summary-side{gap:9px!important;padding-right:20px!important}
+ #transactions .expense-month-summary .income-summary-side span{font-size:8px!important}
+ #transactions .expense-month-summary .income-summary-side strong{font-size:10px!important}
+ #transactions .expense-month-summary .income-summary-forecast span{max-width:64%!important}
+}
