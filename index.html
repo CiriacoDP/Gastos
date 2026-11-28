@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.9.30">
+<meta name="app-version" content="2.9.31">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -14,7 +14,8 @@
 <link rel="apple-touch-icon" sizes="180x180" href="./assets/app-icon.png">
 <link rel="icon" type="image/png" sizes="180x180" href="./assets/app-icon.png">
 <title>Meu dinheiro</title>
-<link rel="stylesheet" href="./appearance.css?v=2.9.30">
+<link rel="stylesheet" href="./appearance.css?v=2.9.31">
+<link rel="stylesheet" href="./overview-mobile.css?v=2.9.31">
 <link rel="stylesheet" href="./manual-light-theme.css?v=2.9.27" id="manualLightTheme" disabled>
 <link rel="stylesheet" href="./navigation.css?v=2.9.27">
 <link rel="stylesheet" href="./mobile-navigation.css?v=2.9.30">
@@ -37,7 +38,7 @@
    <span class="sidebar-status-dot off" id="sidebarStatusDot"></span>
    <span id="sidebarStatusText">Desconectado</span>
   </div>
-  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.9.30</small>
+  <small class="sidebar-app-version" id="sidebarAppVersion">Versão 2.9.31</small>
  </div>
 
 </aside>
@@ -78,7 +79,7 @@
   <div class="brand">
    <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
    <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.9.30</small></div>
+    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.9.31</small></div>
     <div class="status off" id="status">
      <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
      <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
@@ -114,6 +115,7 @@
    <button class="next" aria-label="Próximo mês">›</button>
   </div>
 
+  <div class="overview-layout overview-desktop" data-overview="desktop">
   <div class="overview-grid">
    <section class="card summary">
     <div class="summary-topline">
@@ -235,6 +237,144 @@
      <p class="previous-month-note" id="previousMonthNote">A comparação usa os dados do mês anterior.</p>
     </section>
    </section>
+  </div>
+  <div class="overview-layout overview-mobile" data-overview="mobile">
+  <div class="view-heading">
+   <div>
+    <h2>Visão geral</h2>
+    <p>Acompanhe sua situação financeira</p>
+   </div>
+  </div>
+
+  <div class="months">
+   <button class="prev" aria-label="Mês anterior">‹</button>
+   <b class="monthLabel"></b>
+   <button class="next" aria-label="Próximo mês">›</button>
+  </div>
+
+  <div class="overview-grid">
+   <section class="card summary">
+    <div class="summary-topline">
+     <div><span class="eyebrow">SEU RESULTADO</span><small>Saldo previsto</small></div>
+     <div class="balance-period" aria-label="Mês selecionado">
+     <span class="calendar-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+       <rect x="3.5" y="5.5" width="17" height="15" rx="3" stroke="currentColor" stroke-width="1.5"/>
+       <path d="M7.5 3.5v4M16.5 3.5v4M3.8 9.5h16.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+       <rect x="7" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor"/>
+       <rect x="11" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".65"/>
+       <rect x="15" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="7" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="11" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+      </svg>
+     </span>
+     <span class="balance-period-text">
+      <small>MÊS SELECIONADO</small>
+      <strong class="monthLabel"></strong>
+     </span>
+    </div>
+    </div>
+    <strong id="mobile-balance">R$ 0,00</strong>
+    <div class="balance-caption" id="mobile-balanceCaption">Considerando todas as entradas e despesas</div>
+    <div class="trio">
+     <div><small>Entradas</small><strong class="pos" id="mobile-incomeTotal">R$ 0,00</strong></div>
+     <div><small>Despesas</small><strong id="mobile-expenseTotal">R$ 0,00</strong></div>
+     <div><small>A pagar</small><strong id="mobile-dueTotal">R$ 0,00</strong></div>
+    </div>
+   </section>
+
+   <section class="card quick-card">
+    <h3 class="section-title">Resumo do mês</h3>
+    <div class="quick-row"><span>Total de entradas</span><strong class="pos" id="mobile-quickIncome">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Total de despesas</span><strong id="mobile-quickExpense">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Valores pendentes</span><strong id="mobile-quickDue">R$ 0,00</strong></div>
+    <p class="month-note">Os valores são referentes ao mês selecionado.</p>
+    <div class="category-breakdown" aria-label="Despesas por categoria">
+     <div class="category-breakdown-heading"><strong>Despesas por categoria</strong><span id="mobile-categoryBreakdownCount">0 categorias</span></div>
+     <div class="category-breakdown-content">
+      <div class="category-donut-wrap">
+       <div class="category-donut" id="mobile-categoryDonut" role="img" aria-label="Gráfico de despesas por categoria">
+        <div class="category-donut-center"><strong id="mobile-categoryDonutTotal">R$ 0,00</strong><span>Total gasto</span></div>
+       </div>
+      </div>
+      <div class="category-legend" id="mobile-categoryLegend"><div class="category-breakdown-empty">Nenhuma despesa neste mês.</div></div>
+     </div>
+    </div>
+    <button class="primary" id="mobile-goTransactions" type="button" style="width:100%;margin-top:14px">Ver lançamentos</button>
+   </section>
+  </div>
+
+  <section class="overview-analytics" aria-label="Análises financeiras">
+   <div class="analytics-heading">
+    <div><span class="eyebrow">ANÁLISE FINANCEIRA</span><h3>Desempenho do mês</h3></div>
+    <span class="analytics-heading-month" id="mobile-analyticsMonthLabel"></span>
+   </div>
+   <div class="overview-analytics-grid">
+    <section class="analytics-card ranking-card">
+     <div class="analytics-title-row"><h3>Maiores gastos</h3><span>TOP 5</span></div>
+     <div class="ranking-list" id="mobile-expenseRanking"></div>
+    </section>
+    <section class="analytics-card progress-card">
+     <div class="analytics-title-row"><h3>Despesas pagas</h3><strong id="mobile-paidPercent">0%</strong></div>
+     <div class="progress-track"><span id="mobile-paidProgress"></span></div>
+     <div class="progress-values">
+      <div><small>Pago</small><strong id="mobile-paidAmount">R$ 0,00</strong></div>
+      <div><small>Pendente</small><strong id="mobile-pendingAmount">R$ 0,00</strong></div>
+     </div>
+    </section>
+    <section class="analytics-card comparison-card">
+     <div class="analytics-title-row"><h3>Entradas x despesas</h3></div>
+     <div class="compare-item"><div class="compare-label"><span>Entradas</span><strong id="mobile-compareIncome">R$ 0,00</strong></div><div class="compare-track"><span class="compare-income" id="mobile-compareIncomeBar"></span></div></div>
+     <div class="compare-item"><div class="compare-label"><span>Despesas</span><strong id="mobile-compareExpense">R$ 0,00</strong></div><div class="compare-track"><span class="compare-expense" id="mobile-compareExpenseBar"></span></div></div>
+    </section>
+    <section class="analytics-card indicators-card">
+     <div class="analytics-title-row"><h3>Indicadores rápidos</h3></div>
+     <div class="quick-indicators">
+      <div><span>Despesas</span><strong id="mobile-indicatorExpenses">0</strong></div>
+      <div><span>Pendentes</span><strong id="mobile-indicatorPending">0</strong></div>
+      <div><span>Importantes</span><strong id="mobile-indicatorImportant">0</strong></div>
+      <div><span>Entradas</span><strong id="mobile-indicatorIncome">0</strong></div>
+     </div>
+    </section>
+    <section class="analytics-card history-card">
+     <div class="analytics-title-row"><h3>Evolução mensal</h3><span>6 MESES</span></div>
+     <div class="history-legend"><span><i class="history-income-dot"></i>Entradas</span><span><i class="history-expense-dot"></i>Despesas</span></div>
+     <div class="monthly-history" id="mobile-monthlyHistory"></div>
+    </section>
+    
+    
+    
+   </div>
+   
+  </section>
+
+ <section class="overview-essentials" aria-label="Planejamento financeiro">
+    <section class="analytics-card forecast-card">
+     <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
+     <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="mobile-forecastAvailable">R$ 0,00</strong></div>
+     <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="mobile-forecastPending">R$ 0,00</strong></div>
+     <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="mobile-forecastFinal">R$ 0,00</strong></div>
+    </section>
+    <section class="analytics-card budget-card">
+     <div class="analytics-title-row"><h3>Meta de despesas</h3><span>MENSAL</span></div>
+     <label class="budget-input-label" for="mobile-budgetInput">Limite que deseja gastar</label>
+     <div class="budget-input-row"><span>R$</span><input id="mobile-budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="mobile-saveBudget" type="button">Salvar</button></div>
+     <div class="budget-progress-track"><span id="mobile-budgetProgress"></span></div>
+     <div class="budget-feedback" id="mobile-budgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
+     <small class="budget-local-note">Meta sincronizada pela planilha em todos os dispositivos.</small>
+    </section>
+    <section class="analytics-card previous-month-card">
+     <div class="analytics-title-row"><h3>Comparação mensal</h3><span id="mobile-previousMonthName">MÊS ANTERIOR</span></div>
+     <div class="previous-month-main"><strong id="mobile-expenseChange">—</strong><span id="mobile-expenseChangeLabel">Comparando despesas</span></div>
+     <div class="previous-month-values">
+      <div><small>Mês atual</small><strong id="mobile-currentMonthExpense">R$ 0,00</strong></div>
+      <div><small>Mês anterior</small><strong id="mobile-previousMonthExpense">Aguardando dados</strong></div>
+     </div>
+     <p class="previous-month-note" id="mobile-previousMonthNote">A comparação usa os dados do mês anterior.</p>
+    </section>
+   </section>
+</div>
+
  </section>
 
  <section class="view" id="income">
@@ -403,7 +543,7 @@
     <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
    </div>
    <div class="app-update-current-line">
-    <span>Versão instalada</span><strong id="settingsAppVersion">v2.9.30</strong>
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.9.31</strong>
    </div>
    <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
     <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
@@ -468,7 +608,7 @@
  <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
  <section class="card settings-card preferences-card about-settings-card">
    <h3>Sobre o aplicativo</h3>
-   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.9.30</strong></div>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.9.31</strong></div>
    <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
   </section>
 </section>
@@ -643,9 +783,9 @@
    <p id="updateDescription">Uma nova versão está pronta para instalação.</p>
   </div>
   <div class="update-version-comparison">
-   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.9.30</strong></div>
+   <div><small>Versão atual</small><strong id="updateCurrentVersion">v2.9.31</strong></div>
    <span aria-hidden="true">→</span>
-   <div><small>Nova versão</small><strong id="updateNewVersion">v2.9.30</strong></div>
+   <div><small>Nova versão</small><strong id="updateNewVersion">v2.9.31</strong></div>
   </div>
   <div class="update-release-notes" id="updateReleaseNotes" aria-label="Novidades desta versão"></div>
   <button class="primary update-now-button" id="updateNowBtn" type="button">Atualizar agora</button>
@@ -749,7 +889,11 @@ function loadCachedMonth(monthKey){
  return true;
 }
 
-const $=id=>document.getElementById(id);
+const isMobileOverview=()=>window.matchMedia('(max-width:979px), (hover:none) and (pointer:coarse)').matches;
+const $=id=>{
+ const mobile=isMobileOverview()?document.getElementById('mobile-'+id):null;
+ return mobile||document.getElementById(id);
+};
 const pad=n=>String(n).padStart(2,'0');
 const now=new Date();
 const monthNow=`${now.getFullYear()}-${pad(now.getMonth()+1)}`;
@@ -1227,7 +1371,7 @@ function initAppUpdateChecker(){
 }
 
 function syncPrivacyHistoryTitles(){
- document.querySelectorAll('#monthlyHistory .history-month').forEach(el=>{
+ document.querySelectorAll('#monthlyHistory .history-month, #mobile-monthlyHistory .history-month').forEach(el=>{
   if(privacyMode){
    if(el.hasAttribute('title')){
     el.dataset.privacyTitle=el.getAttribute('title');
@@ -2575,7 +2719,7 @@ document.addEventListener('keydown',event=>{
  if(event.key==='Escape')closeQuickAddMenu();
 });
 
-$('goTransactions').addEventListener('click',()=>switchView('transactions'));
+document.querySelectorAll('#goTransactions, #mobile-goTransactions').forEach(button=>button.addEventListener('click',()=>switchView('transactions')));
 
 document.querySelectorAll('.new-entry').forEach(btn=>{
  btn.addEventListener('click',()=>openSheet(null));
@@ -3630,7 +3774,7 @@ $('deferredInstallments').addEventListener('change',()=>{
  $('fMonthLabel').textContent=$('deferredInstallments').checked?'Mês da primeira parcela':'Mês';
 });
 
-$('saveBudget').addEventListener('click',async()=>{
+async function saveOverviewBudget(){
  const target=Number($('budgetInput').value);
  if(!(target>0)){
   toast('Informe uma meta maior que zero.',true);
@@ -3646,7 +3790,8 @@ $('saveBudget').addEventListener('click',async()=>{
  monthlyBudgets[month]=target;
  renderAnalytics(entries.filter(x=>x.mes===month));
  toast('Meta sincronizada com todos os dispositivos');
-});
+}
+document.querySelectorAll('#saveBudget, #mobile-saveBudget').forEach(button=>button.addEventListener('click',saveOverviewBudget));
 
 
 $('connectBtn').addEventListener('click',()=>{
