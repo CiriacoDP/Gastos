@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.7",
+  "mobile": "2.15.8",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "O botão informa o resultado da verificação após concluir a transição."
+    "Corrige a formatação dos cartões e indicadores da Análise Financeira no Mobile."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "O resultado da verificação permanece visível no próprio botão."
+      "Restaura a apresentação visual dos rankings, barras e indicadores da Análise Financeira no Mobile."
     ]
   }
 }
