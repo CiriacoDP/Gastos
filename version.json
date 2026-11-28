@@ -1,12 +1,13 @@
 {
   "version": "2.15.6",
   "desktop": "2.15.0",
-  "mobile": "2.15.19",
+  "mobile": "2.15.20",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
     "Remove viewport-fit=cover para respeitar a área segura do iOS.",
-    "Adiciona faixa preta fixa no topo do mobile com altura de 18px."
+    "Adiciona faixa preta fixa no topo do mobile com altura de 18px.",
+    "Remove o deslocamento superior do conteúdo; a faixa preta fixa de 18px funciona apenas como máscara."
   ],
   "profileNotes": {
     "shared": [
@@ -16,7 +17,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Mantém uma faixa preta fixa de 18px no topo do mobile, independente da rolagem; cabeçalho permanece abaixo dela."
+      "Mantém uma máscara preta fixa de 18px no topo do mobile, independente da rolagem, sem deslocar o conteúdo da página."
     ]
   }
 }
