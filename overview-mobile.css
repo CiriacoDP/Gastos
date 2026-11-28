@@ -1,4 +1,4 @@
-/* overview-version: 2.15.7 */
+/* overview-version: 2.15.8 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -4924,4 +4924,67 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  #manualUpdateCheck .mobile-update-label{transition:none!important}
  #manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:none!important}
  .app-update-check-message{transition:none!important}
+}
+
+
+/* Análise financeira — componentes completos no perfil mobile. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+ .overview-mobile .analytics-heading{
+  display:flex;align-items:flex-end;justify-content:space-between;gap:12px;
+  margin:0 1px 13px;
+ }
+ .overview-mobile .analytics-heading>div{display:flex;flex-direction:column;gap:4px;min-width:0}
+ .overview-mobile .analytics-heading .eyebrow{font-size:10px;letter-spacing:1.7px;font-weight:800;color:#82b8ed}
+ .overview-mobile .analytics-heading h3{margin:0;font-size:19px;line-height:1.25;font-weight:780;letter-spacing:-.35px;color:var(--ink)}
+ .overview-mobile .analytics-heading-month{font-size:12px;color:var(--mut);padding-bottom:2px;text-align:right}
+ .overview-mobile .overview-analytics-grid{grid-template-columns:minmax(0,1fr);gap:12px}
+ .overview-mobile .analytics-card{
+  min-width:0;padding:17px 16px;border-radius:17px;
+  background:linear-gradient(145deg,rgba(21,32,46,.99),rgba(15,24,35,.99));
+  border:1px solid rgba(170,194,220,.12);
+  box-shadow:0 10px 24px rgba(0,0,0,.14);
+ }
+ .overview-mobile .analytics-title-row{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:13px}
+ .overview-mobile .analytics-title-row h3{margin:0;font-size:14px;line-height:1.3;font-weight:760;color:#eff5fb}
+ .overview-mobile .analytics-title-row>span{font-size:9px;font-weight:800;letter-spacing:.9px;color:#8096ad}
+ .overview-mobile .analytics-title-row>strong{font-size:13px;color:#69dcae;font-variant-numeric:tabular-nums}
+ .overview-mobile .ranking-list{display:grid;gap:12px}
+ .overview-mobile .ranking-item-top{display:grid;grid-template-columns:20px minmax(0,1fr) auto;align-items:center;gap:8px}
+ .overview-mobile .ranking-position{width:20px;height:20px;display:grid;place-items:center;border-radius:7px;background:rgba(126,174,225,.1);color:#9bbce0;font-size:10px;font-weight:800}
+ .overview-mobile .ranking-name{min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:#b6c5d5;font-size:12px;font-weight:600}
+ .overview-mobile .ranking-star{color:#f3bd5b}
+ .overview-mobile .ranking-item-top>strong{color:#f0f5fb;font-size:12px;font-weight:760;font-variant-numeric:tabular-nums;white-space:nowrap}
+ .overview-mobile .ranking-track{height:5px;margin:7px 0 0 28px;background:rgba(255,255,255,.06);border-radius:20px;overflow:hidden}
+ .overview-mobile .ranking-track span{display:block;height:100%;border-radius:20px;background:linear-gradient(90deg,#4e9df4,#74baff)}
+ .overview-mobile .progress-track,.overview-mobile .compare-track{height:9px;width:100%;overflow:hidden;border-radius:20px;background:rgba(255,255,255,.07)}
+ .overview-mobile .progress-track span,.overview-mobile .compare-track span{display:block;height:100%;width:0;border-radius:20px;transition:width .35s ease}
+ .overview-mobile .progress-track span{background:linear-gradient(90deg,#28b984,#65e1b2)}
+ .overview-mobile .progress-values{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:13px}
+ .overview-mobile .progress-values>div{display:flex;flex-direction:column;gap:5px;min-width:0}
+ .overview-mobile .progress-values small{font-size:11px;color:#8fa2b7}
+ .overview-mobile .progress-values strong{font-size:13px;color:#eff5fb;font-weight:760;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+ .overview-mobile .compare-item+.compare-item{margin-top:15px}
+ .overview-mobile .compare-label{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-bottom:7px}
+ .overview-mobile .compare-label span{font-size:12px;color:#a1b1c2}
+ .overview-mobile .compare-label strong{font-size:12px;color:#eff5fb;font-weight:760;font-variant-numeric:tabular-nums}
+ .overview-mobile .compare-income{background:linear-gradient(90deg,#35c995,#69e2b1)}
+ .overview-mobile .compare-expense{background:linear-gradient(90deg,#4b9cff,#83bbff)}
+ .overview-mobile .quick-indicators{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .overview-mobile .quick-indicators>div{display:flex;flex-direction:column;gap:7px;padding:12px;background:rgba(255,255,255,.035);border:1px solid rgba(165,190,220,.08);border-radius:12px;min-width:0}
+ .overview-mobile .quick-indicators span{font-size:11px;color:#91a4b8}
+ .overview-mobile .quick-indicators strong{font-size:22px;line-height:1;font-weight:820;color:#f0f5fb;font-variant-numeric:tabular-nums}
+ .overview-mobile .history-legend{display:flex;gap:15px;margin:-1px 0 12px}
+ .overview-mobile .history-legend span{display:flex;align-items:center;gap:6px;font-size:10px;color:#99aabd}
+ .overview-mobile .history-legend i{width:8px;height:8px;border-radius:50%;display:inline-block}
+ .overview-mobile .history-income-dot{background:#40d29d}
+ .overview-mobile .history-expense-dot{background:#65aaff}
+ .overview-mobile .monthly-history{height:135px;display:grid;grid-template-columns:repeat(6,minmax(0,1fr));align-items:stretch;gap:7px;padding:8px 6px 0;border-bottom:1px solid rgba(165,190,220,.1)}
+ .overview-mobile .history-month{display:grid;grid-template-rows:minmax(0,1fr) 17px;gap:6px;min-width:0}
+ .overview-mobile .history-bars{height:100%;display:flex;align-items:flex-end;justify-content:center;gap:3px;border-radius:7px 7px 0 0;background:rgba(255,255,255,.018)}
+ .overview-mobile .history-bar{width:11px;min-height:0;border-radius:5px 5px 1px 1px}
+ .overview-mobile .history-bar.income{background:linear-gradient(180deg,#66e1b4,#26ae80)}
+ .overview-mobile .history-bar.expense{background:linear-gradient(180deg,#8ac1ff,#438be0)}
+ .overview-mobile .history-month small{text-align:center;color:#8295a9;font-size:9px;text-transform:capitalize}
+ .overview-mobile .history-month.current small{color:#e4effc;font-weight:800}
+ .overview-mobile .analytics-empty{padding:12px 0;color:#8195aa;font-size:11px;text-align:center}
 }
