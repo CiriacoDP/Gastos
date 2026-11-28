@@ -4650,43 +4650,6 @@ body.settings-detail-open header.shell,body.settings-detail-open main.shell
  #overview>.view-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;min-height:54px!important;margin:26px 0 22px!important;padding-right:340px!important}
  #overview>.months{position:absolute!important;top:0!important;right:0!important;width:auto!important;min-width:280px!important;margin:26px 0 22px!important}
 }
-/* Em dispositivos touch,mantém o cabeçalho e o espaçamento próprios do celular. */
-@media(hover:none) and (pointer:coarse)
-{
- body{padding-left:0!important;padding-bottom:calc(86px + env(safe-area-inset-bottom))!important}
- header.shell{width:calc(100% - 24px)!important;margin:0 auto!important;padding-top:calc(12px + env(safe-area-inset-top))!important}
- header .bar{justify-content:space-between!important;min-height:40px!important}
- header .brand{display:flex!important;align-items:center!important;gap:10px!important}
- header .brand-mark{display:grid!important;width:38px!important;height:38px!important;flex:0 0 38px!important}
- header .brand>div:last-child{display:flex!important;flex-direction:column!important;align-items:flex-start!important;gap:5px!important}
- header .brand-name{display:block!important}
- header .brand .status{position:static!important;display:flex!important;flex-direction:column!important;align-items:stretch!important;gap:5px!important;margin:0!important;padding:0!important}
- header .status .status-pill{display:flex!important;align-items:center!important;gap:7px!important;min-height:29px!important;padding:4px 11px!important;border:1px solid var(--sep)!important;border-radius:999px!important;background:var(--fill)!important;white-space:nowrap!important}
- header .status .status-sync-pill svg{display:block!important;width:13px!important;height:13px!important;flex:0 0 13px!important;stroke:currentColor!important;stroke-width:1.7!important;stroke-linecap:round!important;stroke-linejoin:round!important}
- header .header-actions{position:static!important;display:flex!important;align-items:center!important;gap:10px!important}
- header .header-actions .icon{position:static!important;width:38px!important;height:38px!important}
- main.shell{width:calc(100% - 24px)!important;margin:0 auto!important}
-}
-/* Correção definitiva do espaço lateral desktop em telas móveis/touch. */
-@media(max-width:979px),(hover:none) and (pointer:coarse)
-{
- html,body{margin-left:0!important;padding-left:0!important}
- body{width:100%!important;max-width:100%!important;overflow-x:hidden!important}
- header.shell,main.shell{margin-left:auto!important;margin-right:auto!important}
-}
-/* Em aparelhos com tela física de celular,nunca reservar a coluna da sidebar desktop. */
-@media(max-device-width:767px)
-{
- html,body{width:100%!important;max-width:100%!important;margin-left:0!important;margin-right:0!important}
- body{padding-left:0!important;padding-right:0!important}
- header.shell,main.shell{width:calc(100% - 24px)!important;max-width:none!important;margin-left:auto!important;margin-right:auto!important}
-}
-/* Em telas móveis,neutraliza qualquer recuo desktop declarado por breakpoints largos. */
-@media(max-width:979px),(max-device-width:767px),(hover:none) and (pointer:coarse)
-{
- html,body{margin-left:0!important;padding-left:0!important}
- body{width:100%!important;max-width:100%!important}
-}
 html[data-screen-font="small"]
 {font-size:14px}
 html[data-screen-font="normal"]
@@ -4707,56 +4670,6 @@ html[data-theme="dark"].screen-high-contrast
 {--mut:#ddd!important;--sep:#aaa!important}
 html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-reduce-motion *::after
 {scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
-/* Tela de Despesas como painel translúcido sobre o Início — somente mobile. */
-@media(max-width:979px),(hover:none) and (pointer:coarse)
-{
- body.expenses-screen-open #overview{display:block!important}
- body.expenses-screen-open #transactions{
-  position:fixed!important;inset:0!important;z-index:110!important;
-  display:block!important;width:100%!important;height:100dvh!important;
-  max-height:100dvh!important;overflow-y:auto!important;overflow-x:hidden!important;
-  box-sizing:border-box!important;padding:calc(env(safe-area-inset-top,0px) + 14px) 0 calc(96px + env(safe-area-inset-bottom,0px))!important;
-  border:1px solid color-mix(in srgb,var(--sep) 78%,transparent)!important;
-  border-bottom:0!important;border-radius:22px 22px 0 0!important;
-  background:color-mix(in srgb,var(--bg) 82%,transparent)!important;
-  -webkit-backdrop-filter:blur(18px) saturate(145%)!important;
-  backdrop-filter:blur(18px) saturate(145%)!important;
-  box-shadow:0 -18px 55px rgba(0,0,0,.22)!important;
-  animation:expensesSheetRise .48s cubic-bezier(.2,.78,.22,1) both!important;
-  overscroll-behavior:contain!important;-webkit-overflow-scrolling:touch!important;
- }
-}
-@media(prefers-reduced-motion:reduce){body.expenses-screen-open #transactions
-{animation:none!important}
-}
-/* Formulário de lançamento como tela integral,no mesmo padrão das abas. */
-.overlay
-{
- position:fixed;inset:0;z-index:200;display:flex;align-items:stretch;
- justify-content:center;overflow-y:auto;overflow-x:hidden;
- background:var(--bg);transition:none;
-}
-.overlay.open
-{
- background:var(--bg);
- -webkit-backdrop-filter:none;backdrop-filter:none;
-}
-.overlay[hidden]
-{display:none!important}
-.sheet
-{
- width:min(100%,720px);max-height:none;min-height:100dvh;height:auto;
- overflow:visible;overscroll-behavior:auto;-webkit-overflow-scrolling:touch;
- margin:0 auto;background:var(--bg);border-radius:0;
- padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(24px + env(safe-area-inset-bottom,0px));
- transform:none;transition:none;box-shadow:none;
-}
-@media(min-width:640px){.overlay
-{align-items:stretch}
-.sheet
-{border-radius:0}
-}
-
 /* Regras mobile específicas da Visão geral e sua integração atual. */
 /* Estilos exclusivos da estrutura mobile da Visão geral.
    Os componentes reutilizam as variáveis globais de tema do aplicativo. */
