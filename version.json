@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.10",
+  "mobile": "2.15.11",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Corrige o alinhamento e a distribuição dos elementos do card de resumo em Lançamentos no Mobile."
+    "O botão retorna automaticamente ao estado inicial após exibir a confirmação de atualização."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Ajusta o card de despesas para seguir a composição responsiva do card de Entradas, inclusive nos temas claro e escuro."
+      "Após confirmar que já está atualizado, o botão exibe a confirmação por 2,4 segundos e retorna a Verificar atualizações."
     ]
   }
 }
