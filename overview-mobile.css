@@ -4809,14 +4809,8 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
   }
 }
 
-/* Integração mobile: respeita o perfil responsivo já utilizado pelo aplicativo. */
-#overview .overview-desktop{display:block}
-#overview .overview-mobile{display:none}
+/* Ajustes visuais do fragmento mobile carregado isoladamente. */
 @media(max-width:979px), (hover:none) and (pointer:coarse){
-  #overview>.view-heading,
-  #overview>.months{display:none!important}
-  #overview .overview-desktop{display:none!important}
-  #overview .overview-mobile{display:block}
   .overview-mobile #mobile-balance{
     display:block;font-size:clamp(40px,11vw,52px);font-weight:750;
     letter-spacing:-1.4px;margin:10px 0 4px;line-height:1.08;
@@ -4843,12 +4837,8 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
     align-items:center;justify-content:center;color:var(--ink);
     -webkit-text-fill-color:var(--ink);text-shadow:none;
   }
-  body.privacy-mode .overview-mobile #mobile-budgetFeedback::after{
-    justify-content:flex-start;
-  }
-  body.privacy-mode .overview-mobile #mobile-monthlyHistory .history-bars{
-    visibility:hidden!important;
-  }
+  body.privacy-mode .overview-mobile #mobile-budgetFeedback::after{justify-content:flex-start}
+  body.privacy-mode .overview-mobile #mobile-monthlyHistory .history-bars{visibility:hidden!important}
 }
 @media(max-width:390px){
   .overview-mobile #mobile-balance{font-size:clamp(38px,11vw,48px)}
