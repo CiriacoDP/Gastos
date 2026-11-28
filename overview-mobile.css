@@ -1359,7 +1359,7 @@ main.shell
 .balance-period-text strong
 {font-size:9px}
 }
-.income-month-summary
+.income-month-summary,.expense-month-summary
 {
  position:relative;display:flex;align-items:center;justify-content:space-between;gap:22px;
  overflow:hidden;margin:0 0 18px;padding:21px 25px;
@@ -1413,7 +1413,7 @@ main.shell
 {color:#5ce0ad}
 @media(min-width:980px){#income .view-heading
 {margin-bottom:18px}
-#income .income-month-summary
+#income .income-month-summary,#transactions .expense-month-summary
 {max-width:100%}
 #income .income-workspace
 {max-width:100%}
@@ -4987,4 +4987,27 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  .overview-mobile .history-month small{text-align:center;color:#8295a9;font-size:9px;text-transform:capitalize}
  .overview-mobile .history-month.current small{color:#e4effc;font-weight:800}
  .overview-mobile .analytics-empty{padding:12px 0;color:#8195aa;font-size:11px;text-align:center}
+}
+
+/* Card de resumo mensal de despesas — somente Mobile. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+ .overview-mobile #transactions .expense-month-summary{
+  position:relative;display:flex;flex-direction:column;gap:13px;
+  overflow:hidden;margin:0 0 18px;padding:19px 18px 16px;
+  border:1px solid rgba(92,165,245,.22);border-radius:19px;
+  background:radial-gradient(circle at 100% 0,rgba(67,145,225,.16),transparent 19rem),linear-gradient(115deg,#172b3c,#122431 58%,#10202c);
+  box-shadow:0 12px 30px rgba(0,0,0,.14),inset 0 1px rgba(255,255,255,.035);
+ }
+ .overview-mobile #transactions .expense-month-summary .income-summary-main small{color:#8fc4ff}
+ .overview-mobile #transactions .expense-month-summary .income-summary-main>strong{font-size:clamp(27px,7vw,34px);color:#eff6ff}
+ .overview-mobile #transactions .expense-month-summary .income-summary-main>span{font-size:12px;color:#9db3c8}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side{display:flex;gap:26px;margin:0;padding:0}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side>div{display:flex;flex-direction:column;gap:5px}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side span{font-size:11px;color:#9db3c8}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side strong{font-size:14px;font-weight:760;color:#edf5ff;font-variant-numeric:tabular-nums}
+ .overview-mobile #transactions .expense-month-summary .income-summary-side>div:first-child strong{color:#8fc4ff}
+ .overview-mobile #transactions .expense-month-summary .income-summary-symbol{right:13px;top:26px;width:44px;height:44px;color:#76b8fa;opacity:.3}
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:1px;padding-top:12px;border-top:1px solid rgba(150,190,230,.16)}
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast span{font-size:11px;line-height:1.4;color:#9db3c8;max-width:68%}
+ .overview-mobile #transactions .expense-month-summary .income-summary-forecast strong{font-size:18px;font-weight:800;color:#eff6ff;white-space:nowrap;font-variant-numeric:tabular-nums}
 }
