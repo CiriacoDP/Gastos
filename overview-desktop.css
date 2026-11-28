@@ -1,60 +1,55 @@
 /* Estilos exclusivos da estrutura desktop da Visão geral.
-   Os componentes reutilizam as variáveis globais de tema do aplicativo. */
-.overview-desktop{
+   Usa as variáveis globais de tema e mantém o layout isolado do mobile. */
+#overview .overview-desktop{
+  display:block;
   width:100%;
   min-width:0;
 }
-.overview-desktop .overview-grid{
+#overview .overview-mobile{display:none}
+#overview .overview-desktop .overview-grid{
   display:grid;
   grid-template-columns:minmax(0,1.45fr) minmax(300px,.9fr);
   align-items:start;
   gap:18px;
 }
-.overview-desktop .summary,
-.overview-desktop .quick-card{
+#overview .overview-desktop .summary,
+#overview .overview-desktop .quick-card{
   min-width:0;
   height:auto;
 }
-.overview-desktop .overview-analytics{
+#overview .overview-desktop .overview-analytics{
   display:block;
   margin-top:24px;
 }
-.overview-desktop .overview-analytics-grid{
+#overview .overview-desktop .overview-analytics-grid{
   display:grid;
   grid-template-columns:repeat(2,minmax(0,1fr));
   gap:14px;
 }
-.overview-desktop .overview-essentials{
+#overview .overview-desktop .overview-essentials{
   display:grid;
   grid-template-columns:repeat(3,minmax(0,1fr));
   gap:14px;
   margin-top:18px;
 }
-.overview-desktop .analytics-card{
-  min-width:0;
-}
-.overview-desktop .months{
-  margin-bottom:17px;
-}
+#overview .overview-desktop .analytics-card{min-width:0}
+#overview .overview-desktop .months{margin-bottom:17px}
 @media(min-width:1200px){
-  .overview-desktop .overview-analytics-grid{
+  #overview .overview-desktop .overview-analytics-grid{
     grid-template-columns:repeat(3,minmax(0,1fr));
   }
-  .overview-desktop .history-card{
-    grid-column:span 2;
-  }
+  #overview .overview-desktop .history-card{grid-column:span 2}
 }
 @media(min-width:1600px){
-  .overview-desktop .overview-grid{
+  #overview .overview-desktop .overview-grid{
     grid-template-columns:minmax(0,1.45fr) minmax(360px,.85fr);
   }
-  .overview-desktop .overview-analytics-grid{
+  #overview .overview-desktop .overview-analytics-grid{
     grid-template-columns:repeat(4,minmax(0,1fr));
   }
-  .overview-desktop .ranking-card{
-    grid-row:span 2;
-  }
-  .overview-desktop .history-card{
-    grid-column:span 2;
-  }
+  #overview .overview-desktop .ranking-card{grid-row:span 2}
+  #overview .overview-desktop .history-card{grid-column:span 2}
+}
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+  #overview .overview-desktop{display:none!important}
 }
