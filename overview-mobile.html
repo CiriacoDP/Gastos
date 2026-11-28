@@ -1,0 +1,137 @@
+<!-- Estrutura independente da Visão geral: mobile. Fragmento carregado dentro de #overview. -->
+<div class="overview-layout overview-mobile" data-overview="mobile">
+  <div class="view-heading">
+   <div>
+    <h2>Visão geral</h2>
+    <p>Acompanhe sua situação financeira</p>
+   </div>
+  </div>
+
+  <div class="months">
+   <button class="prev" aria-label="Mês anterior">‹</button>
+   <b class="monthLabel"></b>
+   <button class="next" aria-label="Próximo mês">›</button>
+  </div>
+
+  <div class="overview-grid">
+   <section class="card summary">
+    <div class="summary-topline">
+     <div><span class="eyebrow">SEU RESULTADO</span><small>Saldo previsto</small></div>
+     <div class="balance-period" aria-label="Mês selecionado">
+     <span class="calendar-mark" aria-hidden="true">
+      <svg viewBox="0 0 24 24" fill="none">
+       <rect x="3.5" y="5.5" width="17" height="15" rx="3" stroke="currentColor" stroke-width="1.5"/>
+       <path d="M7.5 3.5v4M16.5 3.5v4M3.8 9.5h16.4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+       <rect x="7" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor"/>
+       <rect x="11" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".65"/>
+       <rect x="15" y="12" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="7" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+       <rect x="11" y="16" width="2.2" height="2.2" rx=".6" fill="currentColor" opacity=".4"/>
+      </svg>
+     </span>
+     <span class="balance-period-text">
+      <small>MÊS SELECIONADO</small>
+      <strong class="monthLabel"></strong>
+     </span>
+    </div>
+    </div>
+    <strong id="mobile-balance">R$ 0,00</strong>
+    <div class="balance-caption" id="mobile-balanceCaption">Considerando todas as entradas e despesas</div>
+    <div class="trio">
+     <div><small>Entradas</small><strong class="pos" id="mobile-incomeTotal">R$ 0,00</strong></div>
+     <div><small>Despesas</small><strong id="mobile-expenseTotal">R$ 0,00</strong></div>
+     <div><small>A pagar</small><strong id="mobile-dueTotal">R$ 0,00</strong></div>
+    </div>
+   </section>
+
+   <section class="card quick-card">
+    <h3 class="section-title">Resumo do mês</h3>
+    <div class="quick-row"><span>Total de entradas</span><strong class="pos" id="mobile-quickIncome">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Total de despesas</span><strong id="mobile-quickExpense">R$ 0,00</strong></div>
+    <div class="quick-row"><span>Valores pendentes</span><strong id="mobile-quickDue">R$ 0,00</strong></div>
+    <p class="month-note">Os valores são referentes ao mês selecionado.</p>
+    <div class="category-breakdown" aria-label="Despesas por categoria">
+     <div class="category-breakdown-heading"><strong>Despesas por categoria</strong><span id="mobile-categoryBreakdownCount">0 categorias</span></div>
+     <div class="category-breakdown-content">
+      <div class="category-donut-wrap">
+       <div class="category-donut" id="mobile-categoryDonut" role="img" aria-label="Gráfico de despesas por categoria">
+        <div class="category-donut-center"><strong id="mobile-categoryDonutTotal">R$ 0,00</strong><span>Total gasto</span></div>
+       </div>
+      </div>
+      <div class="category-legend" id="mobile-categoryLegend"><div class="category-breakdown-empty">Nenhuma despesa neste mês.</div></div>
+     </div>
+    </div>
+    <button class="primary" id="mobile-goTransactions" type="button" style="width:100%;margin-top:14px">Ver lançamentos</button>
+   </section>
+  </div>
+
+  <section class="overview-analytics" aria-label="Análises financeiras">
+   <div class="analytics-heading">
+    <div><span class="eyebrow">ANÁLISE FINANCEIRA</span><h3>Desempenho do mês</h3></div>
+    <span class="analytics-heading-month" id="mobile-analyticsMonthLabel"></span>
+   </div>
+   <div class="overview-analytics-grid">
+    <section class="analytics-card ranking-card">
+     <div class="analytics-title-row"><h3>Maiores gastos</h3><span>TOP 5</span></div>
+     <div class="ranking-list" id="mobile-expenseRanking"></div>
+    </section>
+    <section class="analytics-card progress-card">
+     <div class="analytics-title-row"><h3>Despesas pagas</h3><strong id="mobile-paidPercent">0%</strong></div>
+     <div class="progress-track"><span id="mobile-paidProgress"></span></div>
+     <div class="progress-values">
+      <div><small>Pago</small><strong id="mobile-paidAmount">R$ 0,00</strong></div>
+      <div><small>Pendente</small><strong id="mobile-pendingAmount">R$ 0,00</strong></div>
+     </div>
+    </section>
+    <section class="analytics-card comparison-card">
+     <div class="analytics-title-row"><h3>Entradas x despesas</h3></div>
+     <div class="compare-item"><div class="compare-label"><span>Entradas</span><strong id="mobile-compareIncome">R$ 0,00</strong></div><div class="compare-track"><span class="compare-income" id="mobile-compareIncomeBar"></span></div></div>
+     <div class="compare-item"><div class="compare-label"><span>Despesas</span><strong id="mobile-compareExpense">R$ 0,00</strong></div><div class="compare-track"><span class="compare-expense" id="mobile-compareExpenseBar"></span></div></div>
+    </section>
+    <section class="analytics-card indicators-card">
+     <div class="analytics-title-row"><h3>Indicadores rápidos</h3></div>
+     <div class="quick-indicators">
+      <div><span>Despesas</span><strong id="mobile-indicatorExpenses">0</strong></div>
+      <div><span>Pendentes</span><strong id="mobile-indicatorPending">0</strong></div>
+      <div><span>Importantes</span><strong id="mobile-indicatorImportant">0</strong></div>
+      <div><span>Entradas</span><strong id="mobile-indicatorIncome">0</strong></div>
+     </div>
+    </section>
+    <section class="analytics-card history-card">
+     <div class="analytics-title-row"><h3>Evolução mensal</h3><span>6 MESES</span></div>
+     <div class="history-legend"><span><i class="history-income-dot"></i>Entradas</span><span><i class="history-expense-dot"></i>Despesas</span></div>
+     <div class="monthly-history" id="mobile-monthlyHistory"></div>
+    </section>
+    
+    
+    
+   </div>
+   
+  </section>
+
+ <section class="overview-essentials" aria-label="Planejamento financeiro">
+    <section class="analytics-card forecast-card">
+     <div class="analytics-title-row"><h3>Previsão do saldo</h3><span>ESTIMATIVA</span></div>
+     <div class="forecast-row"><span>Disponível após entradas recebidas e despesas pagas</span><strong id="mobile-forecastAvailable">R$ 0,00</strong></div>
+     <div class="forecast-row"><span>Contas ainda pendentes</span><strong id="mobile-forecastPending">R$ 0,00</strong></div>
+     <div class="forecast-final"><span>Saldo após quitar tudo</span><strong id="mobile-forecastFinal">R$ 0,00</strong></div>
+    </section>
+    <section class="analytics-card budget-card">
+     <div class="analytics-title-row"><h3>Meta de despesas</h3><span>MENSAL</span></div>
+     <label class="budget-input-label" for="mobile-budgetInput">Limite que deseja gastar</label>
+     <div class="budget-input-row"><span>R$</span><input id="mobile-budgetInput" type="number" min="0" step="0.01" inputmode="decimal" placeholder="Ex.: 5000"><button id="mobile-saveBudget" type="button">Salvar</button></div>
+     <div class="budget-progress-track"><span id="mobile-budgetProgress"></span></div>
+     <div class="budget-feedback" id="mobile-budgetFeedback">Defina uma meta para acompanhar seus gastos.</div>
+     <small class="budget-local-note">Meta sincronizada pela planilha em todos os dispositivos.</small>
+    </section>
+    <section class="analytics-card previous-month-card">
+     <div class="analytics-title-row"><h3>Comparação mensal</h3><span id="mobile-previousMonthName">MÊS ANTERIOR</span></div>
+     <div class="previous-month-main"><strong id="mobile-expenseChange">—</strong><span id="mobile-expenseChangeLabel">Comparando despesas</span></div>
+     <div class="previous-month-values">
+      <div><small>Mês atual</small><strong id="mobile-currentMonthExpense">R$ 0,00</strong></div>
+      <div><small>Mês anterior</small><strong id="mobile-previousMonthExpense">Aguardando dados</strong></div>
+     </div>
+     <p class="previous-month-note" id="mobile-previousMonthNote">A comparação usa os dados do mês anterior.</p>
+    </section>
+   </section>
+</div>
