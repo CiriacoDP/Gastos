@@ -1,8 +1,8 @@
 {
-  "version": "2.9.30",
+  "version": "2.9.31",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Faz o formulário de lançamento ocupar a tela inteira, em vez de abrir como painel inferior."
+    "Integra estrutura mobile independente na Visão geral, preservando a lógica e as regras responsivas existentes."
   ]
 }
