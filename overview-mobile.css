@@ -5365,7 +5365,7 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 .update-card.is-updating .update-now-button{
  background-image:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.18) 42%,transparent 64%);
  background-size:220% 100%;
- animation:update-card-shimmer 1.35s ease-in-out infinite;
+ animation:update-card-shimmer 1.35s ease-in-out infinite,update-card-label-in .28s cubic-bezier(.2,.8,.2,1) both;
 }
 .update-action-feedback{
  display:block;margin-top:9px;text-align:center;
@@ -5393,4 +5393,9 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  .update-card.is-updating .update-status-pill i,
  .update-card.is-updating .update-now-button{animation:none}
  .update-now-button,.update-now-button::after,.update-action-feedback{transition:none}
+}
+
+@keyframes update-card-label-in{
+ from{opacity:.55;transform:translateY(2px)}
+ to{opacity:1;transform:translateY(0)}
 }
