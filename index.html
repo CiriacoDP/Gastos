@@ -551,6 +551,10 @@
    document.head.appendChild(stylesheet);
   });
   window.__overviewProfile=profile;
+  const profileQuery=window.matchMedia('(max-width:979px), (hover:none) and (pointer:coarse)');
+  const reloadOnProfileChange=()=>{if(profileQuery.matches!==(profile==='mobile'))window.location.reload();};
+  if(profileQuery.addEventListener)profileQuery.addEventListener('change',reloadOnProfileChange);
+  else if(profileQuery.addListener)profileQuery.addListener(reloadOnProfileChange);
   const app=document.createElement('script');
   app.src='./app.js?v=2.10.0';
   app.onerror=()=>{overview.textContent='Não foi possível iniciar o aplicativo. Atualize a página.';};
