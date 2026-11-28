@@ -1,7 +1,7 @@
 {
   "version": "2.11.0",
   "desktop": "2.11.0",
-  "mobile": "2.11.0",
+  "mobile": "2.11.1",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
@@ -12,6 +12,8 @@
       "Prepara o atualizador para versões independentes da Visão geral desktop e mobile."
     ],
     "desktop": [],
-    "mobile": []
+    "mobile": [
+      "Aprimora o visual e a animação do botão de verificar atualizações no celular."
+    ]
   }
 }
