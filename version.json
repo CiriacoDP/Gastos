@@ -1,8 +1,8 @@
 {
-  "version": "2.9.31",
+  "version": "2.9.32",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Integra estrutura mobile independente na Visão geral, preservando a lógica e as regras responsivas existentes."
+    "Integra estilos desktop independentes na Visão geral, preservando a versão mobile."
   ]
 }
