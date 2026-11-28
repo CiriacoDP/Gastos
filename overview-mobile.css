@@ -1,4 +1,4 @@
-/* overview-version: 2.15.13 */
+/* overview-version: 2.15.14 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5225,4 +5225,10 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  #transactions .expense-month-summary .income-summary-side span{font-size:8px!important}
  #transactions .expense-month-summary .income-summary-side strong{font-size:10px!important}
  #transactions .expense-month-summary .income-summary-forecast span{max-width:64%!important}
+}
+
+
+/* Remove a iluminação que parte do topo da tela no mobile. */
+@media(max-width:979px), (hover:none) and (pointer:coarse){
+ body{background:var(--bg)!important;}
 }
