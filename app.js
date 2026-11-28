@@ -143,6 +143,7 @@ function setStatus(t,ok){
 }
 
 function message(id,t,err=false){
+ if(!$(id))return;
  $(id).textContent=t;
  $(id).className='msg'+(err?' error':'');
 }
