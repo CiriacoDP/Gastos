@@ -4900,6 +4900,8 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 #manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:mobileUpdateIconSpin 1s linear infinite}
 .mobile-update-label-stack{display:grid;align-items:center;justify-items:center}
 .mobile-update-label{grid-area:1/1;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
+.mobile-update-label-visible{opacity:1;transform:translateY(0);filter:blur(0)}
+.mobile-update-label-hidden-down{opacity:0;transform:translateY(9px);filter:blur(2px);pointer-events:none}
 #manualUpdateCheck.is-loading #manualUpdateLabelIdle,
 #manualUpdateCheck.is-done #manualUpdateLabelIdle{opacity:0;transform:translateY(-9px);filter:blur(2px)}
 #manualUpdateCheck.is-loading #manualUpdateLabelLoading,
