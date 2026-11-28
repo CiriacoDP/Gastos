@@ -1,10 +1,11 @@
 {
-  "version": "2.15.10",
+  "version": "2.15.11",
   "desktop": "2.15.0",
-  "mobile": "2.15.23",
+  "mobile": "2.15.24",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
+    "Aprimora o card de atualização mobile, mantendo a verificação e instalação reais.",
     "Remove viewport-fit=cover para respeitar a área segura do iOS.",
     "Adiciona faixa preta fixa no topo do mobile com altura de 18px.",
     "Remove o deslocamento superior do conteúdo; a faixa preta fixa de 18px funciona apenas como máscara.",
@@ -23,6 +24,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
+      "Aprimora o card de atualização mobile com animações de carregamento e feedback acessível.",
       "Mantém uma máscara preta fixa de 18px no topo do mobile, independente da rolagem, sem deslocar o conteúdo da página.",
       "A máscara preta fixa cobre a área segura superior do iPhone mais 18px, sem acompanhar a rolagem.",
       "Aplica máscara preta somente sobre a Dynamic Island, sem faixa horizontal nem deslocamento extra do cabeçalho.",
