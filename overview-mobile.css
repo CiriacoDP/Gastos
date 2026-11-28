@@ -1,4 +1,4 @@
-/* overview-version: 2.15.6 */
+/* overview-version: 2.15.7 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -1914,7 +1914,7 @@ header .brand>div:last-child
 .app-update-check-button svg
 {width:17px;height:17px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .app-update-check-message
-{margin-top:9px;min-height:17px;font-size:11px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+{display:none!important;margin-top:9px;min-height:17px;font-size:11px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
 .app-update-check-message.mobile-update-message-visible
 {opacity:1;transform:translateY(0)}
 .app-update-check-button:disabled
@@ -4886,6 +4886,7 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  opacity:0;transition:opacity .6s cubic-bezier(.22,1,.36,1);
 }
 .app-update-check-button.is-done::before{opacity:1}
+.app-update-check-button.is-outdated::before{opacity:0}
 .app-update-check-button{
  font-size:14px;font-weight:700;letter-spacing:-.01em;
 }
@@ -4908,13 +4909,13 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 .mobile-update-label-stack{position:relative;display:block;width:max-content;min-width:0;transition:width .45s cubic-bezier(.22,1,.36,1)}
 .mobile-update-label{position:absolute;top:0;left:0;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
 #manualUpdateLabelIdle{position:relative}
-#manualUpdateLabelLoading,#manualUpdateLabelDone{position:absolute}
+#manualUpdateLabelLoading,#manualUpdateLabelDone,#manualUpdateLabelOutdated{position:absolute}
 .mobile-update-label-visible{opacity:1;transform:translateY(0);filter:blur(0)}
 .mobile-update-label-hidden-down{opacity:0;transform:translateY(9px);filter:blur(2px);pointer-events:none}
 #manualUpdateCheck.is-loading #manualUpdateLabelIdle,
-#manualUpdateCheck.is-done #manualUpdateLabelIdle{position:absolute;opacity:0;transform:translateY(-9px);filter:blur(2px)}
+#manualUpdateCheck.is-done #manualUpdateLabelIdle,#manualUpdateCheck.is-outdated #manualUpdateLabelIdle{position:absolute;opacity:0;transform:translateY(-9px);filter:blur(2px)}
 #manualUpdateCheck.is-loading #manualUpdateLabelLoading,
-#manualUpdateCheck.is-done #manualUpdateLabelDone{position:relative;opacity:1;transform:translateY(0);filter:blur(0)}
+#manualUpdateCheck.is-done #manualUpdateLabelDone,#manualUpdateCheck.is-outdated #manualUpdateLabelOutdated{position:relative;opacity:1;transform:translateY(0);filter:blur(0)}
 #manualUpdateCheck:not(:disabled):hover{filter:brightness(1.07);transform:translateY(-1px);box-shadow:0 10px 26px -2px rgba(75,163,250,.38)}
 #manualUpdateCheck.is-done{box-shadow:0 4px 14px rgba(22,163,74,.22)}
 @keyframes mobileUpdateIconSpin{to{transform:rotate(360deg)}}
