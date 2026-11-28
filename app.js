@@ -418,10 +418,17 @@ function setMobileUpdateButtonState(state){
  if(APP_PROFILE!=='mobile')return;
  const button=document.getElementById('manualUpdateCheck');
  if(!button)return;
+ const labelStack=button.querySelector('.mobile-update-label-stack');
+ const currentWidth=labelStack?labelStack.getBoundingClientRect().width:0;
+ if(labelStack&&currentWidth)labelStack.style.width=currentWidth+'px';
  button.classList.toggle('is-loading',state==='loading');
  button.classList.toggle('is-done',state==='done');
  button.disabled=state==='loading';
  button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':'Verificar atualizações');
+ if(labelStack){
+  const activeLabel=document.getElementById(state==='loading'?'manualUpdateLabelLoading':state==='done'?'manualUpdateLabelDone':'manualUpdateLabelIdle');
+  if(activeLabel)labelStack.style.width=activeLabel.getBoundingClientRect().width+'px';
+ }
  if(state==='loading')startMobileUpdateSpin();
  if(state!=='loading')stopMobileUpdateSpin();
 }
