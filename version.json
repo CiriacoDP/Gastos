@@ -1,21 +1,21 @@
 {
-  "version": "2.14.0",
-  "desktop": "2.14.0",
-  "mobile": "2.14.0",
+  "version": "2.15.0",
+  "desktop": "2.15.0",
+  "mobile": "2.15.0",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Separa os menus de navegação nos acervos desktop e mobile, preservando os controles e comportamentos existentes."
+    "Move o formulário de lançamento para os acervos Mobile e Desktop e mantém o scanner de pagamentos exclusivamente no Mobile."
   ],
   "profileNotes": {
     "shared": [
-      "Carrega o cabeçalho e as telas a partir do HTML específico de cada perfil."
+      "Carrega cabeçalho, telas e formulário a partir do HTML específico de cada perfil."
     ],
     "desktop": [
-      "Usa cabeçalho desktop horizontal com marca, status e ações alinhados ao conteúdo."
+      "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Preserva o cabeçalho mobile existente."
+      "Mantém o formulário de lançamento e inclui o scanner de QR Pix e código de barras."
     ]
   }
 }

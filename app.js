@@ -2209,10 +2209,12 @@ function isMobileScannerDevice(){
  return /Android|iPhone|iPad|iPod|Mobile/i.test(ua)||
   (navigator.platform==='MacIntel'&&navigator.maxTouchPoints>1);
 }
-const paymentScannerAvailable=isMobileScannerDevice();
+const paymentScannerAvailable=!!$('paymentScanner')&&isMobileScannerDevice();
 if(!paymentScannerAvailable){
- $('scanPaymentBtn').hidden=true;
- $('paymentCodeHelp').textContent='No computador, digite ou cole o código Pix ou do boleto no campo abaixo. A leitura pela câmera está disponível em celulares.';
+ const scanButton=$('scanPaymentBtn');
+ if(scanButton)scanButton.hidden=true;
+ const paymentHelp=$('paymentCodeHelp');
+ if(paymentHelp)paymentHelp.textContent='Digite ou cole o código Pix ou do boleto no campo abaixo. A leitura pela câmera está disponível no aplicativo mobile.';
 }
 let paymentScannerTorchOn=false;
 function updatePaymentScannerTorchAvailability(){
@@ -2224,6 +2226,7 @@ function updatePaymentScannerTorchAvailability(){
  button.setAttribute('title','Ligar flash');
  button.setAttribute('aria-pressed','false');
 }
+if(paymentScannerAvailable){
 $('paymentScannerTorch').addEventListener('click',async()=>{
  const track=$('paymentScannerVideo').srcObject?.getVideoTracks?.()[0];
  if(!track||!track.applyConstraints){toast('O flash não está disponível nesta câmera.',true);return;}
@@ -2237,6 +2240,8 @@ $('paymentScannerTorch').addEventListener('click',async()=>{
   $('paymentScannerTorch').setAttribute('aria-pressed',String(nextState));
  }catch(error){toast('O flash não está disponível nesta câmera.',true);}
 });
+}
+
 let paymentScannerResultHandled=false;
 function showPixInsertDialog(details){
  const overlay=$('appDialogOverlay');
@@ -2386,9 +2391,11 @@ async function startPaymentScanner(){
   toast(message,true);
  }
 }
+if(paymentScannerAvailable){
 $('scanPaymentBtn').addEventListener('click',startPaymentScanner);
 $('closePaymentScanner').addEventListener('click',closePaymentScanner);
 $('paymentScanner').addEventListener('click',event=>{if(event.target===$('paymentScanner'))closePaymentScanner();});
+}
 $('copyPaymentBtn').addEventListener('click',async()=>{
  const value=$('paymentCodeInput').value.trim();if(!value){toast('Esta conta ainda não tem código de pagamento.',true);return;}
  try{
@@ -2399,7 +2406,7 @@ $('copyPaymentBtn').addEventListener('click',async()=>{
 });
 $('clearPaymentBtn').addEventListener('click',()=>{$('paymentCodeInput').value='';$('paymentCodeKind').textContent='';$('paymentCodeStatus').textContent='Código removido. Salve a conta para confirmar.';});
 $('paymentCodeInput').addEventListener('input',()=>{$('paymentCodeStatus').textContent=$('paymentCodeInput').value.trim()?'Código alterado. Salve a conta para guardar.':'Nenhum código salvo nesta conta.';});
-document.addEventListener('keydown',event=>{if(event.key==='Escape'&&!$('paymentScanner').hidden)closePaymentScanner();});
+document.addEventListener('keydown',event=>{const scanner=$('paymentScanner');if(event.key==='Escape'&&scanner&&!scanner.hidden)closePaymentScanner();});
 
 function parseAmountField(value){
  const raw=String(value??'').trim().replace(/\s/g,'');

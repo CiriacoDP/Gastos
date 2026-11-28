@@ -1,4 +1,4 @@
-<!-- overview-version: 2.14.0 -->
+<!-- overview-version: 2.15.0 -->
 
 <div data-navigation-profile>
 <div id="mobileNavigation" aria-label="Navegação mobile"><nav class="app-nav" aria-label="Navegação principal">
@@ -453,4 +453,116 @@
 
   </div>
  </section>
+</div>
+
+<!-- Formulário de lançamento específico do perfil. -->
+<div data-entry-profile>
+<div class="overlay" id="overlay" hidden>
+ <form class="sheet" id="entryForm" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="sheet-head">
+   <button type="button" class="link" id="cancelBtn">Cancelar</button>
+   <h2 id="sheetTitle">Novo lançamento</h2>
+   <button type="submit" class="link strong" id="saveBtn">Salvar</button>
+  </div>
+
+  <div class="seg" id="typeSeg" hidden>
+   <button type="button" data-type="Gasto" class="on">Despesas</button>
+   <button type="button" data-type="Entrada">Entradas</button>
+  </div>
+
+  <div class="amount-wrap">
+   <span>R$</span>
+   <input id="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" required aria-label="Valor">
+  </div>
+
+  <div class="group">
+   <label class="cell"><span>Descrição</span><input id="description" placeholder="Ex.: Salário, aluguel" maxlength="90" required></label>
+   <label class="cell"><span id="fMonthLabel">Mês</span><input id="fMonth" type="month" required></label>
+   <div class="cell" id="natureCell">
+    <span>Tipo</span>
+    <div class="seg" id="natureSeg">
+     <button type="button" data-nature="Fixa" class="on">Fixa</button>
+     <button type="button" data-nature="Variável">Variável</button>
+    </div>
+   </div>
+   <label class="cell" id="categoryCell"><span>Categoria</span>
+    <select id="expenseCategory" aria-label="Categoria da despesa">
+     <option value="">Sem categoria</option>
+     <option value="Streaming">Streaming</option>
+     <option value="Mercado">Mercado</option>
+     <option value="Alimentacao">Alimentação</option>
+     <option value="Combustivel">Combustível</option>
+     <option value="Moradia">Moradia</option>
+     <option value="Saude">Saúde</option>
+     <option value="Transporte">Transporte</option>
+     <option value="Educacao">Educação</option>
+     <option value="Lazer">Lazer</option>
+     <option value="Compras">Compras</option>
+     <option value="Servicos">Serviços</option>
+     <option value="Assinaturas">Assinaturas</option>
+     <option value="Impostos">Impostos</option>
+     <option value="Outros">Outros</option>
+    </select>
+   </label>
+  </div>
+
+  <div class="expense-options-row">
+   <label class="group important-toggle">
+    <input id="importantFlag" type="checkbox">
+    <span>★ Importante</span>
+   </label>
+   <label class="group important-toggle" id="paidOnCreateWrap">
+    <input id="paidOnCreate" type="checkbox">
+    <span>✓ Já paga</span>
+   </label>
+   <label class="group important-toggle recurrence-toggle">
+    <input id="repeatMonthly" type="checkbox">
+    <span>Repetir mensalmente</span>
+   </label>
+   <label class="group important-toggle recurrence-toggle installment-toggle" id="installmentOptionWrap">
+    <input id="deferredInstallments" type="checkbox">
+    <span>Parcelas progressivas</span>
+   </label>
+  </div>
+  <section class="recurrence-fields" id="recurrenceFields" hidden>
+   <label class="group cell recurrence-until" id="recurrenceUntilWrap">
+    <span>Repetir até</span>
+    <input id="repeatUntil" type="month">
+   </label>
+   <label class="group cell recurrence-until installment-count" id="installmentCountWrap" hidden>
+    <span>Quantidade de parcelas</span>
+    <input id="installmentCount" type="number" min="2" max="36" step="1" inputmode="numeric" value="2">
+   </label>
+   <p class="recurrence-note" id="monthlyRecurrenceNote" hidden>A repetição mensal tradicional continua criando as ocorrências futuras imediatamente, até o mês final escolhido.</p>
+   <p class="recurrence-note" id="installmentNote" hidden>O mês selecionado acima será a primeira parcela. O aplicativo cadastra somente essa parcela e pergunta antes de adicionar cada mês seguinte.</p>
+  </section>
+
+ <section class="group payment-panel" id="paymentPanel">
+  <h3>Código para pagamento</h3>
+  <p class="documents-help" id="paymentCodeHelp">Escaneie o QR Code Pix ou o código de barras do boleto. O código ficará salvo nesta conta para copiar quando for pagar.</p>
+  <div class="payment-actions">
+   <button type="button" id="scanPaymentBtn" class="primary">Abrir câmera e escanear</button>
+   <button type="button" id="copyPaymentBtn">Copiar código</button>
+   <button type="button" id="clearPaymentBtn">Limpar</button>
+  </div>
+  <textarea class="payment-code" id="paymentCodeInput" placeholder="O código escaneado aparecerá aqui. Você também pode colar o código manualmente." autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
+  <div class="payment-meta"><span id="paymentCodeStatus" role="status" aria-live="polite">Nenhum código salvo nesta conta.</span><span id="paymentCodeKind"></span></div>
+ </section>
+  <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
+  <p class="delete-pending-note" id="deletePendingNote" hidden></p>
+ </form>
+</div>
+</div>
+
+<!-- Scanner de pagamentos disponível somente no Mobile. -->
+<div data-payment-scanner-profile>
+<div class="payment-scanner" id="paymentScanner" hidden>
+ <section class="payment-scanner-card" role="dialog" aria-modal="true" aria-labelledby="paymentScannerTitle">
+  <div class="payment-scanner-head"><strong id="paymentScannerTitle">Escanear código de pagamento</strong><button type="button" id="closePaymentScanner">Fechar</button></div>
+  <video id="paymentScannerVideo" autoplay muted playsinline></video>
+  <div class="payment-scanner-controls"><button type="button" id="paymentScannerTorch" class="payment-scanner-flash" aria-label="Ligar flash" title="Ligar flash" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.8 5.5 13h5.7l-.5 8.2L18.5 10h-5.7l.4-7.2Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"/></svg><span>Flash</span></button></div>
+  <p class="payment-scanner-status" id="paymentScannerStatus">A câmera será usada somente para ler o código, sem enviar imagens.</p>
+  <p class="payment-scanner-hint">Aponte para o QR Code Pix ou para o código de barras do boleto e mantenha o documento dentro da imagem.</p>
+ </section>
+</div>
 </div>
