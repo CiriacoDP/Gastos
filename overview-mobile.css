@@ -1,4 +1,4 @@
-/* overview-version: 2.15.2 */
+/* overview-version: 2.15.3 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -1914,7 +1914,9 @@ header .brand>div:last-child
 .app-update-check-button svg
 {width:17px;height:17px;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
 .app-update-check-message
-{margin-top:9px;min-height:17px;font-size:11px;line-height:1.45}
+{margin-top:9px;min-height:17px;font-size:11px;line-height:1.45;opacity:0;transform:translateY(8px);transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)}
+.app-update-check-message.mobile-update-message-visible
+{opacity:1;transform:translateY(0)}
 .app-update-check-button:disabled
 {opacity:.65;cursor:wait}
 .update-check-spinner
@@ -4843,9 +4845,11 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 }
 .app-update-check-button:disabled{
  opacity:1!important;cursor:wait;
+}
+.app-update-check-button.is-loading{
  animation:mobileUpdateButtonPulse 1.6s ease-in-out infinite;
 }
-.app-update-check-button:disabled::after{
+.app-update-check-button.is-loading::after{
  opacity:1;animation:mobileUpdateButtonShimmer 1.35s cubic-bezier(.4,0,.2,1) infinite;
 }
 .app-update-check-button:not(:disabled):active{
@@ -4882,6 +4886,9 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  opacity:0;transition:opacity .6s cubic-bezier(.22,1,.36,1);
 }
 .app-update-check-button.is-done::before{opacity:1}
+.app-update-check-button{
+ font-size:14px;font-weight:700;letter-spacing:-.01em;
+}
 .mobile-update-btn-content{
  position:relative;z-index:1;display:flex;align-items:center;justify-content:center;gap:8px;
 }
@@ -4897,8 +4904,8 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 #manualUpdateCheck #manualUpdateCheckIcon{opacity:0;transform:scale(.5)}
 #manualUpdateCheck.is-done #manualUpdateSyncIcon{opacity:0;transform:scale(.5)}
 #manualUpdateCheck.is-done #manualUpdateCheckIcon{opacity:1;transform:scale(1)}
-#manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:mobileUpdateIconSpin 1s linear infinite}
-.mobile-update-label-stack{display:grid;align-items:center;justify-items:center}
+#manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:none}
+.mobile-update-label-stack{display:grid;align-items:center;justify-items:start}
 .mobile-update-label{grid-area:1/1;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
 .mobile-update-label-visible{opacity:1;transform:translateY(0);filter:blur(0)}
 .mobile-update-label-hidden-down{opacity:0;transform:translateY(9px);filter:blur(2px);pointer-events:none}
@@ -4913,4 +4920,5 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
  #manualUpdateCheck::before,#manualUpdateCheck .mobile-update-icon-wrapper svg,
  #manualUpdateCheck .mobile-update-label{transition:none!important}
  #manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:none!important}
+ .app-update-check-message{transition:none!important}
 }
