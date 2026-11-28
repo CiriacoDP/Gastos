@@ -1,4 +1,4 @@
-/* overview-version: 2.15.23 */
+/* overview-version: 2.15.24 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5327,4 +5327,70 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
   background:linear-gradient(to bottom,#000 0 36px,var(--bg) 36px 100%)!important;
  }
  header.shell{padding-top:12px!important}
+}
+
+
+/* Card de atualização mobile — ajustes escolhidos */
+.update-card{
+ width:min(92vw,560px);max-width:calc(100vw - 40px);
+ border-radius:23px;
+ box-shadow:0 18px 48px rgba(0,0,0,.34),0 3px 10px rgba(0,0,0,.18),inset 0 1px rgba(255,255,255,.06);
+}
+.update-card-top{
+ padding-bottom:14px;
+ border-bottom:1px solid rgba(147,184,222,.16);
+}
+.update-version-mark{order:-1}
+.update-status-pill{margin-left:auto}
+.update-card-copy{margin-top:18px}
+.update-card-copy h2{font-size:clamp(21px,5.2vw,26px)}
+.update-now-button{
+ position:relative;min-height:46px;overflow:hidden;isolation:isolate;
+ transition:transform .24s cubic-bezier(.2,.8,.2,1),opacity .24s ease,background-color .24s ease;
+}
+.update-now-button::after{
+ content:"";position:absolute;inset:0;pointer-events:none;opacity:0;
+ background:radial-gradient(circle at var(--ripple-x,50%) var(--ripple-y,50%),rgba(255,255,255,.34) 0,rgba(255,255,255,.12) 28%,transparent 62%);
+ transition:opacity .28s ease;
+}
+.update-now-button:active::after{opacity:1}
+.update-now-button:active{transform:scale(.985)}
+.update-card.is-updating .update-version-mark svg{
+ transform-origin:50% 50%;
+ animation:update-card-icon-spin 1s cubic-bezier(.35,.05,.2,1) infinite;
+}
+.update-card.is-updating .update-status-pill i{
+ animation:update-card-status-pulse 1.15s ease-in-out infinite;
+}
+.update-card.is-updating .update-now-button{
+ background-image:linear-gradient(105deg,transparent 20%,rgba(255,255,255,.18) 42%,transparent 64%);
+ background-size:220% 100%;
+ animation:update-card-shimmer 1.35s ease-in-out infinite;
+}
+.update-action-feedback{
+ display:block;margin-top:9px;text-align:center;
+ color:#82e1bd;font-size:11px;line-height:1.4;font-weight:650;
+ opacity:1;transition:opacity .24s ease,transform .24s ease;
+}
+.update-action-feedback[hidden]{display:none}
+@keyframes update-card-icon-spin{
+ from{transform:rotate(0)}
+ to{transform:rotate(360deg)}
+}
+@keyframes update-card-status-pulse{
+ 0%,100%{box-shadow:0 0 0 3px rgba(69,211,160,.08);opacity:.8}
+ 50%{box-shadow:0 0 0 7px rgba(69,211,160,.17);opacity:1}
+}
+@keyframes update-card-shimmer{
+ 0%{background-position:120% 0}
+ 100%{background-position:-120% 0}
+}
+@media(max-width:420px){
+ .update-card{width:min(92vw,560px);max-width:calc(100vw - 40px);border-radius:22px}
+}
+@media(prefers-reduced-motion:reduce){
+ .update-card.is-updating .update-version-mark svg,
+ .update-card.is-updating .update-status-pill i,
+ .update-card.is-updating .update-now-button{animation:none}
+ .update-now-button,.update-now-button::after,.update-action-feedback{transition:none}
 }
