@@ -1,21 +1,21 @@
 {
-  "version": "2.15.4",
+  "version": "2.15.5",
   "desktop": "2.15.0",
   "mobile": "2.15.14",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Remove os efeitos de iluminação no topo da tela mobile e desativa a transparência da barra de status."
+    "Define a barra de status do iOS como opaca para impedir a composição translúcida sobre o cabeçalho mobile."
   ],
   "profileNotes": {
     "shared": [
-      "Atualiza a versão compartilhada e mantém o desktop preservado."
+      "Define a barra de status do iOS como opaca, sem alterar o layout dos perfis."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Remove os gradientes de fundo que iluminavam a parte superior e usa barra de status sem transparência."
+      "Mantém o fundo superior sólido e evita que o cabeçalho apareça por trás da barra de status do iOS."
     ]
   }
 }
