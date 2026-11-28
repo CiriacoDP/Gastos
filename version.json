@@ -1,7 +1,7 @@
 {
   "version": "2.15.1",
   "desktop": "2.15.0",
-  "mobile": "2.15.1",
+  "mobile": "2.15.2",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Aplica o novo visual animado ao botão Verificar atualizações, exclusivo do mobile."
+      "Corrige a sobreposição dos textos do botão Verificar atualizações no perfil mobile."
     ]
   }
 }
