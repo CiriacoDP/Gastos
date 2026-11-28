@@ -388,7 +388,7 @@ function setMobileUpdateButtonState(state){
  if(!button)return;
  button.classList.toggle('is-loading',state==='loading');
  button.classList.toggle('is-done',state==='done');
- button.disabled=state==='loading';
+ button.disabled=state==='loading'||state==='done';
  button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':'Verificar atualizações');
 }
 
@@ -398,6 +398,7 @@ async function checkForAppUpdate(manual=false){
   return;
  }
  appUpdateCheckRunning=true;
+ const manualStartedAt=manual&&APP_PROFILE==='mobile'?Date.now():0;
  const manualButton=manual?$('manualUpdateCheck'):null;
  if(manualButton){
   if(APP_PROFILE==='mobile')setMobileUpdateButtonState('loading');
@@ -491,17 +492,23 @@ async function checkForAppUpdate(manual=false){
  }catch(error){
   if(manual)message('manualUpdateMessage','Não foi possível verificar agora. Confira a conexão e tente novamente.',true);
  }finally{
-  appUpdateCheckRunning=false;
-  if(manualButton){
-   if(APP_PROFILE==='mobile'){
-    const latest=($('manualUpdateMessage')?.textContent||'').startsWith('Você já está usando a versão mais recente');
-    setMobileUpdateButtonState(latest?'done':'idle');
-    if(latest)setTimeout(()=>setMobileUpdateButtonState('idle'),2600);
-   }else{
-    manualButton.disabled=false;
-    manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
+  if(manualButton&&APP_PROFILE==='mobile'){
+   // Mantém o estado de carregamento por pelo menos 2,2 s, como no botão de referência.
+   const loadingRemaining=Math.max(0,2200-(Date.now()-manualStartedAt));
+   if(loadingRemaining)await new Promise(resolve=>setTimeout(resolve,loadingRemaining));
+   const latest=($('manualUpdateMessage')?.textContent||'').startsWith('Você já está usando a versão mais recente');
+   if(latest){
+    setMobileUpdateButtonState('done');
+    await new Promise(resolve=>setTimeout(resolve,2400));
    }
+   setMobileUpdateButtonState('idle');
+   // Pequena pausa após a transição de retorno antes de aceitar outro toque.
+   await new Promise(resolve=>setTimeout(resolve,450));
+  }else if(manualButton){
+   manualButton.disabled=false;
+   manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
   }
+  appUpdateCheckRunning=false;
  }
 }
 function initAppUpdateChecker(){
