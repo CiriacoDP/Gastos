@@ -1,4 +1,135 @@
-<!-- overview-version: 2.11.2 -->
+<!-- overview-version: 2.11.3 -->
+<div data-settings-profile>
+<section class="view" id="connection">
+  <div class="view-heading">
+   <div><h2>Configurações</h2><p>Gerencie suas preferências e o funcionamento do aplicativo.</p></div>
+  </div>
+  <div class="settings-home" id="settingsHome">
+   <section class="settings-group">
+    <h3>Conexão</h3>
+    <button class="settings-nav-row" type="button" data-settings-open="connection"><span class="settings-nav-icon connection-icon"><svg viewBox="0 0 24 24" fill="none"><rect x="3" y="4" width="18" height="16" rx="2"/><path d="M3 9h18M8 13h3m-3 3h8"/></svg></span><span class="settings-nav-copy"><strong>Planilha Google</strong><small>Conexão e sincronização</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+    <button class="settings-nav-row" type="button" data-settings-open="updates"><span class="settings-nav-icon update-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg></span><span class="settings-nav-copy"><strong>Atualizações</strong><small>Versão instalada e novas versões</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+   </section>
+   <section class="settings-group">
+    <h3>Personalização</h3>
+    <button class="settings-nav-row" type="button" data-settings-open="personalization"><span class="settings-nav-icon appearance-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg></span><span class="settings-nav-copy"><strong>Aparência e notificações</strong><small>Temas, privacidade e alertas</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+   </section>
+   <section class="settings-group">
+    <h3>Dados e segurança</h3>
+    <button class="settings-nav-row" type="button" data-settings-open="data"><span class="settings-nav-icon data-icon"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg></span><span class="settings-nav-copy"><strong>Exportação e cópias</strong><small>CSV, backup e relatório PDF</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+   </section>
+   <section class="settings-group">
+    <h3>Aplicativo</h3>
+    <button class="settings-nav-row" type="button" data-settings-open="about"><span class="settings-nav-icon about-icon"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></span><span class="settings-nav-copy"><strong>Sobre</strong><small>Versão e informações do aplicativo</small></span><svg class="settings-nav-chevron" viewBox="0 0 24 24"><path d="m9 18 6-6-6-6"/></svg></button>
+   </section>
+  </div>
+    
+ </section>
+
+ <section class="view settings-detail-screen" id="settingsUpdates">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg></div><h1>Atualizações</h1><p>Mantenha o aplicativo atualizado e confira quando uma nova versão estiver disponível.</p></section>
+ <section class="card settings-card app-update-settings-card">
+   <div class="app-update-settings-heading">
+    <div class="app-update-settings-icon" aria-hidden="true">
+     <svg viewBox="0 0 24 24" fill="none"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+    </div>
+    <div><h3>Atualizações do aplicativo</h3><p>Confira se existe uma versão mais recente do Meu dinheiro.</p></div>
+   </div>
+   <div class="app-update-current-line">
+    <span>Versão instalada</span><strong id="settingsAppVersion">v2.9.31</strong>
+   </div>
+   <button class="primary app-update-check-button" id="manualUpdateCheck" type="button">
+    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg>
+    Verificar atualizações
+   </button>
+   <div class="msg app-update-check-message" id="manualUpdateMessage" role="status" aria-live="polite">Toque para procurar uma versão nova.</div>
+  </section>
+</section>
+
+<section class="view settings-detail-screen" id="settingsPersonalization">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button></div>
+ <section class="card settings-card preferences-card personalization-card">
+   <div class="preferences-heading">
+    <div class="preferences-heading-icon" aria-hidden="true">
+     <svg viewBox="0 0 24 24" fill="none"><path d="M12 3v2m0 14v2M3 12h2m14 0h2M5.64 5.64l1.42 1.42m9.88 9.88 1.42 1.42m0-12.72-1.42 1.42m-9.88 9.88-1.42 1.42"/><circle cx="12" cy="12" r="4"/></svg>
+    </div>
+    <div><h3>Personalização</h3><p>Escolha como o Meu Dinheiro deve se comportar neste aparelho.</p></div>
+   </div>
+   <div class="preference-field"><label for="screenFontSetting">Tamanho da fonte</label><select id="screenFontSetting" class="settings-select"><option value="small">Pequeno</option><option value="normal">Padrão</option><option value="large">Grande</option><option value="xlarge">Muito grande</option></select></div>
+   <div class="preference-field"><label for="screenDensitySetting">Tamanho da interface</label><select id="screenDensitySetting" class="settings-select"><option value="compact">Compacto</option><option value="normal">Padrão</option><option value="large">Ampliado</option></select></div>
+   <div class="preferences-switches">
+    <label class="settings-switch-row" for="screenBoldSetting"><span><strong>Texto em negrito</strong><small>Destaca os textos.</small></span><input id="screenBoldSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="screenContrastSetting"><span><strong>Alto contraste</strong><small>Reforça a leitura de textos e fundos.</small></span><input id="screenContrastSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="screenMotionSetting"><span><strong>Reduzir animações</strong><small>Reduz movimentos e transições.</small></span><input id="screenMotionSetting" type="checkbox"></label>
+   </div>
+   <div class="preference-field">
+    <label for="appearanceSetting">Aparência</label>
+    <select id="appearanceSetting" class="settings-select">
+     <option value="system">Automática · seguir o aparelho</option>
+     <option value="light">Sempre clara</option>
+     <option value="dark">Sempre escura</option>
+    </select>
+   </div>
+   <div class="preferences-switches">
+    <label class="settings-switch-row" for="privacyStartupSetting"><span><strong>Ocultar valores ao abrir</strong><small>Protege seus saldos quando iniciar o aplicativo.</small></span><input id="privacyStartupSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="pendingReminderSetting"><span><strong>Resumo de pendências ao abrir</strong><small>Mostra um aviso com despesas e entradas ainda não concluídas no mês.</small></span><input id="pendingReminderSetting" type="checkbox"></label>
+    <label class="settings-switch-row" for="updateNotificationsSetting"><span><strong>Notificações de atualização</strong><small>Avisa quando uma nova versão for detectada com o aplicativo em segundo plano.</small></span><input id="updateNotificationsSetting" type="checkbox"></label>
+   </div>
+  </section>
+</section>
+
+<section class="view settings-detail-screen" id="settingsData">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><path d="M12 3v12m-4-4 4 4 4-4"/><path d="M4 17v3h16v-3"/></svg></div><h1>Exportação e cópias</h1><p>Exporte seus lançamentos e gere relatórios para guardar uma cópia dos seus dados.</p></section>
+ <section class="card settings-card preferences-card">
+   <h3>Dados e segurança</h3>
+   <p>Exporte uma cópia dos lançamentos que estão carregados no aplicativo neste aparelho.</p>
+   <div class="settings-action-row">
+    <button class="secondary settings-action" id="exportCsvBtn" type="button">Exportar planilha CSV</button>
+    <button class="secondary settings-action" id="backupJsonBtn" type="button">Salvar cópia JSON</button>
+   </div>
+   <div class="pdf-export-panel">
+    <div class="pdf-export-copy"><strong>Relatório mensal em PDF</strong><small>Versão organizada do mês selecionado, pronta para imprimir ou salvar em PDF.</small></div>
+    <button class="primary pdf-export-button" id="exportMonthPdfBtn" type="button"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 3h7l5 5v13H7a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2Z"/><path d="M14 3v5h5M8 15h8M8 18h5"/></svg>Gerar PDF do mês</button>
+   </div>
+   <small class="settings-footnote">O PDF inclui somente os lançamentos do mês selecionado.</small>
+  </section>
+</section>
+
+<section class="view settings-detail-screen" id="settingsAbout">
+ <div class="settings-detail-header settings-detail-screen-header"><button type="button" class="settings-back-button" data-settings-back><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button></div>
+ <section class="settings-detail-intro"><div class="settings-detail-icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9"/><path d="M12 11v5m0-8h.01"/></svg></div><h1>Sobre</h1><p>Consulte a versão instalada e informações do aplicativo.</p></section>
+ <section class="card settings-card preferences-card about-settings-card">
+   <h3>Sobre o aplicativo</h3>
+   <div class="app-update-current-line"><span>Meu Dinheiro</span><strong id="aboutAppVersion">v2.9.31</strong></div>
+   <div class="app-update-current-line"><span>Armazenamento das preferências</span><strong>Neste aparelho</strong></div>
+  </section>
+</section>
+
+  <section class="view settings-connection-screen" id="settingsConnection">
+  <div class="settings-detail-header settings-connection-header">
+   <button type="button" class="settings-back-button" id="settingsConnectionBack"><svg viewBox="0 0 24 24" fill="none"><path d="m15 18-6-6 6-6"/></svg> Configurações</button>
+  </div>
+  <section class="settings-connection-intro">
+   <div class="settings-connection-icon" aria-hidden="true">
+    <svg viewBox="0 0 24 24" fill="none"><rect x="3.5" y="3" width="17" height="18" rx="2.5"/><path d="M3.5 8h17M9 8v13M15 8v13M3.5 13.5h17"/></svg>
+   </div>
+   <h1>Planilha Google</h1>
+   <p>Conecte sua planilha para sincronizar seus lançamentos e manter seus dados financeiros atualizados.</p>
+  </section>
+  <section class="card settings-card settings-connection-form">
+   <h3>Conexão</h3>
+   <label for="apiUrl">URL do Google Apps Script</label>
+   <div class="connection-input-row">
+    <input id="apiUrl" type="url" placeholder="https://script.google.com/macros/s/.../exec" autocomplete="url">
+    <button class="primary" id="connectBtn" type="button">Salvar</button>
+   </div>
+   <div class="msg" id="connectionMessage"></div>
+   <div class="last-sync-line"><span>Última sincronização</span><strong id="lastSyncText">Ainda não sincronizado</strong></div>
+  </section>
+ </section>
+</div>
 <!-- Estrutura independente da Visão geral: desktop. Fragmento carregado dentro de #overview. -->
 <div class="overview-layout overview-desktop" data-overview="desktop">
   <div class="view-heading">
