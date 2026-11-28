@@ -5321,6 +5321,6 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 
 /* Reserva a área segura superior para manter todo o aplicativo abaixo do notch. */
 @media(max-width:979px),(hover:none) and (pointer:coarse){
- html,body{padding-top:env(safe-area-inset-top,0px)!important}
+ html{padding-top:0!important} body{padding-top:env(safe-area-inset-top,0px)!important}
  header.shell{padding-top:12px!important}
 }
