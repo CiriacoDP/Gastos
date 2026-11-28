@@ -382,6 +382,38 @@ async function showBackgroundUpdateNotification(release){
  }catch(error){return false}
 }
 
+let mobileUpdateSpinAnimation=null;
+function startMobileUpdateSpin(){
+ if(APP_PROFILE!=='mobile')return;
+ const icon=document.getElementById('manualUpdateSyncIcon');
+ const button=document.getElementById('manualUpdateCheck');
+ if(!icon||!button||typeof icon.animate!=='function')return;
+ if(mobileUpdateSpinAnimation)mobileUpdateSpinAnimation.cancel();
+ mobileUpdateSpinAnimation=icon.animate(
+  [{transform:'rotate(0deg)'},{transform:'rotate(360deg)'}],
+  {duration:1100,easing:'cubic-bezier(0.45,0,0.55,1)'}
+ );
+ mobileUpdateSpinAnimation.onfinish=()=>{
+  if(!button.classList.contains('is-loading'))return;
+  mobileUpdateSpinAnimation=icon.animate(
+   [{transform:'rotate(0deg)'},{transform:'rotate(360deg)'}],
+   {duration:850,iterations:Infinity,easing:'linear'}
+  );
+ };
+}
+function stopMobileUpdateSpin(){
+ if(!mobileUpdateSpinAnimation)return;
+ const icon=document.getElementById('manualUpdateSyncIcon');
+ if(!icon)return;
+ const computed=getComputedStyle(icon).transform;
+ mobileUpdateSpinAnimation.cancel();
+ mobileUpdateSpinAnimation=icon.animate(
+  [{transform:computed==='none'?'rotate(0deg)':computed},{transform:'rotate(360deg)'}],
+  {duration:650,easing:'cubic-bezier(0.22,1,0.36,1)'}
+ );
+ mobileUpdateSpinAnimation.onfinish=()=>{icon.style.transform='';};
+ mobileUpdateSpinAnimation=null;
+}
 function setMobileUpdateButtonState(state){
  if(APP_PROFILE!=='mobile')return;
  const button=document.getElementById('manualUpdateCheck');
@@ -390,6 +422,13 @@ function setMobileUpdateButtonState(state){
  button.classList.toggle('is-done',state==='done');
  button.disabled=state==='loading'||state==='done';
  button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':'Verificar atualizações');
+ if(state==='loading')startMobileUpdateSpin();
+ if(state!=='loading')stopMobileUpdateSpin();
+}
+function setMobileUpdateFeedback(visible){
+ if(APP_PROFILE!=='mobile')return;
+ const feedback=document.getElementById('manualUpdateMessage');
+ if(feedback)feedback.classList.toggle('mobile-update-message-visible',!!visible);
 }
 
 async function checkForAppUpdate(manual=false){
@@ -401,8 +440,10 @@ async function checkForAppUpdate(manual=false){
  const manualStartedAt=manual&&APP_PROFILE==='mobile'?Date.now():0;
  const manualButton=manual?$('manualUpdateCheck'):null;
  if(manualButton){
-  if(APP_PROFILE==='mobile')setMobileUpdateButtonState('loading');
-  else{
+  if(APP_PROFILE==='mobile'){
+   setMobileUpdateFeedback(false);
+   setMobileUpdateButtonState('loading');
+  }else{
    manualButton.disabled=true;
    manualButton.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';
   }
@@ -499,7 +540,11 @@ async function checkForAppUpdate(manual=false){
    const latest=($('manualUpdateMessage')?.textContent||'').startsWith('Você já está usando a versão mais recente');
    if(latest){
     setMobileUpdateButtonState('done');
+    setMobileUpdateFeedback(true);
     await new Promise(resolve=>setTimeout(resolve,2400));
+    setMobileUpdateFeedback(false);
+   }else if(($('manualUpdateMessage')?.textContent||'').trim()){
+    setMobileUpdateFeedback(true);
    }
    setMobileUpdateButtonState('idle');
    // Pequena pausa após a transição de retorno antes de aceitar outro toque.
