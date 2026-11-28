@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.14.0">
+<meta name="app-version" content="2.15.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -36,111 +36,6 @@
  <div id="settingsProfile"></div>
 </main>
 
-<div class="overlay" id="overlay" hidden>
- <form class="sheet" id="entryForm" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
-  <div class="sheet-head">
-   <button type="button" class="link" id="cancelBtn">Cancelar</button>
-   <h2 id="sheetTitle">Novo lançamento</h2>
-   <button type="submit" class="link strong" id="saveBtn">Salvar</button>
-  </div>
-
-  <div class="seg" id="typeSeg" hidden>
-   <button type="button" data-type="Gasto" class="on">Despesas</button>
-   <button type="button" data-type="Entrada">Entradas</button>
-  </div>
-
-  <div class="amount-wrap">
-   <span>R$</span>
-   <input id="amount" type="text" inputmode="decimal" autocomplete="off" placeholder="0,00" required aria-label="Valor">
-  </div>
-
-  <div class="group">
-   <label class="cell"><span>Descrição</span><input id="description" placeholder="Ex.: Salário, aluguel" maxlength="90" required></label>
-   <label class="cell"><span id="fMonthLabel">Mês</span><input id="fMonth" type="month" required></label>
-   <div class="cell" id="natureCell">
-    <span>Tipo</span>
-    <div class="seg" id="natureSeg">
-     <button type="button" data-nature="Fixa" class="on">Fixa</button>
-     <button type="button" data-nature="Variável">Variável</button>
-    </div>
-   </div>
-   <label class="cell" id="categoryCell"><span>Categoria</span>
-    <select id="expenseCategory" aria-label="Categoria da despesa">
-     <option value="">Sem categoria</option>
-     <option value="Streaming">Streaming</option>
-     <option value="Mercado">Mercado</option>
-     <option value="Alimentacao">Alimentação</option>
-     <option value="Combustivel">Combustível</option>
-     <option value="Moradia">Moradia</option>
-     <option value="Saude">Saúde</option>
-     <option value="Transporte">Transporte</option>
-     <option value="Educacao">Educação</option>
-     <option value="Lazer">Lazer</option>
-     <option value="Compras">Compras</option>
-     <option value="Servicos">Serviços</option>
-     <option value="Assinaturas">Assinaturas</option>
-     <option value="Impostos">Impostos</option>
-     <option value="Outros">Outros</option>
-    </select>
-   </label>
-  </div>
-
-  <div class="expense-options-row">
-   <label class="group important-toggle">
-    <input id="importantFlag" type="checkbox">
-    <span>★ Importante</span>
-   </label>
-   <label class="group important-toggle" id="paidOnCreateWrap">
-    <input id="paidOnCreate" type="checkbox">
-    <span>✓ Já paga</span>
-   </label>
-   <label class="group important-toggle recurrence-toggle">
-    <input id="repeatMonthly" type="checkbox">
-    <span>Repetir mensalmente</span>
-   </label>
-   <label class="group important-toggle recurrence-toggle installment-toggle" id="installmentOptionWrap">
-    <input id="deferredInstallments" type="checkbox">
-    <span>Parcelas progressivas</span>
-   </label>
-  </div>
-  <section class="recurrence-fields" id="recurrenceFields" hidden>
-   <label class="group cell recurrence-until" id="recurrenceUntilWrap">
-    <span>Repetir até</span>
-    <input id="repeatUntil" type="month">
-   </label>
-   <label class="group cell recurrence-until installment-count" id="installmentCountWrap" hidden>
-    <span>Quantidade de parcelas</span>
-    <input id="installmentCount" type="number" min="2" max="36" step="1" inputmode="numeric" value="2">
-   </label>
-   <p class="recurrence-note" id="monthlyRecurrenceNote" hidden>A repetição mensal tradicional continua criando as ocorrências futuras imediatamente, até o mês final escolhido.</p>
-   <p class="recurrence-note" id="installmentNote" hidden>O mês selecionado acima será a primeira parcela. O aplicativo cadastra somente essa parcela e pergunta antes de adicionar cada mês seguinte.</p>
-  </section>
-
- <section class="group payment-panel" id="paymentPanel">
-  <h3>Código para pagamento</h3>
-  <p class="documents-help" id="paymentCodeHelp">Escaneie o QR Code Pix ou o código de barras do boleto. O código ficará salvo nesta conta para copiar quando for pagar.</p>
-  <div class="payment-actions">
-   <button type="button" id="scanPaymentBtn" class="primary">Abrir câmera e escanear</button>
-   <button type="button" id="copyPaymentBtn">Copiar código</button>
-   <button type="button" id="clearPaymentBtn">Limpar</button>
-  </div>
-  <textarea class="payment-code" id="paymentCodeInput" placeholder="O código escaneado aparecerá aqui. Você também pode colar o código manualmente." autocomplete="off" autocapitalize="off" spellcheck="false"></textarea>
-  <div class="payment-meta"><span id="paymentCodeStatus" role="status" aria-live="polite">Nenhum código salvo nesta conta.</span><span id="paymentCodeKind"></span></div>
- </section>
-  <button type="button" class="danger" id="deleteBtn" hidden>Excluir lançamento</button>
-  <p class="delete-pending-note" id="deletePendingNote" hidden></p>
- </form>
-</div>
-
-<div class="payment-scanner" id="paymentScanner" hidden>
- <section class="payment-scanner-card" role="dialog" aria-modal="true" aria-labelledby="paymentScannerTitle">
-  <div class="payment-scanner-head"><strong id="paymentScannerTitle">Escanear código de pagamento</strong><button type="button" id="closePaymentScanner">Fechar</button></div>
-  <video id="paymentScannerVideo" autoplay muted playsinline></video>
-  <div class="payment-scanner-controls"><button type="button" id="paymentScannerTorch" class="payment-scanner-flash" aria-label="Ligar flash" title="Ligar flash" aria-pressed="false"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M13.2 2.8 5.5 13h5.7l-.5 8.2L18.5 10h-5.7l.4-7.2Z" fill="currentColor" stroke="currentColor" stroke-linejoin="round" stroke-width="1.2"/></svg><span>Flash</span></button></div>
-  <p class="payment-scanner-status" id="paymentScannerStatus">A câmera será usada somente para ler o código, sem enviar imagens.</p>
-  <p class="payment-scanner-hint">Aponte para o QR Code Pix ou para o código de barras do boleto e mantenha o documento dentro da imagem.</p>
- </section>
-</div>
 <div class="update-installing-overlay" id="updateInstallingOverlay" hidden>
  <div class="update-installing-card">
   <span class="update-wallet-animation" aria-hidden="true">
@@ -236,8 +131,10 @@
   const incomeFragment=profileTemplate.content.querySelector('[data-income-profile]');
   const settingsFragment=profileTemplate.content.querySelector('[data-settings-profile]');
   const transactionsFragment=profileTemplate.content.querySelector('[data-transactions-profile]');
+  const entryFragment=profileTemplate.content.querySelector('[data-entry-profile]');
+  const paymentScannerFragment=profileTemplate.content.querySelector('[data-payment-scanner-profile]');
   const settingsTarget=document.getElementById('settingsProfile');
-  if(!navigationFragment||!headerFragment||!headerTarget||!overviewFragment||!incomeFragment||!settingsFragment||!transactionsFragment||!settingsTarget||!transactions)throw new Error('A estrutura das telas do perfil está incompleta.');
+  if(!navigationFragment||!headerFragment||!headerTarget||!overviewFragment||!incomeFragment||!settingsFragment||!transactionsFragment||!entryFragment||(profile==='mobile'&&!paymentScannerFragment)||(profile==='desktop'&&paymentScannerFragment)||!settingsTarget||!transactions)throw new Error('A estrutura das telas do perfil está incompleta.');
   document.body.insertAdjacentHTML('afterbegin',navigationFragment.innerHTML);
   headerTarget.innerHTML=headerFragment.innerHTML;
   overview.innerHTML=overviewFragment.outerHTML;
@@ -246,6 +143,8 @@
   if(!profileTransactions)throw new Error('A tela de Despesas do perfil está incompleta.');
   transactions.innerHTML=profileTransactions.innerHTML;
   settingsTarget.replaceWith(...settingsFragment.childNodes);
+  document.body.insertAdjacentHTML('beforeend',entryFragment.innerHTML);
+  if(paymentScannerFragment)document.body.insertAdjacentHTML('beforeend',paymentScannerFragment.innerHTML);
   const stylesheet=document.createElement('link');
   stylesheet.rel='stylesheet';
   stylesheet.href='./overview-'+profile+'.css?v='+encodeURIComponent(profileVersion);
