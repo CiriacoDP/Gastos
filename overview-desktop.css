@@ -4647,8 +4647,8 @@ body.settings-detail-open header.shell,body.settings-detail-open main.shell
  header .header-actions{position:static!important;display:flex!important;align-items:center!important;gap:9px!important;margin:0!important}
  header .header-actions .icon{position:static!important;width:38px!important;height:38px!important}
  #overview{position:relative!important}
- #overview>.view-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;min-height:54px!important;margin:26px 0 22px!important;padding-right:340px!important}
- #overview>.months{position:absolute!important;top:0!important;right:0!important;width:auto!important;min-width:280px!important;margin:26px 0 22px!important}
+ .overview-desktop>.view-heading{display:flex!important;align-items:flex-end!important;justify-content:space-between!important;min-height:54px!important;margin:26px 0 22px!important;padding-right:340px!important}
+ .overview-desktop>.months{position:absolute!important;top:0!important;right:0!important;width:auto!important;min-width:280px!important;margin:26px 0 22px!important}
 }
 html[data-screen-font="small"]
 {font-size:14px}
@@ -4671,6 +4671,3 @@ html[data-theme="dark"].screen-high-contrast
 html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-reduce-motion *::after
 {scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 
-/* Desktop: evita renderizar junto a estrutura mobile da Visão geral. */
-#overview .overview-desktop{display:block}
-#overview .overview-mobile{display:none!important}

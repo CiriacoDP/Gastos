@@ -1,6 +1,6 @@
 'use strict';
 
-const APP_VERSION = '2.9.38';
+const APP_VERSION = '2.10.0';
 const CACHE_PREFIX = 'meu-dinheiro-pwa-';
 const CACHE_NAME = CACHE_PREFIX + APP_VERSION;
 
@@ -183,6 +183,18 @@ self.addEventListener('notificationclick', event => {
     }
     if (self.clients.openWindow) await self.clients.openWindow(targetUrl);
   })());
+});
+
+self.addEventListener('fetch', event => {
+  const request = event.request;
+  if (request.method !== 'GET') return;
+  const url = new URL(request.url);
+  if (url.origin !== self.location.origin) return;
+  const path = url.pathname;
+  if (path.endsWith('/overview-desktop.html') || path.endsWith('/overview-mobile.html')) {
+    event.respondWith(networkFirstResource(request, url.origin + path));
+    return;
+  }
 });
 
 self.addEventListener('fetch', event => {
