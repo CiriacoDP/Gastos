@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.9",
+  "mobile": "2.15.10",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Adiciona um card de resumo mensal à tela Lançamentos no Mobile."
+    "Corrige o alinhamento e a distribuição dos elementos do card de resumo em Lançamentos no Mobile."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Inclui no Lançamentos um resumo de despesas pagas, pendentes e saldo disponível, mantendo os dados sincronizados com o mês selecionado."
+      "Ajusta o card de despesas para seguir a composição responsiva do card de Entradas, inclusive nos temas claro e escuro."
     ]
   }
 }
