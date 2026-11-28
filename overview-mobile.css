@@ -4905,7 +4905,7 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 #manualUpdateCheck.is-done #manualUpdateSyncIcon{opacity:0;transform:scale(.5)}
 #manualUpdateCheck.is-done #manualUpdateCheckIcon{opacity:1;transform:scale(1)}
 #manualUpdateCheck.is-loading #manualUpdateSyncIcon{animation:none}
-.mobile-update-label-stack{display:grid;align-items:center;justify-items:start}
+.mobile-update-label-stack{display:grid;align-items:center;justify-items:center}
 .mobile-update-label{grid-area:1/1;white-space:nowrap;transition:opacity .45s cubic-bezier(.22,1,.36,1),transform .45s cubic-bezier(.22,1,.36,1),filter .45s cubic-bezier(.22,1,.36,1)}
 .mobile-update-label-visible{opacity:1;transform:translateY(0);filter:blur(0)}
 .mobile-update-label-hidden-down{opacity:0;transform:translateY(9px);filter:blur(2px);pointer-events:none}
