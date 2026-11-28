@@ -1,8 +1,8 @@
 {
-  "version": "2.9.37",
+  "version": "2.9.38",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Separa a identidade visual global dos estilos mobile de todas as telas."
+    "Corrige a exibição simultânea das estruturas desktop e mobile na Visão geral."
   ]
 }
