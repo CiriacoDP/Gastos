@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.11",
+  "mobile": "2.15.12",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "O botão retorna automaticamente ao estado inicial após exibir a confirmação de atualização."
+    "Padroniza o card de despesas e aplica paleta avermelhada no resumo de Lançamentos."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Após confirmar que já está atualizado, o botão exibe a confirmação por 2,4 segundos e retorna a Verificar atualizações."
+      "Card de despesas alinhado ao resumo de Entradas, com paleta avermelhada adequada à tela de dívidas e ajustes para temas claro e escuro."
     ]
   }
 }
