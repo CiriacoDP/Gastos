@@ -325,6 +325,10 @@ async function checkForAppUpdate(manual=false){
   }else if(profileOrder>0){
    const [html,css]=await Promise.all([fetch('./overview-'+APP_PROFILE+'.html?check='+stamp,{cache:'no-store'}),fetch('./overview-'+APP_PROFILE+'.css?check='+stamp,{cache:'no-store'})]);
    if(!html.ok||!css.ok){if(manual)message('manualUpdateMessage','A atualização do perfil ainda está sendo publicada. Tente novamente em instantes.',true);return}
+   const [htmlText,cssText]=await Promise.all([html.text(),css.text()]);
+   const htmlVersion=htmlText.match(/<!--\\s*overview-version:\\s*([0-9.]+)\\s*-->/i)?.[1]||'';
+   const cssVersion=cssText.match(/\/\*\\s*overview-version:\\s*([0-9.]+)\\s*\*\//i)?.[1]||'';
+   if(htmlVersion!==profileVersion||cssVersion!==profileVersion){if(manual)message('manualUpdateMessage','Os arquivos do perfil ainda estão sendo publicados. Tente novamente em instantes.',true);return}
    update={type:'profile',version:profileVersion,notes:release.notes?.[APP_PROFILE]||[],key:APP_PROFILE+':'+profileVersion};
   }
   if(!update){if(manual){if(sharedOrder<0||profileOrder<0)message('manualUpdateMessage','A publicação das versões ainda está sendo sincronizada. Tente novamente em instantes.',true);else message('manualUpdateMessage','Você já está usando a versão mais recente neste dispositivo.')}return}
