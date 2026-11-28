@@ -1,4 +1,4 @@
-/* overview-version: 2.15.14 */
+/* overview-version: 2.15.15 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -5231,4 +5231,30 @@ html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-redu
 /* Remove a iluminação que parte do topo da tela no mobile. */
 @media(max-width:979px), (hover:none) and (pointer:coarse){
  body{background:var(--bg)!important;}
+}
+
+
+/* Alinhamento fino do cabeçalho mobile: marca, status e ações no mesmo eixo. */
+@media(max-width:979px){
+ header .bar{align-items:center!important}
+ header .brand{align-items:center!important;align-self:center!important}
+ header .brand-mark{
+  flex:0 0 50px!important;width:50px!important;height:50px!important;
+  align-self:center!important;margin:0!important;
+ }
+ header .brand>div:last-child{align-self:center!important}
+ header .brand .status{
+  align-self:center!important;margin:0!important;gap:4px!important;
+ }
+ header .brand .status>.status-pill{
+  min-height:19px!important;padding:0 8px!important;
+ }
+ header .header-actions{
+  align-self:center!important;align-items:center!important;
+  margin:0!important;transform:none!important;
+ }
+ header .header-actions .icon{
+  align-self:center!important;flex:0 0 40px!important;
+  width:40px!important;height:40px!important;
+ }
 }
