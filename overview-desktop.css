@@ -1,4 +1,4 @@
-/* overview-version: 2.12.0 */
+/* overview-version: 2.13.0 */
 /* Estilos mobile de todas as telas: layout, dimensões, componentes e temas por tela. */
 body
 {
@@ -4669,3 +4669,57 @@ html[data-theme="dark"].screen-high-contrast
 html.screen-reduce-motion *,html.screen-reduce-motion *::before,html.screen-reduce-motion *::after
 {scroll-behavior:auto!important;animation-duration:.01ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important}
 
+
+
+/* Cabeçalho exclusivo do perfil desktop. */
+@media (min-width:980px) and (hover:hover) and (pointer:fine){
+ header.shell#appHeader{
+  display:block;width:min(calc(100% - 48px),1160px);margin:0 auto;
+  padding:22px 0 18px;border-bottom:1px solid var(--sep);
+ }
+ #appHeader .desktop-header-content{
+  display:flex;align-items:center;justify-content:space-between;gap:28px;min-height:64px;
+ }
+ #appHeader .desktop-header-brand{
+  display:flex;align-items:center;gap:14px;min-width:0;
+ }
+ #appHeader .desktop-header-brand .brand-mark{
+  width:48px;height:48px;flex:0 0 48px;overflow:hidden;border-radius:14px;
+  background:transparent;
+ }
+ #appHeader .desktop-header-brand .brand-mark img{display:block;width:100%;height:100%;object-fit:cover}
+ #appHeader .desktop-header-copy{display:flex;flex-direction:column;gap:7px;min-width:0}
+ #appHeader .desktop-header-brand .brand-name{
+  display:flex;align-items:center;gap:9px;font-size:20px;font-weight:750;letter-spacing:-.45px;
+ }
+ #appHeader .desktop-header-brand .mobile-app-version{
+  display:inline-flex;margin:0;padding:3px 7px;border:1px solid var(--sep);
+  border-radius:6px;background:var(--fill);color:var(--mut);font-size:10px;font-weight:650;
+ }
+ #appHeader .desktop-header-status{
+  display:flex;flex-direction:row;align-items:center;flex-wrap:wrap;gap:8px;
+  width:auto;margin:0;padding:0;border:0;background:transparent;box-shadow:none;
+  color:var(--mut);font-size:11px;
+ }
+ #appHeader .desktop-header-status .status-pill{
+  display:inline-flex;align-items:center;gap:7px;min-height:25px;padding:4px 10px;
+  border:1px solid var(--sep);border-radius:8px;background:var(--fill);white-space:nowrap;
+ }
+ #appHeader .desktop-header-status .status-pill i{
+  width:7px;height:7px;flex:0 0 7px;border-radius:50%;background:var(--green);
+ }
+ #appHeader .desktop-header-status.off .status-pill:first-child i{background:var(--red)}
+ #appHeader .desktop-header-status .status-sync-pill svg{
+  display:block;width:13px;height:13px;flex:0 0 13px;stroke:currentColor;
+  stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;
+ }
+ #appHeader .desktop-header-actions{
+  position:static;display:flex;align-items:center;gap:10px;flex:0 0 auto;margin:0;
+ }
+ #appHeader .desktop-header-actions .icon{
+  display:grid;place-items:center;width:42px;height:42px;flex:0 0 42px;
+  border:1px solid var(--sep);border-radius:12px;background:var(--card);
+  color:var(--blue);box-shadow:var(--shadow);font-size:20px;
+ }
+ #appHeader .desktop-header-actions .privacy-toggle svg{width:19px;height:19px}
+}

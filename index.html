@@ -5,7 +5,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#090e14">
-<meta name="app-version" content="2.12.0">
+<meta name="app-version" content="2.13.0">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Meu dinheiro">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
@@ -73,29 +73,7 @@
 
  <div class="quick-add-scrim" id="quickAddScrim" aria-hidden="true"></div>
 
-<header class="shell">
- <div class="bar">
-  <div class="brand">
-   <div class="brand-mark"><img src="./assets/app-icon.png" alt="Logo Meu dinheiro"></div>
-   <div>
-    <div class="brand-name">Meu dinheiro <small class="mobile-app-version" id="headerAppVersion">v2.9.31</small></div>
-    <div class="status off" id="status">
-     <div class="status-pill"><i></i><span id="statusText">Desconectado</span><span class="status-separator">·</span><span id="headerDateText"></span></div>
-     <div class="status-pill status-sync-pill"><svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg><span id="headerLastSyncText">Última atualização · Ainda não sincronizado</span></div>
-    </div>
-   </div>
-  </div>
-  <div class="header-actions">
-   <button class="icon privacy-toggle" id="privacyToggle" type="button" aria-label="Ocultar saldos e gastos" title="Ocultar saldos e gastos" aria-pressed="false">
-    <svg class="eye-open" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M2.5 12s3.4-6 9.5-6 9.5 6 9.5 6-3.4 6-9.5 6-9.5-6-9.5-6Z" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.8" stroke="currentColor" stroke-width="1.7"/></svg>
-    <svg class="eye-closed" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M3 3l18 18M10.6 10.7a2 2 0 0 0 2.7 2.7M9.9 5.3A10.8 10.8 0 0 1 12 5c6.1 0 9.5 7 9.5 7a15.5 15.5 0 0 1-3.1 3.8M6.2 6.3C3.8 7.9 2.5 12 2.5 12s3.4 7 9.5 7a9.8 9.8 0 0 0 3-.5" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/></svg>
-   </button>
-   <button class="icon" id="refreshBtn" aria-label="Atualizar">↻</button>
-  </div>
- </div>
-
-
-</header>
+<header class="shell" id="appHeader"></header>
 
 <main class="shell">
  <div class="banner" id="banner" hidden></div>
@@ -285,6 +263,7 @@
  const mobile=window.matchMedia('(max-width:979px), (hover:none) and (pointer:coarse)').matches;
  const profile=mobile?'mobile':'desktop';
  const overview=document.getElementById('overview');
+ const headerTarget=document.getElementById('appHeader');
  const income=document.getElementById('income');
  const transactions=document.getElementById('transactions');
  try{
@@ -304,12 +283,14 @@
   if(overviewVersion!==profileVersion)throw new Error('A versão do HTML do perfil ainda está sendo publicada.');
   const profileTemplate=document.createElement('template');
   profileTemplate.innerHTML=profileHtml;
+  const headerFragment=profileTemplate.content.querySelector('[data-header-profile]');
   const overviewFragment=profileTemplate.content.querySelector('[data-overview]');
   const incomeFragment=profileTemplate.content.querySelector('[data-income-profile]');
   const settingsFragment=profileTemplate.content.querySelector('[data-settings-profile]');
   const transactionsFragment=profileTemplate.content.querySelector('[data-transactions-profile]');
   const settingsTarget=document.getElementById('settingsProfile');
-  if(!overviewFragment||!incomeFragment||!settingsFragment||!transactionsFragment||!settingsTarget||!transactions)throw new Error('A estrutura das telas do perfil está incompleta.');
+  if(!headerFragment||!headerTarget||!overviewFragment||!incomeFragment||!settingsFragment||!transactionsFragment||!settingsTarget||!transactions)throw new Error('A estrutura das telas do perfil está incompleta.');
+  headerTarget.innerHTML=headerFragment.innerHTML;
   overview.innerHTML=overviewFragment.outerHTML;
   income.innerHTML=incomeFragment.innerHTML;
   const profileTransactions=transactionsFragment.querySelector('#transactions');
