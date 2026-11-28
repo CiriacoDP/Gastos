@@ -1,11 +1,11 @@
 {
   "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.3",
+  "mobile": "2.15.4",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Reproduz fielmente o botão de verificação mobile enviado, incluindo alinhamento, giro progressivo e feedback temporário."
+    "Centraliza o texto do estado Atualizado no botão de verificação mobile."
   ],
   "profileNotes": {
     "shared": [
@@ -15,7 +15,7 @@
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Reproduz o alinhamento, os ícones, as transições e os tempos do botão de referência."
+      "Centraliza corretamente o texto Atualizado no botão de verificação."
     ]
   }
 }
