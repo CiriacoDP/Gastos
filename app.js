@@ -219,6 +219,8 @@ document.addEventListener('keydown',event=>{
 function api(){return ($('apiUrl').value||stored||'').trim()}
 
 const APP_VERSION=document.querySelector('meta[name="app-version"]')?.content||'0.0.0';
+const APP_PROFILE=window.__overviewProfile==='mobile'?'mobile':'desktop';
+const APP_PROFILE_VERSION=window.__overviewVersion||APP_VERSION;
 const APP_UPDATE_INTERVAL=20000;
 let appUpdateCheckRunning=false;
 let appUpdateDismissedVersion='';
@@ -228,234 +230,114 @@ function compareAppVersions(a,b){
  const left=String(a||'').split('.').map(x=>Number.parseInt(x,10));
  const right=String(b||'').split('.').map(x=>Number.parseInt(x,10));
  if(left.length!==3||right.length!==3||[...left,...right].some(x=>!Number.isInteger(x)||x<0))return 0;
- for(let i=0;i<3;i++){
-  if(left[i]>right[i])return 1;
-  if(left[i]<right[i])return -1;
- }
+ for(let i=0;i<3;i++){if(left[i]>right[i])return 1;if(left[i]<right[i])return -1}
  return 0;
 }
-
 function validAppVersion(value){
  const parts=String(value||'').split('.');
- return parts.length===3&&parts.every(part=>
-  part.length>0&&[...part].every(character=>character>='0'&&character<='9')
- );
+ return parts.length===3&&parts.every(part=>part.length>0&&[...part].every(c=>c>='0'&&c<='9'));
 }
-
 function showAppUpdate(release){
  if(!release||!$('overlay').hidden)return;
- if(appUpdatePending&&compareAppVersions(release.version,appUpdatePending.version)<=0)return;
+ if(appUpdatePending&&appUpdatePending.key===release.key)return;
  appUpdatePending=release;
- $('updateCurrentVersion').textContent='v'+APP_VERSION;
+ $('updateCurrentVersion').textContent='v'+(release.type==='profile'?APP_PROFILE_VERSION:APP_VERSION);
  $('updateNewVersion').textContent='v'+release.version;
- const notes=$('updateReleaseNotes');
- notes.replaceChildren();
- const rawNotes=Array.isArray(release.notes)?release.notes:String(release.notes||'Melhorias e ajustes no aplicativo.');
- const noteItems=(Array.isArray(rawNotes)?rawNotes:rawNotes.split(/\r?\n|;/)).map(item=>String(item).trim()).filter(Boolean);
- if(noteItems.length>1){
-  const list=document.createElement('ul');
-  list.className='update-release-list';
-  noteItems.forEach(item=>{const li=document.createElement('li');li.textContent=item;list.appendChild(li)});
-  notes.appendChild(list);
- }else{
-  notes.textContent=noteItems[0]||'Melhorias e ajustes no aplicativo.';
- }
- $('updateOverlay').hidden=false;
- $('updateNowBtn').disabled=false;
- $('updateLaterBtn').disabled=false;
- $('updateNowBtn').textContent='Atualizar agora';
+ const notes=$('updateReleaseNotes');notes.replaceChildren();
+ const raw=release.notes||'Melhorias e ajustes no aplicativo.';
+ const items=(Array.isArray(raw)?raw:String(raw).split(/\r?\n|;/)).map(x=>String(x).trim()).filter(Boolean);
+ if(items.length>1){const list=document.createElement('ul');list.className='update-release-list';items.forEach(item=>{const li=document.createElement('li');li.textContent=item;list.appendChild(li)});notes.appendChild(list)}
+ else notes.textContent=items[0]||'Melhorias e ajustes no aplicativo.';
+ $('updateOverlay').hidden=false;$('updateNowBtn').disabled=false;$('updateLaterBtn').disabled=false;$('updateNowBtn').textContent='Atualizar agora';
 }
+function closeAppUpdate(){$('updateOverlay').hidden=true}
 
-function closeAppUpdate(){
- $('updateOverlay').hidden=true;
-}
-
-
-let appServiceWorkerPromise=null;
-let appServiceWorkerRegistration=null;
-let appServiceWorkerLastCheck=0;
-let appServiceWorkerRefreshTimer=null;
-
+let appServiceWorkerPromise=null,appServiceWorkerRegistration=null,appServiceWorkerLastCheck=0,appServiceWorkerRefreshTimer=null;
 function initAppServiceWorker(){
- if(!('serviceWorker' in navigator))return Promise.resolve(null);
+ if(!('serviceWorker'in navigator))return Promise.resolve(null);
  if(location.protocol!=='https:'&&location.hostname!=='localhost')return Promise.resolve(null);
  if(appServiceWorkerPromise)return appServiceWorkerPromise;
-
  appServiceWorkerPromise=(async()=>{
   try{
-   const appRoot=new URL('./',document.baseURI);
-   const workerUrl=new URL('sw.js',appRoot);
-   const registration=await navigator.serviceWorker.register(workerUrl.href,{
-    scope:appRoot.pathname,
-    updateViaCache:'none'
-   });
+   const root=new URL('./',document.baseURI),workerUrl=new URL('sw.js',root);
+   const registration=await navigator.serviceWorker.register(workerUrl.href,{scope:root.pathname,updateViaCache:'none'});
    appServiceWorkerRegistration=registration;
-
-   const requestWorkerUpdate=()=>{
-    if(document.hidden||!appServiceWorkerRegistration)return;
-    const now=Date.now();
-    if(now-appServiceWorkerLastCheck<60000)return;
-    appServiceWorkerLastCheck=now;
-    appServiceWorkerRegistration.update().catch(()=>{});
-   };
-
+   const requestWorkerUpdate=()=>{if(document.hidden||!appServiceWorkerRegistration)return;const now=Date.now();if(now-appServiceWorkerLastCheck<60000)return;appServiceWorkerLastCheck=now;appServiceWorkerRegistration.update().catch(()=>{})};
    requestWorkerUpdate();
-   if(!appServiceWorkerRefreshTimer){
-    appServiceWorkerRefreshTimer=setInterval(requestWorkerUpdate,2*60*1000);
-    document.addEventListener('visibilitychange',requestWorkerUpdate);
-    window.addEventListener('focus',requestWorkerUpdate);
-   }
+   if(!appServiceWorkerRefreshTimer){appServiceWorkerRefreshTimer=setInterval(requestWorkerUpdate,2*60*1000);document.addEventListener('visibilitychange',requestWorkerUpdate);window.addEventListener('focus',requestWorkerUpdate)}
    return registration;
-  }catch(error){
-   // O app continua utilizável mesmo se o navegador bloquear Service Workers.
-   appServiceWorkerPromise=null;
-   return null;
-  }
+  }catch(error){appServiceWorkerPromise=null;return null}
  })();
  return appServiceWorkerPromise;
 }
-
-
 function askServiceWorkerVersion(worker){
  return new Promise(resolve=>{
-  if(!worker||typeof MessageChannel==='undefined'){resolve('');return;}
-  let finished=false;
-  const channel=new MessageChannel();
-  const finish=value=>{
-   if(finished)return;
-   finished=true;
-   clearTimeout(timer);
-   try{channel.port1.close();channel.port2.close()}catch(error){}
-   resolve(value||'');
-  };
-  const timer=setTimeout(()=>finish(''),700);
-  channel.port1.onmessage=event=>finish(event.data?.version||'');
-  try{worker.postMessage('GET_APP_VERSION',[channel.port2])}
-  catch(error){finish('')}
+  if(!worker||typeof MessageChannel==='undefined'){resolve('');return}
+  let finished=false;const channel=new MessageChannel();
+  const finish=value=>{if(finished)return;finished=true;clearTimeout(timer);try{channel.port1.close();channel.port2.close()}catch(error){}resolve(value||'')};
+  const timer=setTimeout(()=>finish(''),700);channel.port1.onmessage=event=>finish(event.data?.version||'');
+  try{worker.postMessage('GET_APP_VERSION',[channel.port2])}catch(error){finish('')}
  });
 }
-
 async function waitForAppServiceWorker(registration,maxWait=20000){
  if(!registration||!navigator.serviceWorker)return false;
- // Força uma consulta ao script do Service Worker antes de aguardar a ativação.
  try{await registration.update()}catch(error){}
  const deadline=Date.now()+maxWait;
- while(Date.now()<deadline){
-  const active=registration.active||navigator.serviceWorker.controller;
-  const activeVersion=await askServiceWorkerVersion(active);
-  if(activeVersion===APP_VERSION)return true;
-  await new Promise(resolve=>setTimeout(resolve,300));
- }
+ while(Date.now()<deadline){const active=registration.active||navigator.serviceWorker.controller;const v=await askServiceWorkerVersion(active);if(v===APP_VERSION)return true;await new Promise(resolve=>setTimeout(resolve,300))}
  return false;
 }
-
 function clearAppUpdateHandoff(){
- try{
-  const currentUrl=new URL(window.location.href);
-  if(currentUrl.searchParams.has('_app_update')){
-   currentUrl.searchParams.delete('_app_update');
-   currentUrl.searchParams.delete('target');
-   window.history.replaceState(null,'',currentUrl.toString());
-  }
- }catch(error){}
+ try{const url=new URL(window.location.href);if(url.searchParams.has('_app_update')){url.searchParams.delete('_app_update');url.searchParams.delete('target');url.searchParams.delete('updateType');window.history.replaceState(null,'',url.toString())}}catch(error){}
 }
-
 async function showBackgroundUpdateNotification(release){
- if(!appSettings.updateNotifications||!document.hidden||!('Notification' in window)||Notification.permission!=='granted')return false;
- const storageKey='gastos_update_notification_version';
- try{if(localStorage.getItem(storageKey)===release.version)return false}catch(error){}
+ if(!appSettings.updateNotifications||!document.hidden||!('Notification'in window)||Notification.permission!=='granted')return false;
+ const key='gastos_update_notification_'+release.key;
+ try{if(localStorage.getItem(key)===release.version)return false}catch(error){}
  try{
   const registration=appServiceWorkerRegistration||await initAppServiceWorker();
   if(!registration||typeof registration.showNotification!=='function')return false;
-  await registration.showNotification('Meu Dinheiro foi atualizado',{
-   body:'A versão '+release.version+' está disponível. Toque para abrir o aplicativo.',
-   tag:'meu-dinheiro-app-update',
-   renotify:false,
-   icon:'./assets/app-icon.png',
-   badge:'./assets/app-icon.png',
-   data:{url:new URL('./',document.baseURI).href}
-  });
-  try{localStorage.setItem(storageKey,release.version)}catch(error){}
-  return true;
+  await registration.showNotification('Meu Dinheiro foi atualizado',{body:(release.type==='profile'?'Nova versão da Visão geral '+(APP_PROFILE==='mobile'?'mobile':'desktop')+': ':'A versão ')+release.version+' está disponível. Toque para abrir o aplicativo.',tag:'meu-dinheiro-update-'+release.key,renotify:false,icon:'./assets/app-icon.png',badge:'./assets/app-icon.png',data:{url:new URL('./',document.baseURI).href}});
+  try{localStorage.setItem(key,release.version)}catch(error){}return true;
  }catch(error){return false}
 }
-
 async function checkForAppUpdate(manual=false){
- if(appUpdateCheckRunning||!$('overlay').hidden){
-  if(manual)message('manualUpdateMessage','Já existe uma verificação em andamento.',true);
-  return;
- }
+ if(appUpdateCheckRunning||!$('overlay').hidden){if(manual)message('manualUpdateMessage','Já existe uma verificação em andamento.',true);return}
  appUpdateCheckRunning=true;
- const manualButton=manual?$('manualUpdateCheck'):null;
- if(manualButton){
-  manualButton.disabled=true;
-  manualButton.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';
-  message('manualUpdateMessage','Consultando a publicação mais recente…');
- }
+ const button=manual?$('manualUpdateCheck'):null;
+ if(button){button.disabled=true;button.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';message('manualUpdateMessage','Consultando as versões mais recentes…')}
  try{
-  const cacheKey=Date.now().toString();
-  const versionResponse=await fetch('./version.json?check='+cacheKey,{cache:'no-store'});
-  if(!versionResponse.ok){
-   if(manual)message('manualUpdateMessage','Não consegui consultar a versão. Verifique sua conexão e tente novamente.',true);
-   return;
+  const stamp=Date.now().toString(),response=await fetch('./version.json?check='+stamp,{cache:'no-store'});
+  if(!response.ok){if(manual)message('manualUpdateMessage','Não consegui consultar a versão. Verifique sua conexão e tente novamente.',true);return}
+  const release=await response.json(),profileVersion=release?.[APP_PROFILE]||release?.version;
+  if(!release||release.ready!==true||!validAppVersion(release.version)||!validAppVersion(profileVersion)){if(manual)message('manualUpdateMessage','O arquivo de versões ainda não está pronto. Tente novamente em instantes.',true);return}
+  const sharedOrder=compareAppVersions(release.version,APP_VERSION),profileOrder=compareAppVersions(profileVersion,APP_PROFILE_VERSION);
+  let update=null;
+  if(sharedOrder>0){
+   const html=await fetch('./index.html?check='+stamp,{cache:'no-store'});
+   if(!html.ok){if(manual)message('manualUpdateMessage','A nova versão foi anunciada, mas a publicação ainda está terminando. Tente novamente em instantes.',true);return}
+   const htmlText=await html.text(),tag=htmlText.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'',meta=tag.match(/content=["']([^"']+)["']/i);
+   if((meta?.[1]||'')!==release.version){if(manual)message('manualUpdateMessage','A atualização ainda está sendo publicada. Aguarde um pouco e verifique novamente.',true);return}
+   const worker=await fetch('./sw.js?check='+stamp,{cache:'no-store'});
+   if(!worker.ok){if(manual)message('manualUpdateMessage','O arquivo de atualização ainda não está disponível. Tente novamente em instantes.',true);return}
+   const source=await worker.text(),line=source.match(/const APP_VERSION[^;]*;/)?.[0]||'',match=line.match(/["']([^"']+)["']/);
+   if(match?.[1]!==release.version){if(manual)message('manualUpdateMessage','A instalação da nova versão ainda está sendo preparada. Tente novamente em instantes.',true);return}
+   update={type:'shared',version:release.version,notes:release.notes?.shared||release.notes,key:'shared:'+release.version};
+  }else if(profileOrder>0){
+   const [html,css]=await Promise.all([fetch('./overview-'+APP_PROFILE+'.html?check='+stamp,{cache:'no-store'}),fetch('./overview-'+APP_PROFILE+'.css?check='+stamp,{cache:'no-store'})]);
+   if(!html.ok||!css.ok){if(manual)message('manualUpdateMessage','A atualização do perfil ainda está sendo publicada. Tente novamente em instantes.',true);return}
+   update={type:'profile',version:profileVersion,notes:release.notes?.[APP_PROFILE]||[],key:APP_PROFILE+':'+profileVersion};
   }
-  const release=await versionResponse.json();
-  if(!release||release.ready!==true||!validAppVersion(release.version)){
-   if(manual)message('manualUpdateMessage','O arquivo de versão ainda não está pronto. Tente novamente em instantes.',true);
-   return;
-  }
-  const versionOrder=compareAppVersions(release.version,APP_VERSION);
-  if(versionOrder<=0){
-   if(manual){
-    if(versionOrder===0)message('manualUpdateMessage','Você já está usando a versão mais recente (v'+APP_VERSION+').');
-    else message('manualUpdateMessage','A publicação da versão atual ainda está sendo concluída. Tente novamente em instantes.',true);
-   }
-   return;
-  }
-  if(appUpdateDismissedVersion===release.version&&!manual)return;
-
-  const htmlResponse=await fetch('./index.html?check='+cacheKey,{cache:'no-store'});
-  if(!htmlResponse.ok){
-   if(manual)message('manualUpdateMessage','A nova versão foi anunciada, mas a publicação ainda está terminando. Tente novamente em instantes.',true);
-   return;
-  }
-  const publishedHtml=await htmlResponse.text();
-  const versionMetaTag=publishedHtml.match(/<meta[^>]*name=["']app-version["'][^>]*>/i)?.[0]||'';
-  const publishedMeta=versionMetaTag.match(/content=["']([^"']+)["']/i);
-  const deployedVersion=publishedMeta?.[1]||'';
-  if(deployedVersion!==release.version){
-   if(manual)message('manualUpdateMessage','A atualização ainda está sendo publicada. Aguarde um pouco e verifique novamente.',true);
-   return;
-  }
-
-  const workerResponse=await fetch('./sw.js?check='+cacheKey,{cache:'no-store'});
-  if(!workerResponse.ok){
-   if(manual)message('manualUpdateMessage','O arquivo de atualização ainda não está disponível. Tente novamente em instantes.',true);
-   return;
-  }
-  const workerSource=await workerResponse.text();
-  const workerVersionLine=workerSource.match(/const APP_VERSION[^;]*;/)?.[0]||'';
-  const workerVersionMatch=workerVersionLine.match(/["']([^"']+)["']/);
-  if(workerVersionMatch?.[1]!==release.version){
-   if(manual)message('manualUpdateMessage','A instalação da nova versão ainda está sendo preparada. Tente novamente em instantes.',true);
-   return;
-  }
+  if(!update){if(manual){if(sharedOrder<0||profileOrder<0)message('manualUpdateMessage','A publicação das versões ainda está sendo sincronizada. Tente novamente em instantes.',true);else message('manualUpdateMessage','Você já está usando a versão mais recente neste dispositivo.')}return}
+  if(appUpdateDismissedVersion===update.key&&!manual)return;
   if(!$('overlay').hidden||!$('updateOverlay').hidden)return;
   appUpdateDismissedVersion='';
-  if(document.hidden){
-   await showBackgroundUpdateNotification(release);
-   return;
-  }
-  showAppUpdate(release);
-  if(manual)message('manualUpdateMessage','Nova versão v'+release.version+' pronta para instalar.');
- }catch(error){
-  if(manual)message('manualUpdateMessage','Não foi possível verificar agora. Confira a conexão e tente novamente.',true);
- }finally{
+  if(document.hidden){await showBackgroundUpdateNotification(update);return}
+  showAppUpdate(update);
+  if(manual)message('manualUpdateMessage','Nova versão v'+update.version+' pronta para instalar.');
+ }catch(error){if(manual)message('manualUpdateMessage','Não foi possível verificar agora. Confira a conexão e tente novamente.',true)}
+ finally{
   appUpdateCheckRunning=false;
-  if(manualButton){
-   manualButton.disabled=false;
-   manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
-  }
+  if(button){button.disabled=false;button.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações'}
  }
 }
 function initAppUpdateChecker(){
@@ -467,14 +349,16 @@ function initAppUpdateChecker(){
   appUpdateDismissedVersion='';
   checkForAppUpdate(true);
  });
- const updateHandoff=new URL(window.location.href).searchParams.has('_app_update');
+ const updateUrl=new URL(window.location.href);
+ const updateHandoff=updateUrl.searchParams.has('_app_update');
+ const updateType=updateUrl.searchParams.get('updateType')==='profile'?'profile':'shared';
  const serviceWorkerReady=initAppServiceWorker();
 
  if(updateHandoff){
   $('updateInstallingOverlay').hidden=false;
   const progressStartedAt=Date.now();
-  const targetParts=String(new URL(window.location.href).searchParams.get('target')||'').split('.').map(Number);
-  const currentParts=APP_VERSION.split('.').map(Number);
+  const targetParts=String(updateUrl.searchParams.get('target')||'').split('.').map(Number);
+  const currentParts=(updateType==='profile'?APP_PROFILE_VERSION:APP_VERSION).split('.').map(Number);
   const majorChanged=targetParts[0]>currentParts[0];
   const minorChanged=!majorChanged&&targetParts[1]>currentParts[1];
   const minimumDisplayTime=majorChanged?5000:minorChanged?3000:1000;
@@ -497,7 +381,7 @@ function initAppUpdateChecker(){
    paintUpdateProgress(Math.min(92,(elapsed/9000)*92));
   },100);
   Promise.resolve(serviceWorkerReady).then(registration=>
-   waitForAppServiceWorker(registration,15000)
+   updateType==='profile'?true:waitForAppServiceWorker(registration,15000)
   ).then(async ready=>{
    if(ready){
     const remaining=Math.max(0,minimumDisplayTime-(Date.now()-progressStartedAt));
@@ -534,6 +418,7 @@ function initAppUpdateChecker(){
    const target=new URL(window.location.href);
    target.searchParams.set('_app_update',Date.now().toString());
    target.searchParams.set('target',appUpdatePending.version);
+   target.searchParams.set('updateType',appUpdatePending.type);
    window.location.replace(target.toString());
   }catch(error){
    window.location.reload();
