@@ -1934,7 +1934,7 @@ function fillEntryFromSpeech(transcript){
 }
 
 document.addEventListener('click',event=>{
- if(!quickAddMenu.hidden&&!event.target.closest('.app-sidebar'))toggleQuickAddMenu(false);
+ if(quickAddMenu&&!quickAddMenu.hidden&&!event.target.closest('#mobileNavigation'))toggleQuickAddMenu(false);
 });
 document.addEventListener('keydown',event=>{
  if(event.key==='Escape')toggleQuickAddMenu(false);
