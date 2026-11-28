@@ -496,8 +496,8 @@
   const response=await fetch('./overview-'+profile+'.html?v='+encodeURIComponent(profileVersion),{cache:'no-store'});
   if(!response.ok)throw new Error('Não foi possível carregar as telas do perfil.');
   const profileHtml=await response.text();
-  const overviewVersion=profileHtml.match(/<!--\\s*overview-version:\\s*([0-9.]+)\\s*-->/i)?.[1]||'';
-  const incomeVersion=profileHtml.match(/<!--\\s*income-version:\\s*([0-9.]+)\\s*-->/i)?.[1]||'';
+  const overviewVersion=profileHtml.match(/<!--\s*overview-version:\s*([0-9.]+)\s*-->/i)?.[1]||'';
+  const incomeVersion=profileHtml.match(/<!--\s*income-version:\s*([0-9.]+)\s*-->/i)?.[1]||'';
   if(overviewVersion!==profileVersion||incomeVersion!==profileVersion)throw new Error('A versão do HTML do perfil ainda está sendo publicada.');
   const profileTemplate=document.createElement('template');
   profileTemplate.innerHTML=profileHtml;
