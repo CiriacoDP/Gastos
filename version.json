@@ -1,21 +1,21 @@
 {
-  "version": "2.14.0",
+  "version": "2.14.1",
   "desktop": "2.14.0",
-  "mobile": "2.14.0",
+  "mobile": "2.14.1",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Separa os menus de navegação nos acervos desktop e mobile, preservando os controles e comportamentos existentes."
+    "Aprimora o botão de verificação de atualizações no perfil mobile, com animações de carregamento e confirmação."
   ],
   "profileNotes": {
     "shared": [
-      "Carrega o cabeçalho e as telas a partir do HTML específico de cada perfil."
+      "Atualiza a verificação manual para controlar os estados visuais no mobile sem alterar o comportamento desktop."
     ],
     "desktop": [
       "Usa cabeçalho desktop horizontal com marca, status e ações alinhados ao conteúdo."
     ],
     "mobile": [
-      "Preserva o cabeçalho mobile existente."
+      "Aplica o novo visual animado ao botão Verificar atualizações, exclusivo do mobile."
     ]
   }
 }
