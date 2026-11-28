@@ -382,6 +382,16 @@ async function showBackgroundUpdateNotification(release){
  }catch(error){return false}
 }
 
+function setMobileUpdateButtonState(state){
+ if(APP_PROFILE!=='mobile')return;
+ const button=document.getElementById('manualUpdateCheck');
+ if(!button)return;
+ button.classList.toggle('is-loading',state==='loading');
+ button.classList.toggle('is-done',state==='done');
+ button.disabled=state==='loading';
+ button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':'Verificar atualizações');
+}
+
 async function checkForAppUpdate(manual=false){
  if(appUpdateCheckRunning||!$('overlay').hidden){
   if(manual)message('manualUpdateMessage','Já existe uma verificação em andamento.',true);
@@ -390,8 +400,11 @@ async function checkForAppUpdate(manual=false){
  appUpdateCheckRunning=true;
  const manualButton=manual?$('manualUpdateCheck'):null;
  if(manualButton){
-  manualButton.disabled=true;
-  manualButton.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';
+  if(APP_PROFILE==='mobile')setMobileUpdateButtonState('loading');
+  else{
+   manualButton.disabled=true;
+   manualButton.innerHTML='<span class="update-check-spinner" aria-hidden="true"></span> Verificando…';
+  }
   message('manualUpdateMessage','Consultando as versões mais recentes…');
  }
  try{
@@ -480,8 +493,14 @@ async function checkForAppUpdate(manual=false){
  }finally{
   appUpdateCheckRunning=false;
   if(manualButton){
-   manualButton.disabled=false;
-   manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0 11.7-2"/></svg> Verificar atualizações';
+   if(APP_PROFILE==='mobile'){
+    const latest=($('manualUpdateMessage')?.textContent||'').startsWith('Você já está usando a versão mais recente');
+    setMobileUpdateButtonState(latest?'done':'idle');
+    if(latest)setTimeout(()=>setMobileUpdateButtonState('idle'),2600);
+   }else{
+    manualButton.disabled=false;
+    manualButton.innerHTML='<svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M20 7v5h-5M4 17v-5h5"/><path d="M5.6 9a7 7 0 0 1 11.7-2L20 12M4 12l2.7 5a7 7 0 0 0-11.7-2"/></svg> Verificar atualizações';
+   }
   }
  }
 }
