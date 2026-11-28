@@ -1,21 +1,21 @@
 {
-  "version": "2.15.2",
+  "version": "2.15.3",
   "desktop": "2.15.0",
-  "mobile": "2.15.2",
+  "mobile": "2.15.3",
   "ready": true,
   "releasedAt": "2026-11-28",
   "notes": [
-    "Restaura a sequência completa de carregamento e confirmação do botão de verificação no mobile."
+    "Reproduz fielmente o botão de verificação mobile enviado, incluindo alinhamento, giro progressivo e feedback temporário."
   ],
   "profileNotes": {
     "shared": [
-      "Ajusta o tempo dos estados visuais da verificação manual no mobile, mantendo a consulta real de versões e o comportamento desktop."
+      "Mantém a consulta real de versões e o comportamento independente do desktop."
     ],
     "desktop": [
       "Mantém o formulário de lançamento e a digitação/colagem de códigos de pagamento, sem interface de scanner."
     ],
     "mobile": [
-      "Corrige a sobreposição dos textos do botão Verificar atualizações no perfil mobile."
+      "Reproduz o alinhamento, os ícones, as transições e os tempos do botão de referência."
     ]
   }
 }
