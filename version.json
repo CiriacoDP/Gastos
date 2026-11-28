@@ -1,8 +1,8 @@
 {
-  "version": "2.9.32",
+  "version": "2.9.33",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Integra estilos desktop independentes na Visão geral, preservando a versão mobile."
+    "Corrige a visibilidade da estrutura mobile após a integração dos estilos desktop."
   ]
 }
