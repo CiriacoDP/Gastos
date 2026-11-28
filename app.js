@@ -420,7 +420,7 @@ function setMobileUpdateButtonState(state){
  if(!button)return;
  button.classList.toggle('is-loading',state==='loading');
  button.classList.toggle('is-done',state==='done');
- button.disabled=state==='loading'||state==='done';
+ button.disabled=state==='loading';
  button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':'Verificar atualizações');
  if(state==='loading')startMobileUpdateSpin();
  if(state!=='loading')stopMobileUpdateSpin();
