@@ -1,21 +1,21 @@
 {
-  "version": "2.11.3",
-  "desktop": "2.11.3",
-  "mobile": "2.11.3",
+  "version": "2.12.0",
+  "desktop": "2.12.0",
+  "mobile": "2.12.0",
   "ready": true,
-  "releasedAt": "2026-11-27",
+  "releasedAt": "2026-11-28",
   "notes": [
-    "Move a estrutura de Configurações para os arquivos HTML de cada perfil, preservando IDs e lógica existente."
+    "Move a estrutura completa de Despesas para os arquivos HTML de cada perfil, preservando IDs e lógica existente."
   ],
   "profileNotes": {
     "shared": [
-      "Carrega Configurações junto ao HTML específico do perfil."
+      "Carrega Visão geral, Entradas, Despesas e Configurações a partir do HTML específico do perfil."
     ],
     "desktop": [
-      "Mantém a apresentação de Configurações no perfil desktop."
+      "Mantém a estrutura de Despesas no perfil desktop."
     ],
     "mobile": [
-      "Mantém a apresentação de Configurações no perfil mobile."
+      "Mantém a estrutura de Despesas no perfil mobile."
     ]
   }
 }
