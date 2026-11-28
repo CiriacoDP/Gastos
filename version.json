@@ -1,21 +1,21 @@
 {
-  "version": "2.11.2",
-  "desktop": "2.11.2",
-  "mobile": "2.11.2",
+  "version": "2.11.3",
+  "desktop": "2.11.3",
+  "mobile": "2.11.3",
   "ready": true,
   "releasedAt": "2026-11-27",
   "notes": [
-    "Unifica o controle de versão do HTML por perfil e corrige a inicialização das telas."
+    "Move a estrutura de Configurações para os arquivos HTML de cada perfil, preservando IDs e lógica existente."
   ],
   "profileNotes": {
     "shared": [
-      "Simplifica a validação: um único marcador identifica o HTML de cada perfil."
+      "Carrega Configurações junto ao HTML específico do perfil."
     ],
     "desktop": [
-      "Move a estrutura HTML de Entradas para overview-desktop.html."
+      "Mantém a apresentação de Configurações no perfil desktop."
     ],
     "mobile": [
-      "Remove o painel fixo e animado da tela Despesas no perfil mobile."
+      "Mantém a apresentação de Configurações no perfil mobile."
     ]
   }
 }
