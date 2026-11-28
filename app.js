@@ -423,10 +423,11 @@ function setMobileUpdateButtonState(state){
  if(labelStack&&currentWidth)labelStack.style.width=currentWidth+'px';
  button.classList.toggle('is-loading',state==='loading');
  button.classList.toggle('is-done',state==='done');
+ button.classList.toggle('is-outdated',state==='outdated');
  button.disabled=state==='loading';
- button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':'Verificar atualizações');
+ button.setAttribute('aria-label',state==='loading'?'Verificando atualizações':state==='done'?'Atualizado':state==='outdated'?'Não atualizado':'Verificar atualizações');
  if(labelStack){
-  const activeLabel=document.getElementById(state==='loading'?'manualUpdateLabelLoading':state==='done'?'manualUpdateLabelDone':'manualUpdateLabelIdle');
+  const activeLabel=document.getElementById(state==='loading'?'manualUpdateLabelLoading':state==='done'?'manualUpdateLabelDone':state==='outdated'?'manualUpdateLabelOutdated':'manualUpdateLabelIdle');
   if(activeLabel)labelStack.style.width=activeLabel.getBoundingClientRect().width+'px';
  }
  if(state==='loading')startMobileUpdateSpin();
@@ -444,7 +445,7 @@ async function checkForAppUpdate(manual=false){
   return;
  }
  appUpdateCheckRunning=true;
- let alreadyLatest=false;
+ let alreadyLatest=false,updateAvailable=false;
  const manualStartedAt=manual&&APP_PROFILE==='mobile'?Date.now():0;
  const manualButton=manual?$('manualUpdateCheck'):null;
  if(manualButton){
@@ -537,6 +538,7 @@ async function checkForAppUpdate(manual=false){
    return;
   }
   showAppUpdate(update);
+  if(manual&&APP_PROFILE==='mobile')updateAvailable=true;
   if(manual)message('manualUpdateMessage','Nova versão v'+update.version+' pronta para instalar.');
  }catch(error){
   if(manual)message('manualUpdateMessage','Não foi possível verificar agora. Confira a conexão e tente novamente.',true);
@@ -547,13 +549,12 @@ async function checkForAppUpdate(manual=false){
    if(loadingRemaining)await new Promise(resolve=>setTimeout(resolve,loadingRemaining));
    if(alreadyLatest){
     setMobileUpdateButtonState('done');
-    setMobileUpdateFeedback(false);
-    await new Promise(resolve=>setTimeout(resolve,2400));
-    setMobileUpdateFeedback(false);
-   }else if(($('manualUpdateMessage')?.textContent||'').trim()){
-    setMobileUpdateFeedback(true);
+   }else if(updateAvailable){
+    setMobileUpdateButtonState('outdated');
+   }else{
+    setMobileUpdateButtonState('idle');
    }
-   setMobileUpdateButtonState('idle');
+   setMobileUpdateFeedback(false);
    // Pequena pausa após a transição de retorno antes de aceitar outro toque.
    await new Promise(resolve=>setTimeout(resolve,450));
   }else if(manualButton){
