@@ -3,6 +3,7 @@
  const root=document.getElementById('mobileNavigation');
  if(!root)return;
  const buttons=[...root.querySelectorAll('.app-nav button[data-view]')];
+ window.APP_NAV_TABS=buttons.map(button=>({key:button.dataset.view,view:button.dataset.view}));
  function select(index){
   const activeIndex=Number(index);
   if(!Number.isInteger(activeIndex)||activeIndex<0||activeIndex>=buttons.length)return;

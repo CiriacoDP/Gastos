@@ -1,11 +1,11 @@
 {
-  "version": "2.13.0",
-  "desktop": "2.13.0",
-  "mobile": "2.13.0",
+  "version": "2.14.0",
+  "desktop": "2.14.0",
+  "mobile": "2.14.0",
   "ready": true,
-  "releasedAt": "2026-11-27",
+  "releasedAt": "2026-11-28",
   "notes": [
-    "Separa o cabeçalho por perfil, preservando os controles e IDs compartilhados pelo app.js."
+    "Separa os menus de navegação nos acervos desktop e mobile, preservando os controles e comportamentos existentes."
   ],
   "profileNotes": {
     "shared": [
