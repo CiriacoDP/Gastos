@@ -539,24 +539,30 @@
  const profile=mobile?'mobile':'desktop';
  const overview=document.getElementById('overview');
  try{
-  const response=await fetch('./overview-'+profile+'.html?v=2.10.0',{cache:'no-store'});
+  const versionResponse=await fetch('./version.json?profile='+Date.now(),{cache:'no-store'});
+  if(!versionResponse.ok)throw new Error('Não foi possível consultar as versões do aplicativo.');
+  const release=await versionResponse.json();
+  const sharedVersion=release.version||document.querySelector('meta[name="app-version"]')?.content||'0.0.0';
+  const profileVersion=release[profile]||sharedVersion;
+  window.__overviewProfile=profile;
+  window.__overviewVersion=profileVersion;
+  const response=await fetch('./overview-'+profile+'.html?v='+encodeURIComponent(profileVersion),{cache:'no-store'});
   if(!response.ok)throw new Error('Não foi possível carregar a Visão geral.');
   overview.innerHTML=await response.text();
   const stylesheet=document.createElement('link');
   stylesheet.rel='stylesheet';
-  stylesheet.href='./overview-'+profile+'.css?v=2.10.0';
+  stylesheet.href='./overview-'+profile+'.css?v='+encodeURIComponent(profileVersion);
   await new Promise((resolve,reject)=>{
    stylesheet.onload=resolve;
    stylesheet.onerror=()=>reject(new Error('Não foi possível carregar o estilo da Visão geral.'));
    document.head.appendChild(stylesheet);
   });
-  window.__overviewProfile=profile;
   const profileQuery=window.matchMedia('(max-width:979px), (hover:none) and (pointer:coarse)');
   const reloadOnProfileChange=()=>{if(profileQuery.matches!==(profile==='mobile'))window.location.reload();};
   if(profileQuery.addEventListener)profileQuery.addEventListener('change',reloadOnProfileChange);
   else if(profileQuery.addListener)profileQuery.addListener(reloadOnProfileChange);
   const app=document.createElement('script');
-  app.src='./app.js?v=2.10.0';
+  app.src='./app.js?v='+encodeURIComponent(sharedVersion);
   app.onerror=()=>{overview.textContent='Não foi possível iniciar o aplicativo. Atualize a página.';};
   document.body.appendChild(app);
  }catch(error){
@@ -564,6 +570,6 @@
   overview.textContent='Não foi possível carregar a Visão geral. Verifique sua conexão e atualize a página.';
  }
 })();
-</script>
+</script>>
 </body>
 </html>
